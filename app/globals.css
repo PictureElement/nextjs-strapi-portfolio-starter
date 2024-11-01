@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.timeline-entry-description ul {
+  @apply list-disc pl-4;
+}
+
+.timeline-entry-description li {
+  @apply mb-3;
+}
+
+.timeline-entry-description li:last-child {
+  @apply mb-0;
+}
+
+.ReactCollapse--collapse {
+  transition: height 500ms;
+}

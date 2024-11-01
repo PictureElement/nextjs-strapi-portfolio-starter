@@ -39,13 +39,16 @@ export const PrevButton = (props) => {
 
   return (
     <button
-      className="inline-block rounded-full border p-2 border-primary-100 text-primary-100 
+      className="flex justify-center items-center
+        w-12 h-12
+        rounded-full border border-primary-100 text-primary-100
+        transition ease-out duration-200
        hover:bg-primary-100 hover:text-white 
-       focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
+        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
        active:bg-primary-200 active:text-white 
-       disabled:bg-transparent disabled:text-primary-100 disabled:opacity-25 
-       disabled:hover:bg-transparent disabled:hover:text-primary-100 
-       disabled:cursor-not-allowed disabled:pointer-events-none"
+        disabled:bg-transparent disabled:text-primary-100 disabled:opacity-25 
+        disabled:hover:bg-transparent disabled:hover:text-primary-100 
+        disabled:cursor-not-allowed disabled:pointer-events-none"
       type="button"
       {...restProps}
     >
@@ -62,13 +65,16 @@ export const NextButton = (props) => {
 
   return (
     <button
-      className="inline-block rounded-full border p-2 border-primary-100 text-primary-100 transition ease-out duration-200
-             hover:bg-primary-100 hover:text-white 
-             focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
-             active:bg-primary-200 active:text-white 
-             disabled:bg-transparent disabled:text-primary-100 disabled:opacity-25
-             disabled:hover:bg-transparent disabled:hover:text-primary-100 
-             disabled:cursor-not-allowed disabled:pointer-events-none"
+      className="flex justify-center items-center
+        w-12 h-12
+        rounded-full border border-primary-100 text-primary-100
+        transition ease-out duration-200
+       hover:bg-primary-100 hover:text-white 
+        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
+       active:bg-primary-200 active:text-white 
+        disabled:bg-transparent disabled:text-primary-100 disabled:opacity-25 
+        disabled:hover:bg-transparent disabled:hover:text-primary-100 
+        disabled:cursor-not-allowed disabled:pointer-events-none"
       type="button"
       {...restProps}
     >

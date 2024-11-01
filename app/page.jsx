@@ -1,5 +1,6 @@
 import SectionHeader from "@/components/SectionHeader";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
+import Timeline from "@/components/Timeline";
 
 export default function Home() {
   return (
@@ -71,40 +72,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="px-6 py-12 sm:py-24">
+        <section>
           <SectionHeader heading="EXPERIENCE" lead="Where I’ve Worked" />
-
-          <ol class="relative border-s border-slate-200">
-            <li class="mb-10 ms-4">
-              <div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 bg-primary-100"></div>
-              <time class="text-slate-700">Jan 2022 - Present</time>
-              <h3 class="text-slate-900 font-semibold text-xl">WordPress Developer</h3>
-              <p class="text-slate-700">
-                <a class="underline hover:no-underline" target="_blank" rel="noopener noreferrer" href="https://www.ironfx.com/en/">IronFX</a>
-              </p>
-              <p class="text-slate-700">Remote</p>
-            </li>
-            <li class="mb-10 ms-4">
-              <div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 bg-primary-100"></div>
-              <time class="text-slate-700">Jan 2022 - Present</time>
-              <h3 class="text-slate-900 font-semibold text-xl">WordPress Developer</h3>
-              <p class="text-slate-700">
-                <a class="underline hover:no-underline" target="_blank" rel="noopener noreferrer" href="https://www.ironfx.com/en/">IronFX</a>
-              </p>
-              <p class="text-slate-700">Remote</p>
-            </li>
-            <li class="mb-10 ms-4">
-              <div class="absolute w-3 h-3 rounded-full mt-1.5 -start-1.5 bg-primary-100"></div>
-              <time class="text-slate-700">Jan 2022 - Present</time>
-              <h3 class="text-slate-900 font-semibold text-xl">WordPress Developer</h3>
-              <p class="text-slate-700">
-                <a class="underline hover:no-underline" target="_blank" rel="noopener noreferrer" href="https://www.ironfx.com/en/">IronFX</a>
-              </p>
-              <p class="text-slate-700">Remote</p>
-            </li>
-          </ol>
-
-
+          <div className="mx-auto max-w-4xl px-6 py-12 sm:py-24">
+            <Timeline />
+          </div>
         </section>
       </main>
     </div >
