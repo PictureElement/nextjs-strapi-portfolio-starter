@@ -47,7 +47,7 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
       </button>
       <Collapse isOpened={isOpen}>
         <div
-          className="text-slate-700 timeline-entry-description border p-6 bg-slate-50 rounded-lg"
+          className="text-slate-700 timeline-entry-description p-6 bg-slate-50 rounded-lg"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       </Collapse>
