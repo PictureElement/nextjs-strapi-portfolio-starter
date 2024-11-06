@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
     "embla-carousel-react": "^8.3.1",
     "next": "14.2.14",
     "react": "^18",
