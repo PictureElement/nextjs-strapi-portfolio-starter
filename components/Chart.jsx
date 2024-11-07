@@ -173,7 +173,7 @@ export default function Chart() {
                   fontSize: 16,
                   // fontFamily: 'monospace',
                   fontWeight: 'normal',
-                  color: '#64748b',
+                  color: '#334155',
                   padding: 2,
                   silent: false
                 }
@@ -187,7 +187,7 @@ export default function Chart() {
 
   return (
     <ReactEChartsCore
-      className="width-full !h-[480px] sm:!h-[600px] bg-slate-50 rounded-lg border border-slate-200"
+      className="width-full !h-[480px] sm:!h-[600px]"
       ref={chartRef}
       echarts={echarts}
       option={option}

@@ -44,11 +44,11 @@ export const PrevButton = (props) => {
       className="
         flex justify-center items-center
         w-12 h-12
-        rounded-full border border-primary-100 text-primary-100
+        rounded-full border border-primary-700 text-primary-700
         transition
-      hover:bg-primary-100 hover:text-white 
+      hover:bg-primary-700 hover:text-white 
         focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
-      active:bg-primary-200 active:text-white
+      active:bg-primary-600 active:text-white
         disabled:opacity-15 disabled:pointer-events-none disabled:cursor-not-allowed
       "
       type="button"
@@ -68,11 +68,11 @@ export const NextButton = (props) => {
       className="
         flex justify-center items-center
         w-12 h-12
-        rounded-full border border-primary-100 text-primary-100
+        rounded-full border border-primary-700 text-primary-700
         transition
-      hover:bg-primary-100 hover:text-white 
+      hover:bg-primary-700 hover:text-white 
         focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
-      active:bg-primary-200 active:text-white
+      active:bg-primary-600 active:text-white
         disabled:opacity-15 disabled:pointer-events-none disabled:cursor-not-allowed
       "
       type="button"

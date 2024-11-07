@@ -14,11 +14,11 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
   }
 
   return (
-    <li className="mb-10 ms-10">
-      <span className="absolute flex items-center justify-center w-12 h-12 bg-slate-50 rounded-full -start-6 ring-8 ring-white">
+    <li className="mb-14 ms-10">
+      <span className="absolute flex items-center justify-center w-12 h-12 bg-primary-50 rounded-full -start-6 ring-8 ring-white">
         <a className="underline hover:no-underline hover:scale-105 transition" target="_blank" rel="noopener noreferrer" href="{companyUrl}">
           <Image
-            className='rounded-full shadow-lg'
+            className='rounded-full'
             src={companyLogo}
             width={48}
             height={48}
@@ -29,21 +29,21 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
       <h3 className="text-slate-900 font-semibold text-xl">{role}</h3>
       <p className="text-slate-900 mb-1">{company}</p>
       <p className="mb-1"><time className="">{duration}</time></p>
-      <p>{location}</p>
+      <p className='mb-4'>{location}</p>
       <button
         onClick={toggleDescription}
         className="
           inline-flex
           transition
-          px-4 py-3 my-4
+          px-4 py-3
           font-semibold
           leading-none
           rounded-full
-          border border-slate-200
-          text-primary-100
-          bg-slate-50
-          hover:bg-slate-100
-          active:bg-slate-200
+          border border-primary-100
+          text-primary-700
+          bg-primary-50
+          hover:bg-primary-100
+          active:bg-primary-200
           focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
         "
       >
@@ -62,7 +62,7 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
       </button >
       <Collapse isOpened={isOpen}>
         <div
-          className="text-slate-700 timeline-entry-description p-6 bg-slate-50 border border-slate-200 rounded-lg"
+          className="text-slate-700 timeline-entry-description p-6 bg-primary-50 border border-primary-100 rounded-lg mt-4"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       </Collapse>

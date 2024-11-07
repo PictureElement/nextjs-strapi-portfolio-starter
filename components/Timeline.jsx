@@ -32,7 +32,7 @@ export default function Timeline() {
   ];
 
   return (
-    <ol className="relative border-s border-slate-300 ml-6">
+    <ol className="relative border-s border-primary-200 ml-6">
       {timelineData.map((entry, index) => (
         <TimelineEntry
           key={index}

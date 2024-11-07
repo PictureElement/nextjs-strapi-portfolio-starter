@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
   return (
-    <article class="bg-slate-50 hover:bg-slate-100 transition rounded-lg border border-slate-200 relative">
+    <article class="bg-primary-50 hover:bg-primary-100 transition rounded-lg border border-primary-100 relative">
       <Image
         className="rounded-t-lg"
         src={thumbnailUrl}
@@ -22,10 +22,9 @@ export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
           className="
             group
             flex
-            transition
             font-semibold
             leading-none
-            text-primary-100
+          text-primary-700
             focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
           "
         >
