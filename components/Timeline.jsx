@@ -5,7 +5,7 @@ export default function Timeline() {
     {
       companyLogo: 'https://msof.me/storage/app/media/msof-logo.svg',
       duration: 'May 2021 - Dec 2021',
-      role: 'Web Developer',
+      role: 'Web developer',
       company: 'IronFX',
       companyUrl: 'https://www.msof.me/',
       location: 'Remote',
@@ -14,7 +14,7 @@ export default function Timeline() {
     {
       companyLogo: 'https://msof.me/storage/app/media/msof-logo.svg',
       duration: 'May 2021 - Dec 2021',
-      role: 'Web Developer',
+      role: 'Web developer',
       company: 'Freelance',
       companyUrl: 'https://www.msof.me/',
       location: 'Paphos',
@@ -23,7 +23,7 @@ export default function Timeline() {
     {
       companyLogo: 'https://msof.me/storage/app/media/msof-logo.svg',
       duration: 'May 2021 - Dec 2021',
-      role: 'Web Developer',
+      role: 'Web developer',
       company: 'Freelance',
       companyUrl: 'https://www.msof.me/',
       location: 'Paphos',

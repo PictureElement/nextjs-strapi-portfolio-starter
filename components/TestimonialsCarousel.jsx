@@ -10,25 +10,25 @@ import {
 import useEmblaCarousel from 'embla-carousel-react';
 
 const testimonial1 = {
-  statement: '“1Having worked with Marios for almost a year as a fellow WordPress developer, I must say he instills positive energy in the team and is a true professional. What makes him stand out is his willingness to help others. I am impressed by his work ethic, communication skills and the fact that he easily adjusts to any given situation and can perform under pressure. I am glad to have worked with him!”',
+  statement: '“Having worked with Marios for almost a year as a fellow WordPress developer, I must say he instills positive energy in the team and is a true professional. What makes him stand out is his willingness to help others. I am impressed by his work ethic, communication skills and the fact that he easily adjusts to any given situation and can perform under pressure. I am glad to have worked with him!”',
   author: 'Pavlina Kyriacou',
-  role: 'WordPress Developer',
+  role: 'WordPress developer',
   company: 'IronFX',
   companyWebsite: 'https://www.ironfx.com/en/'
 }
 
 const testimonial2 = {
-  statement: '“2Having worked with Marios for almost a year as a fellow WordPress developer, I must say he instills positive energy in the team and is a true professional. What makes him stand out is his willingness to help others. I am impressed by his work ethic, communication skills and the fact that he easily adjusts to any given situation and can perform under pressure. I am glad to have worked with him!”',
+  statement: '“Having worked with Marios for almost a year as a fellow WordPress developer, I must say he instills positive energy in the team and is a true professional. What makes him stand out is his willingness to help others. I am impressed by his work ethic, communication skills and the fact that he easily adjusts to any given situation and can perform under pressure. I am glad to have worked with him!”',
   author: 'Pavlina Kyriacou',
-  role: 'WordPress Developer',
+  role: 'WordPress developer',
   company: 'IronFX',
   companyWebsite: 'https://www.ironfx.com/en/'
 }
 
 const testimonial3 = {
-  statement: '“3Having worked with Marios for almost a year as a fellow WordPress developer, I must say he instills positive energy in the team and is a true professional. What makes him stand out is his willingness to help others. I am impressed by his work ethic, communication skills and the fact that he easily adjusts to any given situation and can perform under pressure. I am glad to have worked with him!”',
+  statement: '“Having worked with Marios for almost a year as a fellow WordPress developer, I must say he instills positive energy in the team and is a true professional. What makes him stand out is his willingness to help others. I am impressed by his work ethic, communication skills and the fact that he easily adjusts to any given situation and can perform under pressure. I am glad to have worked with him!”',
   author: 'Pavlina Kyriacou',
-  role: 'WordPress Developer',
+  role: 'WordPress developer',
   company: 'IronFX',
   companyWebsite: 'https://www.ironfx.com/en/'
 }

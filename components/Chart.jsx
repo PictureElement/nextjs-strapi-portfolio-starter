@@ -70,8 +70,8 @@ export default function Chart() {
         { "name": "Sem. HTML", "value": 1 },
         { "name": "BEM", "value": 1 },
         { "name": "SEO", "value": 1 },
-        { "name": "Data Privacy", "value": 1 },
-        { "name": "Web Perf.", "value": 1 },
+        { "name": "Data privacy", "value": 1 },
+        { "name": "Web perf.", "value": 1 },
         { "name": "UI/UX", "value": 1 }
       ]
     },
@@ -93,11 +93,11 @@ export default function Chart() {
       ]
     },
     {
-      "name": "Soft Skills",
+      "name": "Soft skills",
       "children": [
         { "name": "Comm.", "value": 1 },
         { "name": "Teamwork", "value": 1 },
-        { "name": "Problem Solving", "value": 1 },
+        { "name": "Problem solving", "value": 1 },
         { "name": "Listening", "value": 1 }
       ]
     }
@@ -187,7 +187,7 @@ export default function Chart() {
 
   return (
     <ReactEChartsCore
-      className="width-full !h-[480px] sm:!h-[600px] bg-slate-50 rounded-lg"
+      className="width-full !h-[480px] sm:!h-[600px] bg-slate-50 rounded-lg border border-slate-200"
       ref={chartRef}
       echarts={echarts}
       option={option}

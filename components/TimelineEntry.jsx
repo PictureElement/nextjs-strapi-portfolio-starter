@@ -16,7 +16,7 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
   return (
     <li className="mb-10 ms-10">
       <span className="absolute flex items-center justify-center w-12 h-12 bg-slate-50 rounded-full -start-6 ring-8 ring-white">
-        <a className="underline hover:no-underline hover:scale-105 transition ease-out duration-200" target="_blank" rel="noopener noreferrer" href="{companyUrl}">
+        <a className="underline hover:no-underline hover:scale-105 transition" target="_blank" rel="noopener noreferrer" href="{companyUrl}">
           <Image
             className='rounded-full shadow-lg'
             src={companyLogo}
@@ -29,29 +29,43 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
       <h3 className="text-slate-900 font-semibold text-xl">{role}</h3>
       <p className="text-slate-900 mb-1">{company}</p>
       <p className="mb-1"><time className="">{duration}</time></p>
-      <p className="mb-4">{location}</p>
+      <p>{location}</p>
       <button
         onClick={toggleDescription}
-        className="text-primary-100 mb-2 hover:text-primary-300 transition ease-out duration-200"
+        className="
+          inline-flex
+          transition
+          px-4 py-3 my-4
+          font-semibold
+          leading-none
+          rounded-full
+          border border-slate-200
+          text-primary-100
+          bg-slate-50
+          hover:bg-slate-100
+          active:bg-slate-200
+          focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
+        "
       >
         {isOpen ? (
           <span className="flex items-center">
-            Hide Description
-            <ArrowUpIcon className="size-4 ms-2" />
+            Hide description
+            <ArrowUpIcon className="size-4 ms-1" />
           </span>
         ) : (
           <span className="flex items-center">
-            Show Description
-            <ArrowDownIcon className="size-4 ms-2" />
+            Show description
+            <ArrowDownIcon className="size-4 ms-1" />
           </span>
-        )}
-      </button>
+        )
+        }
+      </button >
       <Collapse isOpened={isOpen}>
         <div
-          className="text-slate-700 timeline-entry-description p-6 bg-slate-50 rounded-lg"
+          className="text-slate-700 timeline-entry-description p-6 bg-slate-50 border border-slate-200 rounded-lg"
           dangerouslySetInnerHTML={{ __html: description }}
         />
       </Collapse>
-    </li>
+    </li >
   );
 }

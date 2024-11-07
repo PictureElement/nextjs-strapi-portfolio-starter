@@ -2,7 +2,7 @@
 
 export default function TestimonialEntry({ statement, author, role, company, companyWebsite }) {
   return (
-    <figure className="bg-slate-50 p-6 rounded-lg text-center">
+    <figure className="bg-slate-50 border border-slate-200 p-6 rounded-lg text-center">
       <blockquote className="mb-4">
         <p className="text-slate-700 font-light text-base sm:text-xl">{statement}</p>
       </blockquote>

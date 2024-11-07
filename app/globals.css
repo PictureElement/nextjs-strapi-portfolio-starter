@@ -23,6 +23,10 @@
 /* About */
 .about-description {
   p {
-    @apply text-slate-700 mb-4;
+    @apply text-slate-700;
+  }
+
+  p:not(:last-child) {
+    @apply mb-4;
   }
 }

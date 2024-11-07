@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
   return (
-    <div class="bg-slate-50 rounded-lg">
+    <article class="bg-slate-50 hover:bg-slate-100 transition rounded-lg border border-slate-200 relative">
       <Image
         className="rounded-t-lg"
         src={thumbnailUrl}
@@ -21,24 +21,20 @@ export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
           href="#"
           className="
             group
-            inline-flex
-            transition ease-out duration-200
-            px-4 py-3
+            flex
+            transition
             font-semibold
             leading-none
-            rounded-lg
-            text-white
-            border border-primary-100
-            bg-primary-100
-            hover:bg-primary-200
-            active:bg-primary-300
+            text-primary-100
             focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
           "
         >
-          Read More
-          <ArrowRightIcon className="size-4 ms-2 group-hover:translate-x-1 transition ease-out duration-200" />
+          <span class="absolute inset-y-0 inset-x-0 rounded-lg"></span>
+          Read more
+          <span class="sr-only">, about {title}</span>
+          <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
         </a>
       </div>
-    </div>
+    </article>
   );
 }
