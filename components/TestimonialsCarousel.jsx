@@ -34,7 +34,7 @@ const testimonial3 = {
 }
 
 export default function TestimonialsCarousel() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' });
 
   const {
     selectedIndex,

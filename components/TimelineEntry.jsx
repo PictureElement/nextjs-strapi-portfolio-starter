@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Collapse } from 'react-collapse';
 import { useState } from 'react';
+import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/16/solid';
 
 export default function TimelineEntry({ companyLogo, duration, role, company, companyUrl, location, description, defaultOpen = false }) {
 
@@ -35,13 +36,13 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
       >
         {isOpen ? (
           <span className="flex items-center">
-            <span className="mr-1">Hide Description</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5"><path fillRule="evenodd" d="M9.47 6.47a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 1 1-1.06 1.06L10 8.06l-3.72 3.72a.75.75 0 0 1-1.06-1.06l4.25-4.25Z" clipRule="evenodd" /></svg>
+            Hide Description
+            <ArrowUpIcon className="size-4 ms-2" />
           </span>
         ) : (
           <span className="flex items-center">
-            <span className="mr-1">Show Description</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5"><path fillRule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" /></svg>
+            Show Description
+            <ArrowDownIcon className="size-4 ms-2" />
           </span>
         )}
       </button>

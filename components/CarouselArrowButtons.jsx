@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { ArrowLeftIcon } from '@heroicons/react/16/solid';
+import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export const usePrevNextButtons = (emblaApi) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
@@ -39,7 +41,8 @@ export const PrevButton = (props) => {
 
   return (
     <button
-      className="flex justify-center items-center
+      className="
+        flex justify-center items-center
         w-12 h-12
         rounded-full border border-primary-100 text-primary-100
         transition ease-out duration-200
@@ -52,9 +55,7 @@ export const PrevButton = (props) => {
       type="button"
       {...restProps}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-      </svg>
+      <ArrowLeftIcon className="size-6" />
       {children}
     </button>
   )
@@ -65,7 +66,8 @@ export const NextButton = (props) => {
 
   return (
     <button
-      className="flex justify-center items-center
+      className="
+        flex justify-center items-center
         w-12 h-12
         rounded-full border border-primary-100 text-primary-100
         transition ease-out duration-200
@@ -78,9 +80,7 @@ export const NextButton = (props) => {
       type="button"
       {...restProps}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-      </svg>
+      <ArrowRightIcon className="size-6" />
       {children}
     </button>
   );

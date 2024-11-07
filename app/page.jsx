@@ -2,11 +2,13 @@ import SectionHeader from "@/components/SectionHeader";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Timeline from "@/components/Timeline";
 import Chart from "@/components/Chart";
+import ProjectsCarousel from "@/components/ProjectsCarousel";
+import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function Home() {
   return (
     <div>
-      <main>
+      <main className="overflow-hidden">
         <section className="bg-primary-light">
           <div className="mx-auto max-w-4xl px-6 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
             <p className="text-3xl font-normal text-primary-100">👋 Hi, I’m Marios Sofokleous</p>
@@ -20,15 +22,15 @@ export default function Home() {
               <a
                 href="#"
                 className="
+                  group
+                  inline-flex
                   transition ease-out duration-200
-                  px-4
-                  py-3
+                  px-4 py-3
                   font-semibold
                   leading-none
                   rounded-full
                   text-white
-                  border
-                  border-primary-100
+                  border border-primary-100
                   bg-primary-100
                   hover:bg-primary-200
                   active:bg-primary-300
@@ -36,19 +38,20 @@ export default function Home() {
                 "
               >
                 View Work
+                <ArrowRightIcon className="size-4 ms-2 group-hover:translate-x-1 transition ease-out duration-200" />
               </a>
               <a
                 href="#"
                 className="
+                  group
+                  inline-flex
                   transition ease-out duration-200
-                  px-4
-                  py-3
+                  px-4 py-3
                   font-semibold
                   leading-none
                   rounded-full
                   text-primary-100
-                  border
-                  border-primary-100
+                  border border-primary-100
                   hover:bg-primary-100
                   hover:text-white
                   active:bg-primary-200
@@ -56,6 +59,7 @@ export default function Home() {
                 "
               >
                 Contact Me
+                <ArrowRightIcon className="size-4 ms-2 group-hover:translate-x-1 transition ease-out duration-200" />
               </a>
             </div>
           </div>
@@ -63,6 +67,7 @@ export default function Home() {
 
         <section className="mx-auto max-w-4xl px-4 py-12 sm:py-24">
           <SectionHeader heading="PORTFOLIO" lead="A Selection of Stuff I’ve Built" />
+          <ProjectsCarousel />
         </section>
 
         <section className="mx-auto max-w-4xl px-4 py-12 sm:py-24">
@@ -99,23 +104,23 @@ export default function Home() {
                 <a
                   href="#"
                   className="
-                      inline-block
-                      transition ease-out duration-200
-                      px-4
-                      py-3
-                      font-semibold
-                      leading-none
-                      rounded-full
-                      text-white
-                      border
-                      border-primary-100
-                      bg-primary-100
-                      hover:bg-primary-200
-                      active:bg-primary-300
-                      focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
-                    "
+                  group
+                  inline-flex
+                  transition ease-out duration-200
+                  px-4 py-3
+                  font-semibold
+                  leading-none
+                  rounded-full
+                  text-white
+                  border border-primary-100
+                  bg-primary-100
+                  hover:bg-primary-200
+                  active:bg-primary-300
+                  focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
+                "
                 >
                   Contact Me
+                  <ArrowRightIcon className="size-4 ms-2 group-hover:translate-x-1 transition ease-out duration-200" />
                 </a>
               </div>
 
