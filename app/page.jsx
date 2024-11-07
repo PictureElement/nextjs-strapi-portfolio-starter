@@ -109,8 +109,8 @@ export default function Home() {
               />
             </div>
 
-            <div className="relative flex items-center bg-primary-50 rounded-b-lg border-x border-b border-primary-100 lg:rounded-none lg:rounded-r-lg lg:border-l-0 lg:border-y">
-              <span className="hidden lg:absolute lg:-inset-y-[1px] lg:-start-16 lg:block lg:w-16 lg:bg-primary-50 lg:rounded-l-lg lg:border-y lg:border-l border-primary-100"></span>
+            <div className="relative flex items-center bg-slate-50 rounded-b-lg border-x border-b border-slate-100 lg:rounded-none lg:rounded-r-lg lg:border-l-0 lg:border-y">
+              <span className="hidden lg:absolute lg:-inset-y-[1px] lg:-start-16 lg:block lg:w-16 lg:bg-slate-50 lg:rounded-l-lg lg:border-y lg:border-l border-slate-100"></span>
               <div className="p-6 lg:p-8 about-description">
                 <p>Hello, I'm Marios, a Web Developer from Cyprus specializing in custom web solutions. I build dynamic single-page apps with React and create custom WordPress themes and plugins. Passionate about coding, I bring ideas to life in the browser, delivering high-quality user experiences.</p>
                 <p>As a self-taught developer, I have strong skills in both frontend and backend development, along with a solid understanding of UI/UX design principles. I focus on building high-performance websites that follow best practices, ensure accessibility, and excel in technical SEO. Committed to continuous learning, I always strive to provide the best solutions.</p>
@@ -122,7 +122,7 @@ export default function Home() {
         </section>
 
         {/* Services */}
-        <section className="bg-primary-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-12 sm:py-24">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="SERVICES" lead="Here’s my story" />
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
         </section>
 
         {/* Skills */}
-        <section className="bg-primary-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-12 sm:py-24">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="SKILLS" lead="Hard & soft skills" />
             <Chart />
@@ -172,7 +172,7 @@ export default function Home() {
         </section>
 
         {/* Testimonials */}
-        <section className="bg-primary-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-12 sm:py-24">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="TESTIMONIALS" lead="Nice things people have said" />
             <TestimonialsCarousel />
@@ -209,7 +209,7 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section className="bg-primary-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-12 sm:py-24">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="FAQ" lead="Answers to anything you might ask" />
           </div>

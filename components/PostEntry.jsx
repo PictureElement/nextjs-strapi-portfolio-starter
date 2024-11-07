@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 export default function PostEntry({ title, excerpt }) {
   return (
     <article class="relative group">
-      <div class="absolute -top-4 -bottom-6 -left-6 -right-6 rounded-lg transition group-hover:bg-primary-50"></div>
+      <div class="absolute -top-4 -bottom-6 -left-6 -right-6 rounded-lg transition group-hover:bg-slate-50"></div>
       <div class="relative">
         <h3 class="text-slate-900 font-semibold text-xl mb-2">{title}</h3>
         <p className="line-clamp-2 mb-3">{excerpt}</p>
