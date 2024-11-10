@@ -41,6 +41,7 @@ export const PrevButton = (props) => {
 
   return (
     <button
+      aria-label="Previous slide"
       className="
         flex justify-center items-center
         w-12 h-12
@@ -54,7 +55,7 @@ export const PrevButton = (props) => {
       type="button"
       {...restProps}
     >
-      <ArrowLeftIcon className="size-6" />
+      <ArrowLeftIcon ariaHidden="true" className="size-6" />
       {children}
     </button>
   )
@@ -65,6 +66,7 @@ export const NextButton = (props) => {
 
   return (
     <button
+      aria-label="Next slide"
       className="
         flex justify-center items-center
         w-12 h-12
@@ -78,7 +80,7 @@ export const NextButton = (props) => {
       type="button"
       {...restProps}
     >
-      <ArrowRightIcon className="size-6" />
+      <ArrowRightIcon ariaHidden="true" className="size-6" />
       {children}
     </button >
   );

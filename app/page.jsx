@@ -6,10 +6,15 @@ import ProjectsCarousel from "@/components/ProjectsCarousel";
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import Image from 'next/image';
 import PostList from "@/components/PostList";
+import ServiceGrid from "@/components/ServiceGrid";
 
 export default function Home() {
   return (
     <div>
+      <div>Announcement</div>
+      <header>Header</header>
+      <p>Structure data</p>
+      <p>RSS: see tailwind blog</p>
       <main className="overflow-hidden">
 
         {/* Hero */}
@@ -28,8 +33,10 @@ export default function Home() {
                 className="
                   group
                   inline-flex
+                  items-center
                   transition
-                  px-4 py-3
+                  px-4
+                  h-11
                   font-semibold
                   leading-none
                   rounded-full
@@ -51,8 +58,8 @@ export default function Home() {
         </section>
 
         {/* About */}
-        <section className="mx-auto max-w-4xl px-4 py-12 sm:py-24">
-          <SectionHeader heading="ABOUT ME" lead="Here’s my story" />
+        <section className="mx-auto max-w-4xl px-4 py-24">
+          <SectionHeader heading="MEET YOUR DEVELOPER" lead="Your partner in turning ideas into reality" />
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
             <div className="relative z-10">
               <div className="flex gap-x-4">
@@ -61,8 +68,10 @@ export default function Home() {
                   className="
                     group
                     inline-flex
+                    items-center
                     transition
-                    px-4 py-3
+                    px-4
+                    h-11
                     font-semibold
                     leading-none
                     rounded-full
@@ -122,15 +131,16 @@ export default function Home() {
         </section>
 
         {/* Services */}
-        <section className="bg-slate-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-24">
           <div className="mx-auto max-w-4xl px-4">
-            <SectionHeader heading="SERVICES" lead="Here’s my story" />
+            <SectionHeader heading="SERVICES" lead="Expert web solutions that drive business growth" />
+            <ServiceGrid />
           </div>
         </section>
 
         {/* Work */}
-        <section className="mx-auto max-w-4xl px-4 py-12 sm:py-24">
-          <SectionHeader heading="WORK" lead="A selection of stuff I’ve built" />
+        <section className="mx-auto max-w-4xl px-4 py-24">
+          <SectionHeader heading="FEATURED PROJECTS" lead="See how I’ve helped businesses succeed online" />
           <ProjectsCarousel />
           <div className="mt-6 md:mt-12 flex items-center justify-center gap-x-4">
             <a
@@ -138,8 +148,10 @@ export default function Home() {
               className="
                   group
                   inline-flex
+                  items-center
                   transition
-                  px-4 py-3
+                  px-4
+                  h-11
                   font-semibold
                   leading-none
                   rounded-full
@@ -158,30 +170,30 @@ export default function Home() {
         </section>
 
         {/* Skills */}
-        <section className="bg-slate-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-24">
           <div className="mx-auto max-w-4xl px-4">
-            <SectionHeader heading="SKILLS" lead="Hard & soft skills" />
+            <SectionHeader heading="EXPERTISE" lead="The technical and soft skills I use to build success" />
             <Chart />
           </div>
         </section>
 
         {/* Experience */}
-        <section className="mx-auto max-w-4xl px-4 py-12 sm:py-24">
-          <SectionHeader heading="EXPERIENCE" lead="Where I’ve worked" />
+        <section className="mx-auto max-w-4xl px-4 py-24">
+          <SectionHeader heading="PROFESSIONAL JOURNEY" lead="An overview of my roles and experiences to date" />
           <Timeline />
         </section>
 
         {/* Testimonials */}
-        <section className="bg-slate-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-24">
           <div className="mx-auto max-w-4xl px-4">
-            <SectionHeader heading="TESTIMONIALS" lead="Nice things people have said" />
+            <SectionHeader heading="KIND WORDS" lead="Testimonials from clients and colleagues" />
             <TestimonialsCarousel />
           </div>
         </section>
 
         {/* Blog */}
-        <section className="mx-auto max-w-4xl px-4 py-12 sm:py-24">
-          <SectionHeader heading="BLOG" lead="Latest posts" />
+        <section className="mx-auto max-w-4xl px-4 py-24">
+          <SectionHeader heading="LATEST POSTS" lead="Fresh perspectives on web development trends" />
           <PostList />
           <div className="mt-6 md:mt-12 flex items-center justify-center gap-x-4">
             <a
@@ -189,8 +201,10 @@ export default function Home() {
               className="
                   group
                   inline-flex
+                  items-center
                   transition
-                  px-4 py-3
+                  px-4
+                  h-11
                   font-semibold
                   leading-none
                   rounded-full
@@ -209,13 +223,16 @@ export default function Home() {
         </section>
 
         {/* FAQ */}
-        <section className="bg-slate-50 py-12 sm:py-24">
+        <section className="bg-slate-50 py-24">
           <div className="mx-auto max-w-4xl px-4">
-            <SectionHeader heading="FAQ" lead="Answers to anything you might ask" />
+            <SectionHeader heading="COMMON QUESTIONS" lead="Everything you need to know about working together" />
           </div>
         </section>
 
+        <div>CTA</div>
+
       </main>
+      <footer>Footer</footer>
     </div >
   );
 }

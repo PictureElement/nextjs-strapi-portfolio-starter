@@ -17,7 +17,7 @@
 
 /* Collapse animation */
 .ReactCollapse--collapse {
-  transition: height 500ms;
+  @apply transition-[height];
 }
 
 /* About */

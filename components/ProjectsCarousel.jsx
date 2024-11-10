@@ -14,7 +14,7 @@ export default function ProjectsCarousel() {
 
   return (
     <div ref={emblaRef}>
-      <div className="flex gap-4">
+      <div className="flex gap-6">
         <div className="min-w-0 grow-0 shrink-0 basis-10/12 max-w-[28rem]"><ProjectEntry {...project1} /></div>
         <div className="min-w-0 grow-0 shrink-0 basis-10/12 max-w-[28rem]"><ProjectEntry {...project1} /></div>
         <div className="min-w-0 grow-0 shrink-0 basis-10/12 max-w-[28rem]"><ProjectEntry {...project1} /></div>

@@ -71,6 +71,7 @@ export default function TestimonialsCarousel() {
         <div className="flex gap-3 self-center">
           {scrollSnaps.map((_, index) => (
             <DotButton
+              aria-label={`Go to slide ${index + 1}`}
               key={index}
               onClick={() => onDotButtonClick(index)}
               className={'inline-block rounded-full border p-2 border-primary-700'.concat(
