@@ -7,6 +7,7 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import Image from 'next/image';
 import PostList from "@/components/PostList";
 import ServiceGrid from "@/components/ServiceGrid";
+import FaqList from "@/components/FaqList";
 
 export default function Home() {
   return (
@@ -226,6 +227,7 @@ export default function Home() {
         <section className="bg-slate-50 py-24">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="COMMON QUESTIONS" lead="Everything you need to know about working together" />
+            <FaqList />
           </div>
         </section>
 
