@@ -8,6 +8,7 @@ import Image from 'next/image';
 import PostList from "@/components/PostList";
 import ServiceGrid from "@/components/ServiceGrid";
 import FaqList from "@/components/FaqList";
+import CallToAction from "@/components/CallToAction";
 
 export default function Home() {
   return (
@@ -231,7 +232,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div>CTA</div>
+        <CallToAction heading="Let's build something amazing!" text="If you've made it down this far why not send me an email? I'm currently booking in new projects starting from December so don't miss out!" />
 
       </main>
       <footer>Footer</footer>
