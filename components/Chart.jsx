@@ -1,5 +1,7 @@
 "use client";
 
+import { Sora } from 'next/font/google';
+const sora = Sora({ subsets: ['latin'] });
 import { useEffect, useRef } from 'react';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
@@ -120,8 +122,8 @@ export default function Chart() {
           label: {
             position: 'inside',
             fontSize: 12,
-            // fontFamily: 'monospace',
-            fontWeight: 'normal',
+            fontFamily: `${sora.style.fontFamily}`,
+            fontWeight: '400',
             color: '#0f172a',
             padding: 0,
             align: 'center',
@@ -133,8 +135,8 @@ export default function Chart() {
           label: {
             position: 'outside',
             fontSize: 12,
-            // fontFamily: 'monospace',
-            fontWeight: 'normal',
+            fontFamily: `${sora.style.fontFamily}`,
+            fontWeight: '400',
             color: '#64748b',
             padding: 0,
             silent: false
@@ -158,8 +160,8 @@ export default function Chart() {
                 label: {
                   position: 'inside',
                   fontSize: 16,
-                  // fontFamily: 'monospace',
-                  fontWeight: 'normal',
+                  fontFamily: `${sora.style.fontFamily}`,
+                  fontWeight: '400',
                   color: '#0f172a',
                   padding: 2,
                   align: 'center',
@@ -171,8 +173,8 @@ export default function Chart() {
                 label: {
                   position: 'outside',
                   fontSize: 16,
-                  // fontFamily: 'monospace',
-                  fontWeight: 'normal',
+                  fontFamily: `${sora.style.fontFamily}`,
+                  fontWeight: '400',
                   color: '#334155',
                   padding: 2,
                   silent: false
