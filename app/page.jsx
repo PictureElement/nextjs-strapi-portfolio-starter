@@ -11,6 +11,7 @@ import CallToAction from "@/components/CallToAction";
 import BtnSecondary from "@/components/BtnSecondary";
 import BtnPrimary from "@/components/BtnPrimary";
 import { TypewriterEffect } from "@/components/TypewriterEffect";
+import AnimatedGradient from "@/components/AnimatedGradient";
 
 export default function Home() {
 
@@ -38,20 +39,21 @@ export default function Home() {
       <main className="overflow-hidden">
 
         {/* Hero */}
-        <section className="bg-primary-50">
-          <div className="mx-auto max-w-4xl px-4 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
-            <p className="text-3xl font-normal text-primary-700">👋 Hi, I’m Marios Sofokleous</p>
-            {/* <h1 className="text-balance text-5xl font-bold tracking-wide text-neutral-900 sm:text-6xl">
-              Experienced web developer
-            </h1> */}
-            <h1 className="text-balance text-5xl font-bold tracking-wide text-neutral-900 sm:text-6xl">
+        <section className="bg-primary-100 relative">
+          <AnimatedGradient />
+          <figure class="absolute bottom-0 left-0 w-full -mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="none" viewBox="0 0 1680 40" className="w-full" style={{ 'bottom': '-1px' }}>
+              <path d="M0 40h1680V30S1340 0 840 0 0 30 0 30z" fill="#fff"></path>
+            </svg>
+          </figure>
+          <div className="relative z-50 mx-auto max-w-4xl px-4 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
+            <p className="font-normal text-xl sm:text-2xl lg:text-3xl  text-primary-700 mb-4">👋 Hi, I’m Marios Sofokleous</p>
+            <h1 className="text-neutral-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
               <TypewriterEffect words={words} />
             </h1>
-            <p className="mt-6 text-neutral-700 font-light text-base sm:text-xl">
-              Crafting tailored web solutions with technical expertise in HTML, CSS, JavaScript, React, and PHP, and a deep understanding of WordPress.
-            </p>
+            <p className="text-neutral-700 text-lg mt-6">Crafting tailored web solutions with technical expertise in HTML, CSS, JavaScript, React, and PHP, and a deep understanding of WordPress.</p>
             <div className="mt-8 flex items-center justify-center gap-x-4">
-              <BtnPrimary label="View my work" url="#" />
+              <BtnPrimary className="w-full sm:w-auto" label="View my work" url="#" />
             </div>
           </div>
         </section>
@@ -88,7 +90,7 @@ export default function Home() {
         </section>
 
         {/* Services */}
-        <section className="bg-neutral-50 py-24">
+        <section className="bg-neutral-50 py-24 relative">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="SERVICES" lead="Expert web solutions that drive business growth" />
             <ServiceGrid />
@@ -105,7 +107,7 @@ export default function Home() {
         </section>
 
         {/* Skills */}
-        <section className="bg-neutral-50 py-24">
+        <section className="bg-neutral-50 py-24 relative">
           <div className="mx-auto max-w-4xl px-4">
             <SectionHeader heading="EXPERTISE" lead="The technical and soft skills I use to build success" />
             <Chart />

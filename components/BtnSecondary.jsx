@@ -12,6 +12,7 @@ export default function BtnSecondary({
       className={`
         group
         inline-flex
+        justify-center
         transition
         px-4 py-3
         font-semibold

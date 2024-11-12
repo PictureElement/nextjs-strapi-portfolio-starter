@@ -14,6 +14,7 @@ export default function BtnToggle({
       onClick={onToggle}
       className={`
         inline-flex
+        justify-center
         items-center
         transition
         px-4

@@ -7,7 +7,7 @@ const faq1 = {
 
 export default function FaqList() {
   return (
-    <div class="space-y-4">
+    <div className="space-y-4">
       <FaqEntry {...faq1} />
       <FaqEntry {...faq1} />
       <FaqEntry {...faq1} />

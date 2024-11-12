@@ -12,6 +12,7 @@ export default function BtnLight({
       className={`
         group
         inline-flex
+        justify-center
         items-center
         transition
         px-4

@@ -26,7 +26,7 @@ export default function TimelineEntry({ companyLogo, duration, role, company, co
           />
         </a>
       </span>
-      <h3 className="text-neutral-900 font-semibold text-xl">{role}</h3>
+      <h3 className="text-neutral-900 font-medium text-xl sm:text-2xl">{role}</h3>
       <p className="text-neutral-900 mb-1">{company}</p>
       <p className="mb-1"><time className="">{duration}</time></p>
       <p className='mb-6'>{location}</p>

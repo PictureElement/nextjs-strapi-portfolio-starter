@@ -55,7 +55,7 @@ export const PrevButton = (props) => {
       type="button"
       {...restProps}
     >
-      <ArrowLeftIcon ariaHidden="true" className="size-6" />
+      <ArrowLeftIcon aria-hidden="true" className="size-6" />
       {children}
     </button>
   )
@@ -80,7 +80,7 @@ export const NextButton = (props) => {
       type="button"
       {...restProps}
     >
-      <ArrowRightIcon ariaHidden="true" className="size-6" />
+      <ArrowRightIcon ariaidden="true" className="size-6" />
       {children}
     </button >
   );

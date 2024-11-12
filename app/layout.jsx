@@ -1,16 +1,6 @@
-import localFont from "next/font/local";
+import { Sora } from 'next/font/google';
+const sora = Sora({ subsets: ['latin'] });
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata = {
   title: "Experienced Web Developer | Marios Sofokleous",
@@ -20,9 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-neutral-500 text-base`}
-      >
+      <body className={`${sora.className} antialiased text-neutral-500 text-base`}>
         {children}
       </body>
     </html>
