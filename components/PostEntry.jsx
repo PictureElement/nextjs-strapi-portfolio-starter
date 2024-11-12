@@ -11,7 +11,6 @@ export default function PostEntry({ title, excerpt }) {
       <a
         href="#"
         className="
-          relative
           group
           flex
           font-semibold

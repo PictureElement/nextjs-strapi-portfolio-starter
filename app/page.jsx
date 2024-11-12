@@ -3,7 +3,6 @@ import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Timeline from "@/components/Timeline";
 import Chart from "@/components/Chart";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
-import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import Image from 'next/image';
 import PostList from "@/components/PostList";
 import ServiceGrid from "@/components/ServiceGrid";
@@ -11,8 +10,25 @@ import FaqList from "@/components/FaqList";
 import CallToAction from "@/components/CallToAction";
 import BtnSecondary from "@/components/BtnSecondary";
 import BtnPrimary from "@/components/BtnPrimary";
+import { TypewriterEffect } from "@/components/TypewriterEffect";
 
 export default function Home() {
+
+  const words = [
+    {
+      text: "Experienced",
+      className: ""
+    },
+    {
+      text: "web",
+      className: ""
+    },
+    {
+      text: "developer",
+      className: ""
+    }
+  ];
+
   return (
     <div>
       <div>Announcement</div>
@@ -25,8 +41,11 @@ export default function Home() {
         <section className="bg-primary-50">
           <div className="mx-auto max-w-4xl px-4 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
             <p className="text-3xl font-normal text-primary-700">👋 Hi, I’m Marios Sofokleous</p>
-            <h1 className="text-balance text-5xl font-bold tracking-wide text-neutral-900 sm:text-6xl">
+            {/* <h1 className="text-balance text-5xl font-bold tracking-wide text-neutral-900 sm:text-6xl">
               Experienced web developer
+            </h1> */}
+            <h1 className="text-balance text-5xl font-bold tracking-wide text-neutral-900 sm:text-6xl">
+              <TypewriterEffect words={words} />
             </h1>
             <p className="mt-6 text-neutral-700 font-light text-base sm:text-xl">
               Crafting tailored web solutions with technical expertise in HTML, CSS, JavaScript, React, and PHP, and a deep understanding of WordPress.

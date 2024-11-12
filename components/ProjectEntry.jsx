@@ -20,7 +20,6 @@ export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
         <a
           href="#"
           className="
-            relative
             group
             flex
             font-semibold
