@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
   return (
-    <article class="bg-slate-50 hover:bg-slate-100 transition rounded-lg border border-slate-100 relative">
+    <article class="bg-neutral-50 hover:bg-neutral-100 transition rounded-lg border border-neutral-100 relative">
       <Image
         className="rounded-t-lg"
         src={thumbnailUrl}
@@ -15,8 +15,8 @@ export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
         layout="responsive" // or "fill", "intrinsic", etc. for different layouts
       />
       <div class="p-6">
-        <h3 class="text-slate-900 font-semibold text-xl">{title}</h3>
-        <p class="text-slate-700 mt-2 mb-4">{excerpt}</p>
+        <h3 class="text-neutral-900 font-semibold text-xl">{title}</h3>
+        <p class="text-neutral-700 mt-2 mb-4">{excerpt}</p>
         <a
           href="#"
           className="

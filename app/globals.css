@@ -23,7 +23,7 @@
 /* About */
 .about-description {
   p {
-    @apply text-slate-700;
+    @apply text-neutral-700;
   }
 
   p:not(:last-child) {
