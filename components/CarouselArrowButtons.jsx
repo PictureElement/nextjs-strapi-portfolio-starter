@@ -47,8 +47,7 @@ export const PrevButton = (props) => {
         w-12 h-12
         rounded-full border border-primary-700 text-primary-700
         transition
-      hover:bg-primary-700 hover:text-white 
-        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
+      hover:bg-primary-700 hover:text-white
       active:bg-primary-600 active:text-white
         disabled:opacity-15 disabled:pointer-events-none disabled:cursor-not-allowed
       "
@@ -72,8 +71,7 @@ export const NextButton = (props) => {
         w-12 h-12
         rounded-full border border-primary-700 text-primary-700
         transition
-      hover:bg-primary-700 hover:text-white 
-        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
+      hover:bg-primary-700 hover:text-white
       active:bg-primary-600 active:text-white
         disabled:opacity-15 disabled:pointer-events-none disabled:cursor-not-allowed
       "

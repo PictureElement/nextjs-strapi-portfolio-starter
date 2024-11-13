@@ -27,7 +27,6 @@ export default function BtnPrimary({
         bg-primary-700
         hover:bg-primary-600
         active:bg-primary-500
-        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
         ${className}
       `}
       {...rest}

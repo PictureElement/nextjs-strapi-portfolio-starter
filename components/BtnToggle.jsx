@@ -1,5 +1,4 @@
 import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/16/solid';
-import PropTypes from 'prop-types';
 
 export default function BtnToggle({
   isOpen,
@@ -27,7 +26,6 @@ export default function BtnToggle({
         bg-primary-50
         hover:bg-primary-100
         active:bg-primary-200
-        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
         ${className}
       `}
       aria-expanded={isOpen}

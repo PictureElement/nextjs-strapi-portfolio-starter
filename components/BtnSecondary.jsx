@@ -23,7 +23,6 @@ export default function BtnSecondary({
         bg-primary-50
         hover:bg-primary-100
         active:bg-primary-200
-        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
         ${className}
       `}
       {...rest}

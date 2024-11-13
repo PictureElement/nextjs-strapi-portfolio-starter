@@ -16,7 +16,6 @@ export default function PostEntry({ title, excerpt }) {
           font-semibold
           leading-none
         text-primary-700
-          focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
         "
       >
         <span className="absolute top-0 bottom-0 left-0 right-0 rounded-lg"></span>

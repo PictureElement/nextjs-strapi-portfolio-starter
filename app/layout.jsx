@@ -1,3 +1,5 @@
+import Announcement from '@/components/Announcement';
+import Header from '@/components/Header';
 import { Sora } from 'next/font/google';
 const sora = Sora({ subsets: ['latin'] });
 import "./globals.css";
@@ -11,6 +13,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${sora.className} antialiased text-neutral-500 text-base`}>
+        <Announcement />
+        <Header />
         {children}
       </body>
     </html>

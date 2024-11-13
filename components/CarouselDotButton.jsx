@@ -39,7 +39,7 @@ export const DotButton = (props) => {
   const { children, ...restProps } = props
 
   return (
-    <button className="focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400" type="button" {...restProps}>
+    <button type="button" {...restProps}>
       {children}
     </button>
   )

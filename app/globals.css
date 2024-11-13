@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+a,
+button,
+summary {
+  @apply focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400;
+}
+
 /* Timeline */
 .timeline-entry-description ul {
   @apply list-disc pl-4;

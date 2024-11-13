@@ -25,7 +25,6 @@ export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
             font-semibold
             leading-none
           text-primary-700
-            focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
           "
         >
           <span className="absolute inset-y-0 inset-x-0 rounded-lg"></span>

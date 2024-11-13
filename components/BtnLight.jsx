@@ -27,7 +27,6 @@ export default function BtnLight({
         bg-white
         hover:bg-neutral-100
         active:bg-neutral-200
-        focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400
         ${className}
       `}
       {...rest}

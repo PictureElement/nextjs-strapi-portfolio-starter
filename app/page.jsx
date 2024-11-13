@@ -35,12 +35,8 @@ export default function Home() {
   ];
 
   return (
-    <div>
-      <div>Announcement</div>
-      <header>Header</header>
-      <p>Structure data</p>
-      <p>RSS: see tailwind blog</p>
-      <main className="overflow-hidden">
+    <>
+      <main className="overflow-hidden -mt-[73px]">
 
         {/* Hero */}
         <section className="bg-primary-100 relative">
@@ -157,7 +153,6 @@ export default function Home() {
         <CallToAction heading="Elevate your business with expert web solutions" text="If you've made it down this far why not send me an email? I'm currently booking in new projects starting from December so don't miss out!" />
 
       </main>
-      <footer>Footer</footer>
-    </div >
+    </>
   );
 }
