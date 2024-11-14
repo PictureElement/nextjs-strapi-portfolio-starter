@@ -1,5 +1,6 @@
 import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import { Sora } from 'next/font/google';
 const sora = Sora({ subsets: ['latin'] });
 import "./globals.css";
@@ -12,10 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${sora.className} antialiased text-neutral-500 text-base`}>
+      <body className={`${sora.className} antialiased text-gray-500 text-base`}>
         <Announcement />
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
-Structure data
+implement Structure data
 RSS: see tailwind blog
-Callendar: see Gittings studdio
+Book a call with Cal.: see Gittings studdio
 Learn about use client
-PostEntry focus and focus within
+PostEntry and social icons focus and focus within

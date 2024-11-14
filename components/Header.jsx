@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default function Header() {
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
-      <div className="mx-auto max-w-screen-xl flex h-[72px] items-center gap-8 px-4">
+      <div className="flex h-[72px] items-center gap-8 px-4">
         <a className="block text-primary-700" href="#">
           <span className="sr-only">Home</span>
           <Image src={`/msof-logo.svg`} alt="..." width="44" height="44" />
@@ -19,19 +19,19 @@ export default function Header() {
           <nav aria-label="Global" className="hidden sm:block">
             <ul className="flex items-center gap-6 text-sm">
               <li>
-                <Link href="/" className="text-neutral-900 transition hover:text-neutral-900/75">
+                <Link href="/" className="text-gray-900 transition hover:text-gray-900/75">
                   Work
                 </Link>
               </li>
 
               <li>
-                <Link href="/" className="text-neutral-900 transition hover:text-neutral-900/75">
+                <Link href="/" className="text-gray-900 transition hover:text-gray-900/75">
                   Blog
                 </Link>
               </li>
 
               <li>
-                <Link href="/" className="text-neutral-900 transition hover:text-neutral-900/75">
+                <Link href="/" className="text-gray-900 transition hover:text-gray-900/75">
                   Contact
                 </Link>
               </li>

@@ -29,7 +29,7 @@ summary {
 /* About */
 .about-description {
   p {
-    @apply text-neutral-700;
+    @apply text-gray-700;
   }
 
   p:not(:last-child) {

@@ -44,10 +44,10 @@ export default function Home() {
           <ShapeDivider />
           <div className="relative z-50 mx-auto max-w-4xl px-4 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
             <p className={`${lobster.className} font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4`}>👋 Hi, I’m Marios Sofokleous</p>
-            <h1 className="text-neutral-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+            <h1 className="text-gray-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
               <TypewriterEffect words={words} />
             </h1>
-            <p className="text-neutral-700 text-lg mt-6">Crafting tailored web solutions with technical expertise in HTML, CSS, JavaScript, React, and PHP, and a deep understanding of WordPress.</p>
+            <p className="text-gray-700 text-lg mt-6">Crafting tailored web solutions with technical expertise in HTML, CSS, JavaScript, React, and PHP, and a deep understanding of WordPress.</p>
             <div className="mt-8 flex items-center justify-center gap-x-4">
               <BtnPrimary className="w-full sm:w-auto" label="View my work" url="#" />
             </div>

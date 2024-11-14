@@ -124,7 +124,7 @@ export default function Chart() {
             fontSize: 12,
             fontFamily: `${sora.style.fontFamily}`,
             fontWeight: '400',
-            color: '#0f172a',
+            color: '#111827',
             padding: 0,
             align: 'center',
           }
@@ -137,7 +137,7 @@ export default function Chart() {
             fontSize: 12,
             fontFamily: `${sora.style.fontFamily}`,
             fontWeight: '400',
-            color: '#64748b',
+            color: '#374151',
             padding: 0,
             silent: false
           }
