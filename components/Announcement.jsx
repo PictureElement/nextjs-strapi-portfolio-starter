@@ -5,15 +5,20 @@ async function getAnnouncement() {
   const path = "/api/global?populate[announcement][populate]=*";
   const url = new URL(path, baseUrl);
 
-  const res = await fetch(url, { next: { revalidate: 0 } });
+  try {
+    const res = await fetch(url, { next: { revalidate: 0 } });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch announcement");
+    if (!res.ok) {
+      throw new Error('Failed to fetch announcement');
+    }
+
+    const data = await res.json();
+
+    return data?.data?.announcement;
+  } catch (error) {
+    console.error(`Error: ${error.message}`); // Log the error message
+    return null;
   }
-
-  const data = await res.json();
-
-  return data?.data?.announcement;
 }
 
 export default async function Announcement() {
