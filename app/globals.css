@@ -36,3 +36,12 @@ summary {
     @apply mb-4;
   }
 }
+
+/* Dismissible  */
+.dismissible-content {
+  @apply text-sm text-center leading-tight;
+}
+
+.dismissible-content a {
+  @apply underline;
+}

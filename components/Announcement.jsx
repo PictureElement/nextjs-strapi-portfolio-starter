@@ -1,23 +1,30 @@
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import DismissibleAnnouncement from "./DismissibleAnnouncement";
 
-export default function Announcement() {
+async function getAnnouncement() {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:1337";
+  const path = "/api/global?populate[announcement][populate]=*";
+  const url = new URL(path, baseUrl);
+
+  const res = await fetch(url, { next: { revalidate: 0 } });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch announcement");
+  }
+
+  const data = await res.json();
+
+  return data?.data?.announcement;
+}
+
+export default async function Announcement() {
+  const announcement = await getAnnouncement();
+
+  // Render nothing if no content
+  if (!announcement?.content) {
+    return null;
+  }
+
   return (
-    <aside className="bg-neutral-950">
-      <div className="flex items-center justify-center gap-3 mx-auto max-w-screen-xl text-white pl-[56px] pr-4 py-2">
-        <p className="text-sm text-center leading-tight">Love Alpine JS? <a href="#" className="inline-block underline">Check out this new course!</a></p>
-        <button
-          aria-label="Dismiss"
-          className="
-            p-1
-            rounded-full
-            bg-white/20
-            transition
-            hover:bg-white/25 active:bg-white/30
-          "
-        >
-          <XMarkIcon className="size-5" />
-        </button>
-      </div>
-    </aside>
+    <DismissibleAnnouncement content={announcement.content} />
   );
 }
