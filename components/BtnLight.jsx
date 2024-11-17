@@ -1,14 +1,19 @@
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
+import Link from 'next/link';
 
 export default function BtnLight({
   label = 'Default label',
   url = '#',
+  target = undefined,
+  rel = undefined,
   className = '',
   ...rest
 }) {
   return (
-    <a
-      href="{url}"
+    <Link
+      target={target}
+      rel={rel}
+      href={url}
       className={`
         group
         inline-flex
@@ -33,6 +38,6 @@ export default function BtnLight({
     >
       {label}
       <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
-    </a>
+    </Link>
   );
 }

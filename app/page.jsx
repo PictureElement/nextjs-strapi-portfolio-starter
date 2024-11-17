@@ -9,50 +9,15 @@ import ServiceGrid from "@/components/ServiceGrid";
 import FaqList from "@/components/FaqList";
 import CallToAction from "@/components/CallToAction";
 import BtnSecondary from "@/components/BtnSecondary";
-import BtnPrimary from "@/components/BtnPrimary";
-import { TypewriterEffect } from "@/components/TypewriterEffect";
-import AnimatedGradient from "@/components/AnimatedGradient";
 import ShapeDivider from "@/components/ShapeDivider";
-import { Lobster } from 'next/font/google';
-
-const lobster = Lobster({ weight: '400', subsets: ['latin'] });
+import Hero from "@/components/Hero";
 
 export default function Home() {
-
-  const words = [
-    {
-      text: "Experienced",
-      className: ""
-    },
-    {
-      text: "web",
-      className: ""
-    },
-    {
-      text: "developer",
-      className: ""
-    }
-  ];
-
   return (
     <>
       <main className="overflow-hidden -mt-[73px]">
 
-        {/* Hero */}
-        <section className="bg-primary-100 relative">
-          <AnimatedGradient />
-          <ShapeDivider />
-          <div className="relative z-50 mx-auto max-w-4xl px-4 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
-            <p className={`${lobster.className} font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4`}>👋 Hi, I’m Marios Sofokleous</p>
-            <h1 className="text-gray-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
-              <TypewriterEffect words={words} />
-            </h1>
-            <p className="text-gray-700 text-lg mt-6">Crafting tailored web solutions with technical expertise in HTML, CSS, JavaScript, React, and PHP, and a deep understanding of WordPress.</p>
-            <div className="mt-8 flex items-center justify-center gap-x-4">
-              <BtnPrimary className="w-full sm:w-auto" label="View my work" url="#" />
-            </div>
-          </div>
-        </section>
+        <Hero />
 
         {/* About */}
         <section className="mx-auto max-w-4xl px-4 py-24">
