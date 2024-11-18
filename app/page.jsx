@@ -1,7 +1,6 @@
 import SectionHeader from "@/components/SectionHeader";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Timeline from "@/components/Timeline";
-import Chart from "@/components/Chart";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
 import Image from 'next/image';
 import PostList from "@/components/PostList";
@@ -12,6 +11,7 @@ import ShapeDivider from "@/components/ShapeDivider";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
+import Skills from "@/components/Skills";
 
 export default function Home() {
   return (
@@ -31,23 +31,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Skills */}
-        <section className="bg-neutral-50 py-24 relative">
-          {/* Linear gradient for the container to give a faded look
-          <div
-            className="absolute pointer-events-none inset-0 bg-white"
-            style={{
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 20%, white)",
-              maskImage: "linear-gradient(to bottom, transparent 20%, white)"
-            }}
-          >
-          </div> */}
-          <ShapeDivider />
-          <div className="relative mx-auto max-w-4xl px-4">
-            <SectionHeader heading="EXPERTISE" lead="The technical and soft skills I use to build success" />
-            <Chart />
-          </div>
-        </section>
+        <Skills />
 
         {/* Experience */}
         <section className="mx-auto max-w-4xl px-4 py-24">

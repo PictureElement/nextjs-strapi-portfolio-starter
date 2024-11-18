@@ -2,113 +2,40 @@
 
 import { Sora } from 'next/font/google';
 const sora = Sora({ subsets: ['latin'] });
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
 import { SunburstChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 
-export default function Chart() {
+// Register the required components
+echarts.use(
+  [SunburstChart, CanvasRenderer]
+);
+
+export default function Chart({ data }) {
 
   const chartRef = useRef(null);
 
   useEffect(() => {
     const echartInstance = chartRef.current.getEchartsInstance();
 
-    // Access the ECharts instance here
-    // console.log(echartInstance);
-
     // Resize the chart on window resize
     const handleResize = () => {
-      console.log("Chart resizing ...")
       echartInstance.resize();
     };
 
-    // window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-
-  // Register the required components
-  echarts.use(
-    [SunburstChart, CanvasRenderer]
-  );
-
-  const data = [
-    {
-      "name": "Frontend",
-      "children": [
-        { "name": "HTML", "value": 1 },
-        { "name": "CSS", "value": 1 },
-        { "name": "JavaScript", "value": 1 },
-        { "name": "Sass", "value": 1 },
-        { "name": "TypeScript", "value": 1 },
-        { "name": "React", "value": 1 },
-        { "name": "Next.js", "value": 1 },
-        { "name": "Tailwind CSS", "value": 1 },
-        { "name": "Bootstrap", "value": 1 },
-        { "name": "jQuery", "value": 1 }
-      ]
-    },
-    {
-      "name": "Backend",
-      "children": [
-        { "name": "Supabase", "value": 1 },
-        { "name": "Firebase", "value": 1 },
-        { "name": "Strapi", "value": 1 },
-        { "name": "WordPress", "value": 1 },
-        { "name": "October CMS", "value": 1 },
-        { "name": "PHP", "value": 1 }
-      ]
-    },
-    {
-      "name": "Practices",
-      "children": [
-        { "name": "RWD", "value": 1 },
-        { "name": "A11y", "value": 1 },
-        { "name": "Sem. HTML", "value": 1 },
-        { "name": "BEM", "value": 1 },
-        { "name": "SEO", "value": 1 },
-        { "name": "Data privacy", "value": 1 },
-        { "name": "Web perf.", "value": 1 },
-        { "name": "UI/UX", "value": 1 }
-      ]
-    },
-    {
-      "name": "Tools",
-      "children": [
-        { "name": "Git", "value": 1 },
-        { "name": "GitHub", "value": 1 },
-        { "name": "npm", "value": 1 },
-        { "name": "composer", "value": 1 },
-        { "name": "Webpack", "value": 1 },
-        { "name": "Vite", "value": 1 },
-        { "name": "Gulp", "value": 1 },
-        { "name": "VS Code", "value": 1 },
-        { "name": "Netlify", "value": 1 },
-        { "name": "ChatGPT", "value": 1 },
-        { "name": "Docker", "value": 1 },
-        { "name": "Figma", "value": 1 }
-      ]
-    },
-    {
-      "name": "Soft skills",
-      "children": [
-        { "name": "Comm.", "value": 1 },
-        { "name": "Teamwork", "value": 1 },
-        { "name": "Problem solving", "value": 1 },
-        { "name": "Listening", "value": 1 }
-      ]
-    }
-  ]
-
-  const option = {
+  const option = useMemo(() => ({
     series: {
       type: 'sunburst',
-      data: data,
+      data,
       radius: [0, '95%'],
       sort: undefined,
       emphasis: {
@@ -185,7 +112,7 @@ export default function Chart() {
         }
       }
     ]
-  };
+  }), [data]);
 
   return (
     <ReactEChartsCore
