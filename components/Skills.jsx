@@ -31,7 +31,7 @@ export default async function Skills() {
       <ShapeDivider />
       <div className="relative mx-auto max-w-4xl px-4">
         <SectionHeader heading={skills.heading} lead={skills.lead} />
-        <Chart data={skills.chartData} />
+        <Chart data={skills.chartData} ariaLabelSSR={skills.ariaLabelSSR} ariaLabelCSR={skills.ariaLabelCSR} />
       </div>
     </section >
   )
