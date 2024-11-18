@@ -5,13 +5,13 @@ import Chart from "@/components/Chart";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
 import Image from 'next/image';
 import PostList from "@/components/PostList";
-import ServiceGrid from "@/components/ServiceGrid";
 import FaqList from "@/components/FaqList";
 import CallToAction from "@/components/CallToAction";
 import BtnSecondary from "@/components/BtnSecondary";
 import ShapeDivider from "@/components/ShapeDivider";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Services from "@/components/Services";
 
 export default function Home() {
   return (
@@ -19,17 +19,8 @@ export default function Home() {
       <main className="overflow-hidden -mt-[73px]">
 
         <Hero />
-
         <About />
-
-        {/* Services */}
-        <section className="bg-neutral-50 py-24 relative">
-          <ShapeDivider />
-          <div className="relative mx-auto max-w-4xl px-4">
-            <SectionHeader heading="SERVICES" lead="Expert web solutions that drive business growth" />
-            <ServiceGrid />
-          </div>
-        </section>
+        <Services />
 
         {/* Work */}
         <section className="mx-auto max-w-4xl px-4 py-24">
