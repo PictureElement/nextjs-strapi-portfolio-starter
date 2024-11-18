@@ -9,7 +9,7 @@ const socialIcons = {
 };
 
 async function getFooter() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:1337";
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
   const path = "/api/global?populate[footer][populate]=*";
   const url = new URL(path, baseUrl);
 
@@ -44,7 +44,7 @@ export default async function Footer() {
               <ul className="mt-8 flex justify-center gap-6 sm:justify-start">
                 {footer.socialChannels.map((item) => (
                   <li key={item.id} >
-                    <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white">
+                    <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white inline-block">
                       <span className="sr-only">{item.label}</span>
                       {socialIcons[item.channel] || (
                         <span className="text-red-500">Icon not found</span>

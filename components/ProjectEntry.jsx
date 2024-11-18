@@ -12,7 +12,6 @@ export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
         alt="..."
         width={346}
         height={230}
-        layout="responsive" // or "fill", "intrinsic", etc. for different layouts
       />
       <div className="p-6">
         <h3 className="text-gray-900 font-medium text-xl sm:text-2xl">{title}</h3>

@@ -18,7 +18,7 @@ export default function PostEntry({ title, excerpt }) {
         text-primary-700
         "
       >
-        <span className="absolute top-0 bottom-0 left-0 right-0 rounded-lg"></span>
+        <span className="absolute top-0 bottom-0 left-0 right-0 rounded-lg block"></span>
         <span className="relative">
           Read more
           <span className="sr-only">, about {title}</span>

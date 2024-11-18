@@ -7,7 +7,7 @@ import BtnSecondary from './BtnSecondary';
 const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 async function getHero() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:1337";
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
   const path = "/api/homepage?populate[hero][populate]=*";
   const url = new URL(path, baseUrl);
 
