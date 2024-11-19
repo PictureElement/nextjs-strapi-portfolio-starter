@@ -4,6 +4,7 @@ import { Bars3Icon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 
 export default function Header() {
+  console.log("Hello from Header");
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
       <div className="flex h-[72px] items-center gap-8 px-4">

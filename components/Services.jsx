@@ -1,38 +1,25 @@
-import SectionHeader from "./SectionHeader";
-import ShapeDivider from "./ShapeDivider";
-import ServiceGrid from "./ServiceGrid";
+'use client';
 
-async function getServices() {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
-  const path = "/api/homepage?populate[services][populate]=*";
-  const url = new URL(path, baseUrl);
+import { useState } from 'react';
+import BtnToggle from "./BtnToggle";
 
-  try {
-    const res = await fetch(url, { next: { revalidate: 0 } });
+export default function Services({ children, defaultOpen = false }) {
+  console.log("Hello from Services");
 
-    if (!res.ok) {
-      throw new Error('Failed to fetch services');
-    }
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
-    const data = await res.json();
-
-    return data?.data?.services;
-  } catch (error) {
-    console.error(`Error: ${error.message}`); // Log the error message
-    return null;
+  const toggleServices = () => {
+    setIsOpen(!isOpen);
   }
-}
-
-export default async function Services() {
-  const services = await getServices();
 
   return (
-    <section className="bg-neutral-50 py-24 relative">
-      <ShapeDivider />
-      <div className="relative mx-auto max-w-4xl px-4">
-        <SectionHeader heading={services.heading} lead={services.lead} />
-        <ServiceGrid services={services.services} />
+    <div className="relative">
+      <div id="serviceGrid" className={`grid grid-cols-1 sm:grid-cols-2 gap-6 transiton-[max-height] ${isOpen ? 'relative z-10 max-h-full' : 'max-h-[32rem] sm:max-h-[20rem] overflow-hidden'}`}>
+        {children}
       </div>
-    </section>
-  )
+      <div className={`inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-neutral-50 ${isOpen ? 'static pt-12' : 'absolute pt-64'}`}>
+        <BtnToggle isOpen={isOpen} onToggle={toggleServices} openLabel="Show fewer services" closedLabel="Show all services" aria-controls="serviceGrid" />
+      </div>
+    </div>
+  );
 }

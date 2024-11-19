@@ -14,7 +14,7 @@ echarts.use(
 );
 
 export default function ChartCSR({ data, className, ariaHidden, ariaLabel, onClientReady }) {
-
+  console.log("Hello from ChartCSR");
   const chartRef = useRef(null);
 
   useEffect(() => {

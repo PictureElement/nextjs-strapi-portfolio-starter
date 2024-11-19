@@ -6,6 +6,7 @@ const faq1 = {
 }
 
 export default function FaqList() {
+  console.log("Hello from FaqList");
   return (
     <div className="space-y-4">
       <FaqEntry {...faq1} />

@@ -41,11 +41,11 @@ summary {
   }
 }
 
-/* Dismissible  */
-.dismissible-content {
+/* Announcement */
+.announcement-content {
   @apply text-sm text-center leading-tight;
 }
 
-.dismissible-content a {
+.announcement-content a {
   @apply font-semibold border-b border-primary-400 hover:border-b-2
 }

@@ -5,6 +5,7 @@ import ChartCSR from "./ChartCSR";
 import ChartSSR from "./ChartSSR";
 
 export default function Chart({ data, ariaLabelSSR, ariaLabelCSR }) {
+  console.log("Hello from Chart");
   const [isClientReady, setIsClientReady] = useState(false);
 
   return (

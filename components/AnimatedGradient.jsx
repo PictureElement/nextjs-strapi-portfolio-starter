@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Gradient } from "@/lib/gradient";
 
 export default function AnimatedGradient() {
+  console.log("Hello from AnimatedGradient");
   useEffect(() => {
     const gradient = new Gradient();
     gradient.initGradient("#gradient-canvas");

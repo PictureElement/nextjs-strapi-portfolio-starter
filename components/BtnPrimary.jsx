@@ -9,6 +9,7 @@ export default function BtnPrimary({
   className = '',
   ...rest
 }) {
+  console.log("Hello from BtnPrimary");
   return (
     <Link
       target={target}

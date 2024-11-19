@@ -8,6 +8,7 @@ export default function BtnToggle({
   className = '',
   ...rest
 }) {
+  console.log("Hello from BtnToggle");
   return (
     <button
       onClick={onToggle}

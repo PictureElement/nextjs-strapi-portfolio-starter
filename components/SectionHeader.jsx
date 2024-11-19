@@ -1,4 +1,5 @@
 export default function SectionHeader({ heading, lead }) {
+  console.log("Hello from SectionHeader");
   return (
     <div className="mb-12">
       <h2 className="text-primary-700 text-lg sm:text-xl tracking-widest text-center font-light mb-4">{heading}</h2>

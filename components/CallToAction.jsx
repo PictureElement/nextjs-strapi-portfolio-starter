@@ -1,6 +1,7 @@
 import BtnLight from "./BtnLight";
 
 export default function CallToAction({ heading, text }) {
+  console.log("Hello from CallToAction");
   return (
     <section className="bg-primary-700 bg-dot-white/20 relative">
       <div className="mx-auto max-w-4xl px-4 py-24 text-center">

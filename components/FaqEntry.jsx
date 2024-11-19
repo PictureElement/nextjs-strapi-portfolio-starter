@@ -1,6 +1,7 @@
 import { ArrowDownIcon } from '@heroicons/react/16/solid';
 
 export default function FaqEntry({ question, answer }) {
+  console.log("Hello from FaqEntry");
   return (
     <details className="group [&_summary::-webkit-details-marker]:hidden">
       <summary className="flex cursor-pointer items-start justify-between gap-4 border border-neutral-100 rounded-lg bg-white p-4">

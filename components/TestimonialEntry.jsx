@@ -1,6 +1,5 @@
-"use client";
-
 export default function TestimonialEntry({ statement, author, role, company, companyWebsite }) {
+  console.log("Hello from TestimonialEntry");
   return (
     <figure className="text-center">
       <blockquote className="mb-4">

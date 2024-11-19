@@ -1,30 +1,23 @@
 import ShapeDivider from "./ShapeDivider";
 import SectionHeader from "./SectionHeader";
 import Chart from "./Chart";
-
-async function getSkills() {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
-  const path = "/api/homepage?populate[skills][populate]=*";
-  const url = new URL(path, baseUrl);
-
-  try {
-    const res = await fetch(url, { next: { revalidate: 0 } });
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch skills');
-    }
-
-    const data = await res.json();
-
-    return data?.data?.skills;
-  } catch (error) {
-    console.error(`Error: ${error.message}`); // Log the error message
-    return null;
-  }
-}
+import { fetchData } from "@/lib/utils";
 
 export default async function Skills() {
-  const skills = await getSkills();
+  console.log("Hello from Skills");
+
+  const endpoint = "/api/homepage?populate[skills][populate]=*";
+  const data = await fetchData(endpoint);
+
+  const fallbackSkills = {
+    heading: 'HEADING',
+    lead: 'Lead',
+    chartData: [{ "name": "Frontend", "children": [{ "name": "JavaScript", "value": 1 }] }, { "name": "Backend", "children": [{ "name": "Node.js", "value": 1 }] }],
+    ariaLabelSSR: '...',
+    ariaLabelCSR: '...'
+  };
+
+  const skills = data?.skills || fallbackSkills;
 
   return (
     <section className="bg-neutral-50 py-24 relative" >

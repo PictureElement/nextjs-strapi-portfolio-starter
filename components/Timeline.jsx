@@ -1,6 +1,7 @@
 import TimelineEntry from "./TimelineEntry";
 
 export default function Timeline() {
+  console.log("Hello from Timeline");
   const timelineData = [
     {
       companyLogo: 'https://msof.me/storage/app/media/msof-logo.svg',

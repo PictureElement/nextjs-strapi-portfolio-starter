@@ -2,33 +2,33 @@ import SectionHeader from './SectionHeader';
 import Image from 'next/image';
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
-
-async function getAbout() {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
-  const path = "/api/homepage?populate[about][populate]=*";
-  const url = new URL(path, baseUrl);
-
-  try {
-    const res = await fetch(url, { next: { revalidate: 0 } });
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch about');
-    }
-
-    const data = await res.json();
-
-    return data?.data?.about;
-  } catch (error) {
-    console.error(`Error: ${error.message}`); // Log the error message
-    return null;
-  }
-}
+import { fetchData } from '@/lib/utils';
 
 export default async function About() {
-  const about = await getAbout();
+  console.log("Hello from About");
+
+  const endpoint = "/api/homepage?populate[about][populate]=*";
+  const data = await fetchData(endpoint);
+
+  const fallbackAbout = {
+    profileImage: {
+      url: 'https://placehold.co/1024x1024.png?text=Profile+image',
+      alternativeText: '...',
+      width: '1024',
+      height: '1024',
+    },
+    heading: 'HEADING',
+    lead: 'Lead',
+    content: 'Content'
+  };
+
+  const about = data?.about || fallbackAbout;
 
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
-  const imageUrl = `${baseUrl}${about.profileImage.url}`;
+
+  const imageUrl = about.profileImage.url.startsWith('https')
+    ? about.profileImage.url
+    : `${baseUrl}${about.profileImage.url}`;
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-24">

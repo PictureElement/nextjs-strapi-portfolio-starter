@@ -3,37 +3,29 @@ import BtnPrimary from './BtnPrimary';
 import AnimatedGradient from './AnimatedGradient';
 import ShapeDivider from './ShapeDivider';
 import { Lobster } from 'next/font/google';
+import { fetchData } from '@/lib/utils';
 import BtnSecondary from './BtnSecondary';
 const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
-async function getHero() {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
-  const path = "/api/homepage?populate[hero][populate]=*";
-  const url = new URL(path, baseUrl);
-
-  try {
-    const res = await fetch(url, { next: { revalidate: 0 } });
-
-    if (!res.ok) {
-      throw new Error('Failed to fetch hero');
-    }
-
-    const data = await res.json();
-
-    return data?.data?.hero;
-  } catch (error) {
-    console.error(`Error: ${error.message}`); // Log the error message
-    return null;
-  }
-}
-
 export default async function Hero() {
-  const hero = await getHero();
+  console.log("Hello from Hero");
 
-  const words = hero.title.trim().split(/\s+/).map((word) => ({
-    text: word,
-    className: ""
-  }));
+  const endpoint = "/api/homepage?populate[hero][populate]=*";
+  const data = await fetchData(endpoint);
+
+  const fallbackHero = {
+    greeting: null,
+    title: 'Title',
+    supportiveText: 'Supportive text',
+    primaryButton: null,
+    secondaryButton: null,
+  };
+
+  const hero = data?.hero || fallbackHero;
+
+  const words = hero.title.trim()
+    ? hero.title.trim().split(/\s+/).map((word) => ({ text: word, className: "" }))
+    : [{ text: 'Title', className: '' }];
 
   return (
     <section className="bg-primary-100 relative">
@@ -46,9 +38,7 @@ export default async function Hero() {
         <h1 className="text-gray-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
           <TypewriterEffect words={words} />
         </h1>
-        {hero.supportiveText && (
-          <p className="text-gray-700 text-lg mt-6">{hero.supportiveText}</p>
-        )}
+        <p className="text-gray-700 text-lg mt-6">{hero.supportiveText}</p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           {hero.primaryButton && (
             <BtnPrimary

@@ -1,35 +1,36 @@
-import DismissibleAnnouncement from "./DismissibleAnnouncement";
+"use client";
 
-async function getAnnouncement() {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
-  const path = "/api/global?populate[announcement][populate]=*";
-  const url = new URL(path, baseUrl);
+import { useState } from "react";
+import { XMarkIcon } from '@heroicons/react/24/solid';
 
-  try {
-    const res = await fetch(url, { next: { revalidate: 0 } });
+export default function Announcement({ children }) {
+  console.log("Hello from Announcement");
+  const [isVisible, setIsVisible] = useState(true);
 
-    if (!res.ok) {
-      throw new Error('Failed to fetch announcement');
-    }
+  const handleDismiss = () => {
+    setIsVisible(false);
+  };
 
-    const data = await res.json();
-
-    return data?.data?.announcement;
-  } catch (error) {
-    console.error(`Error: ${error.message}`); // Log the error message
-    return null;
-  }
-}
-
-export default async function Announcement() {
-  const announcement = await getAnnouncement();
-
-  // Render nothing if no content
-  if (!announcement?.content) {
-    return null;
-  }
+  if (!isVisible) return null;
 
   return (
-    <DismissibleAnnouncement content={announcement.content} />
-  );
+    <aside className="bg-neutral-950">
+      <div className="flex items-center justify-center gap-3 mx-auto max-w-screen-xl text-white pl-[56px] pr-4 py-2">
+        {children}
+        <button
+          aria-label="Dismiss announcement"
+          className="
+            p-1
+            rounded-full
+            bg-white/20
+            transition
+            hover:bg-white/25 active:bg-white/30
+          "
+          onClick={handleDismiss}
+        >
+          <XMarkIcon className="size-5" />
+        </button>
+      </div>
+    </aside>
+  )
 }

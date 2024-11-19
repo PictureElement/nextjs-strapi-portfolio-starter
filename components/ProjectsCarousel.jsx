@@ -10,6 +10,7 @@ const project1 = {
 }
 
 export default function ProjectsCarousel() {
+  console.log("Hello from ProjectsCarousel");
   const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 1 });
 
   return (

@@ -6,6 +6,7 @@ const post1 = {
 }
 
 export default function PostList() {
+  console.log("Hello from PostList");
   return (
     <div className="space-y-6">
       <PostEntry {...post1} />

@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
-export default function TestimonialEntry({ title, excerpt, thumbnailUrl }) {
+export default function ProjectEntry({ title, excerpt, thumbnailUrl }) {
+  console.log("Hello from ProjectEntry");
   return (
     <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-lg border border-neutral-100 relative">
       <Image

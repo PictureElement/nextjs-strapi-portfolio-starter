@@ -9,7 +9,7 @@ import BtnSecondary from "@/components/BtnSecondary";
 import ShapeDivider from "@/components/ShapeDivider";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Services from "@/components/Services";
+import ServicesWrapper from "@/components/ServicesWrapper";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 
@@ -20,7 +20,7 @@ export default function Home() {
 
         <Hero />
         <About />
-        <Services />
+        <ServicesWrapper />
 
         {/* Work */}
         <section className="mx-auto max-w-4xl px-4 py-24">

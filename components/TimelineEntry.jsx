@@ -6,7 +6,7 @@ import { useState } from 'react';
 import BtnToggle from './BtnToggle';
 
 export default function TimelineEntry({ companyLogo, duration, role, company, companyUrl, location, description, defaultOpen = false }) {
-
+  console.log("Hello from TimelineEntry");
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggleDescription = () => {

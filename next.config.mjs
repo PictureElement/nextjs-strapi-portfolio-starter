@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
@@ -7,14 +8,16 @@ const nextConfig = {
         hostname: 'localhost',
         port: '1337', // Default Strapi port for local development
         pathname: '/uploads/**', // Adjust to match your local Strapi image URL
-        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'msof.me',
-        port: '',
         pathname: '/storage/**',
-        search: '',
       },
     ],
   },
