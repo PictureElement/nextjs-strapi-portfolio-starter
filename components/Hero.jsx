@@ -1,7 +1,7 @@
 import { TypewriterEffect } from './TypewriterEffect';
-import BtnPrimary from "@/components/BtnPrimary";
-import AnimatedGradient from "@/components/AnimatedGradient";
-import ShapeDivider from "@/components/ShapeDivider";
+import BtnPrimary from './BtnPrimary';
+import AnimatedGradient from './AnimatedGradient';
+import ShapeDivider from './ShapeDivider';
 import { Lobster } from 'next/font/google';
 import BtnSecondary from './BtnSecondary';
 const lobster = Lobster({ weight: '400', subsets: ['latin'] });

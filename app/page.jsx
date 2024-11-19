@@ -2,7 +2,6 @@ import SectionHeader from "@/components/SectionHeader";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import Timeline from "@/components/Timeline";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
-import Image from 'next/image';
 import PostList from "@/components/PostList";
 import FaqList from "@/components/FaqList";
 import CallToAction from "@/components/CallToAction";
@@ -12,6 +11,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Skills from "@/components/Skills";
+import Experience from "@/components/Experience";
 
 export default function Home() {
   return (
@@ -32,12 +32,8 @@ export default function Home() {
         </section>
 
         <Skills />
+        <Experience />
 
-        {/* Experience */}
-        <section className="mx-auto max-w-4xl px-4 py-24">
-          <SectionHeader heading="PROFESSIONAL JOURNEY" lead="An overview of my roles and experiences to date" />
-          <Timeline />
-        </section>
 
         {/* Testimonials */}
         <section className="bg-neutral-50 py-24 relative">

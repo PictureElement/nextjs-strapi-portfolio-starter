@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function PostEntry({ title, excerpt }) {

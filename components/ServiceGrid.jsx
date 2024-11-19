@@ -6,6 +6,8 @@ import BtnToggle from "./BtnToggle";
 
 export default function ServiceGrid({ services, defaultOpen = false }) {
 
+  console.log("Hello from ServiceGrid");
+
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggleServices = () => {

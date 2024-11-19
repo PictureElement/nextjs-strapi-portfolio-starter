@@ -1,6 +1,6 @@
-import SectionHeader from "@/components/SectionHeader";
-import ShapeDivider from "@/components/ShapeDivider";
-import ServiceGrid from "@/components/ServiceGrid";
+import SectionHeader from "./SectionHeader";
+import ShapeDivider from "./ShapeDivider";
+import ServiceGrid from "./ServiceGrid";
 
 async function getServices() {
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";

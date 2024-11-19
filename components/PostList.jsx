@@ -1,5 +1,3 @@
-"use client";
-
 import PostEntry from "./PostEntry";
 
 const post1 = {

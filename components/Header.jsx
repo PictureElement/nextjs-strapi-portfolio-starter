@@ -1,5 +1,3 @@
-"use client";
-
 import Image from 'next/image';
 import BtnPrimary from "./BtnPrimary";
 import { Bars3Icon } from '@heroicons/react/16/solid';

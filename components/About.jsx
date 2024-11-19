@@ -1,4 +1,4 @@
-import SectionHeader from "@/components/SectionHeader";
+import SectionHeader from './SectionHeader';
 import Image from 'next/image';
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";

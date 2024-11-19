@@ -1,5 +1,3 @@
-'use client'
-
 export default function SectionHeader({ heading, lead }) {
   return (
     <div className="mb-12">

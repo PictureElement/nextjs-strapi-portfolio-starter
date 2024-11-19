@@ -1,5 +1,3 @@
-"use client";
-
 import Image from 'next/image';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
