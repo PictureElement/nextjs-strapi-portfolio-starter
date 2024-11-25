@@ -78,7 +78,7 @@ export default async function Footer() {
             {footer.socialChannels && (
               <ul className="mt-8 flex justify-center gap-6 sm:justify-start">
                 {footer.socialChannels.map((item) => (
-                  <li key={item.id} >
+                  <li key={item.id}>
                     <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white inline-block">
                       <span className="sr-only">{item.label}</span>
                       {socialIcons[item.channel] || (
