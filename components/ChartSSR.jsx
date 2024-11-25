@@ -63,9 +63,9 @@ function generateChartSVG(data) {
   return svgStr;
 }
 
-export default function ChartSSR({ data, className, ariaHidden, ariaLabel }) {
+export default function ChartSSR({ data }) {
   console.log("Hello from ChartSSR");
   return (
-    <div aria-hidden={ariaHidden} aria-label={ariaLabel} className={className} dangerouslySetInnerHTML={{ __html: generateChartSVG(data) }} suppressHydrationWarning />
+    <div className="overflow-hidden flex items-center justify-center width-full !h-[480px] sm:!h-[600px]" dangerouslySetInnerHTML={{ __html: generateChartSVG(data) }} suppressHydrationWarning />
   )
 }

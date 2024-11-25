@@ -1,36 +1,31 @@
-"use client";
+import AnnouncementContent from "./AnnouncementContent";
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
+import { fetchData } from "@/lib/utils";
 
-import { useState } from "react";
-import { XMarkIcon } from '@heroicons/react/24/solid';
-
-export default function Announcement({ children }) {
+export default async function Announcement() {
   console.log("Hello from Announcement");
-  const [isVisible, setIsVisible] = useState(true);
 
-  const handleDismiss = () => {
-    setIsVisible(false);
+  const endpoint = "/api/global?populate[announcement][populate]=*";
+  const data = await fetchData(endpoint);
+
+  const fallbackAnnouncement = {
+    content: 'Content'
   };
 
-  if (!isVisible) return null;
+  const announcement = data?.announcement || fallbackAnnouncement;
 
-  return (
-    <aside className="bg-neutral-950">
-      <div className="flex items-center justify-center gap-3 mx-auto max-w-screen-xl text-white pl-[56px] pr-4 py-2">
-        {children}
-        <button
-          aria-label="Dismiss announcement"
-          className="
-            p-1
-            rounded-full
-            bg-white/20
-            transition
-            hover:bg-white/25 active:bg-white/30
-          "
-          onClick={handleDismiss}
-        >
-          <XMarkIcon className="size-5" />
-        </button>
-      </div>
-    </aside>
-  )
+  // Render nothing if no content
+  if (!announcement?.content) {
+    return null;
+  }
+
+  const content = (
+    <div
+      className="announcement-content text-sm text-center leading-tight"
+      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(announcement.content)) }}
+    />
+  );
+
+  return (<AnnouncementContent>{content}</AnnouncementContent>);
 }

@@ -1,4 +1,4 @@
-import AnnouncementWrapper from '@/components/AnnouncementWrapper';
+import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Sora } from 'next/font/google';
@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${sora.className} antialiased text-gray-500 text-base`}>
-        <AnnouncementWrapper />
+        <Announcement />
         <Header />
         {children}
         <Footer />

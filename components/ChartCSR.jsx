@@ -13,7 +13,7 @@ echarts.use(
   [SunburstChart, SVGRenderer]
 );
 
-export default function ChartCSR({ data, className, ariaHidden, ariaLabel, onClientReady }) {
+export default function ChartCSR({ data, onClientReady }) {
   console.log("Hello from ChartCSR");
   const chartRef = useRef(null);
 
@@ -28,7 +28,9 @@ export default function ChartCSR({ data, className, ariaHidden, ariaLabel, onCli
     window.addEventListener('resize', handleResize);
 
     // Notify parent that client-side chart is ready
-    onClientReady();
+    if (onClientReady) {
+      onClientReady();
+    }
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -119,15 +121,13 @@ export default function ChartCSR({ data, className, ariaHidden, ariaLabel, onCli
   }), [data]);
 
   return (
-    <div aria-hidden={ariaHidden} aria-label={ariaLabel}>
-      <ReactEChartsCore
-        className={className}
-        ref={chartRef}
-        echarts={echarts}
-        option={option}
-        opts={{ renderer: 'svg' }}
-        lazyUpdate={true}
-      />
-    </div>
+    <ReactEChartsCore
+      className="overflow-hidden flex items-center justify-center width-full !h-[480px] sm:!h-[600px]"
+      ref={chartRef}
+      echarts={echarts}
+      option={option}
+      opts={{ renderer: 'svg' }}
+      lazyUpdate={true}
+    />
   );
 }
