@@ -9,15 +9,15 @@ summary {
 }
 
 /* Timeline */
-.timeline-entry-description ul {
+.timeline-entry-content ul {
   @apply list-disc pl-4;
 }
 
-.timeline-entry-description li {
+.timeline-entry-content li {
   @apply mb-3;
 }
 
-.timeline-entry-description li:last-child {
+.timeline-entry-content li:last-child {
   @apply mb-0;
 }
 
