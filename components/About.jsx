@@ -12,10 +12,10 @@ export default async function About() {
 
   const fallbackAbout = {
     profileImage: {
-      url: 'https://placehold.co/1024x1024.png?text=Profile+image',
+      url: 'https://placehold.co/862x862.png?text=862x862',
       alternativeText: '...',
-      width: '1024',
-      height: '1024',
+      width: '862',
+      height: '862',
     },
     heading: 'HEADING',
     lead: 'Lead',

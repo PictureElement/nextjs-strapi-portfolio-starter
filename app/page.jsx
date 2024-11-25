@@ -12,6 +12,7 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
+import Faq from "@/components/Faq";
 
 export default function Home() {
   return (
@@ -53,13 +54,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="bg-neutral-50 py-24">
-          <div className="mx-auto max-w-4xl px-4">
-            <SectionHeader heading="COMMON QUESTIONS" lead="Everything you need to know about working together" />
-            <FaqList />
-          </div>
-        </section>
+        <Faq />
 
         <CallToAction heading="Elevate your business with expert web solutions" text="If you've made it down this far why not send me an email? I'm currently booking in new projects starting from December so don't miss out!" />
 
