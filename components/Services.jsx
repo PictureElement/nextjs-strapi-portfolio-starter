@@ -1,7 +1,6 @@
 import SectionHeader from "./SectionHeader";
 import ShapeDivider from "./ShapeDivider";
 import ServiceList from "./ServiceList";
-import ServiceEntry from "./ServiceEntry";
 import { fetchData } from "@/lib/utils";
 
 export default async function Services() {
@@ -13,7 +12,7 @@ export default async function Services() {
   const fallbackServices = {
     heading: 'HEADING',
     lead: 'Lead',
-    services: [
+    serviceList: [
       {
         id: 1,
         title: 'Title',
@@ -29,17 +28,7 @@ export default async function Services() {
       <ShapeDivider />
       <div className="relative mx-auto max-w-4xl px-4">
         <SectionHeader heading={services.heading} lead={services.lead} />
-        <ServiceList defaultOpen={false}>
-          {
-            services.services.map((service) => (
-              <ServiceEntry
-                key={service.id}
-                title={service.title}
-                description={service.description}
-              />
-            ))
-          }
-        </ServiceList>
+        <ServiceList serviceList={services.serviceList} defaultOpen={false} />
       </div>
     </section>
   )

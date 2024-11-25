@@ -33,7 +33,7 @@ export default async function Experience() {
   return (
     <section className="mx-auto max-w-4xl px-4 py-24">
       <SectionHeader heading={experience.heading} lead={experience.lead} />
-      <Timeline data={experience.timeline} />
+      <Timeline timeline={experience.timeline} />
     </section>
   )
 }

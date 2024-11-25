@@ -1,13 +1,13 @@
 import TimelineEntry from "./TimelineEntry";
 
-export default function Timeline({ data }) {
+export default function Timeline({ timeline }) {
   console.log("Hello from Timeline");
 
   const baseUrl = process.env.STRAPI_API_URL;
 
   return (
     <ol className="relative border-s border-neutral-300 ml-6">
-      {data.map((entry, index) => {
+      {timeline.map((entry, index) => {
         const imageUrl = entry.companyLogo.url.startsWith('https')
           ? entry.companyLogo.url
           : `${baseUrl}${entry.companyLogo.url}`;
