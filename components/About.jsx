@@ -17,7 +17,7 @@ export default async function About() {
       width: '862',
       height: '862',
     },
-    heading: 'HEADING',
+    heading: 'ABOUT',
     lead: 'Lead',
     content: 'Content'
   };

@@ -1,19 +1,19 @@
-import TimelineEntry from "./TimelineEntry";
+import ExperienceEntry from "./ExperienceEntry";
 
-export default function Timeline({ timeline }) {
-  console.log("Hello from Timeline");
+export default function ExperienceList({ experienceList }) {
+  console.log("Hello from ExperienceList");
 
   const baseUrl = process.env.STRAPI_API_URL;
 
   return (
     <ol className="relative border-s border-neutral-300 ml-6">
-      {timeline.map((entry, index) => {
+      {experienceList.map((entry, index) => {
         const imageUrl = entry.companyLogo.url.startsWith('https')
           ? entry.companyLogo.url
           : `${baseUrl}${entry.companyLogo.url}`;
 
         return (
-          <TimelineEntry
+          <ExperienceEntry
             key={index}
             companyLogoUrl={imageUrl}
             companyLogoAlternativeText={entry.companyLogo.alternativeText}

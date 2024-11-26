@@ -7,8 +7,8 @@ import BtnToggle from './BtnToggle';
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 
-export default function TimelineEntry({ companyLogoUrl, companyLogoAlternativeText, duration, role, company, companyUrl, location, content, defaultOpen = false }) {
-  console.log("Hello from TimelineEntry");
+export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternativeText, duration, role, company, companyUrl, location, content, defaultOpen = false }) {
+  console.log("Hello from ExperienceEntry");
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggleContent = () => {
@@ -36,7 +36,7 @@ export default function TimelineEntry({ companyLogoUrl, companyLogoAlternativeTe
       <Collapse isOpened={isOpen}>
         <div className="pt-6">
           <div
-            className="text-gray-700 timeline-entry-content p-6 bg-neutral-50 border border-neutral-100 rounded-lg"
+            className="text-gray-700 experience-entry-content p-6 bg-neutral-50 border border-neutral-100 rounded-lg"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
           />
         </div>

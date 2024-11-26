@@ -11,7 +11,7 @@ export default async function Skills() {
   const data = await fetchData(endpoint);
 
   const fallbackSkills = {
-    heading: 'HEADING',
+    heading: 'SKILLS',
     lead: 'Lead',
     chartData: [{ "name": "Frontend", "children": [{ "name": "JavaScript", "value": 1 }] }, { "name": "Backend", "children": [{ "name": "Node.js", "value": 1 }] }],
     ariaLabelSSR: 'Server-side rendered chart for skills.',

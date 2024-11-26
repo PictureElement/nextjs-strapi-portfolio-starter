@@ -9,7 +9,7 @@ export default async function Faq() {
   const data = await fetchData(endpoint);
 
   const fallbackFaq = {
-    heading: 'HEADING',
+    heading: 'FAQ',
     lead: 'Lead',
     faqList: [
       {

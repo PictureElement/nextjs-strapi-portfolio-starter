@@ -8,16 +8,16 @@ summary {
   @apply focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400;
 }
 
-/* Timeline */
-.timeline-entry-content ul {
+/* Experience */
+.experience-entry-content ul {
   @apply list-disc pl-4;
 }
 
-.timeline-entry-content li {
+.experience-entry-content li {
   @apply mb-3;
 }
 
-.timeline-entry-content li:last-child {
+.experience-entry-content li:last-child {
   @apply mb-0;
 }
 

@@ -10,14 +10,19 @@ export default async function Services() {
   const data = await fetchData(endpoint);
 
   const fallbackServices = {
-    heading: 'HEADING',
+    heading: 'SERVICES',
     lead: 'Lead',
     serviceList: [
       {
         id: 1,
         title: 'Title',
         description: 'Description'
-      }
+      },
+      {
+        id: 2,
+        title: 'Title',
+        description: 'Description'
+      },
     ]
   };
 

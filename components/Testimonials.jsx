@@ -9,7 +9,7 @@ export default async function Testimonials() {
   const data = await fetchData(endpoint);
 
   const fallbackTestimonials = {
-    heading: 'HEADING',
+    heading: 'TESTIMONIALS',
     lead: 'Lead',
     testimonialList: [
       {
