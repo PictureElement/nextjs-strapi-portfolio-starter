@@ -22,8 +22,8 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
           <Image
             className='rounded-full border border-neutral-300'
             src={companyLogoUrl}
-            width={136}
-            height={136}
+            width={48}
+            height={48}
             alt={companyLogoAlternativeText}
           />
         </a>

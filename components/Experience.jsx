@@ -21,7 +21,7 @@ export default async function Experience() {
         location: "Location",
         content: "Content",
         companyLogo: {
-          url: 'https://placehold.co/136x136.png?text=136x136',
+          url: 'https://placehold.co/48x48.png?text=48x48',
           alternativeText: '...'
         }
       },
@@ -34,7 +34,7 @@ export default async function Experience() {
         location: "Location",
         content: "Content",
         companyLogo: {
-          url: 'https://placehold.co/136x136.png?text=136x136',
+          url: 'https://placehold.co/48x48.png?text=48x48',
           alternativeText: '...'
         }
       },

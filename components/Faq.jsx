@@ -16,6 +16,11 @@ export default async function Faq() {
         id: 1,
         question: 'Question',
         answer: 'Answer'
+      },
+      {
+        id: 2,
+        question: 'Question',
+        answer: 'Answer'
       }
     ]
   };
