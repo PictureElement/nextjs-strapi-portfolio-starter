@@ -5,13 +5,18 @@ const post1 = {
   excerpt: 'We just released Headless UI v2.1 for React, which dramatically simplifies our transition APIs and adds support for rendering multiple dialogs as siblings.'
 }
 
-export default function PostList() {
+export default function PostList({ postList }) {
   console.log("Hello from PostList");
   return (
     <div className="space-y-6">
-      <PostEntry {...post1} />
-      <PostEntry {...post1} />
-      <PostEntry {...post1} />
+      {postList.map((entry) => (
+        <PostEntry
+          key={entry.id}
+          title={entry.title}
+          excerpt={entry.excerpt}
+          slug={entry.slug}
+        />
+      ))}
     </div>
   );
 }

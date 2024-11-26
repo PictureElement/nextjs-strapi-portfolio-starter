@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
-export default function PostEntry({ title, excerpt }) {
+export default function PostEntry({ title, excerpt, slug }) {
   console.log("Hello from PostEntry");
   return (
     <article className="relative p-4 py-6 group">
@@ -8,7 +8,7 @@ export default function PostEntry({ title, excerpt }) {
       <h3 className="text-gray-900 font-medium text-xl mb-2 relative">{title}</h3>
       <p className="text-gray-700 line-clamp-2 mb-3 relative">{excerpt}</p>
       <a
-        href="#"
+        href={slug}
         className="
           group
           flex
