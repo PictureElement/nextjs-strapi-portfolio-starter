@@ -1,7 +1,6 @@
 import SectionHeader from "@/components/SectionHeader";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
 import PostList from "@/components/PostList";
-import CallToAction from "@/components/CallToAction";
 import BtnSecondary from "@/components/BtnSecondary";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -43,9 +42,6 @@ export default function Home() {
         </section>
 
         <Faq />
-
-        <CallToAction heading="Elevate your business with expert web solutions" text="If you've made it down this far why not send me an email? I'm currently booking in new projects starting from December so don't miss out!" />
-
       </main>
     </>
   );
