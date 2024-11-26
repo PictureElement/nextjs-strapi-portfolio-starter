@@ -15,7 +15,7 @@ export default async function Hero() {
 
   const fallbackHero = {
     greeting: null,
-    title: 'Title',
+    headline: 'Headline',
     supportiveText: 'Supportive text',
     primaryButton: null,
     secondaryButton: null,
@@ -23,9 +23,9 @@ export default async function Hero() {
 
   const hero = data?.hero || fallbackHero;
 
-  const words = hero.title.trim()
-    ? hero.title.trim().split(/\s+/).map((word) => ({ text: word, className: "" }))
-    : [{ text: 'Title', className: '' }];
+  const words = hero.headline.trim()
+    ? hero.headline.trim().split(/\s+/).map((word) => ({ text: word, className: "" }))
+    : [{ text: 'Headline', className: '' }];
 
   return (
     <section className="bg-primary-100 relative">

@@ -9,8 +9,8 @@ export default async function Testimonials() {
   const data = await fetchData(endpoint);
 
   const fallbackTestimonials = {
-    heading: 'TESTIMONIALS',
-    lead: 'Lead',
+    headline: 'TESTIMONIALS',
+    supportiveText: 'Supportive Text',
     testimonialList: [
       {
         id: 1,
@@ -45,7 +45,7 @@ export default async function Testimonials() {
     <section className="bg-neutral-50 py-24 relative">
       <ShapeDivider />
       <div className="relative mx-auto max-w-4xl px-4">
-        <SectionHeader heading={testimonials.heading} lead={testimonials.lead} />
+        <SectionHeader headline={testimonials.headline} supportiveText={testimonials.supportiveText} />
         <TestimonialList testimonialList={testimonials.testimonialList} />
       </div>
     </section >

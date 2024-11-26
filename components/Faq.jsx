@@ -9,8 +9,8 @@ export default async function Faq() {
   const data = await fetchData(endpoint);
 
   const fallbackFaq = {
-    heading: 'FAQ',
-    lead: 'Lead',
+    headline: 'FAQ',
+    supportiveText: 'Supportive Text',
     faqList: [
       {
         id: 1,
@@ -25,7 +25,7 @@ export default async function Faq() {
   return (
     <section className="bg-neutral-50 py-24">
       <div className="mx-auto max-w-4xl px-4">
-        <SectionHeader heading={faq.heading} lead={faq.lead} />
+        <SectionHeader headline={faq.headline} supportiveText={faq.supportiveText} />
         <FaqList faqList={faq.faqList} />
       </div>
     </section>

@@ -1,7 +1,7 @@
 import BtnLight from "./BtnLight";
 import { fetchData } from "@/lib/utils";
 
-export default async function CallToAction({ heading, text }) {
+export default async function CallToAction() {
   console.log("Hello from CallToAction");
 
   const endpoint = "/api/global?populate[cta][populate]=*";

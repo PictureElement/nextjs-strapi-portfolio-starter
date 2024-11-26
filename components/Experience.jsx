@@ -9,8 +9,8 @@ export default async function Experience() {
   const data = await fetchData(endpoint);
 
   const fallbackExperience = {
-    heading: 'EXPERIENCE',
-    lead: 'Lead',
+    headline: 'EXPERIENCE',
+    supportiveText: 'Supportive Text',
     experienceList: [
       {
         id: 1,
@@ -45,7 +45,7 @@ export default async function Experience() {
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-24">
-      <SectionHeader heading={experience.heading} lead={experience.lead} />
+      <SectionHeader headline={experience.headline} supportiveText={experience.supportiveText} />
       <ExperienceList experienceList={experience.experienceList} />
     </section>
   )

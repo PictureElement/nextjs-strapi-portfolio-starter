@@ -17,8 +17,8 @@ export default async function About() {
       width: '862',
       height: '862',
     },
-    heading: 'ABOUT',
-    lead: 'Lead',
+    headline: 'ABOUT',
+    supportiveText: 'Supportive Text',
     content: 'Content'
   };
 
@@ -32,7 +32,7 @@ export default async function About() {
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-24">
-      <SectionHeader heading={about.heading} lead={about.lead} />
+      <SectionHeader headline={about.headline} supportiveText={about.supportiveText} />
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
         <div className="relative z-10">
           <Image

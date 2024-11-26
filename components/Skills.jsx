@@ -11,8 +11,8 @@ export default async function Skills() {
   const data = await fetchData(endpoint);
 
   const fallbackSkills = {
-    heading: 'SKILLS',
-    lead: 'Lead',
+    headline: 'SKILLS',
+    supportiveText: 'Supportive Text',
     chartData: [{ "name": "Frontend", "children": [{ "name": "JavaScript", "value": 1 }] }, { "name": "Backend", "children": [{ "name": "Node.js", "value": 1 }] }],
     ariaLabelSSR: 'Server-side rendered chart for skills.',
     ariaLabelCSR: 'Client-side interactive chart for skills.'
@@ -24,7 +24,7 @@ export default async function Skills() {
     <section className="bg-neutral-50 py-24 relative">
       <ShapeDivider />
       <div className="relative mx-auto max-w-4xl px-4">
-        <SectionHeader heading={skills.heading} lead={skills.lead} />
+        <SectionHeader headline={skills.headline} supportiveText={skills.supportiveText} />
         <Chart data={skills.chartData} ariaLabelSSR={skills.ariaLabelSSR} ariaLabelCSR={skills.ariaLabelCSR}>
           <ChartSSR data={skills.chartData} />
         </Chart>

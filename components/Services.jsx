@@ -10,8 +10,8 @@ export default async function Services() {
   const data = await fetchData(endpoint);
 
   const fallbackServices = {
-    heading: 'SERVICES',
-    lead: 'Lead',
+    headline: 'SERVICES',
+    supportiveText: 'Supportive Text',
     serviceList: [
       {
         id: 1,
@@ -32,7 +32,7 @@ export default async function Services() {
     <section className="bg-neutral-50 py-24 relative">
       <ShapeDivider />
       <div className="relative mx-auto max-w-4xl px-4">
-        <SectionHeader heading={services.heading} lead={services.lead} />
+        <SectionHeader headline={services.headline} supportiveText={services.supportiveText} />
         <ServiceList serviceList={services.serviceList} defaultOpen={false} />
       </div>
     </section>
