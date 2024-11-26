@@ -1,18 +1,15 @@
 import SectionHeader from "@/components/SectionHeader";
-import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import Timeline from "@/components/Timeline";
 import ProjectsCarousel from "@/components/ProjectsCarousel";
 import PostList from "@/components/PostList";
-import FaqList from "@/components/FaqList";
 import CallToAction from "@/components/CallToAction";
 import BtnSecondary from "@/components/BtnSecondary";
-import ShapeDivider from "@/components/ShapeDivider";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import Faq from "@/components/Faq";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
@@ -34,16 +31,7 @@ export default function Home() {
 
         <Skills />
         <Experience />
-
-
-        {/* Testimonials */}
-        <section className="bg-neutral-50 py-24 relative">
-          <ShapeDivider />
-          <div className="relative mx-auto max-w-4xl px-4">
-            <SectionHeader heading="KIND WORDS" lead="Testimonials from clients and colleagues" />
-            <TestimonialsCarousel />
-          </div>
-        </section>
+        <Testimonials />
 
         {/* Blog */}
         <section className="mx-auto max-w-4xl px-4 py-24">
