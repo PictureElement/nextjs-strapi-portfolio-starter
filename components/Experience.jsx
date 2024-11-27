@@ -1,6 +1,7 @@
 import SectionHeader from "./SectionHeader";
 import ExperienceList from "./ExperienceList";
 import { fetchData } from "@/lib/utils";
+import ShapeDivider from "./ShapeDivider";
 
 export default async function Experience() {
   console.log("Hello from Experience");
@@ -44,9 +45,12 @@ export default async function Experience() {
   const experience = data?.experience || fallbackExperience;
 
   return (
-    <section className="mx-auto max-w-4xl px-4 py-24">
-      <SectionHeader headline={experience.headline} supportiveText={experience.supportiveText} />
-      <ExperienceList experienceList={experience.experienceList} />
+    <section className="bg-white py-24 relative">
+      <ShapeDivider className="fill-gray-50" />
+      <div className="relative mx-auto max-w-4xl px-4">
+        <SectionHeader headline={experience.headline} supportiveText={experience.supportiveText} />
+        <ExperienceList experienceList={experience.experienceList} />
+      </div>
     </section>
   )
 }

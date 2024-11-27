@@ -36,7 +36,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
       <Collapse isOpened={isOpen}>
         <div className="pt-6">
           <div
-            className="text-gray-700 experience-entry-content p-6 bg-neutral-50 border border-neutral-100 rounded-lg"
+            className="text-gray-700 experience-entry-content p-6 bg-neutral-50 border border-neutral-100 rounded-2xl"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
           />
         </div>

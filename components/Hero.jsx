@@ -30,8 +30,8 @@ export default async function Hero() {
   return (
     <section className="bg-primary-100 relative">
       <AnimatedGradient />
-      <ShapeDivider />
-      <div className="relative z-50 mx-auto max-w-4xl px-4 pt-40 pb-24 sm:pt-48 sm:pb-48 text-center">
+      <ShapeDivider className="fill-white" />
+      <div className="relative z-50 mx-auto max-w-4xl px-4 pt-[168px] pb-24 sm:pt-48 sm:pb-[120px] text-center">
         {hero.greeting && (
           <p className={`${lobster.className} font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4`}>{hero.greeting}</p>
         )}

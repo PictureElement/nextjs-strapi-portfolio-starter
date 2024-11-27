@@ -49,3 +49,12 @@ summary {
 .announcement-content a {
   @apply font-semibold border-b border-primary-400 hover:border-b-2
 }
+
+/* Banner */
+.banner {
+  background-color: #BAE1FD;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cg %3E%3Cpolygon fill='%23c5e6fd' points='1600 160 0 460 0 350 1600 50'/%3E%3Cpolygon fill='%23d0eafe' points='1600 260 0 560 0 450 1600 150'/%3E%3Cpolygon fill='%23daeffe' points='1600 360 0 660 0 550 1600 250'/%3E%3Cpolygon fill='%23e5f3ff' points='1600 460 0 760 0 650 1600 350'/%3E%3Cpolygon fill='%23F0F8FF' points='1600 800 0 800 0 750 1600 450'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+}

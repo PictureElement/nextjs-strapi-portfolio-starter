@@ -4,9 +4,9 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 export default function ProjectEntry({ title, excerpt, thumbnailUrl }) {
   console.log("Hello from ProjectEntry");
   return (
-    <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-lg border border-neutral-100 relative">
+    <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-2xl border border-neutral-100 relative">
       <Image
-        className="rounded-t-lg"
+        className="rounded-t-2xl"
         src={thumbnailUrl}
         alt="..."
         width={346}
@@ -25,7 +25,7 @@ export default function ProjectEntry({ title, excerpt, thumbnailUrl }) {
           text-primary-700
           "
         >
-          <span className="absolute inset-y-0 inset-x-0 rounded-lg"></span>
+          <span className="absolute inset-y-0 inset-x-0 rounded-2xl"></span>
           Read more
           <span className="sr-only">, about {title}</span>
           <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
