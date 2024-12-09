@@ -1,12 +1,12 @@
 import ProjectEntry from "./ProjectEntry";
 
-export default function ProjectList({ projectList }) {
+export default function ProjectGrid({ projects }) {
 
-  const baseUrl = process.env.STRAPI_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
   return (
     <div className="grid grid-cols-2 gap-6">
-      {projectList.map((entry) => {
+      {projects.map((entry) => {
         const imageUrl = `${baseUrl}${entry.featuredImage.url}`;
 
         return (

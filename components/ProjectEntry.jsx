@@ -18,7 +18,7 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
         <h3 className="text-gray-900 font-medium text-xl sm:text-2xl">{title}</h3>
         <p className="text-gray-700 mt-2 mb-4">{excerpt}</p>
         <Link
-          href={`/portfolio/${slug}/`}
+          href={`/projects/${slug}/`}
           className="
             group
             flex

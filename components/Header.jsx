@@ -30,7 +30,7 @@ export default async function Header() {
 
   const header = data?.header || fallbackHeader;
 
-  const baseUrl = process.env.STRAPI_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
   const imageUrl = header.logo.url.startsWith('https')
     ? header.logo.url

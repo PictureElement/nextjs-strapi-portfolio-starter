@@ -7,7 +7,7 @@ import ShapeDivider from "./ShapeDivider";
 export default async function LatestPosts() {
   console.log("Hello from LatestPosts");
 
-  // Post List (3 Latest Posts)
+  // Latest three posts
   const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[pageSize]=3";
 
   // Headline and Supportive Text
