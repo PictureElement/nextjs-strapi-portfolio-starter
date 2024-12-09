@@ -15,7 +15,7 @@ export default async function Page() {
   return (
     <>
       <main className="overflow-hidden relative">
-        <Banner />
+        <Banner headline="Blog" supportiveText="News, views and digital ramblings" />
         <section className="mx-auto max-w-4xl px-4 py-24">
           {postList ? (
             <>
