@@ -39,7 +39,10 @@ export default async function Header() {
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
       <div className="flex h-[72px] items-center gap-8 px-4">
-        <a className="block text-primary-700" href="/">
+        <Link
+          href="/"
+          className="block text-primary-700"
+        >
           <span className="sr-only">Home</span>
           <Image
             src={imageUrl}
@@ -48,7 +51,7 @@ export default async function Header() {
             width="44"
             height="44"
           />
-        </a>
+        </Link>
 
         <div className="flex flex-1 items-center justify-end sm:justify-between">
 

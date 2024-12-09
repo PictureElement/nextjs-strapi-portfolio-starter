@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativeText, title, excerpt, slug }) {
@@ -16,21 +17,21 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
       <div className="p-6">
         <h3 className="text-gray-900 font-medium text-xl sm:text-2xl">{title}</h3>
         <p className="text-gray-700 mt-2 mb-4">{excerpt}</p>
-        <a
-          href={slug}
+        <Link
+          href={`/portfolio/${slug}/`}
           className="
             group
             flex
             font-semibold
             leading-none
-          text-primary-700
+            text-primary-700
           "
         >
           <span className="absolute inset-y-0 inset-x-0 rounded-2xl"></span>
           Read more
           <span className="sr-only">, about {title}</span>
           <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
-        </a>
+        </Link>
       </div>
     </article>
   );

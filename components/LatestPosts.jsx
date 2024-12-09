@@ -8,7 +8,8 @@ export default async function LatestPosts() {
   console.log("Hello from LatestPosts");
 
   // Post List (3 Latest Posts)
-  const endpoint1 = "/api/posts?sort=publishedAt:desc&pagination[pageSize]=3";
+  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[pageSize]=3";
+
   // Headline and Supportive Text
   const endpoint2 = "/api/homepage?populate[latestPosts][populate]=*";
 

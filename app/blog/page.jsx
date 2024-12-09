@@ -4,13 +4,13 @@ import { fetchData } from "@/lib/utils";
 
 export default async function Page() {
   // Post List (3 Latest Posts)
-  const endpoint1 = "/api/posts?sort=publishedAt:desc&pagination[pageSize]=3";
+  const endpoint = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[pageSize]=3";
 
-  const [data1] = await Promise.all([
-    fetchData(endpoint1),
+  const [data] = await Promise.all([
+    fetchData(endpoint),
   ]);
 
-  const postList = data1?.length > 0 ? data1 : null;
+  const postList = data?.length > 0 ? data : null;
 
   return (
     <>

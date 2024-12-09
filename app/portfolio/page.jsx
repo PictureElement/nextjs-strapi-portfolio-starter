@@ -5,7 +5,7 @@ import { fetchData } from "@/lib/utils";
 
 export default async function Page() {
   // Project List (3 Latest Projects)
-  const endpoint = "/api/projects?[populate]=*&sort=publishedAt:desc&pagination[pageSize]=3";
+  const endpoint = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&sort=publishedAt:desc&pagination[pageSize]=3";
 
   const [data] = await Promise.all([
     fetchData(endpoint),
