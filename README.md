@@ -3,7 +3,11 @@ RSS: see tailwind blog, RSS on the banner https://pepelsbey.dev/articles/, RSS o
 Book a call with Cal.: see Gittings studdio
 PostEntry and social icons focus and focus within
 Read more about <Image> and setup responsive images with srcset and sizes
-Add a bredcrump component
+Add a breadcrump component (use Hyper UI)
 Add date to post card.
 Add image instruction (size, aspect ratio) in Strapi.
 replace <a> with <Link />
+Show Hero headline when JS is disabled
+Add share buttons to post and single portfolio page
+Integrate Strapi and Next.js into the same project directory/repository.
+Implement pagination to Blog and Projects (use Hyper UI)

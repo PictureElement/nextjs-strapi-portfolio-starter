@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
+    "@tailwindcss/typography": "^0.5.15",
     "clsx": "^2.1.1",
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",

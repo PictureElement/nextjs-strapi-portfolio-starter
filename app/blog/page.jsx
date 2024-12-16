@@ -3,12 +3,10 @@ import PostList from "@/components/PostList";
 import { fetchData } from "@/lib/utils";
 
 export default async function Page() {
-  // Post List (3 Latest Posts)
+  // Get the latest posts
   const endpoint = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[pageSize]=3";
 
-  const [data] = await Promise.all([
-    fetchData(endpoint),
-  ]);
+  const data = await fetchData(endpoint);
 
   const postList = data?.length > 0 ? data : null;
 
