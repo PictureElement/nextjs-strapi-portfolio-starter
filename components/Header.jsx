@@ -45,6 +45,7 @@ export default async function Header() {
         >
           <span className="sr-only">Home</span>
           <Image
+            priority
             src={imageUrl}
             alt={header.logo.alternativeText}
             className="rounded-full"

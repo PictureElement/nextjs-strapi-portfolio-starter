@@ -43,6 +43,7 @@ export default function TestimonialList({ testimonialList }) {
                 role={entry.role}
                 company={entry.company}
                 companyWebsite={entry.companyWebsite}
+                className="text-center"
               />
             </div>
           ))}

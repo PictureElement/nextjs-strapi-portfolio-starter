@@ -39,6 +39,7 @@ export default async function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div className="relative z-10">
             <Image
+              priority
               className="w-full object-cover rounded-t-2xl lg:rounded-2xl border border-primary-100"
               src={imageUrl}
               alt={about.profileImage.alternativeText}

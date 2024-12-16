@@ -11,3 +11,5 @@ Show Hero headline when JS is disabled
 Add share buttons to post and single portfolio page
 Integrate Strapi and Next.js into the same project directory/repository.
 Implement pagination to Blog and Projects (use Hyper UI)
+Make Article page date dynamic
+Configiure priority and loading on Image components.

@@ -7,7 +7,7 @@ export default function BackTo({
   ...rest
 }) {
   return (
-    <div class="px-4 py-10">
+    <div className="px-4 py-10">
       <Link
         href={url}
         {...rest}

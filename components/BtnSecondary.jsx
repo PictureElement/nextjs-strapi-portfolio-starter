@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
+import { ArrowUpRightIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 
 export default function BtnSecondary({
@@ -34,7 +35,11 @@ export default function BtnSecondary({
       {...rest}
     >
       {label}
-      <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+      {rel === undefined ? (
+        <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+      ) : (
+        <ArrowUpRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+      )}
     </Link>
   );
 }
