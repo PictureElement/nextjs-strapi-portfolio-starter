@@ -7,7 +7,7 @@ export default function ProjectCarousel({ projects }) {
   console.log("Hello from ProjectCarousel");
   const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 1 });
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
 
   return (
     <div ref={emblaRef}>

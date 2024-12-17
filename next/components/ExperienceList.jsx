@@ -3,7 +3,7 @@ import ExperienceEntry from "./ExperienceEntry";
 export default function ExperienceList({ experienceList }) {
   console.log("Hello from ExperienceList");
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
 
   return (
     <ol className="relative border-s border-neutral-300 ml-6">

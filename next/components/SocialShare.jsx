@@ -16,7 +16,7 @@ const socialIcons = {
 };
 
 export default function SocialShare() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_WEBSITE;
   const pathname = usePathname();
   const fullUrl = `${baseUrl}${pathname}`;
 

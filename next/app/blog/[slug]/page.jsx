@@ -13,7 +13,7 @@ export default async function Page({ params }) {
 
   const post = data[0];
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
   const imageUrl = `${baseUrl}${post.featuredImage.url}`;
 
   const content = (

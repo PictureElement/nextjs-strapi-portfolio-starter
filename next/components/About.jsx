@@ -25,7 +25,7 @@ export default async function About() {
 
   const about = data?.about || fallbackAbout;
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
 
   const imageUrl = about.profileImage.url.startsWith('https')
     ? about.profileImage.url
