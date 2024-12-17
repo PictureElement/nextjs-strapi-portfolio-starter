@@ -1,0 +1,82 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "singularName": "homepage",
+    "pluralName": "homepages",
+    "displayName": "Homepage",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "seo.metadata",
+      "required": true
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.hero",
+      "required": true
+    },
+    "featuredProjects": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.portfolio",
+      "required": true
+    },
+    "testimonials": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.testimonials",
+      "required": true
+    },
+    "experience": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.experience",
+      "required": true
+    },
+    "about": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.about",
+      "required": true
+    },
+    "skills": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.skills",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "default": "Homepage",
+      "private": true,
+      "required": true
+    },
+    "services": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.services",
+      "required": true
+    },
+    "faq": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.faq",
+      "required": true
+    },
+    "latestPosts": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.posts",
+      "required": true
+    }
+  }
+}

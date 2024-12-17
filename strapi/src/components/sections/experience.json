@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_sections_experiences",
+  "info": {
+    "displayName": "Experience",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true
+    },
+    "supportiveText": {
+      "type": "string",
+      "required": true
+    },
+    "experienceList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.experience",
+      "required": true
+    }
+  }
+}

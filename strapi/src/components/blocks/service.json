@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_blocks_services",
+  "info": {
+    "displayName": "Service Entry",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
