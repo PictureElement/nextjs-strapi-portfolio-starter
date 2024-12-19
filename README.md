@@ -47,3 +47,24 @@ tar -czvf archive_name.tar.gz file_or_directory
 Upgrade Strapi to the latest version
 
 npx @strapi/upgrade latest
+
+
+
+
+
+
+
+
+
+
+Make sure the target Strapi instance has the same schema as the src:
+
+1. Deploy Strapi for the first time. Don't register.
+2. Stop the container/service.
+3. Identify Strapi srv volume name under Storages. In my case is vg4k80ks8ks800coog48ccg0_strapi-src
+4. Access the Volume on the Host Server: cd /var/lib/docker/volumes/vg4k80ks8ks800coog48ccg0_strapi-src/_data/
+5. Remove Old Files: rm -rf *
+6. Copy new files:
+scp -r /path/to/local/src/* root@49.13.221.53:/var/lib/docker/volumes/vg4k80ks8ks800coog48ccg0_strapi-src/_data/
+7. Restart the Application in Coolify
+

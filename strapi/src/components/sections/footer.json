@@ -50,17 +50,17 @@
     "phone": {
       "type": "string",
       "required": true,
-      "default": "+35799111844"
+      "default": "+15417543010"
     },
     "email": {
       "type": "email",
-      "default": "marios.sofokleous@yandex.com",
+      "default": "email@example.com",
       "required": true
     },
     "copyright": {
       "type": "text",
       "required": true,
-      "default": "© 2024 Marios Sofokleous. All rights reserved."
+      "default": "© [Year] [Your Company Name]. All rights reserved."
     },
     "privacyPolicy": {
       "type": "component",
