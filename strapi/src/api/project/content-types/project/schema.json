@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Project",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true
+    },
+    "featuredImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "scopes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::scope.scope",
+      "mappedBy": "projects"
+    },
+    "tools": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tool.tool",
+      "inversedBy": "projects"
+    },
+    "demoUrl": {
+      "type": "string"
+    },
+    "repoUrl": {
+      "type": "string"
+    },
+    "designFile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

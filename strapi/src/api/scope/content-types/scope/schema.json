@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scopes",
+  "info": {
+    "singularName": "scope",
+    "pluralName": "scopes",
+    "displayName": "Scope",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "inversedBy": "scopes"
+    }
+  }
+}

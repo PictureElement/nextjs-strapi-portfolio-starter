@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_sections_faqs",
+  "info": {
+    "displayName": "FAQ",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true
+    },
+    "supportiveText": {
+      "type": "string",
+      "required": true
+    },
+    "faqList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.faq",
+      "required": true
+    }
+  }
+}

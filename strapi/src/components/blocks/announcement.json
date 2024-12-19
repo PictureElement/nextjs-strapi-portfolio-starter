@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_blocks_announcements",
+  "info": {
+    "displayName": "Announcement",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": false
+    }
+  }
+}
