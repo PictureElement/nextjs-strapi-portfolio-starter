@@ -22,6 +22,87 @@ export interface SeoMetadata extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksTestimonial extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_testimonials';
+  info: {
+    displayName: 'Testimonial Entry';
+    description: '';
+  };
+  attributes: {
+    statement: Schema.Attribute.Text & Schema.Attribute.Required;
+    author: Schema.Attribute.String & Schema.Attribute.Required;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
+    company: Schema.Attribute.String & Schema.Attribute.Required;
+    companyWebsite: Schema.Attribute.String;
+  };
+}
+
+export interface BlocksSocialChannel extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_social_channels';
+  info: {
+    displayName: 'Social Channel';
+    description: '';
+  };
+  attributes: {
+    channel: Schema.Attribute.Enumeration<['GitHub', 'LinkedIn', 'X']> &
+      Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksService extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_services';
+  info: {
+    displayName: 'Service Entry';
+    description: '';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksFaq extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_faqs';
+  info: {
+    displayName: 'FAQ Entry';
+    description: '';
+  };
+  attributes: {
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+    answer: Schema.Attribute.RichText & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksExperience extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_experiences';
+  info: {
+    displayName: 'Experience Entry';
+    description: '';
+  };
+  attributes: {
+    companyLogo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
+    company: Schema.Attribute.String & Schema.Attribute.Required;
+    companyUrl: Schema.Attribute.String;
+    duration: Schema.Attribute.String & Schema.Attribute.Required;
+    location: Schema.Attribute.String & Schema.Attribute.Required;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksAnnouncement extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_announcements';
+  info: {
+    displayName: 'Announcement';
+    description: '';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+  };
+}
+
 export interface SectionsTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_sections_testimonials';
   info: {
@@ -230,87 +311,6 @@ export interface SectionsAbout extends Struct.ComponentSchema {
   };
 }
 
-export interface BlocksTestimonial extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_testimonials';
-  info: {
-    displayName: 'Testimonial Entry';
-    description: '';
-  };
-  attributes: {
-    statement: Schema.Attribute.Text & Schema.Attribute.Required;
-    author: Schema.Attribute.String & Schema.Attribute.Required;
-    role: Schema.Attribute.String & Schema.Attribute.Required;
-    company: Schema.Attribute.String & Schema.Attribute.Required;
-    companyWebsite: Schema.Attribute.String;
-  };
-}
-
-export interface BlocksSocialChannel extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_social_channels';
-  info: {
-    displayName: 'Social Channel';
-    description: '';
-  };
-  attributes: {
-    channel: Schema.Attribute.Enumeration<['GitHub', 'LinkedIn', 'X']> &
-      Schema.Attribute.Required;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
-    label: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
-export interface BlocksService extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_services';
-  info: {
-    displayName: 'Service Entry';
-    description: '';
-  };
-  attributes: {
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
-export interface BlocksFaq extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_faqs';
-  info: {
-    displayName: 'FAQ Entry';
-    description: '';
-  };
-  attributes: {
-    question: Schema.Attribute.String & Schema.Attribute.Required;
-    answer: Schema.Attribute.RichText & Schema.Attribute.Required;
-  };
-}
-
-export interface BlocksExperience extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_experiences';
-  info: {
-    displayName: 'Experience Entry';
-    description: '';
-  };
-  attributes: {
-    companyLogo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    role: Schema.Attribute.String & Schema.Attribute.Required;
-    company: Schema.Attribute.String & Schema.Attribute.Required;
-    companyUrl: Schema.Attribute.String;
-    duration: Schema.Attribute.String & Schema.Attribute.Required;
-    location: Schema.Attribute.String & Schema.Attribute.Required;
-    content: Schema.Attribute.RichText & Schema.Attribute.Required;
-  };
-}
-
-export interface BlocksAnnouncement extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_announcements';
-  info: {
-    displayName: 'Announcement';
-    description: '';
-  };
-  attributes: {
-    content: Schema.Attribute.RichText;
-  };
-}
-
 export interface BasicButton extends Struct.ComponentSchema {
   collectionName: 'components_basic_buttons';
   info: {
@@ -333,6 +333,12 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'seo.metadata': SeoMetadata;
+      'blocks.testimonial': BlocksTestimonial;
+      'blocks.social-channel': BlocksSocialChannel;
+      'blocks.service': BlocksService;
+      'blocks.faq': BlocksFaq;
+      'blocks.experience': BlocksExperience;
+      'blocks.announcement': BlocksAnnouncement;
       'sections.testimonials': SectionsTestimonials;
       'sections.skills': SectionsSkills;
       'sections.services': SectionsServices;
@@ -346,12 +352,6 @@ declare module '@strapi/strapi' {
       'sections.experience': SectionsExperience;
       'sections.call-to-action': SectionsCallToAction;
       'sections.about': SectionsAbout;
-      'blocks.testimonial': BlocksTestimonial;
-      'blocks.social-channel': BlocksSocialChannel;
-      'blocks.service': BlocksService;
-      'blocks.faq': BlocksFaq;
-      'blocks.experience': BlocksExperience;
-      'blocks.announcement': BlocksAnnouncement;
       'basic.button': BasicButton;
     }
   }
