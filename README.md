@@ -41,3 +41,9 @@ scp /path/to/local/file username@remote_host:/path/to/remote/directory
 
 
 tar -czvf archive_name.tar.gz file_or_directory
+
+
+
+Upgrade Strapi to the latest version
+
+npx @strapi/upgrade latest
