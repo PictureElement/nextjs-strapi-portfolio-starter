@@ -21,7 +21,7 @@ export default async function CallToAction() {
   const cta = data?.cta || fallbackCallToAction;
 
   return (
-    <section className="bg-primary-700 bg-dot-white/20 relative">
+    <section className="bg-primary-900 bg-dot-white/20 relative">
       <div className="mx-auto max-w-4xl px-4 py-24 text-center">
         <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">{cta.headline}</h1>
         <p className="text-white/75 text-lg mt-6">{cta.supportiveText}</p>
