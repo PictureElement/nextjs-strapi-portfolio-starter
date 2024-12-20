@@ -8,7 +8,7 @@ export default async function Page() {
       <Banner headline="Contact" supportiveText="If you're interested in exploring the digital possibilities that X Studio has to offer, feel free to contact us today." />
       <section className="mx-auto max-w-4xl px-4 py-24">
         <div className="border border-neutral-100 bg-neutral-50 p-6 sm:p-14 rounded-2xl">
-          <h2 className="text-gray-900 text-3xl sm:text-4xl tracking-tight font-extrabold mb-6 sm:mb-10 text-center">Let's Build Something Great Together.</h2>
+          <h2 className="text-gray-900 text-3xl sm:text-4xl tracking-tight font-extrabold mb-6 sm:mb-10 text-center">Let&apos;s Build Something Great Together.</h2>
           <form className="flex flex-col gap-6 sm:gap-6">
             <label className="relative block border border-neutral-300 bg-transparent focus-within:border-primary-700 rounded-lg">
               <input
