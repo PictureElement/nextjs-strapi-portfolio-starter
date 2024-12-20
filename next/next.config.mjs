@@ -1,24 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   trailingSlash: true,
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '1337', // Default Strapi port for local development
-        pathname: '/uploads/**', // Adjust to match your local Strapi image URL
+        protocol: new URL(process.env.NEXT_PUBLIC_STRAPI).protocol.replace(':', ''),
+        hostname: new URL(process.env.NEXT_PUBLIC_STRAPI).hostname,
+        port: new URL(process.env.NEXT_PUBLIC_STRAPI).port || '',
+        pathname: '/uploads/**',
       },
       {
         protocol: 'https',
         hostname: 'placehold.co',
         pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'msof.me',
-        pathname: '/storage/**',
       },
     ],
   },
