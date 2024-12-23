@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <>
       <main className="overflow-hidden relative">
-        <Banner headline="Blog" supportiveText="News, views and digital ramblings" />
+        <Banner headline="Pulsify Blog" supportiveText="Cool stuff about web development: Jamstack, headless, CMS, migrations, integrations, and many more!" />
         <section className="mx-auto max-w-4xl px-4 py-24">
           {postList ? (
             <>
