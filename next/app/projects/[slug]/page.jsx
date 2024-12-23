@@ -6,12 +6,17 @@ import BackTo from "@/components/BackTo";
 import BtnPrimary from "@/components/BtnPrimary";
 import BtnSecondary from "@/components/BtnSecondary";
 import SocialShare from "@/components/SocialShare";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
   // Get project by slug
   const endpoint = `/api/projects?filters[slug]=${params.slug}&populate=*`;
 
   const data = await fetchData(endpoint);
+
+  if (!data || data.length === 0) {
+    notFound();
+  }
 
   const project = data[0];
 

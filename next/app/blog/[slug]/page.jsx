@@ -4,12 +4,17 @@ import { marked } from "marked";
 import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
+import { notFound } from "next/navigation";
 
 export default async function Page({ params }) {
   // Get post by slug
   const endpoint = `/api/posts?filters[slug]=${params.slug}&populate=*`;
 
   const data = await fetchData(endpoint);
+
+  if (!data || data.length === 0) {
+    notFound();
+  }
 
   const post = data[0];
 
