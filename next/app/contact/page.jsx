@@ -16,7 +16,7 @@ export default async function Page() {
                 placeholder="Business Email"
                 className="block peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-xl"
               />
-              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
+              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
                 Business Email
               </span>
             </label>
@@ -26,7 +26,7 @@ export default async function Page() {
                 placeholder="Tell us about your project"
                 className="block peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 text-xl"
               ></textarea>
-              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-sm transition-all peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-translate-y-1/2  peer-focus:text-base peer-focus:text-primary-700">
+              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-translate-y-1/2 peer-focus:text-base peer-focus:text-primary-700">
                 Tell us about your project
               </span>
             </label>
