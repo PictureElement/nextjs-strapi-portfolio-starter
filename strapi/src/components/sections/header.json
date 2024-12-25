@@ -25,6 +25,14 @@
       "repeatable": false,
       "component": "basic.button",
       "required": true
+    },
+    "logomark": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }

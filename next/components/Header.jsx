@@ -13,6 +13,10 @@ export default async function Header() {
   const fallbackHeader = {
     logo: {
       alternativeText: "...",
+      url: "https://placehold.co/212x44.png?text=212x44",
+    },
+    logomark: {
+      alternativeText: "...",
       url: "https://placehold.co/44x44.png?text=44x44",
     },
     navItems: [
@@ -32,9 +36,13 @@ export default async function Header() {
 
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
 
-  const imageUrl = header.logo.url.startsWith('https')
+  const logoUrl = header.logo.url.startsWith('https')
     ? header.logo.url
     : `${baseUrl}${header.logo.url}`;
+
+  const logomarkUrl = header.logomark.url.startsWith('https')
+    ? header.logomark.url
+    : `${baseUrl}${header.logomark.url}`;
 
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
@@ -46,17 +54,25 @@ export default async function Header() {
           <span className="sr-only">Home</span>
           <Image
             priority
-            src={imageUrl}
+            src={logoUrl}
             alt={header.logo.alternativeText}
-            className="rounded-full"
+            className="hidden md:block"
+            width="212"
+            height="44"
+          />
+          <Image
+            priority
+            src={logomarkUrl}
+            alt={header.logomark.alternativeText}
+            className="md:hidden"
             width="44"
             height="44"
           />
         </Link>
 
-        <div className="flex flex-1 items-center justify-end sm:justify-between">
+        <div className="flex flex-1 items-center justify-end md:justify-between">
 
-          <nav aria-label="Global" className="hidden sm:block">
+          <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
               {header.navItems.map((item) => (
                 <li key={item.id}>
@@ -87,7 +103,7 @@ export default async function Header() {
               bg-primary-50
               hover:bg-primary-100
               active:bg-primary-200
-                sm:hidden
+                md:hidden
               "
             >
               <span className="sr-only">Toggle menu</span>
