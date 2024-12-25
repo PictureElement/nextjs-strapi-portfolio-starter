@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativeText, title, excerpt, slug }) {
   console.log("Hello from ProjectEntry");
   return (
-    <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative">
+    <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative h-full">
       <div className="rounded-t-2xl overflow-hidden aspect-[1200/630] w-full relative">
         <Image
           className="object-cover object-center"
@@ -16,7 +16,7 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
       </div>
       <div className="p-6">
         <h3 className="text-gray-900 font-medium text-xl sm:text-2xl">{title}</h3>
-        <p className="text-gray-700 mt-2 mb-4">{excerpt}</p>
+        <p className="text-gray-700 mt-2 mb-4 line-clamp-2">{excerpt}</p>
         <Link
           href={`/projects/${slug}/`}
           className="
