@@ -14,7 +14,7 @@ export default function BackTo({
         className="
               group
               flex
-              font-semibold
+              font-medium
               leading-none
             text-primary-700
             "

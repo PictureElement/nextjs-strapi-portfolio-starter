@@ -22,7 +22,7 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
           className="
             group
             flex
-            font-semibold
+            font-medium
             leading-none
             text-primary-700
           "

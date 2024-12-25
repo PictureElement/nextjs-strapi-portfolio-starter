@@ -28,7 +28,7 @@ export default async function Hero() {
     : [{ text: 'Headline', className: '' }];
 
   return (
-    <section className="bg-primary-100 relative">
+    <section className="bg-neutral-100 relative">
       <AnimatedGradient />
       <ShapeDivider className="fill-white" />
       <div className="relative z-50 mx-auto max-w-4xl px-4 pt-[168px] pb-24 sm:pt-48 sm:pb-[120px] text-center">

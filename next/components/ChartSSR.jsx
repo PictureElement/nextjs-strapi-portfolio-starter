@@ -1,6 +1,6 @@
 import * as echarts from 'echarts';
-import { Sora } from 'next/font/google';
-const sora = Sora({ subsets: ['latin'] });
+import { Poppins } from 'next/font/google';
+const poppins = Poppins({ weight: ['400'], subsets: ['latin'] });
 
 function generateChartSVG(data) {
   // Initialize the chart for SSR
@@ -29,7 +29,7 @@ function generateChartSVG(data) {
           label: {
             position: 'inside',
             fontSize: 12,
-            fontFamily: `${sora.style.fontFamily}`,
+            fontFamily: `${poppins.style.fontFamily}`,
             fontWeight: '400',
             color: '#111827',
             padding: 0,
@@ -42,7 +42,7 @@ function generateChartSVG(data) {
           label: {
             position: 'outside',
             fontSize: 12,
-            fontFamily: `${sora.style.fontFamily}`,
+            fontFamily: `${poppins.style.fontFamily}`,
             fontWeight: '400',
             color: '#374151',
             padding: 0,

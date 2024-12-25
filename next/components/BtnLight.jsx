@@ -24,7 +24,7 @@ export default function BtnLight({
         transition
         px-4
         h-11
-        font-semibold
+        font-medium
         leading-none
         rounded-full
         text-primary-700

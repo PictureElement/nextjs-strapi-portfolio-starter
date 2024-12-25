@@ -22,7 +22,7 @@ export default function BtnSecondary({
         justify-center
         transition
         px-4 py-3
-        font-semibold
+        font-medium
         leading-none
         rounded-full
         border border-primary-100

@@ -13,7 +13,7 @@ export default function PostEntry({ title, excerpt, slug }) {
         className="
           group
           flex
-          font-semibold
+          font-medium
           leading-none
           text-primary-700
         "

@@ -1,7 +1,7 @@
 "use client";
 
-import { Sora } from 'next/font/google';
-const sora = Sora({ subsets: ['latin'] });
+import { Poppins } from 'next/font/google';
+const poppins = Poppins({ weight: ['400'], subsets: ['latin'] });
 import { useEffect, useRef, useMemo } from 'react';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
@@ -54,7 +54,7 @@ export default function ChartCSR({ data, onClientReady }) {
           label: {
             position: 'inside',
             fontSize: 12,
-            fontFamily: `${sora.style.fontFamily}`,
+            fontFamily: `${poppins.style.fontFamily}`,
             fontWeight: '400',
             color: '#111827',
             padding: 0,
@@ -67,7 +67,7 @@ export default function ChartCSR({ data, onClientReady }) {
           label: {
             position: 'outside',
             fontSize: 12,
-            fontFamily: `${sora.style.fontFamily}`,
+            fontFamily: `${poppins.style.fontFamily}`,
             fontWeight: '400',
             color: '#374151',
             padding: 0,
@@ -91,9 +91,9 @@ export default function ChartCSR({ data, onClientReady }) {
                 label: {
                   position: 'inside',
                   fontSize: 16,
-                  fontFamily: `${sora.style.fontFamily}`,
+                  fontFamily: `${poppins.style.fontFamily}`,
                   fontWeight: '400',
-                  color: '#0f172a',
+                  color: '#111827',
                   padding: 2,
                   align: 'center',
                 }
@@ -104,9 +104,9 @@ export default function ChartCSR({ data, onClientReady }) {
                 label: {
                   position: 'outside',
                   fontSize: 16,
-                  fontFamily: `${sora.style.fontFamily}`,
+                  fontFamily: `${poppins.style.fontFamily}`,
                   fontWeight: '400',
-                  color: '#334155',
+                  color: '#374151',
                   padding: 2,
                   silent: false
                 }

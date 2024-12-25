@@ -14,3 +14,4 @@ Implement pagination to Blog and Projects (use Hyper UI)
 Make Article page date dynamic
 Configiure priority and loading on Image components.
 Add prose class to all rich texts
+Add line clamps

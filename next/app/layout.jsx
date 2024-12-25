@@ -1,8 +1,8 @@
 import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Sora } from 'next/font/google';
-const sora = Sora({ subsets: ['latin'] });
+import { Poppins } from 'next/font/google';
+const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin'] });
 import "./globals.css";
 
 export const metadata = {
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${sora.className} antialiased text-gray-500 text-base`}>
+      <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
         <Announcement />
         <Header />
         {children}

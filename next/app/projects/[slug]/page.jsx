@@ -56,7 +56,7 @@ export default async function Page({ params }) {
               </div>
             </header>
             <div className="flex flex-col md:flex-row gap-x-5 justify-center">
-              <section className="max-w-none md:w-2/3 prose prose-gray prose-a:no-underline prose-a:font-semibold prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2">
+              <section className="max-w-none md:w-2/3 prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2">
                 {content}
                 <hr className="border-neutral-100" />
                 <SocialShare />
