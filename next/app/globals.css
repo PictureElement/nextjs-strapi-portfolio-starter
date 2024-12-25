@@ -37,7 +37,7 @@ summary {
   }
 
   a {
-    @apply font-semibold border-b border-primary-400 hover:border-b-2
+    @apply font-semibold border-b border-primary-700 hover:border-b-2
   }
 }
 
@@ -47,7 +47,7 @@ summary {
 }
 
 .announcement-content a {
-  @apply font-semibold border-b border-primary-400 hover:border-b-2
+  @apply font-semibold border-b border-primary-700 hover:border-b-2
 }
 
 /* Banner */

@@ -33,14 +33,14 @@ export default async function About() {
 
   return (
     <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-gray-50" />
+      <ShapeDivider className="fill-neutral-50" />
       <div className="relative mx-auto max-w-4xl px-4">
         <SectionHeader headline={about.headline} supportiveText={about.supportiveText} />
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div className="relative z-10">
             <Image
               priority
-              className="w-full object-cover rounded-t-2xl lg:rounded-2xl border border-primary-100"
+              className="w-full object-cover rounded-t-2xl lg:rounded-2xl border border-neutral-200"
               src={imageUrl}
               alt={about.profileImage.alternativeText}
               width={about.profileImage.width}
@@ -48,8 +48,8 @@ export default async function About() {
             />
           </div>
 
-          <div className="relative flex items-center bg-neutral-50 rounded-b-2xl border-x border-b border-neutral-100 lg:rounded-none lg:rounded-r-2xl lg:border-l-0 lg:border-y">
-            <span className="hidden lg:absolute lg:-inset-y-[1px] lg:-start-16 lg:block lg:w-16 lg:bg-neutral-50 lg:rounded-l-2xl lg:border-y lg:border-l border-neutral-100"></span>
+          <div className="relative flex items-center bg-neutral-50 rounded-b-2xl border-x border-b border-neutral-200 lg:rounded-none lg:rounded-r-2xl lg:border-l-0 lg:border-y">
+            <span className="hidden lg:absolute lg:-inset-y-[1px] lg:-start-16 lg:block lg:w-16 lg:bg-neutral-50 lg:rounded-l-2xl lg:border-y lg:border-l border-neutral-200"></span>
             <div
               className="p-6 lg:p-8 about-content"
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(about.content)) }}

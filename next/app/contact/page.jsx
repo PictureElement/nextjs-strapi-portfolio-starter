@@ -36,7 +36,7 @@ export default async function Page() {
                 <CheckIcon className="absolute hidden fill-white peer-checked:block" />
               </div>
               <div className="text-pretty font-light text-gray-700">
-                I consent to have this website collect my submitted information so they can respond to my inquiry. I have read and accept the <a className="font-semibold border-b border-primary-400 hover:border-b-2" target="_blank" href="">Privacy Policy</a>.
+                I consent to have this website collect my submitted information so they can respond to my inquiry. I have read and accept the <a className="font-semibold border-b border-primary-700 hover:border-b-2" target="_blank" href="">Privacy Policy</a>.
               </div>
             </label>
             <button
@@ -70,11 +70,11 @@ export default async function Page() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
             <h3 className="text-gray-900 font-medium text-xl sm:text-2xl mb-2">Email us</h3>
-            <a className="text-gray-700 font-light text-lg sm:text-2xl border-b border-primary-400 hover:border-b-2" href="mailto:hello@pulsifylabs.com">hello@pulsifylabs.com</a>
+            <a className="text-gray-700 font-light text-lg sm:text-2xl border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">hello@pulsifylabs.com</a>
           </div>
           <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
             <h3 className="text-gray-900 font-medium text-xl sm:text-2xl mb-2">Schedule a call</h3>
-            <a className="text-gray-700 font-light text-lg sm:text-2xl border-b border-primary-400 hover:border-b-2" href="mailto:hello@pulsifylabs.com">https://cal.com/pulsifylabs/</a>
+            <a className="text-gray-700 font-light text-lg sm:text-2xl border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">https://cal.com/pulsifylabs/</a>
           </div>
         </div>
       </section>

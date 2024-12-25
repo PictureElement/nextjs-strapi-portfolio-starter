@@ -17,10 +17,10 @@ export default function Page() {
         <Services />
         <FeaturedProjects />
         <Skills />
-        <Experience />
+        {/* <Experience /> */}
         <Testimonials />
-        <LatestPosts />
         <Faq />
+        <LatestPosts />
       </main>
     </>
   );

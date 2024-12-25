@@ -1,6 +1,7 @@
 import SectionHeader from "./SectionHeader";
 import FaqList from "./FaqList";
 import { fetchData } from "@/lib/utils";
+import ShapeDivider from "./ShapeDivider";
 
 export default async function Faq() {
   console.log("Hello from Faq");
@@ -28,7 +29,8 @@ export default async function Faq() {
   const faq = data?.faq || fallbackFaq;
 
   return (
-    <section className="bg-neutral-50 py-24">
+    <section className="bg-neutral-50 py-24 relative">
+      <ShapeDivider className="fill-white" />
       <div className="mx-auto max-w-4xl px-4">
         <SectionHeader headline={faq.headline} supportiveText={faq.supportiveText} />
         <FaqList faqList={faq.faqList} />

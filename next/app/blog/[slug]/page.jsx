@@ -51,7 +51,7 @@ export default async function Page({ params }) {
                 />
               </div>
             </header>
-            <div className="prose prose-gray prose-a:no-underline prose-a:font-semibold prose-a:border-b prose-a:border-primary-400 hover:prose-a:border-b-2">
+            <div className="prose prose-gray prose-a:no-underline prose-a:font-semibold prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2">
               {content}
               <hr className="border-neutral-100" />
               <SocialShare />

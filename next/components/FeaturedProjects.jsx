@@ -28,7 +28,7 @@ export default async function FeaturedProjects() {
 
   return (
     <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-gray-50" />
+      <ShapeDivider className="fill-neutral-50" />
       <div className="relative mx-auto max-w-4xl px-4">
         <SectionHeader headline={featuredProjects.headline} supportiveText={featuredProjects.supportiveText} />
         {projects ? (

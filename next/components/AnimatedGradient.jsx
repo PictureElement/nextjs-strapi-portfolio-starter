@@ -16,10 +16,10 @@ export default function AnimatedGradient() {
       data-transition-in
       className="absolute inset-0 w-full h-full"
       style={{
-        "--gradient-color-1": "#f0f8ff",
-        "--gradient-color-2": "#e0f0fe",
-        "--gradient-color-3": "#bae1fd",
-        "--gradient-color-4": "#7cc9fd",
+        "--gradient-color-1": "#fafafa",
+        "--gradient-color-2": "#f5f5f5",
+        "--gradient-color-3": "#e5e5e5",
+        "--gradient-color-4": "#d4d4d4",
       }}
     />
   );
