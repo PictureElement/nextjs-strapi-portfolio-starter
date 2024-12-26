@@ -8,4 +8,3 @@ replace <a> with <Link />
 Show Hero headline when JS is disabled
 Implement pagination to Blog and Projects (use Hyper UI)
 Configiure priority and loading on Image components.
-Implement localstorage for the Announcement.

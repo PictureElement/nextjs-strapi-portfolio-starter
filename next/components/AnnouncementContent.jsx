@@ -1,14 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { XMarkIcon } from '@heroicons/react/24/solid';
 
 export default function AnnouncementContent({ children }) {
   console.log("Hello from AnnouncementContent");
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(
+    typeof window !== "undefined" && !localStorage.getItem("announcementDismissed")
+  );
+
+  useEffect(() => {
+    // Check if the announcement hasn't been dismissed
+    if (typeof window !== "undefined" && !localStorage.getItem("announcementDismissed")) {
+      setIsVisible(true);
+    }
+  }, []);
 
   const handleDismiss = () => {
     setIsVisible(false);
+    localStorage.setItem("announcementDismissed", "true"); // Persist dismissal in local storage
   };
 
   if (!isVisible) return null;
