@@ -9,5 +9,4 @@ Add image instruction (size, aspect ratio) in Strapi.
 replace <a> with <Link />
 Show Hero headline when JS is disabled
 Implement pagination to Blog and Projects (use Hyper UI)
-Make Article page date dynamic
 Configiure priority and loading on Image components.
