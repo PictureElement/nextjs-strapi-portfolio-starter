@@ -4,8 +4,10 @@
 
 a,
 button,
-summary {
-  @apply focus-visible:outline-none focus-visible:ring focus-visible:ring-blue-400;
+summary,
+input,
+textarea {
+  @apply focus-visible:outline-0 focus-visible:ring focus-visible:ring-secondary;
 }
 
 /* Experience */

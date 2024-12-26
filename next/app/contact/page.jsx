@@ -10,21 +10,21 @@ export default async function Page() {
         <div className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
           <h2 className="text-gray-900 text-3xl sm:text-4xl tracking-tight font-extrabold mb-6 sm:mb-10 text-center">To get in touch fill in the form.</h2>
           <form className="flex flex-col gap-6 sm:gap-6">
-            <label className="relative block border border-neutral-300 bg-transparent focus-within:border-primary-700 rounded-lg">
+            <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
               <input
                 type="email"
                 placeholder="Business Email"
-                className="block peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-xl"
+                className="block rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
               />
               <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
                 Business Email
               </span>
             </label>
-            <label className="relative block border border-neutral-300 bg-transparent focus-within:border-primary-700 rounded-lg">
+            <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
               <textarea
                 rows="5"
                 placeholder="Tell us about your project"
-                className="block peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 text-xl"
+                className="block rounded-lg peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none text-xl"
               ></textarea>
               <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-translate-y-1/2 peer-focus:text-base peer-focus:text-primary-700">
                 Tell us about your project
