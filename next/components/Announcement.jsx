@@ -22,7 +22,7 @@ export default async function Announcement() {
 
   const content = (
     <div
-      className="announcement-content text-sm text-center leading-tight"
+      className="text-center max-w-none prose prose-sm prose-invert prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(announcement.content)) }}
     />
   );

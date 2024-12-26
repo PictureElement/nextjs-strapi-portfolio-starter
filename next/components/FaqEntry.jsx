@@ -1,4 +1,6 @@
 import { ArrowDownIcon } from '@heroicons/react/16/solid';
+import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
 
 export default function FaqEntry({ question, answer }) {
   console.log("Hello from FaqEntry");
@@ -8,7 +10,10 @@ export default function FaqEntry({ question, answer }) {
         <h3 className="text-gray-900 font-medium text-xl">{question}</h3>
         <ArrowDownIcon className="mt-1.5 size-4 shrink-0 transition duration-300 group-open:-rotate-180" />
       </summary>
-      <p className="mt-4 px-4 text-gray-700">{answer}</p>
+      <div
+        className="mt-4 px-4 max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(answer)) }}
+      />
     </details>
   );
 }

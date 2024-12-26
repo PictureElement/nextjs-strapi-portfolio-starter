@@ -26,30 +26,6 @@ summary {
   @apply transition-[height];
 }
 
-/* About */
-.about-content {
-  p {
-    @apply text-gray-700;
-  }
-
-  p:not(:last-child) {
-    @apply mb-4;
-  }
-
-  a {
-    @apply font-semibold border-b border-primary-700 hover:border-b-2
-  }
-}
-
-/* Announcement */
-.announcement-content {
-  @apply text-sm text-center leading-tight;
-}
-
-.announcement-content a {
-  @apply font-semibold border-b border-primary-700 hover:border-b-2
-}
-
 /* Banner */
 .banner {
   background-color: #BAE1FD;
