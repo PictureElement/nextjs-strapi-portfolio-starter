@@ -1,5 +1,6 @@
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
+import { ClockIcon } from "@heroicons/react/24/outline";
 import Link from 'next/link';
 import { fetchData } from "@/lib/utils";
 import CallToAction from "./CallToAction";
@@ -76,9 +77,9 @@ export default async function Footer() {
         <div className="gap-8 grid grid-cols-1 lg:grid-cols-6">
           <div className="lg:col-span-2">
             <p className="text-lg font-medium text-center text-white sm:text-left">{footer.headingColumn1}</p>
-            <p className="mt-4 text-sm leading-relaxed text-center text-white/50 md:max-w-xl sm:text-left">{footer.statement}</p>
+            <p className="mt-4 text-sm leading-relaxed text-center text-white/50 sm:text-left">{footer.statement}</p>
             {footer.socialChannels && (
-              <ul className="mt-8 flex justify-center gap-3 sm:justify-start">
+              <ul className="mt-6 flex justify-center gap-3 sm:justify-start">
                 {footer.socialChannels.map((item) => (
                   <li key={item.id}>
                     <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white inline-block">
@@ -127,6 +128,12 @@ export default async function Footer() {
                     <PhoneIcon className="size-5 shrink-0 text-white" />
                     <span className="text-white/75 group-hover:underline">{footer.phone.trim()}</span>
                   </Link>
+                </li>
+                <li>
+                  <div className="flex items-center justify-center gap-1.5 sm:justify-start group cursor-not-allowed">
+                    <ClockIcon className="size-5 shrink-0 text-white" />
+                    <span className="text-white/75">Mon – Fri: 9:00 AM – 6:00 PM EET</span>
+                  </div>
                 </li>
               </ul>
             </div>

@@ -5,9 +5,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 
 export default function AnnouncementContent({ children }) {
   console.log("Hello from AnnouncementContent");
-  const [isVisible, setIsVisible] = useState(
-    typeof window !== "undefined" && !localStorage.getItem("announcementDismissed")
-  );
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     // Check if the announcement hasn't been dismissed
