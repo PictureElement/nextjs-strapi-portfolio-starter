@@ -27,7 +27,7 @@ export default async function LatestPosts() {
 
   return (
     <section className="bg-white py-24">
-      <div className="relative mx-auto max-w-4xl px-4">
+      <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={latestPosts.headline} supportiveText={latestPosts.supportiveText} />
         {postList ? (
           <>

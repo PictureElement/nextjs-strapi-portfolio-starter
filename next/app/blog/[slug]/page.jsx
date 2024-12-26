@@ -32,7 +32,7 @@ export default async function Page({ params }) {
     <>
       <BackTo label="Back to blog" url="/blog/" />
       <main>
-        <div className="mx-auto max-w-[65ch] px-4">
+        <div className="mx-auto max-w-5xl px-4">
           <article>
             <header>
               <dl className="text-sm leading-6">
@@ -51,7 +51,7 @@ export default async function Page({ params }) {
                 />
               </div>
             </header>
-            <div className="prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2">
+            <div className="prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto">
               {content}
               <hr className="border-neutral-100" />
               <SocialShare />

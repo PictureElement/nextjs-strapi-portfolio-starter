@@ -23,7 +23,7 @@ export default async function Skills() {
   return (
     <section className="bg-neutral-50 py-24 relative">
       <ShapeDivider className="fill-white" />
-      <div className="relative mx-auto max-w-4xl px-4">
+      <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={skills.headline} supportiveText={skills.supportiveText} />
         <Chart data={skills.chartData} ariaLabelSSR={skills.ariaLabelSSR} ariaLabelCSR={skills.ariaLabelCSR}>
           <ChartSSR data={skills.chartData} />

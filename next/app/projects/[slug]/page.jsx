@@ -55,13 +55,13 @@ export default async function Page({ params }) {
                 />
               </div>
             </header>
-            <div className="flex flex-col md:flex-row gap-x-5 justify-center">
+            <div className="flex flex-col md:flex-row gap-x-5 justify-between">
               <section className="max-w-none md:w-2/3 prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2">
                 {content}
                 <hr className="border-neutral-100" />
                 <SocialShare />
               </section>
-              <aside className="order-first md:order-2 md:w-1/3 mt-12 md:pl-5 md:pt-5 md:border-l md:border-neutral-100 self-start">
+              <aside className="order-first md:order-2 md:w-1/3 mt-12 md:pl-5 md:pt-5 md:border-l md:border-neutral-200 self-start">
                 <dl className="flex flex-col gap-2 mb-5">
                   <dt className="sr-only">Related links</dt>
                   <dd className="flex flex-col gap-3">

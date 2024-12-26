@@ -31,7 +31,7 @@ export default async function Faq() {
   return (
     <section className="bg-neutral-50 py-24 relative">
       <ShapeDivider className="fill-white" />
-      <div className="mx-auto max-w-4xl px-4">
+      <div className="mx-auto max-w-5xl px-4">
         <SectionHeader headline={faq.headline} supportiveText={faq.supportiveText} />
         <FaqList faqList={faq.faqList} />
       </div>

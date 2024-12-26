@@ -47,7 +47,7 @@ export default async function Experience() {
   return (
     <section className="bg-white py-24 relative">
       <ShapeDivider className="fill-gray-50" />
-      <div className="relative mx-auto max-w-4xl px-4">
+      <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={experience.headline} supportiveText={experience.supportiveText} />
         <ExperienceList experienceList={experience.experienceList} />
       </div>

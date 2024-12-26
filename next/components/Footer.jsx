@@ -71,7 +71,7 @@ export default async function Footer() {
   return (
     <footer className="bg-neutral-950">
       <CallToAction />
-      <div className="mx-auto max-w-4xl px-4 pb-6 pt-16 lg:pt-24">
+      <div className="mx-auto max-w-5xl px-4 pb-6 pt-16 lg:pt-24">
 
         <div className="gap-8 grid grid-cols-1 lg:grid-cols-6">
           <div className="lg:col-span-2">

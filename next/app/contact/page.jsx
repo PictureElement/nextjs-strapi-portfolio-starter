@@ -6,7 +6,7 @@ export default async function Page() {
   return (
     <main className="overflow-hidden relative">
       <Banner headline="Contact us" supportiveText="If you're interested in exploring the digital possibilities that Pulsify Labs has to offer, feel free to contact us today." />
-      <section className="mx-auto max-w-4xl px-4 py-24">
+      <section className="mx-auto max-w-5xl px-4 py-24">
         <div className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
           <h2 className="text-gray-900 text-3xl sm:text-4xl tracking-tight font-extrabold mb-6 sm:mb-10 text-center">To get in touch fill in the form.</h2>
           <form className="flex flex-col gap-6 sm:gap-6">

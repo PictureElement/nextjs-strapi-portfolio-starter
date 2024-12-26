@@ -34,7 +34,7 @@ export default async function About() {
   return (
     <section className="bg-white py-24 relative">
       <ShapeDivider className="fill-neutral-50" />
-      <div className="relative mx-auto max-w-4xl px-4">
+      <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={about.headline} supportiveText={about.supportiveText} />
         <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
           <div className="relative z-10">

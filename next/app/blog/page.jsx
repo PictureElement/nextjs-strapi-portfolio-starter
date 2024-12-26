@@ -4,7 +4,7 @@ import { fetchData } from "@/lib/utils";
 
 export default async function Page() {
   // Get the latest posts
-  const endpoint = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[pageSize]=3";
+  const endpoint = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[pageSize]=100";
 
   const data = await fetchData(endpoint);
 
@@ -14,7 +14,7 @@ export default async function Page() {
     <>
       <main className="overflow-hidden relative">
         <Banner headline="Pulsify Blog" supportiveText="Cool stuff about web development: Jamstack, headless, CMS, migrations, integrations, and many more!" />
-        <section className="mx-auto max-w-4xl px-4 py-24">
+        <section className="mx-auto max-w-5xl px-4 py-24">
           {postList ? (
             <>
               <PostList postList={postList} />

@@ -15,7 +15,7 @@ export default function ProjectCarousel({ projects }) {
         {projects.map((entry) => {
           const imageUrl = `${baseUrl}${entry.featuredImage.url}`;
           return (
-            <div key={entry.id} className="min-w-0 grow-0 shrink-0 basis-10/12 max-w-[28rem]">
+            <div key={entry.id} className="min-w-0 grow-0 shrink-0 basis-10/12 max-w-lg">
               <ProjectEntry
                 featuredImageUrl={imageUrl}
                 featuredImageAlternativeText={entry.featuredImage.alternativeText}

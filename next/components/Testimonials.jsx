@@ -44,7 +44,7 @@ export default async function Testimonials() {
   return (
     <section className="bg-white py-24 relative">
       <ShapeDivider className="fill-neutral-50" />
-      <div className="relative mx-auto max-w-4xl px-4">
+      <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={testimonials.headline} supportiveText={testimonials.supportiveText} />
         <TestimonialList testimonialList={testimonials.testimonialList} />
       </div>

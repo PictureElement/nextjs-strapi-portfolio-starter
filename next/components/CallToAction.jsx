@@ -22,7 +22,7 @@ export default async function CallToAction() {
 
   return (
     <section className="bg-primary-900 bg-dot-white/20 relative">
-      <div className="mx-auto max-w-4xl px-4 py-24 text-center">
+      <div className="mx-auto max-w-5xl px-4 py-24 text-center">
         <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">{cta.headline}</h1>
         <p className="text-white/75 text-lg mt-6">{cta.supportiveText}</p>
         <div className="mt-8 flex items-center justify-center gap-x-4">
