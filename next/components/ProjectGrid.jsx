@@ -17,6 +17,7 @@ export default function ProjectGrid({ projects }) {
             title={entry.title}
             excerpt={entry.excerpt}
             slug={entry.slug}
+            priority={true}
           />
         );
       })}

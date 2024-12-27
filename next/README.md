@@ -5,7 +5,6 @@ Read more about <Image> and setup responsive images with srcset and sizes + Add 
 Add a breadcrump component (use Hyper UI)
 Add date to post card.
 Show Hero headline when JS is disabled
-Configiure priority and loading on Image components.
 
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI)

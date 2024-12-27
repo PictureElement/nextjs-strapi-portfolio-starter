@@ -22,6 +22,7 @@ export default function ProjectCarousel({ projects }) {
                 title={entry.title}
                 excerpt={entry.excerpt}
                 slug={entry.slug}
+                priority={false}
               />
             </div>
           );
