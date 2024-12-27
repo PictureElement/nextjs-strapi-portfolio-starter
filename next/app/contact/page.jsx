@@ -1,6 +1,7 @@
 import Banner from "@/components/Banner";
 import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
+import Link from "next/link";
 
 export default async function Page() {
   return (
@@ -36,7 +37,7 @@ export default async function Page() {
                 <CheckIcon className="absolute hidden fill-white peer-checked:block" />
               </div>
               <div className="text-pretty font-light text-gray-700">
-                I consent to have this website collect my submitted information so they can respond to my inquiry. I have read and accept the <a className="font-medium border-b border-primary-700 hover:border-b-2" target="_blank" href="">Privacy Policy</a>.
+                I consent to have this website collect my submitted information so they can respond to my inquiry. I have read and accept the <Link href="/privacy-policy" target="_blank" className="font-medium border-b border-primary-700 hover:border-b-2">Privacy Policy</Link>.
               </div>
             </label>
             <button
