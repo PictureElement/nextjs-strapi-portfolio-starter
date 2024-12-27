@@ -28,6 +28,8 @@ export default async function Page({ params }) {
     />
   );
 
+  const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-GB');
+
   return (
     <>
       <BackTo label="Back to blog" url="/blog/" />
@@ -35,9 +37,9 @@ export default async function Page({ params }) {
         <div className="mx-auto max-w-5xl px-4">
           <article>
             <header>
-              <dl className="text-sm leading-6">
-                <dt className="sr-only">Date</dt>
-                <dd><time dateTime="2024-11-21T18:30:00.000Z">Thursday, November 21, 2024</time></dd>
+              <dl className="text-sm leading-6 flex gap-1">
+                <dt>Published on</dt>
+                <dd><time dateTime={post.publishedAt}>{formattedDate}</time></dd>
               </dl>
               <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight my-3">{post.title}</h1>
               <div className="text-sm leading-6 text-gray-900">Posted by Marios Sofokleous</div>
