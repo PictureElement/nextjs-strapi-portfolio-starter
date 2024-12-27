@@ -113,6 +113,17 @@ export interface SectionsAbout extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsBanner extends Struct.ComponentSchema {
+  collectionName: 'components_sections_banners';
+  info: {
+    displayName: 'Banner';
+  };
+  attributes: {
+    headline: Schema.Attribute.String & Schema.Attribute.Required;
+    supportiveText: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
 export interface SectionsCallToAction extends Struct.ComponentSchema {
   collectionName: 'components_sections_call_to_actions';
   info: {
@@ -341,6 +352,7 @@ declare module '@strapi/strapi' {
       'blocks.social-channel': BlocksSocialChannel;
       'blocks.testimonial': BlocksTestimonial;
       'sections.about': SectionsAbout;
+      'sections.banner': SectionsBanner;
       'sections.call-to-action': SectionsCallToAction;
       'sections.experience': SectionsExperience;
       'sections.faq': SectionsFaq;

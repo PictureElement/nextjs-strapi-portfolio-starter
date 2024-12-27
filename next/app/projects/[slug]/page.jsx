@@ -43,7 +43,7 @@ export default async function Page({ params }) {
         <div className="mx-auto max-w-6xl px-4">
           <article>
             <header>
-              <h1 className="text-gray-900 font-extrabold text-2xl md:text-3xl tracking-tight mb-3">{project.title}</h1>
+              <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{project.title}</h1>
               <div className="text-sm leading-6 text-gray-900">Developed by Marios Sofokleous</div>
               <div className="mt-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
                 <Image

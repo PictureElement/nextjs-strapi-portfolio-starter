@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_banners",
+  "info": {
+    "displayName": "Banner"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true
+    },
+    "supportiveText": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

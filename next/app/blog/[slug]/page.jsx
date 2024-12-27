@@ -39,7 +39,7 @@ export default async function Page({ params }) {
                 <dt className="sr-only">Date</dt>
                 <dd><time dateTime="2024-11-21T18:30:00.000Z">Thursday, November 21, 2024</time></dd>
               </dl>
-              <h1 className="text-gray-900 font-extrabold text-2xl md:text-3xl tracking-tight my-3">{post.title}</h1>
+              <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight my-3">{post.title}</h1>
               <div className="text-sm leading-6 text-gray-900">Posted by Marios Sofokleous</div>
               <div className="mt-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
                 <Image

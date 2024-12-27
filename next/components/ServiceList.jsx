@@ -15,7 +15,7 @@ export default function ServiceList({ serviceList, defaultOpen = false }) {
 
   return (
     <div className="relative">
-      <div id="serviceList" className={`grid grid-cols-1 sm:grid-cols-2 gap-6 transiton-[max-height] ${isOpen ? 'relative z-10 max-h-full' : 'max-h-[32rem] sm:max-h-[20rem] overflow-hidden'}`}>
+      <div id="serviceList" className={`grid grid-cols-1 lg:grid-cols-2 gap-6 transiton-[max-height] ${isOpen ? 'relative z-10 max-h-full' : 'max-h-[32rem] sm:max-h-[20rem] overflow-hidden'}`}>
         {serviceList.map((entry) => (
           <ServiceEntry
             key={entry.id}

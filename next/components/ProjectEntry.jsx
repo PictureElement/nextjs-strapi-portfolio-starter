@@ -15,7 +15,7 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
         />
       </div>
       <div className="p-6">
-        <h3 className="text-gray-900 font-medium text-xl sm:text-2xl">{title}</h3>
+        <h3 className="text-gray-900 font-medium text-xl sm:text-2xl tracking-tight">{title}</h3>
         <p className="text-gray-700 mt-2 mb-4 line-clamp-2">{excerpt}</p>
         <Link
           href={`/projects/${slug}/`}

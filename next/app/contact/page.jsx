@@ -8,7 +8,7 @@ export default async function Page() {
       <Banner headline="Contact us" supportiveText="If you're interested in exploring the digital possibilities that Pulsify Labs has to offer, feel free to contact us today." />
       <section className="mx-auto max-w-5xl px-4 py-24">
         <div className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
-          <h2 className="text-gray-900 text-3xl sm:text-4xl tracking-tight font-extrabold mb-6 sm:mb-10 text-center">To get in touch fill in the form.</h2>
+          <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">To get in touch fill in the form.</h2>
           <form className="flex flex-col gap-6 sm:gap-6">
             <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
               <input
@@ -66,15 +66,15 @@ export default async function Page() {
             </button>
           </form>
         </div>
-        <h2 className="text-gray-900 text-3xl sm:text-4xl tracking-tight font-extrabold mb-6 sm:mb-10 text-center">... or use one of the following methods.</h2>
+        <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">... or use one of the following methods.</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
-            <h3 className="text-gray-900 font-medium text-xl sm:text-2xl mb-2">Email us</h3>
-            <a className="text-gray-700 font-light text-lg sm:text-2xl border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">hello@pulsifylabs.com</a>
+            <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Email us</h3>
+            <a className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">hello@pulsifylabs.com</a>
           </div>
           <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
-            <h3 className="text-gray-900 font-medium text-xl sm:text-2xl mb-2">Schedule a call</h3>
-            <a className="text-gray-700 font-light text-lg sm:text-2xl border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">https://cal.com/pulsifylabs/</a>
+            <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Schedule a call</h3>
+            <a className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">https://cal.com/pulsifylabs/</a>
           </div>
         </div>
       </section>
