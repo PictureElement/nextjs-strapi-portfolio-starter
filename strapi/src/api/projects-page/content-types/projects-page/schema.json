@@ -1,10 +1,10 @@
 {
   "kind": "singleType",
-  "collectionName": "privacy_policies",
+  "collectionName": "projects_pages",
   "info": {
-    "singularName": "privacy-policy",
-    "pluralName": "privacy-policies",
-    "displayName": "Privacy Policy",
+    "singularName": "projects-page",
+    "pluralName": "projects-pages",
+    "displayName": "Projects Page",
     "description": ""
   },
   "options": {
@@ -12,21 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "private": true,
+      "default": "Projects Page"
+    },
     "metadata": {
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
       "required": true
-    },
-    "content": {
-      "type": "richtext",
-      "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true,
-      "private": true,
-      "default": "Privacy Policy"
     },
     "banner": {
       "type": "component",

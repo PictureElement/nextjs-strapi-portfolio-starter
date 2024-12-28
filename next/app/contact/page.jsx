@@ -2,14 +2,55 @@ import Banner from "@/components/Banner";
 import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
 import Link from "next/link";
+import { fetchData } from "@/lib/utils";
+import { contactData1Schema, contactData2Schema } from "@/lib/schemas";
 
 export default async function Page() {
+  // Get the banner, metadata, and headings
+  const endpoint1 = "/api/contact-page?populate=*";
+  const endpoint2 = "/api/global?populate[contactInformation]=*";
+
+  let data1, data2;
+
+  try {
+    const [response1, response2] = await Promise.all([
+      fetchData(endpoint1),
+      fetchData(endpoint2),
+    ])
+
+    const result1 = contactData1Schema.safeParse(response1);
+    const result2 = contactData2Schema.safeParse(response2);
+
+    if (!result1.success) {
+      console.error("Validation failed for /api/contact-page:", result1.error);
+      throw new Error("Invalid data received from /api/contact-page");
+    }
+
+    if (!result2.success) {
+      console.error("Validation failed for /api/global:", result2.error);
+      throw new Error("Invalid data received from /api/global");
+    }
+
+    data1 = result1.data;
+    data2 = result2.data;
+  } catch (error) {
+    console.error("Error fetching or validating API responses:", error);
+
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <div>
+        <h1 className="text-red-600">Something went wrong</h1>
+        <p>We were unable to load the data. Please try again later.</p>
+      </div>
+    );
+  }
+
   return (
     <main className="overflow-hidden relative">
-      <Banner headline="Contact us" supportiveText="If you're interested in exploring the digital possibilities that Pulsify Labs has to offer, feel free to contact us today." />
+      <Banner headline={data1.banner.headline} supportiveText={data1.banner.supportiveText} />
       <section className="mx-auto max-w-5xl px-4 py-24">
-        <div className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
-          <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">To get in touch fill in the form.</h2>
+        <article className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
+          <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{data1.contactFormHeading}</h2>
           <form className="flex flex-col gap-6 sm:gap-6">
             <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
               <input
@@ -61,24 +102,37 @@ export default async function Page() {
                 hover:bg-primary-600
                 active:bg-primary-500
               "
+              aria-label="Submit your message"
             >
               Submit message
               <PaperAirplaneIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
             </button>
           </form>
-        </div>
-        <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">... or use one of the following methods.</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
-            <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Email us</h3>
-            <a className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">hello@pulsifylabs.com</a>
+        </article>
+        <aside>
+          <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{data1.otherContactOptionsHeading}</h2>
+          <div className="grid grid-cols-1 gap-6">
+            <ContactOption title="Email us" label={data2.contactInformation.email} href={`mailto:${data2.contactInformation.email.trim()}`} />
+            {data2.contactInformation.phone &&
+              <ContactOption title="Call us" label={data2.contactInformation.phone} href={`tel:${data2.contactInformation.phone.replace(/\s+/g, '')}`} />
+            }
+            {data2.contactInformation.schedulingLink &&
+              <ContactOption title="Schedule a call" label={data2.contactInformation.schedulingLink} href={data2.contactInformation.schedulingLink} rel="noopener noreferer" target="_blank" />
+            }
+            <div className="text-center py-8 sm:py-12">
+              <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Working Hours</h3>
+              <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{data2.contactInformation.workingHours}</p>
+            </div>
           </div>
-          <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
-            <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Schedule a call</h3>
-            <a className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href="mailto:hello@pulsifylabs.com">https://cal.com/pulsifylabs/</a>
-          </div>
-        </div>
+        </aside>
       </section>
     </main >
   );
 }
+
+const ContactOption = ({ title, label, href, rel = undefined, target = undefined }) => (
+  <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
+    <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">{title}</h3>
+    <a rel={rel} target={target} className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href={href}>{label}</a>
+  </div>
+);

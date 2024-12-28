@@ -20,9 +20,9 @@ export default async function Header() {
       url: "https://placehold.co/44x44.png?text=44x44",
     },
     navItems: [
-      { id: 1, label: "Label", url: "/", openLinkInNewTab: false, sameHostLink: true },
-      { id: 2, label: "Label", url: "/", openLinkInNewTab: false, sameHostLink: true },
-      { id: 3, label: "Label", url: "/", openLinkInNewTab: false, sameHostLink: true }
+      { id: 1, label: "Projects", url: "/projects", openLinkInNewTab: false, sameHostLink: true },
+      { id: 2, label: "Blog", url: "/blog", openLinkInNewTab: false, sameHostLink: true },
+      { id: 3, label: "Contact", url: "/contact", openLinkInNewTab: false, sameHostLink: true }
     ],
     cta: {
       label: "Label",

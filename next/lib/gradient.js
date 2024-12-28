@@ -7,7 +7,6 @@
 *   https://kevinhufnagl.com
 */
 
-
 //Converting colors to proper format
 function normalizeColor(hexCode) {
   return [(hexCode >> 16 & 255) / 255, (hexCode >> 8 & 255) / 255, (255 & hexCode) / 255]
@@ -267,8 +266,6 @@ class MiniGl {
   }
 }
 
-
-
 //Sets initial properties
 function e(object, propertyName, val) {
   return propertyName in object ? Object.defineProperty(object, propertyName, {
@@ -501,9 +498,6 @@ class Gradient {
     }).filter(Boolean).map(normalizeColor)
   }
 }
-
-
-
 
 /*
 *Finally initializing the Gradient class, assigning a canvas to it and calling Gradient.connect() which initializes everything,

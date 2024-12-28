@@ -40,6 +40,12 @@
       "repeatable": false,
       "component": "sections.call-to-action",
       "required": true
+    },
+    "contactInformation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.contact-information",
+      "required": true
     }
   }
 }

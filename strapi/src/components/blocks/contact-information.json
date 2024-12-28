@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_blocks_contact_informations",
+  "info": {
+    "displayName": "Contact Information",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "schedulingLink": {
+      "type": "string",
+      "regex": "^https:\\/\\/.+$"
+    },
+    "workingHours": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

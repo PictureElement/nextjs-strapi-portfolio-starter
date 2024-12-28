@@ -29,6 +29,20 @@ export interface BlocksAnnouncement extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksContactInformation extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_contact_informations';
+  info: {
+    description: '';
+    displayName: 'Contact Information';
+  };
+  attributes: {
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    phone: Schema.Attribute.String;
+    schedulingLink: Schema.Attribute.String;
+    workingHours: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface BlocksExperience extends Struct.ComponentSchema {
   collectionName: 'components_blocks_experiences';
   info: {
@@ -175,9 +189,6 @@ export interface SectionsFooter extends Struct.ComponentSchema {
     copyright: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'\u00A9 [Year] [Your Company Name]. All rights reserved.'>;
-    email: Schema.Attribute.Email &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'email@example.com'>;
     headingColumn1: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Statement'>;
@@ -187,17 +198,9 @@ export interface SectionsFooter extends Struct.ComponentSchema {
     headingColumn3: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Links'>;
-    headingColumn4: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Contact'>;
     linksColumn2: Schema.Attribute.Component<'basic.button', true> &
       Schema.Attribute.Required;
     linksColumn3: Schema.Attribute.Component<'basic.button', true> &
-      Schema.Attribute.Required;
-    phone: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'+15417543010'>;
-    privacyPolicy: Schema.Attribute.Component<'basic.button', false> &
       Schema.Attribute.Required;
     socialChannels: Schema.Attribute.Component<'blocks.social-channel', true>;
     statement: Schema.Attribute.Text & Schema.Attribute.Required;
@@ -346,6 +349,7 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'basic.button': BasicButton;
       'blocks.announcement': BlocksAnnouncement;
+      'blocks.contact-information': BlocksContactInformation;
       'blocks.experience': BlocksExperience;
       'blocks.faq': BlocksFaq;
       'blocks.service': BlocksService;

@@ -1,5 +1,6 @@
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import Link from 'next/link';
 import { fetchData } from "@/lib/utils";
@@ -14,7 +15,7 @@ const socialIcons = {
 export default async function Footer() {
   console.log("Hello from Footer");
 
-  const endpoint = "/api/global?populate[footer][populate]=*";
+  const endpoint = "/api/global?populate[footer][populate]=*&populate[contactInformation][populate]=*";
   const data = await fetchData(endpoint);
 
   const fallbackFooter = {
@@ -36,6 +37,20 @@ export default async function Footer() {
         url: '/',
         openLinkInNewTab: true,
         sameHostLink: false
+      },
+      {
+        id: 3,
+        label: 'Label',
+        url: '/',
+        openLinkInNewTab: true,
+        sameHostLink: false
+      },
+      {
+        id: 4,
+        label: 'Label',
+        url: '/',
+        openLinkInNewTab: true,
+        sameHostLink: false
       }
     ],
     headingColumn3: 'Heading 3',
@@ -53,21 +68,32 @@ export default async function Footer() {
         url: '/',
         openLinkInNewTab: true,
         sameHostLink: false
+      },
+      {
+        id: 3,
+        label: 'Label',
+        url: '/',
+        openLinkInNewTab: true,
+        sameHostLink: false
+      },
+      {
+        id: 4,
+        label: 'Label',
+        url: '/',
+        openLinkInNewTab: true,
+        sameHostLink: false
       }
     ],
-    headingColumn4: 'Heading 4',
-    email: 'email@example.com',
-    phone: '+1 561-555-7689',
-    copyright: 'Copyright',
-    privacyPolicy: {
-      label: 'Label',
-      url: '/',
-      openLinkInNewTab: true,
-      sameHostLink: false
-    }
+    copyright: 'Copyright'
   };
 
+  const fallbackContactInformation = {
+    email: 'email@example.com',
+    workingHours: 'Mon – Fri: 9:00 AM – 6:00 PM EET'
+  }
+
   const footer = data?.footer || fallbackFooter;
+  const contactInformation = data?.contactInformation || fallbackContactInformation;
 
   return (
     <footer className="bg-neutral-950">
@@ -115,26 +141,40 @@ export default async function Footer() {
               </ul>
             </div>
             <div className="text-center sm:text-left sm:col-span-2">
-              <p className="text-lg font-medium text-white">{footer.headingColumn4}</p>
+              <p className="text-lg font-medium text-white">Contact Information</p>
               <ul className="mt-4 space-y-4 text-sm">
-                <li>
-                  <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${footer.email.trim()}`}>
-                    <EnvelopeIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75 group-hover:underline">{footer.email.trim()}</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`tel:${footer.phone.replace(/\s+/g, '')}`}>
-                    <PhoneIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75 group-hover:underline">{footer.phone.trim()}</span>
-                  </Link>
-                </li>
-                <li>
-                  <div className="flex items-center justify-center gap-1.5 sm:justify-start group cursor-not-allowed">
-                    <ClockIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75">Mon – Fri: 9:00 AM – 6:00 PM EET</span>
-                  </div>
-                </li>
+                {contactInformation?.email &&
+                  <li>
+                    <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${contactInformation.email.trim()}`}>
+                      <EnvelopeIcon className="size-5 shrink-0 text-white" />
+                      <span className="text-white/75 group-hover:underline">{contactInformation.email.trim()}</span>
+                    </Link>
+                  </li>
+                }
+                {contactInformation?.phone &&
+                  <li>
+                    <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`tel:${contactInformation.phone.replace(/\s+/g, '')}`}>
+                      <PhoneIcon className="size-5 shrink-0 text-white" />
+                      <span className="text-white/75 group-hover:underline">{contactInformation.phone.trim()}</span>
+                    </Link>
+                  </li>
+                }
+                {contactInformation?.schedulingLink &&
+                  <li>
+                    <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 sm:justify-start group" href={contactInformation.schedulingLink}>
+                      <CalendarDaysIcon className="size-5 shrink-0 text-white" />
+                      <span className="text-white/75 group-hover:underline">Schedule Appointment</span>
+                    </Link>
+                  </li>
+                }
+                {contactInformation?.workingHours &&
+                  <li>
+                    <p className="flex items-center justify-center gap-1.5 sm:justify-start group">
+                      <ClockIcon className="size-5 shrink-0 text-white" />
+                      <span className="text-white/75">{contactInformation.workingHours}</span>
+                    </p>
+                  </li>
+                }
               </ul>
             </div>
           </div>
@@ -144,7 +184,7 @@ export default async function Footer() {
         <div className="mt-12 border-t border-white/15 pt-6">
           <div className="text-center sm:flex sm:justify-between sm:text-left">
             <p className="text-sm">
-              <Link target={footer.privacyPolicy.openLinkInNewTab ? "_blank" : undefined} rel={footer.privacyPolicy.sameHostLink ? undefined : "noopener noreferrer"} className="inline-block text-white/75 transition hover:underline" href={footer.privacyPolicy.url}>{footer.privacyPolicy.label}</Link>
+              <Link target="_blank" className="inline-block text-white/75 transition hover:underline" href="/privacy-policy">Privacy Policy</Link>
             </p>
             <p className="mt-4 text-sm text-white/50 sm:order-first sm:mt-0">{footer.copyright}</p>
           </div>

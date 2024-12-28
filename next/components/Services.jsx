@@ -23,6 +23,16 @@ export default async function Services() {
         title: 'Title',
         description: 'Description'
       },
+      {
+        id: 3,
+        title: 'Title',
+        description: 'Description'
+      },
+      {
+        id: 4,
+        title: 'Title',
+        description: 'Description'
+      },
     ]
   };
 

@@ -42,31 +42,10 @@
       "component": "basic.button",
       "required": true
     },
-    "headingColumn4": {
-      "type": "string",
-      "required": true,
-      "default": "Contact"
-    },
-    "phone": {
-      "type": "string",
-      "required": true,
-      "default": "+15417543010"
-    },
-    "email": {
-      "type": "email",
-      "default": "email@example.com",
-      "required": true
-    },
     "copyright": {
       "type": "text",
       "required": true,
       "default": "© [Year] [Your Company Name]. All rights reserved."
-    },
-    "privacyPolicy": {
-      "type": "component",
-      "repeatable": false,
-      "component": "basic.button",
-      "required": true
     }
   }
 }
