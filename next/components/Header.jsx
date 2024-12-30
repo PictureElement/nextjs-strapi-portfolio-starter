@@ -3,46 +3,41 @@ import BtnPrimary from "./BtnPrimary";
 import { Bars3Icon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 import { fetchData } from "@/lib/utils";
+import { headerDataSchema } from "@/lib/schemas";
 
 export default async function Header() {
   console.log("Hello from Header");
 
   const endpoint = "/api/global?populate[header][populate]=*";
-  const data = await fetchData(endpoint);
 
-  const fallbackHeader = {
-    logo: {
-      alternativeText: "...",
-      url: "https://placehold.co/212x44.png?text=212x44",
-    },
-    logomark: {
-      alternativeText: "...",
-      url: "https://placehold.co/44x44.png?text=44x44",
-    },
-    navItems: [
-      { id: 1, label: "Projects", url: "/projects", openLinkInNewTab: false, sameHostLink: true },
-      { id: 2, label: "Blog", url: "/blog", openLinkInNewTab: false, sameHostLink: true },
-      { id: 3, label: "Contact", url: "/contact", openLinkInNewTab: false, sameHostLink: true }
-    ],
-    cta: {
-      label: "Label",
-      url: "/",
-      openLinkInNewTab: false,
-      sameHostLink: true
+  let data;
+
+  try {
+    const response = await fetchData(endpoint);
+
+    const result = headerDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
     }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
+        <div className="flex h-[72px] items-center justify-center px-4">
+          <div className="text-red-600">Unable to load data for the Header component</div>
+        </div>
+      </header>
+    );
   }
 
-  const header = data?.header || fallbackHeader;
-
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
-
-  const logoUrl = header.logo.url.startsWith('https')
-    ? header.logo.url
-    : `${baseUrl}${header.logo.url}`;
-
-  const logomarkUrl = header.logomark.url.startsWith('https')
-    ? header.logomark.url
-    : `${baseUrl}${header.logomark.url}`;
+  // Destructure/Format the necessary properties
+  const { header } = data.data;
+  const logoUrl = new URL(header.logo.url, process.env.STRAPI).href;
+  const logomarkUrl = new URL(header.logomark.url, process.env.STRAPI).href;
 
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
@@ -69,7 +64,6 @@ export default async function Header() {
             height="44"
           />
         </Link>
-
         <div className="flex flex-1 items-center justify-end md:justify-between">
 
           <nav aria-label="Global" className="hidden md:block">
@@ -112,7 +106,6 @@ export default async function Header() {
           </div>
 
         </div>
-
       </div>
     </header >
   )

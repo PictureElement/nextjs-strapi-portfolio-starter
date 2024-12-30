@@ -3,22 +3,40 @@ import SectionHeader from "./SectionHeader";
 import Chart from "./Chart";
 import ChartSSR from "./ChartSSR";
 import { fetchData } from "@/lib/utils";
+import { skillsDataSchema } from '@/lib/schemas';
 
 export default async function Skills() {
   console.log("Hello from Skills");
 
   const endpoint = "/api/homepage?populate[skills][populate]=*";
-  const data = await fetchData(endpoint);
 
-  const fallbackSkills = {
-    headline: 'TOOLSET',
-    supportiveText: 'Supportive Text',
-    chartData: [{ "name": "Frontend", "children": [{ "name": "JavaScript", "value": 1 }] }, { "name": "Backend", "children": [{ "name": "Node.js", "value": 1 }] }],
-    ariaLabelSSR: 'Server-side rendered chart for skills.',
-    ariaLabelCSR: 'Client-side interactive chart for skills.'
-  };
+  let data;
 
-  const skills = data?.skills || fallbackSkills;
+  try {
+    const response = await fetchData(endpoint);
+
+    const result = skillsDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <section className="bg-neutral-50 py-24 relative">
+        <ShapeDivider className="fill-white" />
+        <div className="relative mx-auto max-w-5xl px-4">
+          <div className="text-red-600 text-center">Unable to load data for the Skills component</div>
+        </div>
+      </section>
+    )
+  }
+
+  // Destructure the necessary properties
+  const { skills } = data.data;
 
   return (
     <section className="bg-neutral-50 py-24 relative">

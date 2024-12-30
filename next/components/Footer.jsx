@@ -5,6 +5,7 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import Link from 'next/link';
 import { fetchData } from "@/lib/utils";
 import CallToAction from "./CallToAction";
+import { footerDataSchema } from "@/lib/schemas";
 
 const socialIcons = {
   LinkedIn: (<svg className="size-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg>),
@@ -16,84 +17,34 @@ export default async function Footer() {
   console.log("Hello from Footer");
 
   const endpoint = "/api/global?populate[footer][populate]=*&populate[contactInformation][populate]=*";
-  const data = await fetchData(endpoint);
 
-  const fallbackFooter = {
-    headingColumn1: 'Heading 1',
-    statement: 'Statement',
-    socialChannels: null,
-    headingColumn2: 'Heading 2',
-    linksColumn2: [
-      {
-        id: 1,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      },
-      {
-        id: 2,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      },
-      {
-        id: 3,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      },
-      {
-        id: 4,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      }
-    ],
-    headingColumn3: 'Heading 3',
-    linksColumn3: [
-      {
-        id: 1,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      },
-      {
-        id: 2,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      },
-      {
-        id: 3,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      },
-      {
-        id: 4,
-        label: 'Label',
-        url: '/',
-        openLinkInNewTab: true,
-        sameHostLink: false
-      }
-    ],
-    copyright: 'Copyright'
-  };
+  let data;
 
-  const fallbackContactInformation = {
-    email: 'email@example.com',
-    workingHours: 'Mon – Fri: 9:00 AM – 6:00 PM EET'
+  try {
+    const response = await fetchData(endpoint);
+
+    const result = footerDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <footer className="bg-neutral-950">
+        <CallToAction />
+        <div className="mx-auto max-w-5xl px-4 py-16 lg:py-24">
+          <div className="text-red-600 text-center">Unable to load data for the Footer component</div>
+        </div>
+      </footer>
+    );
   }
 
-  const footer = data?.footer || fallbackFooter;
-  const contactInformation = data?.contactInformation || fallbackContactInformation;
+  // Destructure the necessary properties
+  const { footer, contactInformation } = data.data;
 
   return (
     <footer className="bg-neutral-950">
@@ -104,7 +55,7 @@ export default async function Footer() {
           <div className="lg:col-span-2">
             <p className="text-lg font-medium text-center text-white sm:text-left">{footer.headingColumn1}</p>
             <p className="mt-4 text-sm leading-relaxed text-center text-white/50 sm:text-left">{footer.statement}</p>
-            {footer.socialChannels && (
+            {footer.socialChannels.length > 0 && (
               <ul className="mt-6 flex justify-center gap-3 sm:justify-start">
                 {footer.socialChannels.map((item) => (
                   <li key={item.id}>
@@ -143,15 +94,13 @@ export default async function Footer() {
             <div className="text-center sm:text-left sm:col-span-2">
               <p className="text-lg font-medium text-white">Contact Information</p>
               <ul className="mt-4 space-y-4 text-sm">
-                {contactInformation?.email &&
-                  <li>
-                    <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${contactInformation.email.trim()}`}>
-                      <EnvelopeIcon className="size-5 shrink-0 text-white" />
-                      <span className="text-white/75 group-hover:underline">{contactInformation.email.trim()}</span>
-                    </Link>
-                  </li>
-                }
-                {contactInformation?.phone &&
+                <li>
+                  <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${contactInformation.email.trim()}`}>
+                    <EnvelopeIcon className="size-5 shrink-0 text-white" />
+                    <span className="text-white/75 group-hover:underline">{contactInformation.email.trim()}</span>
+                  </Link>
+                </li>
+                {contactInformation.phone &&
                   <li>
                     <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`tel:${contactInformation.phone.replace(/\s+/g, '')}`}>
                       <PhoneIcon className="size-5 shrink-0 text-white" />
@@ -159,7 +108,7 @@ export default async function Footer() {
                     </Link>
                   </li>
                 }
-                {contactInformation?.schedulingLink &&
+                {contactInformation.schedulingLink &&
                   <li>
                     <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 sm:justify-start group" href={contactInformation.schedulingLink}>
                       <CalendarDaysIcon className="size-5 shrink-0 text-white" />
@@ -167,14 +116,13 @@ export default async function Footer() {
                     </Link>
                   </li>
                 }
-                {contactInformation?.workingHours &&
-                  <li>
-                    <p className="flex items-center justify-center gap-1.5 sm:justify-start group">
-                      <ClockIcon className="size-5 shrink-0 text-white" />
-                      <span className="text-white/75">{contactInformation.workingHours}</span>
-                    </p>
-                  </li>
-                }
+                <li>
+                  <p className="flex items-center justify-center gap-1.5 sm:justify-start group">
+                    <ClockIcon className="size-5 shrink-0 text-white" />
+                    <span className="text-white/75">{contactInformation.workingHours}</span>
+                  </p>
+                </li>
+
               </ul>
             </div>
           </div>

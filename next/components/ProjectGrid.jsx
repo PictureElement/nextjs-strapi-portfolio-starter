@@ -2,7 +2,7 @@ import ProjectEntry from "./ProjectEntry";
 
 export default function ProjectGrid({ projects }) {
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
+  const baseUrl = process.env.STRAPI;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

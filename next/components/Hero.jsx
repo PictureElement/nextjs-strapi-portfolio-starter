@@ -5,24 +5,41 @@ import ShapeDivider from './ShapeDivider';
 import { Lobster } from 'next/font/google';
 import { fetchData } from '@/lib/utils';
 import BtnSecondary from './BtnSecondary';
+import { heroDataSchema } from '@/lib/schemas';
 const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 export default async function Hero() {
   console.log("Hello from Hero");
 
   const endpoint = "/api/homepage?populate[hero][populate]=*";
-  const data = await fetchData(endpoint);
 
-  const fallbackHero = {
-    greeting: null,
-    headline: 'Headline',
-    supportiveText: 'Supportive text',
-    primaryButton: null,
-    secondaryButton: null,
-  };
+  let data;
 
-  const hero = data?.hero || fallbackHero;
+  try {
+    const response = await fetchData(endpoint);
 
+    const result = heroDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <section className="bg-neutral-100 relative">
+        <ShapeDivider className="fill-white" />
+        <div className="relative z-50 mx-auto max-w-5xl px-4 pt-[168px] pb-24 sm:pt-48 sm:pb-[120px]">
+          <div className="text-red-600 text-center">Unable to load data for the Hero component</div>
+        </div>
+      </section>
+    )
+  }
+
+  // Destructure/Format the necessary properties
+  const { hero } = data.data;
   const words = hero.headline.trim()
     ? hero.headline.trim().split(/\s+/).map((word) => ({ text: word, className: "" }))
     : [{ text: 'Headline', className: '' }];

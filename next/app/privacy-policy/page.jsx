@@ -2,21 +2,36 @@ import { fetchData } from "@/lib/utils";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import Banner from "@/components/Banner";
+import { privacyDataSchema } from "@/lib/schemas";
 
 export default async function Page() {
 
-  const endpoint = "/api/privacy-policy?fields[0]=content&populate[banner]=*";
-  const data = await fetchData(endpoint);
+  const endpoint = "/api/privacy-policy?populate=*";
 
-  const fallbackBanner = {
-    headline: 'Privacy Policy',
-    supportiveText: 'Supportive text',
-  };
+  let data;
 
-  const fallbackContent = "Content";
+  try {
+    const response = await fetchData(endpoint);
 
-  const banner = data?.banner || fallbackBanner;
-  const content = data?.content || fallbackContent;
+    const result = privacyDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <main className="text-center">
+        <div className="text-red-600">Unable to load data for the Privacy Policy page</div>
+      </main>
+    );
+  }
+
+  // Destructure the necessary properties
+  const { content, banner } = data.data;
 
   return (
     <main className="overflow-hidden relative">

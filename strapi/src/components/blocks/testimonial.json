@@ -24,7 +24,7 @@
     },
     "companyWebsite": {
       "type": "string",
-      "required": false
+      "required": true
     }
   }
 }

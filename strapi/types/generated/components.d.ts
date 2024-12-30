@@ -107,7 +107,7 @@ export interface BlocksTestimonial extends Struct.ComponentSchema {
   attributes: {
     author: Schema.Attribute.String & Schema.Attribute.Required;
     company: Schema.Attribute.String & Schema.Attribute.Required;
-    companyWebsite: Schema.Attribute.String;
+    companyWebsite: Schema.Attribute.String & Schema.Attribute.Required;
     role: Schema.Attribute.String & Schema.Attribute.Required;
     statement: Schema.Attribute.Text & Schema.Attribute.Required;
   };
@@ -234,7 +234,7 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     cta: Schema.Attribute.Component<'basic.button', false> &
       Schema.Attribute.Required;
     logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    logomark: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    logomark: Schema.Attribute.Media<'images'>;
     navItems: Schema.Attribute.Component<'basic.button', true> &
       Schema.Attribute.Required;
   };

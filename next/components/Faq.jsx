@@ -2,41 +2,39 @@ import SectionHeader from "./SectionHeader";
 import FaqList from "./FaqList";
 import { fetchData } from "@/lib/utils";
 import ShapeDivider from "./ShapeDivider";
+import { faqDataSchema } from '@/lib/schemas';
 
 export default async function Faq() {
   console.log("Hello from Faq");
 
   const endpoint = "/api/homepage?populate[faq][populate]=*";
-  const data = await fetchData(endpoint);
 
-  const fallbackFaq = {
-    headline: 'FAQ',
-    supportiveText: 'Supportive Text',
-    faqList: [
-      {
-        id: 1,
-        question: 'Question',
-        answer: 'Answer'
-      },
-      {
-        id: 2,
-        question: 'Question',
-        answer: 'Answer'
-      },
-      {
-        id: 3,
-        question: 'Question',
-        answer: 'Answer'
-      },
-      {
-        id: 4,
-        question: 'Question',
-        answer: 'Answer'
-      }
-    ]
-  };
+  let data;
 
-  const faq = data?.faq || fallbackFaq;
+  try {
+    const response = await fetchData(endpoint);
+
+    const result = faqDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <section className="bg-neutral-50 py-24 relative">
+        <ShapeDivider className="fill-white" />
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="text-red-600 text-center">Unable to load data for the Faq component</div>
+        </div>
+      </section>
+    )
+  }
+
+  const { faq } = data.data;
 
   return (
     <section className="bg-neutral-50 py-24 relative">

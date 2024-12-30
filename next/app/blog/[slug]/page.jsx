@@ -5,29 +5,54 @@ import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
+import { postDataSchema } from "@/lib/schemas";
 
 export default async function Page({ params }) {
   // Get post by slug
   const endpoint = `/api/posts?filters[slug]=${params.slug}&populate=*`;
 
-  const data = await fetchData(endpoint);
+  let data;
 
-  if (!data || data.length === 0) {
+  try {
+    const response = await fetchData(endpoint);
+
+    const result = postDataSchema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <>
+        <BackTo label="Back to blog" url="/blog/" />
+        <main>
+          <div className="mx-auto max-w-5xl px-4">
+            <div className="text-red-600 text-center">Unable to load data for the Post page</div>
+          </div>
+        </main>
+        <BackTo label="Back to blog" url="/blog/" />
+      </>
+    )
+  }
+
+  // Redirect to a 404 page if no post was found
+  if (!data || data.data.length === 0) {
     notFound();
   }
 
-  const post = data[0];
-
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
-  const imageUrl = `${baseUrl}${post.featuredImage.url}`;
-
+  // Destructure/Format the necessary properties
+  const post = data.data[0];
+  const imageUrl = new URL(post.featuredImage.url, process.env.STRAPI).href;
   const content = (
     <div
-      className=""
+      className="[&>*:first-child]:mt-0"
       dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(post.content)) }}
     />
   );
-
   const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-GB');
 
   return (
@@ -43,12 +68,12 @@ export default async function Page({ params }) {
               </dl>
               <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight my-3">{post.title}</h1>
               <div className="text-sm leading-6 text-gray-900">Posted by Marios Sofokleous</div>
-              <div className="mt-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
+              <div className="my-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
                 <Image
                   priority
                   className="object-cover object-center"
                   src={imageUrl}
-                  alt={post.featuredImage?.alternativeText || "Post featured image"}
+                  alt={post.featuredImage.alternativeText}
                   fill
                 />
               </div>

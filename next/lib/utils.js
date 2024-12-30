@@ -6,7 +6,7 @@ export function cn(...inputs) {
 }
 
 export async function fetchData(endpoint) {
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
+  const baseUrl = process.env.STRAPI;
   const url = new URL(endpoint, baseUrl);
 
   try {
@@ -18,7 +18,7 @@ export async function fetchData(endpoint) {
 
     const data = await res.json();
 
-    return data?.data;
+    return data;
   } catch (error) {
     console.error(`Error: ${error.message}`);
     return null;

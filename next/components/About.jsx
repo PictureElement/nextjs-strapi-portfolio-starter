@@ -4,32 +4,41 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import { fetchData } from '@/lib/utils';
 import ShapeDivider from './ShapeDivider';
+import { aboutDataSchema } from '@/lib/schemas';
 
 export default async function About() {
   console.log("Hello from About");
 
   const endpoint = "/api/homepage?populate[about][populate]=*";
-  const data = await fetchData(endpoint);
 
-  const fallbackAbout = {
-    profileImage: {
-      url: 'https://placehold.co/862x862.png?text=862x862',
-      alternativeText: '...',
-      width: '862',
-      height: '862',
-    },
-    headline: 'ABOUT',
-    supportiveText: 'Supportive Text',
-    content: 'Content'
-  };
+  let data;
 
-  const about = data?.about || fallbackAbout;
+  try {
+    const response = await fetchData(endpoint);
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI;
+    const result = aboutDataSchema.safeParse(response);
 
-  const imageUrl = about.profileImage.url.startsWith('https')
-    ? about.profileImage.url
-    : `${baseUrl}${about.profileImage.url}`;
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    data = result.data;
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <section className="bg-white py-24 relative">
+        <ShapeDivider className="fill-neutral-50" />
+        <div className="relative mx-auto max-w-5xl px-4">
+          <div className="text-red-600 text-center">Unable to load data for the About component</div>
+        </div>
+      </section>
+    )
+  }
+
+  // Destructure/Format the necessary properties
+  const { about } = data.data;
+  const imageUrl = new URL(about.profileImage.url, process.env.STRAPI).href;
 
   return (
     <section className="bg-white py-24 relative">
