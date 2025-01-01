@@ -1,4 +1,3 @@
-import { TypewriterEffect } from './TypewriterEffect';
 import BtnPrimary from './BtnPrimary';
 import AnimatedGradient from './AnimatedGradient';
 import ShapeDivider from './ShapeDivider';
@@ -40,9 +39,6 @@ export default async function Hero() {
 
   // Destructure/Format the necessary properties
   const { hero } = data.data;
-  const words = hero.headline.trim()
-    ? hero.headline.trim().split(/\s+/).map((word) => ({ text: word, className: "" }))
-    : [{ text: 'Headline', className: '' }];
 
   return (
     <section className="bg-neutral-100 relative">
@@ -53,7 +49,7 @@ export default async function Hero() {
           <p className={`${lobster.className} font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4`}>{hero.greeting}</p>
         )}
         <h1 className="text-gray-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
-          <TypewriterEffect words={words} />
+          {hero.headline}
         </h1>
         <p className="text-gray-700 text-lg mt-6">{hero.supportiveText}</p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">

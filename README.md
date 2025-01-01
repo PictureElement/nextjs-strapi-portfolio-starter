@@ -43,7 +43,7 @@ scp /path/to/local/file username@remote_host:/path/to/remote/directory
 
 
 
-
+# ssh root@xxx.xxx.xxx.xxx
 
 
 # Upgrade Strapi to the latest version
@@ -77,7 +77,7 @@ scp -r /path/to/local/src/* root@<your-server-ip>:/var/lib/docker/volumes/i0wggs
 6. Restart the Application in Coolify
 
 # Data transfer from local to remote
-0. Make sure both target and source Strapi instances have the same version.
-1. Generate a transfer token on remote Strapi instace
-2. Push data to remote:
-npm run strapi transfer -- --to destinationURL/admin
+0. Make sure both target and source Strapi instances have the same version. (see Upgrade Strapi to the latest version)
+1. Generate a transfer token on remote Strapi instace.
+2. Make sure the source and target schemas match. (see The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that)
+3. Push data to remote: npm run strapi transfer -- --to destinationURL/admin
