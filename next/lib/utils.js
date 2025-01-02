@@ -5,20 +5,18 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export async function fetchData(endpoint) {
+export async function fetchData(endpoint, options = {}) {
   const baseUrl = process.env.STRAPI;
   const url = new URL(endpoint, baseUrl);
 
   try {
-    const res = await fetch(url, { next: { revalidate: 0 } });
+    const res = await fetch(url.toString(), { cache: 'force-cache', ...options });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data from ${endpoint}`);
     }
 
-    const data = await res.json();
-
-    return data;
+    return await res.json();
   } catch (error) {
     console.error(`Error: ${error.message}`);
     return null;
