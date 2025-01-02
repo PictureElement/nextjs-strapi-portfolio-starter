@@ -5,7 +5,32 @@ import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
-import { postDataSchema } from "@/lib/schemas";
+import { postData1Schema, postData2Schema } from "@/lib/schemas";
+
+// Return a list of `params` to populate the [slug] dynamic segment
+export async function generateStaticParams() {
+  // Get all possible post slugs for static generation
+  const endpoint = '/api/posts?fields=slug';
+
+  try {
+    const response = await fetchData(endpoint);
+
+    const result = postData1Schema.safeParse(response);
+
+    if (!result.success) {
+      console.error(`Validation failed for ${endpoint}:`, result.error);
+      throw new Error(`Invalid data received from ${endpoint}`);
+    }
+
+    const posts = result.data;
+
+    return posts.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    return [];
+  }
+}
 
 export default async function Page({ params }) {
   // Get post by slug
@@ -16,7 +41,7 @@ export default async function Page({ params }) {
   try {
     const response = await fetchData(endpoint);
 
-    const result = postDataSchema.safeParse(response);
+    const result = postData2Schema.safeParse(response);
 
     if (!result.success) {
       console.error(`Validation failed for ${endpoint}:`, result.error);

@@ -282,8 +282,15 @@ export const projectDataSchema = z.object({
   })),
 });
 
+// /api/posts?fields=slug
+export const postData1Schema = z.object({
+  data: z.array(z.object({
+    slug: z.string(),
+  })),
+});
+
 // /api/posts?filters[slug]=${params.slug}&populate=*
-export const postDataSchema = z.object({
+export const postData2Schema = z.object({
   data: z.array(z.object({
     title: z.string(),
     content: z.string(),
