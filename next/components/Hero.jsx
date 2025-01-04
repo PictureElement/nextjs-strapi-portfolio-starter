@@ -2,29 +2,17 @@ import BtnPrimary from './BtnPrimary';
 import AnimatedGradient from './AnimatedGradient';
 import ShapeDivider from './ShapeDivider';
 import { Lobster } from 'next/font/google';
-import { fetchData } from '@/lib/utils';
+import { fetchHeroData } from '@/lib/api';
 import BtnSecondary from './BtnSecondary';
-import { heroDataSchema } from '@/lib/schemas';
 const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 export default async function Hero() {
   console.log("Hello from Hero");
 
-  const endpoint = "/api/homepage?populate[hero][populate]=*";
-
-  let data;
+  let heroData;
 
   try {
-    const response = await fetchData(endpoint);
-
-    const result = heroDataSchema.safeParse(response);
-
-    if (!result.success) {
-      console.error(`Validation failed for ${endpoint}:`, result.error);
-      throw new Error(`Invalid data received from ${endpoint}`);
-    }
-
-    data = result.data;
+    heroData = await fetchHeroData();
   } catch (error) {
     // Return fallback UI in case of validation or fetch errors
     return (
@@ -38,7 +26,7 @@ export default async function Hero() {
   }
 
   // Destructure/Format the necessary properties
-  const { hero } = data.data;
+  const { hero } = heroData.data;
 
   return (
     <section className="bg-neutral-100 relative">
