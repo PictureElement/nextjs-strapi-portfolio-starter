@@ -11,6 +11,7 @@ export async function fetchData(endpoint, options = {}) {
 
   try {
     const res = await fetch(url.toString(), { cache: 'force-cache', ...options });
+    // const res = await fetch(url.toString(), { cache: 'no-store', ...options });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data from ${endpoint}`);

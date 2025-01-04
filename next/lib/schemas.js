@@ -145,6 +145,13 @@ export const privacyDataSchema = z.object({
   })
 });
 
+// /api/not-found?populate=*
+export const notFoundDataSchema = z.object({
+  data: z.object({
+    banner: bannerSchema,
+  })
+});
+
 // /api/global?populate[header][populate]=*
 export const headerDataSchema = z.object({
   data: z.object({

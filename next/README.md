@@ -2,12 +2,9 @@ Implement Structure data
 Metadata
 RSS: see tailwind blog, RSS on the banner https://pepelsbey.dev/articles/, RSS on the menu https://pepelsbey.dev/
 Read more about <Image>. Specify width and height and setup responsive images with srcset and sizes + Add image instruction (size, aspect ratio) in Strapi.
-Show Hero headline when JS is disabled
 Implement form submission
-Style the 404 page
 Remove all console statements
 navlinks
-Use getstaticprops and switch to ISR. Redirect to 404 page (Post and Project pages)
 
 
 
