@@ -1,31 +1,38 @@
 import AnnouncementContent from "./AnnouncementContent";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
-import { fetchData } from "@/lib/utils";
+import { fetchAnnouncement } from "@/lib/api";
 
 export default async function Announcement() {
-  console.log("Hello from Announcement");
+  let data;
 
-  const endpoint = "/api/global?populate[announcement][populate]=*";
-  const data = await fetchData(endpoint);
+  try {
+    data = await fetchAnnouncement();
+  } catch (error) {
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <AnnouncementContent>
+        <div className="text-center max-w-none prose prose-sm prose-invert prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2">
+          Unable to load data for the Announcement component
+        </div>
+      </AnnouncementContent>
+    )
+  }
 
-  const fallbackAnnouncement = {
-    content: 'Content'
-  };
-
-  const announcement = data?.announcement || fallbackAnnouncement;
+  // Destructure the necessary properties
+  const { content } = data;
 
   // Render nothing if no content
-  if (!announcement?.content) {
+  if (!content) {
     return null;
   }
 
-  const content = (
-    <div
-      className="text-center max-w-none prose prose-sm prose-invert prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
-      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(announcement.content)) }}
-    />
+  return (
+    <AnnouncementContent>
+      <div
+        className="text-center max-w-none prose prose-sm prose-invert prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+      />
+    </AnnouncementContent>
   );
-
-  return (<AnnouncementContent>{content}</AnnouncementContent>);
 }

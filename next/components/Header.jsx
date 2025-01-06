@@ -2,27 +2,13 @@ import Image from 'next/image';
 import BtnPrimary from "./BtnPrimary";
 import { Bars3Icon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
-import { fetchData } from "@/lib/utils";
-import { headerDataSchema } from "@/lib/schemas";
+import { fetchHeader } from '@/lib/api';
 
 export default async function Header() {
-  console.log("Hello from Header");
-
-  const endpoint = "/api/global?populate[header][populate]=*";
-
   let data;
 
   try {
-    const response = await fetchData(endpoint);
-
-    const result = headerDataSchema.safeParse(response);
-
-    if (!result.success) {
-      console.error(`Validation failed for ${endpoint}:`, result.error);
-      throw new Error(`Invalid data received from ${endpoint}`);
-    }
-
-    data = result.data;
+    data = await fetchHeader();
   } catch (error) {
     // Return fallback UI in case of validation or fetch errors
     return (
@@ -35,9 +21,9 @@ export default async function Header() {
   }
 
   // Destructure/Format the necessary properties
-  const { header } = data.data;
-  const logoUrl = new URL(header.logo.url, process.env.STRAPI).href;
-  const logomarkUrl = new URL(header.logomark.url, process.env.STRAPI).href;
+  const { logo, navItems, cta, logomark } = data;
+  const logoUrl = new URL(logo.url, process.env.STRAPI).href;
+  const logomarkUrl = new URL(logomark.url, process.env.STRAPI).href;
 
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
@@ -50,7 +36,7 @@ export default async function Header() {
           <Image
             priority
             src={logoUrl}
-            alt={header.logo.alternativeText}
+            alt={logo.alternativeText}
             className="hidden md:block"
             width="212"
             height="44"
@@ -58,7 +44,7 @@ export default async function Header() {
           <Image
             priority
             src={logomarkUrl}
-            alt={header.logomark.alternativeText}
+            alt={logomark.alternativeText}
             className="md:hidden"
             width="44"
             height="44"
@@ -68,7 +54,7 @@ export default async function Header() {
 
           <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
-              {header.navItems.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.id}>
                   <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="text-gray-900 transition hover:text-gray-900/75">
                     {item.label}
@@ -80,10 +66,10 @@ export default async function Header() {
 
           <div className="flex items-center gap-4">
             <BtnPrimary
-              target={header.cta.openLinkInNewTab ? "_blank" : undefined}
-              rel={header.cta.sameHostLink ? undefined : "noopener noreferrer"}
-              label={header.cta.label}
-              url={header.cta.url}
+              target={cta.openLinkInNewTab ? "_blank" : undefined}
+              rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
+              label={cta.label}
+              url={cta.url}
             />
             <button
               className="

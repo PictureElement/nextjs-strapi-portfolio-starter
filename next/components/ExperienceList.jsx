@@ -3,15 +3,10 @@ import ExperienceEntry from "./ExperienceEntry";
 export default function ExperienceList({ experienceList }) {
   console.log("Hello from ExperienceList");
 
-  const baseUrl = process.env.STRAPI;
-
   return (
     <ol className="relative border-s border-neutral-300 ml-6">
       {experienceList.map((entry, index) => {
-        const imageUrl = entry.companyLogo.url.startsWith('https')
-          ? entry.companyLogo.url
-          : `${baseUrl}${entry.companyLogo.url}`;
-
+        const imageUrl = new URL(entry.companyLogo.url, process.env.STRAPI).href;
         return (
           <ExperienceEntry
             key={index}

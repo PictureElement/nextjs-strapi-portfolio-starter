@@ -3,9 +3,8 @@ import { PhoneIcon } from "@heroicons/react/24/outline";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import Link from 'next/link';
-import { fetchData } from "@/lib/utils";
 import CallToAction from "./CallToAction";
-import { footerDataSchema } from "@/lib/schemas";
+import { fetchFooter } from "@/lib/api";
 
 const socialIcons = {
   LinkedIn: (<svg className="size-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg>),
@@ -14,23 +13,10 @@ const socialIcons = {
 };
 
 export default async function Footer() {
-  console.log("Hello from Footer");
-
-  const endpoint = "/api/global?populate[footer][populate]=*&populate[contactInformation][populate]=*";
-
   let data;
 
   try {
-    const response = await fetchData(endpoint);
-
-    const result = footerDataSchema.safeParse(response);
-
-    if (!result.success) {
-      console.error(`Validation failed for ${endpoint}:`, result.error);
-      throw new Error(`Invalid data received from ${endpoint}`);
-    }
-
-    data = result.data;
+    data = await fetchFooter();
   } catch (error) {
     // Return fallback UI in case of validation or fetch errors
     return (
@@ -44,7 +30,7 @@ export default async function Footer() {
   }
 
   // Destructure the necessary properties
-  const { footer, contactInformation } = data.data;
+  const { statement, headingColumn1, headingColumn2, headingColumn3, copyright, socialChannels, linksColumn2, linksColumn3, email, schedulingLink, workingHours, phone } = data;
 
   return (
     <footer className="bg-neutral-950">
@@ -53,11 +39,11 @@ export default async function Footer() {
 
         <div className="gap-8 grid grid-cols-1 lg:grid-cols-6">
           <div className="lg:col-span-2">
-            <p className="text-lg font-medium text-center text-white sm:text-left">{footer.headingColumn1}</p>
-            <p className="mt-4 text-sm leading-relaxed text-center text-white/50 sm:text-left">{footer.statement}</p>
-            {footer.socialChannels.length > 0 && (
+            <p className="text-lg font-medium text-center text-white sm:text-left">{headingColumn1}</p>
+            <p className="mt-4 text-sm leading-relaxed text-center text-white/50 sm:text-left">{statement}</p>
+            {socialChannels.length > 0 && (
               <ul className="mt-6 flex justify-center gap-3 sm:justify-start">
-                {footer.socialChannels.map((item) => (
+                {socialChannels.map((item) => (
                   <li key={item.id}>
                     <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white inline-block">
                       <span className="sr-only">{item.label}</span>
@@ -72,9 +58,9 @@ export default async function Footer() {
           </div>
           <div className="gap-8 grid grid-cols-1 sm:grid-cols-4 lg:col-span-4">
             <div className="text-center sm:text-left sm:col-span-1">
-              <p className="text-lg font-medium text-white">{footer.headingColumn2}</p>
+              <p className="text-lg font-medium text-white">{headingColumn2}</p>
               <ul className="mt-4 space-y-4 text-sm">
-                {footer.linksColumn2.map((item) => (
+                {linksColumn2.map((item) => (
                   <li key={item.id}>
                     <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} className="text-white/75 transition hover:underline" href={item.url}>{item.label}</Link>
                   </li>
@@ -82,9 +68,9 @@ export default async function Footer() {
               </ul>
             </div>
             <div className="text-center sm:text-left sm:col-span-1">
-              <p className="text-lg font-medium text-white">{footer.headingColumn3}</p>
+              <p className="text-lg font-medium text-white">{headingColumn3}</p>
               <ul className="mt-4 space-y-4 text-sm">
-                {footer.linksColumn3.map((item) => (
+                {linksColumn3.map((item) => (
                   <li key={item.id}>
                     <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} className="text-white/75 transition hover:underline" href={item.url}>{item.label}</Link>
                   </li>
@@ -95,22 +81,22 @@ export default async function Footer() {
               <p className="text-lg font-medium text-white">Contact Information</p>
               <ul className="mt-4 space-y-4 text-sm">
                 <li>
-                  <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${contactInformation.email.trim()}`}>
+                  <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${email.trim()}`}>
                     <EnvelopeIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75 group-hover:underline">{contactInformation.email.trim()}</span>
+                    <span className="text-white/75 group-hover:underline">{email.trim()}</span>
                   </Link>
                 </li>
-                {contactInformation.phone &&
+                {phone &&
                   <li>
-                    <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`tel:${contactInformation.phone.replace(/\s+/g, '')}`}>
+                    <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`tel:${phone.replace(/\s+/g, '')}`}>
                       <PhoneIcon className="size-5 shrink-0 text-white" />
-                      <span className="text-white/75 group-hover:underline">{contactInformation.phone.trim()}</span>
+                      <span className="text-white/75 group-hover:underline">{phone.trim()}</span>
                     </Link>
                   </li>
                 }
-                {contactInformation.schedulingLink &&
+                {schedulingLink &&
                   <li>
-                    <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 sm:justify-start group" href={contactInformation.schedulingLink}>
+                    <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 sm:justify-start group" href={schedulingLink}>
                       <CalendarDaysIcon className="size-5 shrink-0 text-white" />
                       <span className="text-white/75 group-hover:underline">Schedule Appointment</span>
                     </Link>
@@ -119,7 +105,7 @@ export default async function Footer() {
                 <li>
                   <p className="flex items-center justify-center gap-1.5 sm:justify-start group">
                     <ClockIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75">{contactInformation.workingHours}</span>
+                    <span className="text-white/75">{workingHours}</span>
                   </p>
                 </li>
 
@@ -134,7 +120,7 @@ export default async function Footer() {
             <p className="text-sm">
               <Link target="_blank" className="inline-block text-white/75 transition hover:underline" href="/privacy-policy">Privacy Policy</Link>
             </p>
-            <p className="mt-4 text-sm text-white/50 sm:order-first sm:mt-0">{footer.copyright}</p>
+            <p className="mt-4 text-sm text-white/50 sm:order-first sm:mt-0">{copyright}</p>
           </div>
         </div>
 

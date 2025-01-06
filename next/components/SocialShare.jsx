@@ -16,9 +16,8 @@ const socialIcons = {
 };
 
 export default function SocialShare() {
-  const baseUrl = process.env.NEXT_PUBLIC_WEBSITE;
   const pathname = usePathname();
-  const fullUrl = `${baseUrl}${pathname}`;
+  const fullUrl = new URL(pathname, process.env.NEXT_PUBLIC_WEBSITE).href;
 
   return (
     <dl className="flex flex-col gap-2 not-prose">

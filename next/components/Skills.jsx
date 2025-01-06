@@ -2,27 +2,13 @@ import ShapeDivider from "./ShapeDivider";
 import SectionHeader from "./SectionHeader";
 import Chart from "./Chart";
 import ChartSSR from "./ChartSSR";
-import { fetchData } from "@/lib/utils";
-import { skillsDataSchema } from '@/lib/schemas';
+import { fetchSkills } from "@/lib/api";
 
 export default async function Skills() {
-  console.log("Hello from Skills");
-
-  const endpoint = "/api/homepage?populate[skills][populate]=*";
-
   let data;
 
   try {
-    const response = await fetchData(endpoint);
-
-    const result = skillsDataSchema.safeParse(response);
-
-    if (!result.success) {
-      console.error(`Validation failed for ${endpoint}:`, result.error);
-      throw new Error(`Invalid data received from ${endpoint}`);
-    }
-
-    data = result.data;
+    data = await fetchSkills();
   } catch (error) {
     // Return fallback UI in case of validation or fetch errors
     return (
@@ -36,15 +22,15 @@ export default async function Skills() {
   }
 
   // Destructure the necessary properties
-  const { skills } = data.data;
+  const { headline, supportiveText, chartData, ariaLabelSSR, ariaLabelCSR } = data;
 
   return (
     <section className="bg-neutral-50 py-24 relative">
       <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-5xl px-4">
-        <SectionHeader headline={skills.headline} supportiveText={skills.supportiveText} />
-        <Chart data={skills.chartData} ariaLabelSSR={skills.ariaLabelSSR} ariaLabelCSR={skills.ariaLabelCSR}>
-          <ChartSSR data={skills.chartData} />
+        <SectionHeader headline={headline} supportiveText={supportiveText} />
+        <Chart data={chartData} ariaLabelSSR={ariaLabelSSR} ariaLabelCSR={ariaLabelCSR}>
+          <ChartSSR data={chartData} />
         </Chart>
       </div>
     </section >

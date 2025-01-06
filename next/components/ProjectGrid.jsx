@@ -1,14 +1,10 @@
 import ProjectEntry from "./ProjectEntry";
 
 export default function ProjectGrid({ projects }) {
-
-  const baseUrl = process.env.STRAPI;
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {projects.map((entry) => {
-        const imageUrl = `${baseUrl}${entry.featuredImage.url}`;
-
+        const imageUrl = new URL(entry.featuredImage.url, process.env.STRAPI).href;
         return (
           <ProjectEntry
             key={entry.id}

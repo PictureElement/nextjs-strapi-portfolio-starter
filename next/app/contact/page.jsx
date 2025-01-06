@@ -2,39 +2,15 @@ import Banner from "@/components/Banner";
 import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
 import Link from "next/link";
-import { fetchData } from "@/lib/utils";
-import { contactData1Schema, contactData2Schema } from "@/lib/schemas";
+import { fetchContact } from "@/lib/api";
 
 export default async function Page() {
-  // Get banner, metadata, and headings
-  const endpoint1 = "/api/contact-page?populate=*";
-  // Get contact information
-  const endpoint2 = "/api/global?populate[contactInformation][populate]=*";
-
-  let data1, data2;
+  let data;
 
   try {
-    const [response1, response2] = await Promise.all([
-      fetchData(endpoint1),
-      fetchData(endpoint2),
-    ]);
-
-    const result1 = contactData1Schema.safeParse(response1);
-    const result2 = contactData2Schema.safeParse(response2);
-
-    if (!result1.success) {
-      console.error(`Validation failed for ${endpoint1}:`, result1.error);
-      throw new Error(`Invalid data received from ${endpoint1}`);
-    }
-
-    if (!result2.success) {
-      console.error(`Validation failed for ${endpoint2}:`, result2.error);
-      throw new Error(`Invalid data received from ${endpoint2}`);
-    }
-
-    data1 = result1.data;
-    data2 = result2.data;
+    data = await fetchContact();
   } catch (error) {
+    console.log(error);
     // Return fallback UI in case of validation or fetch errors
     return (
       <main className="text-center">
@@ -44,12 +20,11 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { banner, metadata, contactFormHeading, otherContactOptionsHeading } = data1.data;
-  const { contactInformation } = data2.data;
+  const { title, description, headline, supportiveText, contactFormHeading, otherContactOptionsHeading, email, schedulingLink, workingHours, phone } = data;
 
   return (
     <main className="overflow-hidden relative">
-      <Banner headline={banner.headline} supportiveText={banner.supportiveText} />
+      <Banner headline={headline} supportiveText={supportiveText} />
       <section className="mx-auto max-w-5xl px-4 py-24">
         <article className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{contactFormHeading}</h2>
@@ -114,16 +89,16 @@ export default async function Page() {
         <aside>
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{otherContactOptionsHeading}</h2>
           <div className="grid grid-cols-1 gap-6">
-            <ContactOption title="Email us" label={contactInformation.email} href={`mailto:${contactInformation.email.trim()}`} />
-            {contactInformation.phone &&
-              <ContactOption title="Call us" label={contactInformation.phone} href={`tel:${contactInformation.phone.replace(/\s+/g, '')}`} />
+            <ContactOption title="Email us" label={email} href={`mailto:${email.trim()}`} />
+            {phone &&
+              <ContactOption title="Call us" label={phone} href={`tel:${phone.replace(/\s+/g, '')}`} />
             }
-            {contactInformation.schedulingLink &&
-              <ContactOption title="Schedule a call" label={contactInformation.schedulingLink} href={contactInformation.schedulingLink} rel="noopener noreferer" target="_blank" />
+            {schedulingLink &&
+              <ContactOption title="Schedule a call" label={schedulingLink} href={schedulingLink} rel="noopener noreferer" target="_blank" />
             }
             <div className="text-center py-8 sm:py-12">
               <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Working Hours</h3>
-              <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{contactInformation.workingHours}</p>
+              <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{workingHours}</p>
             </div>
           </div>
         </aside>

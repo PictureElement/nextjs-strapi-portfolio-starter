@@ -1,27 +1,15 @@
-import { fetchData } from "@/lib/utils";
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import Banner from "@/components/Banner";
-import { privacyDataSchema } from "@/lib/schemas";
+import { fetchPrivacy } from "@/lib/api";
 
 export default async function Page() {
-
-  const endpoint = "/api/privacy-policy?populate=*";
-
   let data;
 
   try {
-    const response = await fetchData(endpoint);
-
-    const result = privacyDataSchema.safeParse(response);
-
-    if (!result.success) {
-      console.error(`Validation failed for ${endpoint}:`, result.error);
-      throw new Error(`Invalid data received from ${endpoint}`);
-    }
-
-    data = result.data;
+    data = await fetchPrivacy();
   } catch (error) {
+    console.log(error);
     // Return fallback UI in case of validation or fetch errors
     return (
       <main className="text-center">
@@ -31,11 +19,11 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { content, banner } = data.data;
+  const { title, description, headline, supportiveText, content } = data;
 
   return (
     <main className="overflow-hidden relative">
-      <Banner headline={banner.headline} supportiveText={banner.supportiveText} />
+      <Banner headline={headline} supportiveText={supportiveText} />
       <section className="mx-auto max-w-5xl px-4 py-24">
         <div
           className="max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto"

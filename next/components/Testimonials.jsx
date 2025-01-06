@@ -1,27 +1,13 @@
 import SectionHeader from "./SectionHeader";
 import ShapeDivider from "./ShapeDivider";
 import TestimonialList from "./TestimonialList";
-import { fetchData } from "@/lib/utils";
-import { testimonialsDataSchema } from "@/lib/schemas";
+import { fetchTestimonials } from "@/lib/api";
 
 export default async function Testimonials() {
-  console.log("Hello from Testimonials");
-
-  const endpoint = "/api/homepage?populate[testimonials][populate]=*";
-
   let data;
 
   try {
-    const response = await fetchData(endpoint);
-
-    const result = testimonialsDataSchema.safeParse(response);
-
-    if (!result.success) {
-      console.error(`Validation failed for ${endpoint}:`, result.error);
-      throw new Error(`Invalid data received from ${endpoint}`);
-    }
-
-    data = result.data;
+    data = await fetchTestimonials();
   } catch (error) {
     // Return fallback UI in case of validation or fetch errors
     return (
@@ -34,14 +20,15 @@ export default async function Testimonials() {
     )
   }
 
-  const { testimonials } = data.data;
+  // Destructure the necessary properties
+  const { headline, supportiveText, testimonialList } = data;
 
   return (
     <section className="bg-white py-24 relative">
       <ShapeDivider className="fill-neutral-50" />
       <div className="relative mx-auto max-w-5xl px-4">
-        <SectionHeader headline={testimonials.headline} supportiveText={testimonials.supportiveText} />
-        <TestimonialList testimonialList={testimonials.testimonialList} />
+        <SectionHeader headline={headline} supportiveText={supportiveText} />
+        <TestimonialList testimonialList={testimonialList} />
       </div>
     </section >
   );
