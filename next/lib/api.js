@@ -312,7 +312,7 @@ export const fetchProjects = async () => {
   // Get the latest projects
   const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
   // Get the banner and metadata
-  const endpoint2 = "/api/projects-page?populate=*";
+  const endpoint2 = "/api/projects-page?populate[banner]=*&populate[metadata][populate]=openGraphImage";
 
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -346,7 +346,7 @@ export const fetchBlog = async () => {
   // Get the latest posts
   const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
   // Get the banner and metadata
-  const endpoint2 = "/api/blog-page?populate=*";
+  const endpoint2 = "/api/blog-page?populate[banner]=*&populate[metadata][populate]=openGraphImage";
 
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -378,7 +378,7 @@ export const fetchBlog = async () => {
 
 export const fetchContact = async () => {
   // Get banner, metadata, and headings
-  const endpoint1 = "/api/contact-page?populate=*";
+  const endpoint1 = "/api/contact-page?populate[banner]=*&populate[metadata][populate]=openGraphImage";
   // Get contact information
   const endpoint2 = "/api/global?populate[contactInformation][populate]=*";
 
@@ -416,7 +416,7 @@ export const fetchContact = async () => {
 };
 
 export const fetchPrivacy = async () => {
-  const endpoint = '/api/privacy-policy?populate=*';
+  const endpoint = '/api/privacy-policy?populate[banner]=*&populate[metadata][populate]=openGraphImage';
   const response = await fetchData(endpoint);
 
   const result = privacySchema.safeParse(response);
