@@ -25,7 +25,6 @@ export default async function Page({ params }) {
   try {
     data = await fetchProject(slug);
   } catch (error) {
-    console.log(error);
     // Return fallback UI in case of validation or fetch errors
     return (
       <>

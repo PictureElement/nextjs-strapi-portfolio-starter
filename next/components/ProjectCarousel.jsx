@@ -10,7 +10,6 @@ export default function ProjectCarousel({ projects, baseUrl }) {
     <div ref={emblaRef}>
       <div className="flex gap-6">
         {projects.map((entry) => {
-          console.log(entry.featuredImage.url);
           const imageUrl = new URL(entry.featuredImage.url, baseUrl).href;
           return (
             <div key={entry.id} className="min-w-0 grow-0 shrink-0 basis-10/12 max-w-lg">

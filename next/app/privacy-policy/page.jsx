@@ -9,7 +9,6 @@ export default async function Page() {
   try {
     data = await fetchPrivacy();
   } catch (error) {
-    console.log(error);
     // Return fallback UI in case of validation or fetch errors
     return (
       <main className="text-center">
