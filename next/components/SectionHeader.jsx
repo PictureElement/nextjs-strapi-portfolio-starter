@@ -1,5 +1,4 @@
 export default function SectionHeader({ headline, supportiveText }) {
-  console.log("Hello from SectionHeader");
   return (
     <div className="mb-12">
       <h2 className="text-primary-700 font-light text-lg sm:text-xl tracking-widest text-center mb-4">{headline}</h2>

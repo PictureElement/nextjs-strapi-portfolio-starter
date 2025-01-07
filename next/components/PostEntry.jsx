@@ -2,7 +2,6 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 
 export default function PostEntry({ title, excerpt, slug }) {
-  console.log("Hello from PostEntry");
   return (
     <article className="relative p-4 py-6 bg-neutral-50 hover:bg-neutral-100 transition border border-neutral-200 rounded-2xl">
       <h3 className="text-gray-900 font-medium text-xl sm:text-2xl tracking-tight mb-2 relative">{title}</h3>

@@ -5,8 +5,6 @@ import BtnToggle from "./BtnToggle";
 import ServiceEntry from './ServiceEntry';
 
 export default function ServiceList({ serviceList, defaultOpen = false }) {
-  console.log("Hello from ServiceList");
-
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const toggleServices = () => {

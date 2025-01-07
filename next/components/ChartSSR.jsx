@@ -64,7 +64,6 @@ function generateChartSVG(data) {
 }
 
 export default function ChartSSR({ data }) {
-  console.log("Hello from ChartSSR");
   return (
     <div className="overflow-hidden flex items-center justify-center width-full !h-[480px] sm:!h-[600px]" dangerouslySetInnerHTML={{ __html: generateChartSVG(data) }} suppressHydrationWarning />
   )

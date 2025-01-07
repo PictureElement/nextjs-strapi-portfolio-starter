@@ -10,19 +10,6 @@ textarea {
   @apply focus-visible:outline-0 focus-visible:ring focus-visible:ring-secondary;
 }
 
-/* Experience */
-.experience-entry-content ul {
-  @apply list-disc pl-4;
-}
-
-.experience-entry-content li {
-  @apply mb-3;
-}
-
-.experience-entry-content li:last-child {
-  @apply mb-0;
-}
-
 /* Collapse animation */
 .ReactCollapse--collapse {
   @apply transition-[height];

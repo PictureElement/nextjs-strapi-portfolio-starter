@@ -6,10 +6,7 @@ Read more about <Image>. Specify width and height and setup responsive images wi
 Implement form submission
 Remove all console statements
 navlinks
-Refactor rest of components to follow SRP
-unique key
-remove console,log
-
+unique key in loops
 
 
 

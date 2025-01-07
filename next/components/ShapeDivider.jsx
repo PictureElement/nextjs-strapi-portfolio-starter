@@ -1,5 +1,4 @@
 export default function ShapeDivider({ className = "" }) {
-  console.log("Hello from ShapeDivider");
   return (
     <figure className="absolute bottom-0 w-full">
       <svg

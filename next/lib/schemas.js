@@ -9,11 +9,6 @@ const bannerSchema = z.object({
   supportiveText: z.string(),
 });
 
-const metadataSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-});
-
 const contactInformationSchema = z.object({
   email: z.string(),
   phone: z.string().nullable(),
@@ -32,6 +27,12 @@ const imageSchema = z.object({
   width: z.number(),
   height: z.number(),
   url: z.string(),
+});
+
+const metadataSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  openGraphImage: imageSchema,
 });
 
 const linkSchema = z.object({
@@ -54,6 +55,17 @@ const serviceEntrySchema = z.object({
   description: z.string(),
   title: z.string(),
 });
+
+const experienceEntrySchema = z.object({
+  id: z.number(),
+  role: z.string(),
+  company: z.string(),
+  companyUrl: z.string().nullable(), // Allow null values
+  duration: z.string(),
+  location: z.string(),
+  content: z.string(),
+  companyLogo: imageSchema,
+})
 
 const faqEntrySchema = z.object({
   question: z.string(),
@@ -101,6 +113,12 @@ const toolSchema = z.object({
 //
 // Pages
 //
+
+export const homeSchema = z.object({
+  data: z.object({
+    metadata: metadataSchema,
+  })
+})
 
 export const blog1Schema = z.object({
   data: z.array(postEntrySchema), // Can be empty
@@ -256,6 +274,14 @@ export const skillsSchema = z.object({
       chartData: z.array(parentSkillSchema),
       ariaLabelSSR: z.string(),
       ariaLabelCSR: z.string(),
+    })
+  })
+});
+
+export const experienceSchema = z.object({
+  data: z.object({
+    experience: sectionHeaderSchema.extend({
+      experienceList: z.array(experienceEntrySchema).nonempty(), // At least one entry is required
     })
   })
 });

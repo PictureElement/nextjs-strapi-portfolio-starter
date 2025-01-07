@@ -4,7 +4,6 @@ import ProjectEntry from "./ProjectEntry";
 import useEmblaCarousel from 'embla-carousel-react';
 
 export default function ProjectCarousel({ projects, baseUrl }) {
-  console.log("Hello from ProjectCarousel");
   const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start', slidesToScroll: 1 });
 
   return (

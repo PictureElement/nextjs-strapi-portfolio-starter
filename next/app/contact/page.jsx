@@ -20,7 +20,7 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { title, description, headline, supportiveText, contactFormHeading, otherContactOptionsHeading, email, schedulingLink, workingHours, phone } = data;
+  const { title, description, openGraphImage, headline, supportiveText, contactFormHeading, otherContactOptionsHeading, email, schedulingLink, workingHours, phone } = data;
 
   return (
     <main className="overflow-hidden relative">

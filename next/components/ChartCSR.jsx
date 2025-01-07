@@ -14,7 +14,6 @@ echarts.use(
 );
 
 export default function ChartCSR({ data, onClientReady }) {
-  console.log("Hello from ChartCSR");
   const chartRef = useRef(null);
 
   useEffect(() => {

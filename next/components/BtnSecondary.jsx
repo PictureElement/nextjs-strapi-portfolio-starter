@@ -10,7 +10,6 @@ export default function BtnSecondary({
   className = '',
   ...rest
 }) {
-  console.log("Hello from BtnSecondary");
   return (
     <Link
       target={target}

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativeText, title, excerpt, slug, priority = false }) {
-  console.log("Hello from ProjectEntry");
   return (
     <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative h-full">
       <div className="rounded-t-2xl overflow-hidden aspect-[1200/630] w-full relative">

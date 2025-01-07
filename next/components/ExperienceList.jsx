@@ -1,8 +1,6 @@
 import ExperienceEntry from "./ExperienceEntry";
 
 export default function ExperienceList({ experienceList }) {
-  console.log("Hello from ExperienceList");
-
   return (
     <ol className="relative border-s border-neutral-300 ml-6">
       {experienceList.map((entry, index) => {

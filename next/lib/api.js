@@ -7,12 +7,14 @@ import {
   featuredProjects1Schema,
   featuredProjects2Schema,
   skillsSchema,
+  experienceSchema,
   testimonialsSchema,
   faqSchema,
   latestPosts1Schema,
   latestPosts2Schema,
   ctaSchema,
   footerSchema,
+  homeSchema,
   projects1Schema,
   projects2Schema,
   blog1Schema,
@@ -170,6 +172,20 @@ export const fetchSkills = async () => {
   return result.data.data.skills;
 };
 
+export const fetchExperience = async () => {
+  const endpoint = '/api/homepage?populate[experience][populate][0]=experienceList.companyLogo';
+  const response = await fetchData(endpoint);
+
+  const result = experienceSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  return result.data.data.experience;
+};
+
 export const fetchTestimonials = async () => {
   const endpoint = '/api/homepage?populate[testimonials][populate]=*';
   const response = await fetchData(endpoint);
@@ -274,6 +290,24 @@ export const fetchFooter = async () => {
 // Pages
 //
 
+export const fetchHome = async () => {
+  const endpoint = '/api/homepage?populate[metadata][populate]=*';
+  const response = await fetchData(endpoint);
+
+  const result = homeSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  return {
+    title: result.data.data.metadata.title,
+    description: result.data.data.metadata.description,
+    openGraphImage: result.data.data.metadata.openGraphImage,
+  }
+};
+
 export const fetchProjects = async () => {
   // Get the latest projects
   const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
@@ -301,6 +335,7 @@ export const fetchProjects = async () => {
   return {
     title: result2.data.data.metadata.title,
     description: result2.data.data.metadata.description,
+    openGraphImage: result2.data.data.metadata.openGraphImage,
     headline: result2.data.data.banner.headline,
     supportiveText: result2.data.data.banner.supportiveText,
     projects: result1.data.data,
@@ -334,6 +369,7 @@ export const fetchBlog = async () => {
   return {
     title: result2.data.data.metadata.title,
     description: result2.data.data.metadata.description,
+    openGraphImage: result2.data.data.metadata.openGraphImage,
     headline: result2.data.data.banner.headline,
     supportiveText: result2.data.data.banner.supportiveText,
     posts: result1.data.data,
@@ -367,6 +403,7 @@ export const fetchContact = async () => {
   return {
     title: result1.data.data.metadata.title,
     description: result1.data.data.metadata.description,
+    openGraphImage: result1.data.data.metadata.openGraphImage,
     headline: result1.data.data.banner.headline,
     supportiveText: result1.data.data.banner.supportiveText,
     contactFormHeading: result1.data.data.contactFormHeading,
@@ -392,6 +429,7 @@ export const fetchPrivacy = async () => {
   return {
     title: result.data.data.metadata.title,
     description: result.data.data.metadata.description,
+    openGraphImage: result.data.data.metadata.openGraphImage,
     headline: result.data.data.banner.headline,
     supportiveText: result.data.data.banner.supportiveText,
     content: result.data.data.content,
@@ -412,6 +450,7 @@ export const fetchNotFound = async () => {
   return {
     title: result.data.data.metadata.title,
     description: result.data.data.metadata.description,
+    openGraphImage: result.data.data.metadata.openGraphImage,
     headline: result.data.data.banner.headline,
     supportiveText: result.data.data.banner.supportiveText,
   }

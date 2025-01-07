@@ -10,7 +10,6 @@ export default function BtnLight({
   className = '',
   ...rest
 }) {
-  console.log("Hello from BtnLight");
   return (
     <Link
       target={target}

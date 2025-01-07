@@ -1,5 +1,4 @@
 export default function TestimonialEntry({ statement, author, role, company, companyWebsite, className }) {
-  console.log("Hello from TestimonialEntry");
   return (
     <figure className={className}>
       <blockquote className="mb-4">

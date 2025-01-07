@@ -9,7 +9,6 @@ export default function Chart({
   ariaLabelSSR,
   ariaLabelCSR
 }) {
-  console.log("Hello from Chart");
   const [isClientReady, setIsClientReady] = useState(false);
 
   const handleClientReady = useCallback(() => {

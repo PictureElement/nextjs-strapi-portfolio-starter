@@ -16,7 +16,7 @@ export default async function NotFound() {
   }
 
   // Destructure the necessary properties
-  const { title, description, headline, supportiveText } = data;
+  const { title, description, openGraphImage, headline, supportiveText } = data;
 
   return (
     <main className="overflow-hidden relative">

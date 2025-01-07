@@ -10,7 +10,6 @@ import {
 import useEmblaCarousel from 'embla-carousel-react';
 
 export default function TestimonialList({ testimonialList }) {
-  console.log("Hello from TestimonialList");
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: 'start' });
 
   const {

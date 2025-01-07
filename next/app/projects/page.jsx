@@ -17,7 +17,7 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { title, description, headline, supportiveText, projects } = data;
+  const { title, description, openGraphImage, headline, supportiveText, projects } = data;
 
   return (
     <main className="overflow-hidden relative">

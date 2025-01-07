@@ -3,7 +3,6 @@ import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 
 export default function FaqEntry({ question, answer }) {
-  console.log("Hello from FaqEntry");
   return (
     <details className="group [&_summary::-webkit-details-marker]:hidden">
       <summary className="flex cursor-pointer items-start justify-between gap-4 border border-neutral-200 rounded-xl bg-white p-4">

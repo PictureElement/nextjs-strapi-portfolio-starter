@@ -5,8 +5,6 @@ import { fetchFeaturedProjects } from "@/lib/api";
 import ShapeDivider from "./ShapeDivider";
 
 export default async function FeaturedProjects() {
-  console.log("Hello from FeaturedProjects");
-
   let data;
 
   try {
