@@ -25,8 +25,8 @@ export default async function FeaturedProjects() {
   const { headline, supportiveText, featuredProjects } = data;
 
   return (
-    <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-neutral-50" />
+    <section className="bg-neutral-50 py-24 relative">
+      <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         {featuredProjects.length > 0 ? (

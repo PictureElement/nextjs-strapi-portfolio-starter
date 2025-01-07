@@ -3,8 +3,8 @@ import Link from 'next/link';
 
 export default function PostEntry({ title, excerpt, slug }) {
   return (
-    <article className="relative p-4 py-6 bg-neutral-50 hover:bg-neutral-100 transition border border-neutral-200 rounded-2xl">
-      <h3 className="text-gray-900 font-medium text-xl sm:text-2xl tracking-tight mb-2 relative">{title}</h3>
+    <article className="relative p-4 py-6 bg-white hover:bg-neutral-100 transition border border-neutral-200 rounded-2xl">
+      <h3 className="text-gray-900 font-medium text-xl sm:text-2xl tracking-tight mb-2 relative line-clamp-1">{title}</h3>
       <p className="text-gray-700 line-clamp-2 mb-3 relative">{excerpt}</p>
       <Link
         href={`/blog/${slug}/`}

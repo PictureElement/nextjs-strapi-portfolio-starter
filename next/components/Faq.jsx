@@ -1,6 +1,5 @@
 import SectionHeader from "./SectionHeader";
 import FaqList from "./FaqList";
-import ShapeDivider from "./ShapeDivider";
 import { fetchFaq } from "@/lib/api";
 
 export default async function Faq() {
@@ -24,8 +23,7 @@ export default async function Faq() {
   const { headline, supportiveText, faqList } = data;
 
   return (
-    <section className="bg-neutral-50 py-24 relative">
-      <ShapeDivider className="fill-white" />
+    <section className="bg-white py-24 relative">
       <div className="mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         <FaqList faqList={faqList} />

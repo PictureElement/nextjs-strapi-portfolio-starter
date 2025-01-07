@@ -19,7 +19,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
       <span className="absolute flex items-center justify-center w-12 h-12 bg-neutral-50 rounded-full -start-6 ring-8 ring-white">
         <a className="underline hover:no-underline hover:scale-105 transition" aria-label={`Visit ${company} website`} target="_blank" rel="noopener noreferrer" href={companyUrl}>
           <Image
-            className='rounded-full border border-neutral-300'
+            className='rounded-full border border-neutral-200'
             src={companyLogoUrl}
             width={48}
             height={48}
@@ -35,7 +35,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
       <Collapse isOpened={isOpen}>
         <div className="pt-6">
           <div
-            className="text-gray-700 max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 p-6 bg-neutral-50 border border-neutral-100 rounded-2xl"
+            className="text-gray-700 max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 p-6 bg-neutral-50 border border-neutral-200 rounded-2xl"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
           />
         </div>

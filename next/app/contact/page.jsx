@@ -45,7 +45,7 @@ export default async function Page() {
     <main className="overflow-hidden relative">
       <Banner headline={headline} supportiveText={supportiveText} />
       <section className="mx-auto max-w-5xl px-4 py-24">
-        <article className="border border-neutral-100 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
+        <article className="border border-neutral-200 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{contactFormHeading}</h2>
           <form className="flex flex-col gap-6 sm:gap-6">
             <label className="relative block border border-neutral-300 bg-transparent rounded-lg">

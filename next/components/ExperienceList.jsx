@@ -2,7 +2,7 @@ import ExperienceEntry from "./ExperienceEntry";
 
 export default function ExperienceList({ experienceList }) {
   return (
-    <ol className="relative border-s border-neutral-300 ml-6">
+    <ol className="relative border-s border-neutral-200 ml-6">
       {experienceList.map((entry, index) => {
         const imageUrl = new URL(entry.companyLogo.url, process.env.STRAPI).href;
         return (

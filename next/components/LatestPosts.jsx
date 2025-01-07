@@ -2,6 +2,7 @@ import SectionHeader from "./SectionHeader";
 import PostList from "./PostList";
 import BtnSecondary from "./BtnSecondary";
 import { fetchLatestPosts } from "@/lib/api";
+import ShapeDivider from "./ShapeDivider";
 
 export default async function LatestPosts() {
   let data;
@@ -23,7 +24,8 @@ export default async function LatestPosts() {
   const { headline, supportiveText, latestPosts } = data;
 
   return (
-    <section className="bg-white py-24">
+    <section className="bg-neutral-50 py-24 relative">
+      <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         {latestPosts.length > 0 ? (
