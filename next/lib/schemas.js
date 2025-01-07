@@ -17,6 +17,7 @@ const contactInformationSchema = z.object({
 });
 
 const postEntrySchema = z.object({
+  id: z.number(),
   title: z.string(),
   slug: z.string(),
   excerpt: z.string(),
@@ -36,6 +37,7 @@ const metadataSchema = z.object({
 });
 
 const linkSchema = z.object({
+  id: z.number(),
   label: z.string(),
   url: z.string(),
   openLinkInNewTab: z.boolean(),
@@ -43,6 +45,7 @@ const linkSchema = z.object({
 });
 
 const socialChannelSchema = z.object({
+  id: z.number(),
   channel: z.string().refine(
     (val) => val === 'GitHub' || val == 'LinkedIn' || val === 'X',
     { message: "Value must be 'GitHub', 'LinkedIn' or 'X'" }
@@ -52,6 +55,7 @@ const socialChannelSchema = z.object({
 });
 
 const serviceEntrySchema = z.object({
+  id: z.number(),
   description: z.string(),
   title: z.string(),
 });
@@ -68,11 +72,13 @@ const experienceEntrySchema = z.object({
 })
 
 const faqEntrySchema = z.object({
+  id: z.number(),
   question: z.string(),
   answer: z.string(),
 });
 
 const testimonialEntrySchema = z.object({
+  id: z.number(),
   statement: z.string(),
   author: z.string(),
   role: z.string(),
@@ -81,6 +87,7 @@ const testimonialEntrySchema = z.object({
 });
 
 const projectEntrySchema = z.object({
+  id: z.number(),
   title: z.string(),
   slug: z.string(),
   excerpt: z.string(),
@@ -103,10 +110,12 @@ const parentSkillSchema = z.object({
 });
 
 const scopeSchema = z.object({
+  id: z.number(),
   title: z.string(),
 });
 
 const toolSchema = z.object({
+  id: z.number(),
   title: z.string(),
 });
 

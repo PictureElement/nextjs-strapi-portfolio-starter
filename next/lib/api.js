@@ -437,7 +437,7 @@ export const fetchPrivacy = async () => {
 };
 
 export const fetchNotFound = async () => {
-  const endpoint = '/api/not-found?populate=*';
+  const endpoint = '/api/not-found?populate[banner]=*&populate[metadata][populate]=openGraphImage';
   const response = await fetchData(endpoint);
 
   const result = notFoundSchema.safeParse(response);

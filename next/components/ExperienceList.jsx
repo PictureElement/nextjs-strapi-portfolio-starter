@@ -7,7 +7,7 @@ export default function ExperienceList({ experienceList }) {
         const imageUrl = new URL(entry.companyLogo.url, process.env.STRAPI).href;
         return (
           <ExperienceEntry
-            key={index}
+            key={entry.id}
             companyLogoUrl={imageUrl}
             companyLogoAlternativeText={entry.companyLogo.alternativeText}
             duration={entry.duration}
