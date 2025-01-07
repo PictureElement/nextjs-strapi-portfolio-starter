@@ -7,25 +7,29 @@ import Faq from "@/components/Faq";
 import Testimonials from "@/components/Testimonials";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import LatestPosts from "@/components/LatestPosts";
-import { fetchHome } from "@/lib/api";
+import { fetchMetadata } from "@/lib/api";
 
-export default async function Page() {
+export async function generateMetadata() {
   let data;
 
   try {
-    data = await fetchHome();
+    data = await fetchMetadata('homepage');
   } catch (error) {
-    // Return fallback UI in case of validation or fetch errors
-    return (
-      <main className="overflow-hidden">
-        <div className="text-red-600 text-center">Unable to load data for the Home page</div>
-      </main >
-    )
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
   }
 
-  // Destructure the necessary properties
+  // Destructure necessary properties for metadata
   const { title, description, openGraphImage } = data;
 
+  return {
+    title,
+    description,
+  }
+}
+
+export default async function Page() {
   return (
     <>
       <main className="overflow-hidden -mt-[73px]">

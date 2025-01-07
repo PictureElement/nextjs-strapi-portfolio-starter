@@ -1,6 +1,26 @@
 import Banner from "@/components/Banner";
 import ProjectGrid from "@/components/ProjectGrid";
-import { fetchProjects } from "@/lib/api";
+import { fetchMetadata, fetchProjects } from "@/lib/api";
+
+export async function generateMetadata() {
+  let data;
+
+  try {
+    data = await fetchMetadata('projects-page');
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure necessary properties for metadata
+  const { title, description, openGraphImage } = data;
+
+  return {
+    title,
+    description,
+  }
+}
 
 export default async function Page() {
   let data;

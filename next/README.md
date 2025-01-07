@@ -4,10 +4,8 @@ Metadata
 RSS: see tailwind blog, RSS on the banner https://pepelsbey.dev/articles/, RSS on the menu https://pepelsbey.dev/
 Read more about <Image>. Specify width and height and setup responsive images with srcset and sizes + Add image instruction (size, aspect ratio) in Strapi.
 Implement form submission
-Remove all console statements
 navlinks
-unique key in loops
-
+default metadata for layout.
 
 
 Future Todo:

@@ -1,7 +1,27 @@
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import Banner from "@/components/Banner";
-import { fetchPrivacy } from "@/lib/api";
+import { fetchMetadata, fetchPrivacy } from "@/lib/api";
+
+export async function generateMetadata() {
+  let data;
+
+  try {
+    data = await fetchMetadata('privacy-policy');
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure necessary properties for metadata
+  const { title, description, openGraphImage } = data;
+
+  return {
+    title,
+    description,
+  }
+}
 
 export default async function Page() {
   let data;
@@ -18,7 +38,7 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { title, description, openGraphImage, headline, supportiveText, content } = data;
+  const { headline, supportiveText, content } = data;
 
   return (
     <main className="overflow-hidden relative">

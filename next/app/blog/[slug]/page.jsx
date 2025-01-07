@@ -4,7 +4,7 @@ import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
-import { fetchPost, fetchPostSlugs } from "@/lib/api";
+import { fetchPost, fetchPostSlugs, fetchPostMetadata } from "@/lib/api";
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -12,6 +12,28 @@ export async function generateStaticParams() {
     return await fetchPostSlugs();
   } catch (error) {
     return [];
+  }
+}
+
+export async function generateMetadata({ params }) {
+  const slug = (await params).slug;
+
+  let data;
+
+  try {
+    data = await fetchPostMetadata(slug);
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure necessary properties for metadata
+  const { title, description } = data;
+
+  return {
+    title,
+    description,
   }
 }
 

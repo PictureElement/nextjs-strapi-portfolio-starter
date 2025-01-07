@@ -1,5 +1,25 @@
 import BtnPrimary from "@/components/BtnPrimary";
-import { fetchNotFound } from "@/lib/api";
+import { fetchMetadata, fetchNotFound } from "@/lib/api";
+
+export async function generateMetadata() {
+  let data;
+
+  try {
+    data = await fetchMetadata('not-found');
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure necessary properties for metadata
+  const { title, description, openGraphImage } = data;
+
+  return {
+    title,
+    description,
+  }
+}
 
 export default async function NotFound() {
   let data;
@@ -16,7 +36,7 @@ export default async function NotFound() {
   }
 
   // Destructure the necessary properties
-  const { title, description, openGraphImage, headline, supportiveText } = data;
+  const { headline, supportiveText } = data;
 
   return (
     <main className="overflow-hidden relative">

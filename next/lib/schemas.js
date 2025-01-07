@@ -30,12 +30,6 @@ const imageSchema = z.object({
   url: z.string(),
 });
 
-const metadataSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  openGraphImage: imageSchema,
-});
-
 const linkSchema = z.object({
   id: z.number(),
   label: z.string(),
@@ -123,19 +117,12 @@ const toolSchema = z.object({
 // Pages
 //
 
-export const homeSchema = z.object({
-  data: z.object({
-    metadata: metadataSchema,
-  })
-})
-
 export const blog1Schema = z.object({
   data: z.array(postEntrySchema), // Can be empty
 });
 
 export const blog2Schema = z.object({
   data: z.object({
-    metadata: metadataSchema,
     banner: bannerSchema,
   })
 });
@@ -146,7 +133,6 @@ export const projects1Schema = z.object({
 
 export const projects2Schema = z.object({
   data: z.object({
-    metadata: metadataSchema,
     banner: bannerSchema,
   })
 });
@@ -155,7 +141,6 @@ export const contact1Schema = z.object({
   data: z.object({
     contactFormHeading: z.string(),
     otherContactOptionsHeading: z.string(),
-    metadata: metadataSchema,
     banner: bannerSchema,
   })
 });
@@ -169,14 +154,12 @@ export const contact2Schema = z.object({
 export const privacySchema = z.object({
   data: z.object({
     content: z.string(),
-    metadata: metadataSchema,
     banner: bannerSchema,
   })
 });
 
 export const notFoundSchema = z.object({
   data: z.object({
-    metadata: metadataSchema,
     banner: bannerSchema,
   })
 });
@@ -202,6 +185,13 @@ export const project2Schema = z.object({
   })),
 });
 
+export const projectMetadataSchema = z.object({
+  data: z.array(z.object({
+    title: z.string(),
+    excerpt: z.string(),
+  })),
+});
+
 export const post1Schema = z.object({
   data: z.array(z.object({
     slug: z.string(),
@@ -217,9 +207,26 @@ export const post2Schema = z.object({
   })),
 });
 
+export const postMetadataSchema = z.object({
+  data: z.array(z.object({
+    title: z.string(),
+    excerpt: z.string(),
+  })),
+});
+
 //
 // Components
 //
+
+export const metadataSchema = z.object({
+  data: z.object({
+    metadata: z.object({
+      title: z.string(),
+      description: z.string(),
+      openGraphImage: imageSchema,
+    })
+  })
+});
 
 export const announcementSchema = z.object({
   data: z.object({

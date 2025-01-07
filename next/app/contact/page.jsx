@@ -2,7 +2,27 @@ import Banner from "@/components/Banner";
 import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
 import Link from "next/link";
-import { fetchContact } from "@/lib/api";
+import { fetchMetadata, fetchContact } from "@/lib/api";
+
+export async function generateMetadata() {
+  let data;
+
+  try {
+    data = await fetchMetadata('contact-page');
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure necessary properties for metadata
+  const { title, description, openGraphImage } = data;
+
+  return {
+    title,
+    description,
+  }
+}
 
 export default async function Page() {
   let data;
@@ -19,7 +39,7 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { title, description, openGraphImage, headline, supportiveText, contactFormHeading, otherContactOptionsHeading, email, schedulingLink, workingHours, phone } = data;
+  const { headline, supportiveText, contactFormHeading, otherContactOptionsHeading, email, schedulingLink, workingHours, phone } = data;
 
   return (
     <main className="overflow-hidden relative">

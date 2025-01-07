@@ -1,6 +1,26 @@
 import Banner from "@/components/Banner";
 import PostList from "@/components/PostList";
-import { fetchBlog } from "@/lib/api";
+import { fetchMetadata, fetchBlog } from "@/lib/api";
+
+export async function generateMetadata() {
+  let data;
+
+  try {
+    data = await fetchMetadata('blog-page');
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure necessary properties for metadata
+  const { title, description, openGraphImage } = data;
+
+  return {
+    title,
+    description,
+  }
+}
 
 export default async function Page() {
   let data;
@@ -17,7 +37,7 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { title, description, openGraphImage, headline, supportiveText, posts } = data;
+  const { headline, supportiveText, posts } = data;
 
   return (
     <main className="overflow-hidden relative">
