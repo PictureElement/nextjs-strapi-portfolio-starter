@@ -1,23 +1,32 @@
 import BtnPrimary from "@/components/BtnPrimary";
-import { fetchMetadata, fetchNotFound } from "@/lib/api";
+import { fetchStaticPageMetadata, fetchNotFound } from "@/lib/api";
 
-export async function generateMetadata() {
+export async function generateMetadata(_, parent) {
   let data;
 
   try {
-    data = await fetchMetadata('not-found');
+    data = await fetchStaticPageMetadata('not-found');
   } catch (error) {
     console.error(error);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }
 
-  // Destructure necessary properties for metadata
+  // Access data from parent segment (i.e. layout)
+  const p = await parent;
+
+  // Destructure/Format the necessary properties
   const { title, description, openGraphImage } = data;
+  const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.STRAPI).href : p.openGraph.images[0];
 
   return {
-    title,
-    description,
+    title: title ? title : `Page Not Found | ${p.openGraph.siteName}`,
+    description: description ? description : p.description,
+    openGraph: {
+      ...p.openGraph,
+      images: [imageUrl],
+      type: 'website',
+    },
   }
 }
 

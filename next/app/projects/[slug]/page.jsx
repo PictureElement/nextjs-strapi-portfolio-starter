@@ -6,7 +6,7 @@ import BtnPrimary from "@/components/BtnPrimary";
 import BtnSecondary from "@/components/BtnSecondary";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
-import { fetchProject, fetchProjectSlugs, fetchProjectMetadata } from "@/lib/api";
+import { fetchProject, fetchProjectSlugs, fetchDynamicPageMetadata } from "@/lib/api";
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -17,25 +17,36 @@ export async function generateStaticParams() {
   }
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }, parent) {
   const slug = (await params).slug;
 
   let data;
 
   try {
-    data = await fetchProjectMetadata(slug);
+    data = await fetchDynamicPageMetadata('projects', slug);
   } catch (error) {
     console.error(error);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }
 
-  // Destructure necessary properties for metadata
-  const { title, description } = data;
+  // Access data from parent segment (i.e. layout)
+  const p = await parent;
+
+  // Destructure/Format the necessary properties
+  const { title, description, openGraphImage } = data;
+  const url = new URL(`/projects/${slug}`, process.env.NEXT_PUBLIC_WEBSITE).href;
+  const imageUrl = new URL(openGraphImage.url, process.env.STRAPI).href;
 
   return {
-    title,
+    title: `${title} | ${p.openGraph.siteName}`,
     description,
+    openGraph: {
+      ...p.openGraph,
+      images: [imageUrl],
+      url,
+      type: 'article',
+    }
   }
 }
 

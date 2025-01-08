@@ -4,7 +4,7 @@
   "info": {
     "singularName": "global",
     "pluralName": "globals",
-    "displayName": "Global",
+    "displayName": "Global Settings",
     "description": ""
   },
   "options": {
@@ -45,6 +45,12 @@
       "type": "component",
       "repeatable": false,
       "component": "blocks.contact-information",
+      "required": true
+    },
+    "miscellaneous": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.miscellaneous",
       "required": true
     }
   }

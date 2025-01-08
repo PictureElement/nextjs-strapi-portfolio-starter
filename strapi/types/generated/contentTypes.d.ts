@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
   collectionName: 'blog_pages';
   info: {
+    description: '';
     displayName: 'Blog Page';
     pluralName: 'blog-pages';
     singularName: 'blog-page';
@@ -395,8 +396,7 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
       'api::blog-page.blog-page'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false> &
-      Schema.Attribute.Required;
+    metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -432,8 +432,7 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
       'api::contact-page.contact-page'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false> &
-      Schema.Attribute.Required;
+    metadata: Schema.Attribute.Component<'seo.metadata', false>;
     otherContactOptionsHeading: Schema.Attribute.String &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
@@ -447,7 +446,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   collectionName: 'globals';
   info: {
     description: '';
-    displayName: 'Global';
+    displayName: 'Global Settings';
     pluralName: 'globals';
     singularName: 'global';
   };
@@ -476,6 +475,8 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       'api::global.global'
     > &
       Schema.Attribute.Private;
+    miscellaneous: Schema.Attribute.Component<'blocks.miscellaneous', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -491,7 +492,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
     description: '';
-    displayName: 'Homepage';
+    displayName: 'Home Page';
     pluralName: 'homepages';
     singularName: 'homepage';
   };
@@ -520,8 +521,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'api::homepage.homepage'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false> &
-      Schema.Attribute.Required;
+    metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Component<'sections.services', false> &
       Schema.Attribute.Required;
@@ -543,7 +543,7 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
   collectionName: 'not_founds';
   info: {
     description: '';
-    displayName: 'Not Found';
+    displayName: 'Not Found Page';
     pluralName: 'not-founds';
     singularName: 'not-found';
   };
@@ -562,41 +562,12 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
       'api::not-found.not-found'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false> &
-      Schema.Attribute.Required;
+    metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Private &
       Schema.Attribute.DefaultTo<'Not Found'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiPagePage extends Struct.CollectionTypeSchema {
-  collectionName: 'pages';
-  info: {
-    description: '';
-    displayName: 'Page';
-    pluralName: 'pages';
-    singularName: 'page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'> &
-      Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -639,7 +610,7 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
   collectionName: 'privacy_policies';
   info: {
     description: '';
-    displayName: 'Privacy Policy';
+    displayName: 'Privacy Policy Page';
     pluralName: 'privacy-policies';
     singularName: 'privacy-policy';
   };
@@ -659,8 +630,7 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
       'api::privacy-policy.privacy-policy'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false> &
-      Schema.Attribute.Required;
+    metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -738,8 +708,7 @@ export interface ApiProjectsPageProjectsPage extends Struct.SingleTypeSchema {
       'api::projects-page.projects-page'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false> &
-      Schema.Attribute.Required;
+    metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -1319,7 +1288,6 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::not-found.not-found': ApiNotFoundNotFound;
-      'api::page.page': ApiPagePage;
       'api::post.post': ApiPostPost;
       'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::project.project': ApiProjectProject;

@@ -1,9 +1,5 @@
 import { z } from "zod";
 
-//
-// Reusable
-//
-
 const bannerSchema = z.object({
   headline: z.string(),
   supportiveText: z.string(),
@@ -24,9 +20,9 @@ const postEntrySchema = z.object({
 });
 
 const imageSchema = z.object({
-  alternativeText: z.string(),
-  width: z.number(),
-  height: z.number(),
+  alternativeText: z.string().nullable(), // Allow null values
+  width: z.number().nullable(), // Allow null values
+  height: z.number().nullable(), // Allow null values
   url: z.string(),
 });
 
@@ -185,13 +181,6 @@ export const project2Schema = z.object({
   })),
 });
 
-export const projectMetadataSchema = z.object({
-  data: z.array(z.object({
-    title: z.string(),
-    excerpt: z.string(),
-  })),
-});
-
 export const post1Schema = z.object({
   data: z.array(z.object({
     slug: z.string(),
@@ -207,23 +196,40 @@ export const post2Schema = z.object({
   })),
 });
 
-export const postMetadataSchema = z.object({
-  data: z.array(z.object({
-    title: z.string(),
-    excerpt: z.string(),
-  })),
-});
-
 //
 // Components
 //
 
-export const metadataSchema = z.object({
+export const staticPageMetadataSchema = z.object({
   data: z.object({
     metadata: z.object({
-      title: z.string(),
+      title: z.string().nullable(), // Allow null values
+      description: z.string().nullable(), // Allow null values
+      openGraphImage: imageSchema.nullable(), // Allow null values
+    })
+  })
+});
+
+export const dynamicPageMetadataSchema = z.object({
+  data: z.array(z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    featuredImage: imageSchema,
+  })),
+});
+
+export const miscellaneousSchema = z.object({
+  data: z.object({
+    miscellaneous: z.object({
+      openGraphLocale: z.string(),
+      siteName: z.string(),
       description: z.string(),
+      htmlLang: z.string(),
+      themeColor: z.string(),
       openGraphImage: imageSchema,
+      iconICO: imageSchema,
+      iconSVG: imageSchema,
+      iconPNG: imageSchema,
     })
   })
 });

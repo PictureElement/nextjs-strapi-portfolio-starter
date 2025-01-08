@@ -4,11 +4,51 @@ import Footer from '@/components/Footer';
 import { Poppins } from 'next/font/google';
 const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin'] });
 import "./globals.css";
+import { fetchMiscellaneous } from '@/lib/api';
 
-export const metadata = {
-  title: "Experienced Web Developer | Marios Sofokleous",
-  description: "Crafting tailored web solutions with a blend of technical expertise in HTML, CSS, JavaScript, and PHP, and a deep understanding of WordPress.",
-};
+export async function generateViewport() {
+  let data;
+
+  try {
+    data = await fetchMiscellaneous();
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure the necessary properties
+  const { themeColor } = data;
+
+  return {
+    themeColor,
+  }
+}
+
+export async function generateMetadata() {
+  let data;
+
+  try {
+    data = await fetchMiscellaneous();
+  } catch (error) {
+    console.error(error);
+    // Return fallback metadata in case of validation or fetch errors
+    return {}
+  }
+
+  // Destructure/Format the necessary properties
+  const { openGraphLocale, siteName, description, openGraphImage } = data;
+  const imageUrl = new URL(openGraphImage.url, process.env.STRAPI).href;
+
+  return {
+    description,
+    openGraph: {
+      locale: openGraphLocale,
+      siteName: siteName,
+      images: [imageUrl],
+    }
+  }
+}
 
 export default function RootLayout({ children }) {
   return (

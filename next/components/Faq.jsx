@@ -11,7 +11,6 @@ export default async function Faq() {
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-neutral-50 py-24 relative">
-        <ShapeDivider className="fill-white" />
         <div className="mx-auto max-w-5xl px-4">
           <div className="text-red-600 text-center">Unable to load data for the Faq component</div>
         </div>

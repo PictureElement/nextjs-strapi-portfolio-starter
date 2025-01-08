@@ -4,7 +4,8 @@
   "info": {
     "singularName": "blog-page",
     "pluralName": "blog-pages",
-    "displayName": "Blog Page"
+    "displayName": "Blog Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,7 +22,7 @@
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
-      "required": true
+      "required": false
     },
     "banner": {
       "type": "component",

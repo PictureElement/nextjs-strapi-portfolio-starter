@@ -72,6 +72,34 @@ export interface BlocksFaq extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksMiscellaneous extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_miscellaneous';
+  info: {
+    description: '';
+    displayName: 'Miscellaneous';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    htmlLang: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'en-US'>;
+    iconICO: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    iconPNG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    iconSVG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    openGraphImage: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.Required;
+    openGraphLocale: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'en_US'>;
+    siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    themeColor: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface BlocksService extends Struct.ComponentSchema {
   collectionName: 'components_blocks_services';
   info: {
@@ -234,7 +262,7 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     cta: Schema.Attribute.Component<'basic.button', false> &
       Schema.Attribute.Required;
     logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    logomark: Schema.Attribute.Media<'images'>;
+    logomark: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     navItems: Schema.Attribute.Component<'basic.button', true> &
       Schema.Attribute.Required;
   };
@@ -330,14 +358,11 @@ export interface SeoMetadata extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    openGraphImage: Schema.Attribute.Media<'images'> &
-      Schema.Attribute.Required;
+    openGraphImage: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String &
-      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
       }>;
@@ -352,6 +377,7 @@ declare module '@strapi/strapi' {
       'blocks.contact-information': BlocksContactInformation;
       'blocks.experience': BlocksExperience;
       'blocks.faq': BlocksFaq;
+      'blocks.miscellaneous': BlocksMiscellaneous;
       'blocks.service': BlocksService;
       'blocks.social-channel': BlocksSocialChannel;
       'blocks.testimonial': BlocksTestimonial;

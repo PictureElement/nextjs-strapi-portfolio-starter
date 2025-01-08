@@ -9,17 +9,17 @@
     "title": {
       "type": "string",
       "maxLength": 60,
-      "required": true
+      "required": false
     },
     "description": {
       "type": "text",
       "maxLength": 160,
-      "required": true
+      "required": false
     },
     "openGraphImage": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]

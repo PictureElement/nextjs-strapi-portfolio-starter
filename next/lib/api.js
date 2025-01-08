@@ -1,4 +1,5 @@
 import {
+  miscellaneousSchema,
   announcementSchema,
   headerSchema,
   heroSchema,
@@ -24,20 +25,19 @@ import {
   notFoundSchema,
   project1Schema,
   project2Schema,
-  projectMetadataSchema,
   post1Schema,
   post2Schema,
-  postMetadataSchema,
-  metadataSchema,
+  dynamicPageMetadataSchema,
+  staticPageMetadataSchema,
 } from "./schemas";
 
 async function fetchData(endpoint, options = {}) {
-  const url = new URL(endpoint, process.env.STRAPI);
+  const url = new URL(endpoint, process.env.STRAPI).href;
 
   const cacheStrategy = process.env.NODE_ENV === 'production' ? 'force-cache' : 'no-store';
 
   try {
-    const res = await fetch(url.toString(), { cache: cacheStrategy, ...options });
+    const res = await fetch(url, { cache: cacheStrategy, ...options });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data from ${endpoint}`);
@@ -53,6 +53,20 @@ async function fetchData(endpoint, options = {}) {
 //
 // Components
 //
+
+export const fetchMiscellaneous = async () => {
+  const endpoint = '/api/global?populate[miscellaneous][populate]=*';
+  const response = await fetchData(endpoint);
+
+  const result = miscellaneousSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  return result.data.data.miscellaneous;
+};
 
 export const fetchAnnouncement = async () => {
   const endpoint = '/api/global?populate[announcement][populate]=*';
@@ -323,21 +337,6 @@ export const fetchProjects = async () => {
   }
 };
 
-export const fetchMetadata = async (resource) => {
-  const endpoint = `/api/${resource}?populate[metadata][populate]=openGraphImage`;
-
-  const response = await fetchData(endpoint);
-
-  const result = metadataSchema.safeParse(response);
-
-  if (!result.success) {
-    console.error(`Validation failed for ${endpoint}:`, result.error);
-    throw new Error(`Invalid data received from ${endpoint}`);
-  }
-
-  return result.data.data.metadata;
-}
-
 export const fetchBlog = async () => {
   // Get the latest posts
   const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
@@ -440,25 +439,6 @@ export const fetchNotFound = async () => {
   }
 };
 
-export const fetchProjectSlugs = async () => {
-  // Get all possible project slugs
-  const endpoint = '/api/projects?fields=slug';
-  const response = await fetchData(endpoint);
-
-  const result = project1Schema.safeParse(response);
-
-  if (!result.success) {
-    console.error(`Validation failed for ${endpoint}:`, result.error);
-    throw new Error(`Invalid data received from ${endpoint}`);
-  }
-
-  const projects = result.data.data;
-
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-};
-
 export const fetchProject = async (slug) => {
   // Get project by slug
   const endpoint = `/api/projects?filters[slug]=${slug}&populate=*`;
@@ -483,42 +463,6 @@ export const fetchProject = async (slug) => {
   }
 };
 
-export const fetchProjectMetadata = async (slug) => {
-  const endpoint = `/api/projects?filters[slug]=${slug}&fields=title&fields=excerpt`;
-  const response = await fetchData(endpoint);
-
-  const result = projectMetadataSchema.safeParse(response);
-
-  if (!result.success) {
-    console.error(`Validation failed for ${endpoint}:`, result.error);
-    throw new Error(`Invalid data received from ${endpoint}`);
-  }
-
-  return {
-    title: result.data.data[0].title,
-    description: result.data.data[0].excerpt,
-  }
-};
-
-export const fetchPostSlugs = async () => {
-  // Get all possible post slugs
-  const endpoint = '/api/posts?fields=slug';
-  const response = await fetchData(endpoint);
-
-  const result = post1Schema.safeParse(response);
-
-  if (!result.success) {
-    console.error(`Validation failed for ${endpoint}:`, result.error);
-    throw new Error(`Invalid data received from ${endpoint}`);
-  }
-
-  const posts = result.data.data;
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-};
-
 export const fetchPost = async (slug) => {
   // Get post by slug
   const endpoint = `/api/posts?filters[slug]=${slug}&populate=*`;
@@ -539,11 +483,30 @@ export const fetchPost = async (slug) => {
   }
 };
 
-export const fetchPostMetadata = async (slug) => {
-  const endpoint = `/api/posts?filters[slug]=${slug}&fields=title&fields=excerpt`;
+//
+// Utilities
+//
+
+export const fetchStaticPageMetadata = async (resource) => {
+  const endpoint = `/api/${resource}?populate[metadata][populate]=openGraphImage`;
+
   const response = await fetchData(endpoint);
 
-  const result = postMetadataSchema.safeParse(response);
+  const result = staticPageMetadataSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  return result.data.data.metadata;
+}
+
+export const fetchDynamicPageMetadata = async (resource, slug) => {
+  const endpoint = `/api/${resource}?filters[slug]=${slug}&fields=title&fields=excerpt&populate=featuredImage`;
+  const response = await fetchData(endpoint);
+
+  const result = dynamicPageMetadataSchema.safeParse(response);
 
   if (!result.success) {
     console.error(`Validation failed for ${endpoint}:`, result.error);
@@ -553,5 +516,44 @@ export const fetchPostMetadata = async (slug) => {
   return {
     title: result.data.data[0].title,
     description: result.data.data[0].excerpt,
+    openGraphImage: result.data.data[0].featuredImage,
   }
+};
+
+export const fetchProjectSlugs = async () => {
+  // Get all possible project slugs
+  const endpoint = '/api/projects?fields=slug';
+  const response = await fetchData(endpoint);
+
+  const result = project1Schema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  const projects = result.data.data;
+
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+};
+
+export const fetchPostSlugs = async () => {
+  // Get all possible post slugs
+  const endpoint = '/api/posts?fields=slug';
+  const response = await fetchData(endpoint);
+
+  const result = post1Schema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  const posts = result.data.data;
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 };

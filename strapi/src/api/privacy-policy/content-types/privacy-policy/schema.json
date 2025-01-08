@@ -4,7 +4,7 @@
   "info": {
     "singularName": "privacy-policy",
     "pluralName": "privacy-policies",
-    "displayName": "Privacy Policy",
+    "displayName": "Privacy Policy Page",
     "description": ""
   },
   "options": {
@@ -16,7 +16,7 @@
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
-      "required": true
+      "required": false
     },
     "content": {
       "type": "richtext",

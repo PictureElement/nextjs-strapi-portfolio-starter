@@ -1,0 +1,66 @@
+{
+  "collectionName": "components_blocks_miscellaneous",
+  "info": {
+    "displayName": "Miscellaneous",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "openGraphLocale": {
+      "type": "string",
+      "required": true,
+      "default": "en_US"
+    },
+    "siteName": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 160
+    },
+    "openGraphImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "htmlLang": {
+      "type": "string",
+      "default": "en-US",
+      "required": true
+    },
+    "themeColor": {
+      "type": "string",
+      "required": true,
+      "regex": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
+    },
+    "iconICO": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "iconSVG": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "iconPNG": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

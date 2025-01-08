@@ -4,7 +4,7 @@
   "info": {
     "singularName": "not-found",
     "pluralName": "not-founds",
-    "displayName": "Not Found",
+    "displayName": "Not Found Page",
     "description": ""
   },
   "options": {
@@ -28,7 +28,7 @@
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
-      "required": true
+      "required": false
     }
   }
 }

@@ -118,7 +118,7 @@ export default async function Footer() {
         <div className="mt-12 border-t border-white/15 pt-6">
           <div className="text-center sm:flex sm:justify-between sm:text-left">
             <p className="text-sm">
-              <Link target="_blank" className="inline-block text-white/75 transition hover:underline" href="/privacy-policy">Privacy Policy</Link>
+              <Link className="inline-block text-white/75 transition hover:underline" href="/privacy-policy">Privacy Policy</Link>
             </p>
             <p className="mt-4 text-sm text-white/50 sm:order-first sm:mt-0">{copyright}</p>
           </div>

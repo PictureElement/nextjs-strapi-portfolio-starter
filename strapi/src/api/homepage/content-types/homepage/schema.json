@@ -4,7 +4,7 @@
   "info": {
     "singularName": "homepage",
     "pluralName": "homepages",
-    "displayName": "Homepage",
+    "displayName": "Home Page",
     "description": ""
   },
   "options": {
@@ -16,7 +16,7 @@
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
-      "required": true
+      "required": false
     },
     "hero": {
       "type": "component",
