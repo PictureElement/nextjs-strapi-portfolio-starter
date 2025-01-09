@@ -15,7 +15,7 @@ export async function generateMetadata(_, parent) {
   try {
     data = await fetchStaticPageMetadata('homepage');
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }

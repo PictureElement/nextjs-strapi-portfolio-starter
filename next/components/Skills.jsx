@@ -10,6 +10,7 @@ export default async function Skills() {
   try {
     data = await fetchSkills();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-neutral-50 py-24 relative">

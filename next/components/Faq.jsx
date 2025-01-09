@@ -8,6 +8,7 @@ export default async function Faq() {
   try {
     data = await fetchFaq();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-neutral-50 py-24 relative">

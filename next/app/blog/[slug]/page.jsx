@@ -11,6 +11,7 @@ export async function generateStaticParams() {
   try {
     return await fetchPostSlugs();
   } catch (error) {
+    console.error(error.message);
     return [];
   }
 }
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }, parent) {
   try {
     data = await fetchDynamicPageMetadata('posts', slug);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }
@@ -59,6 +60,7 @@ export default async function Page({ params }) {
   try {
     data = await fetchPost(slug);
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <>

@@ -9,6 +9,7 @@ export default async function Testimonials() {
   try {
     data = await fetchTestimonials();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-white py-24 relative">

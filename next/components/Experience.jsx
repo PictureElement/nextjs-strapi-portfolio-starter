@@ -9,6 +9,7 @@ export default async function Experience() {
   try {
     data = await fetchExperience();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-white py-24 relative">

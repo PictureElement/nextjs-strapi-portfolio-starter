@@ -12,6 +12,7 @@ export default async function Hero() {
   try {
     data = await fetchHero();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-neutral-100 relative">

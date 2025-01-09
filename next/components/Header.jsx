@@ -10,6 +10,7 @@ export default async function Header() {
   try {
     data = await fetchHeader();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >

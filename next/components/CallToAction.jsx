@@ -7,6 +7,7 @@ export default async function CallToAction() {
   try {
     data = await fetchCta();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <section className="bg-primary-900 bg-dot-white/20 relative">

@@ -7,7 +7,7 @@ export default async function sitemap() {
   try {
     posts = await fetchPostSitemap();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return [];
   }
@@ -15,7 +15,7 @@ export default async function sitemap() {
   try {
     projects = await fetchProjectSitemap();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return [];
   }

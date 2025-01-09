@@ -13,6 +13,7 @@ export async function generateStaticParams() {
   try {
     return await fetchProjectSlugs();
   } catch (error) {
+    console.error(error.message);
     return [];
   }
 }
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }, parent) {
   try {
     data = await fetchDynamicPageMetadata('projects', slug);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }
@@ -61,6 +62,7 @@ export default async function Page({ params }) {
   try {
     data = await fetchProject(slug);
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <>

@@ -12,7 +12,7 @@ export async function generateViewport() {
   try {
     data = await fetchMiscellaneous();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }
@@ -31,7 +31,7 @@ export async function generateMetadata() {
   try {
     data = await fetchMiscellaneous();
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }

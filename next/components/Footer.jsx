@@ -18,6 +18,7 @@ export default async function Footer() {
   try {
     data = await fetchFooter();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <footer className="bg-neutral-950">

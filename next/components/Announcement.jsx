@@ -9,6 +9,7 @@ export default async function Announcement() {
   try {
     data = await fetchAnnouncement();
   } catch (error) {
+    console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <AnnouncementContent>
