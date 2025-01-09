@@ -1,71 +1,66 @@
 import { fetchPostSitemap, fetchProjectSitemap } from "@/lib/api";
 
 export default async function sitemap() {
-  let posts;
-  let projects;
+  const BASE_URL = process.env.NEXT_PUBLIC_WEBSITE;
+
+  let posts = [];
+  let projects = [];
 
   try {
-    posts = await fetchPostSitemap();
+    // Fetch posts and projects concurrently
+    const [postData, projectData] = await Promise.all([
+      fetchPostSitemap(),
+      fetchProjectSitemap(),
+    ]);
+    posts = postData || [];
+    projects = projectData || [];
   } catch (error) {
     console.error(error.message);
-    // Return fallback metadata in case of validation or fetch errors
-    return [];
   }
 
-  try {
-    projects = await fetchProjectSitemap();
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback metadata in case of validation or fetch errors
-    return [];
-  }
+  const createUrlDefinitions = (items, basePath) =>
+    items.map((item) => ({
+      url: new URL(`${basePath}/${item.slug}/`, BASE_URL).href,
+      lastModified: new Date(item.updatedAt),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    }));
 
-  const postUrlDefinitions = posts.map((post) => ({
-    url: new URL(`/blog/${post.slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-    lastModified: new Date(post.updatedAt),
-    changeFrequency: 'monthly',
-    priority: 0.5,
-  }));
-
-  const projectUrlDefinitions = projects.map((project) => ({
-    url: new URL(`/projects/${project.slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-    lastModified: new Date(project.updatedAt),
-    changeFrequency: 'monthly',
-    priority: 0.5,
-  }));
+  const postUrlDefinitions = createUrlDefinitions(posts, "/blog");
+  const projectUrlDefinitions = createUrlDefinitions(projects, "/projects");
 
   return [
     {
-      url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+      url: new URL('/', BASE_URL).href,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href,
+      url: new URL('/projects/', BASE_URL).href,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: new URL('/blog/', process.env.NEXT_PUBLIC_WEBSITE).href,
+      url: new URL('/blog/', BASE_URL).href,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
+      url: new URL('/contact/', BASE_URL).href,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.8,
     },
     {
-      url: new URL('/privacy-policy/', process.env.NEXT_PUBLIC_WEBSITE).href,
+      url: new URL('/privacy-policy/', BASE_URL).href,
       lastModified: new Date(),
       changeFrequency: 'yearly',
       priority: 0.3,
     },
-    ...postUrlDefinitions,
     ...projectUrlDefinitions,
+    ...postUrlDefinitions,
   ]
 }
