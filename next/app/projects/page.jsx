@@ -18,7 +18,7 @@ export async function generateMetadata(_, parent) {
 
   // Destructure/Format the necessary properties
   const { title, description, openGraphImage } = data;
-  const url = new URL('/projects', process.env.NEXT_PUBLIC_WEBSITE).href;
+  const url = new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href;
   const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.STRAPI).href : p.openGraph.images[0];
 
   return {

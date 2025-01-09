@@ -17,19 +17,25 @@ import {
   footerSchema,
   projects1Schema,
   projects2Schema,
-  blog1Schema,
-  blog2Schema,
+  posts1Schema,
+  posts2Schema,
   contact1Schema,
   contact2Schema,
   privacySchema,
   notFoundSchema,
-  project1Schema,
-  project2Schema,
-  post1Schema,
-  post2Schema,
+  projectSlugsSchema,
+  projectSchema,
+  postSlugsSchema,
+  postSchema,
   dynamicPageMetadataSchema,
   staticPageMetadataSchema,
+  postSitemapSchema,
+  projectSitemapSchema,
 } from "./schemas";
+
+//
+// Main Fetch Function
+//
 
 async function fetchData(endpoint, options = {}) {
   const url = new URL(endpoint, process.env.STRAPI).href;
@@ -51,7 +57,7 @@ async function fetchData(endpoint, options = {}) {
 }
 
 //
-// Components
+// Component Related
 //
 
 export const fetchMiscellaneous = async () => {
@@ -143,37 +149,6 @@ export const fetchServices = async () => {
   return result.data.data.services;
 };
 
-export const fetchFeaturedProjects = async () => {
-  // Get all featured projects
-  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&filters[isFeatured][$eq]=true";
-  // Get the headline and supportive text
-  const endpoint2 = "/api/homepage?populate[featuredProjects][populate]=*";
-
-  const [response1, response2] = await Promise.all([
-    fetchData(endpoint1),
-    fetchData(endpoint2),
-  ]);
-
-  const result1 = featuredProjects1Schema.safeParse(response1);
-  const result2 = featuredProjects2Schema.safeParse(response2);
-
-  if (!result1.success) {
-    console.error(`Validation failed for ${endpoint1}:`, result1.error);
-    throw new Error(`Invalid data received from ${endpoint1}`);
-  }
-
-  if (!result2.success) {
-    console.error(`Validation failed for ${endpoint2}:`, result2.error);
-    throw new Error(`Invalid data received from ${endpoint2}`);
-  }
-
-  return {
-    headline: result2.data.data.featuredProjects.headline,
-    supportiveText: result2.data.data.featuredProjects.supportiveText,
-    featuredProjects: result1.data.data,
-  }
-};
-
 export const fetchSkills = async () => {
   const endpoint = '/api/homepage?populate[skills][populate]=*';
   const response = await fetchData(endpoint);
@@ -230,37 +205,6 @@ export const fetchFaq = async () => {
   return result.data.data.faq;
 };
 
-export const fetchLatestPosts = async () => {
-  // Get the latest three posts
-  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[start]=0&pagination[limit]=3";
-  // Get the headline and supportive text
-  const endpoint2 = "/api/homepage?populate[latestPosts][populate]=*";
-
-  const [response1, response2] = await Promise.all([
-    fetchData(endpoint1),
-    fetchData(endpoint2),
-  ]);
-
-  const result1 = latestPosts1Schema.safeParse(response1);
-  const result2 = latestPosts2Schema.safeParse(response2);
-
-  if (!result1.success) {
-    console.error(`Validation failed for ${endpoint1}:`, result1.error);
-    throw new Error(`Invalid data received from ${endpoint1}`);
-  }
-
-  if (!result2.success) {
-    console.error(`Validation failed for ${endpoint2}:`, result2.error);
-    throw new Error(`Invalid data received from ${endpoint2}`);
-  }
-
-  return {
-    headline: result2.data.data.latestPosts.headline,
-    supportiveText: result2.data.data.latestPosts.supportiveText,
-    latestPosts: result1.data.data,
-  }
-};
-
 export const fetchCta = async () => {
   const endpoint = '/api/global?populate[cta][populate]=*';
   const response = await fetchData(endpoint);
@@ -303,70 +247,8 @@ export const fetchFooter = async () => {
 };
 
 //
-// Pages
+// Single Type Related
 //
-
-export const fetchProjects = async () => {
-  // Get the latest projects
-  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
-  // Get the banner
-  const endpoint2 = "/api/projects-page?populate=banner";
-
-  const [response1, response2] = await Promise.all([
-    fetchData(endpoint1),
-    fetchData(endpoint2),
-  ]);
-
-  const result1 = projects1Schema.safeParse(response1);
-  const result2 = projects2Schema.safeParse(response2);
-
-  if (!result1.success) {
-    console.error(`Validation failed for ${endpoint1}:`, result1.error);
-    throw new Error(`Invalid data received from ${endpoint1}`);
-  }
-
-  if (!result2.success) {
-    console.error(`Validation failed for ${endpoint2}:`, result2.error);
-    throw new Error(`Invalid data received from ${endpoint2}`);
-  }
-
-  return {
-    headline: result2.data.data.banner.headline,
-    supportiveText: result2.data.data.banner.supportiveText,
-    projects: result1.data.data,
-  }
-};
-
-export const fetchBlog = async () => {
-  // Get the latest posts
-  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
-  // Get the banner
-  const endpoint2 = "/api/blog-page?populate=banner";
-
-  const [response1, response2] = await Promise.all([
-    fetchData(endpoint1),
-    fetchData(endpoint2),
-  ]);
-
-  const result1 = blog1Schema.safeParse(response1);
-  const result2 = blog2Schema.safeParse(response2);
-
-  if (!result1.success) {
-    console.error(`Validation failed for ${endpoint1}:`, result1.error);
-    throw new Error(`Invalid data received from ${endpoint1}`);
-  }
-
-  if (!result2.success) {
-    console.error(`Validation failed for ${endpoint2}:`, result2.error);
-    throw new Error(`Invalid data received from ${endpoint2}`);
-  }
-
-  return {
-    headline: result2.data.data.banner.headline,
-    supportiveText: result2.data.data.banner.supportiveText,
-    posts: result1.data.data,
-  }
-};
 
 export const fetchContact = async () => {
   // Get banner and headings
@@ -439,12 +321,198 @@ export const fetchNotFound = async () => {
   }
 };
 
+//
+// Collection Type Related
+//
+
+export const fetchPosts = async () => {
+  // Get the latest posts
+  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
+  // Get the banner
+  const endpoint2 = "/api/blog-page?populate=banner";
+
+  const [response1, response2] = await Promise.all([
+    fetchData(endpoint1),
+    fetchData(endpoint2),
+  ]);
+
+  const result1 = posts1Schema.safeParse(response1);
+  const result2 = posts2Schema.safeParse(response2);
+
+  if (!result1.success) {
+    console.error(`Validation failed for ${endpoint1}:`, result1.error);
+    throw new Error(`Invalid data received from ${endpoint1}`);
+  }
+
+  if (!result2.success) {
+    console.error(`Validation failed for ${endpoint2}:`, result2.error);
+    throw new Error(`Invalid data received from ${endpoint2}`);
+  }
+
+  return {
+    headline: result2.data.data.banner.headline,
+    supportiveText: result2.data.data.banner.supportiveText,
+    posts: result1.data.data,
+  }
+};
+
+export const fetchLatestPosts = async () => {
+  // Get the latest three posts
+  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[start]=0&pagination[limit]=3";
+  // Get the headline and supportive text
+  const endpoint2 = "/api/homepage?populate[latestPosts][populate]=*";
+
+  const [response1, response2] = await Promise.all([
+    fetchData(endpoint1),
+    fetchData(endpoint2),
+  ]);
+
+  const result1 = latestPosts1Schema.safeParse(response1);
+  const result2 = latestPosts2Schema.safeParse(response2);
+
+  if (!result1.success) {
+    console.error(`Validation failed for ${endpoint1}:`, result1.error);
+    throw new Error(`Invalid data received from ${endpoint1}`);
+  }
+
+  if (!result2.success) {
+    console.error(`Validation failed for ${endpoint2}:`, result2.error);
+    throw new Error(`Invalid data received from ${endpoint2}`);
+  }
+
+  return {
+    headline: result2.data.data.latestPosts.headline,
+    supportiveText: result2.data.data.latestPosts.supportiveText,
+    latestPosts: result1.data.data,
+  }
+};
+
+export const fetchPost = async (slug) => {
+  // Get post by slug
+  const endpoint = `/api/posts?filters[slug]=${slug}&populate=*`;
+  const response = await fetchData(endpoint);
+
+  const result = postSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  return {
+    title: result.data.data[0].title,
+    content: result.data.data[0].content,
+    publishedAt: result.data.data[0].publishedAt,
+    featuredImage: result.data.data[0].featuredImage,
+  }
+};
+
+export const fetchPostSlugs = async () => {
+  // Get all possible post slugs
+  const endpoint = '/api/posts?fields=slug';
+  const response = await fetchData(endpoint);
+
+  const result = postSlugsSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  const posts = result.data.data;
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+};
+
+export const fetchPostSitemap = async () => {
+  const endpoint = '/api/posts?fields=slug&fields=updatedAt';
+  const response = await fetchData(endpoint);
+
+  const result = postSitemapSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
+  }
+
+  const posts = result.data.data;
+
+  return posts.map((post) => ({
+    slug: post.slug,
+    updatedAt: post.updatedAt,
+  }));
+};
+
+export const fetchProjects = async () => {
+  // Get the latest projects
+  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
+  // Get the banner
+  const endpoint2 = "/api/projects-page?populate=banner";
+
+  const [response1, response2] = await Promise.all([
+    fetchData(endpoint1),
+    fetchData(endpoint2),
+  ]);
+
+  const result1 = projects1Schema.safeParse(response1);
+  const result2 = projects2Schema.safeParse(response2);
+
+  if (!result1.success) {
+    console.error(`Validation failed for ${endpoint1}:`, result1.error);
+    throw new Error(`Invalid data received from ${endpoint1}`);
+  }
+
+  if (!result2.success) {
+    console.error(`Validation failed for ${endpoint2}:`, result2.error);
+    throw new Error(`Invalid data received from ${endpoint2}`);
+  }
+
+  return {
+    headline: result2.data.data.banner.headline,
+    supportiveText: result2.data.data.banner.supportiveText,
+    projects: result1.data.data,
+  }
+};
+
+export const fetchFeaturedProjects = async () => {
+  // Get all featured projects
+  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&filters[isFeatured][$eq]=true";
+  // Get the headline and supportive text
+  const endpoint2 = "/api/homepage?populate[featuredProjects][populate]=*";
+
+  const [response1, response2] = await Promise.all([
+    fetchData(endpoint1),
+    fetchData(endpoint2),
+  ]);
+
+  const result1 = featuredProjects1Schema.safeParse(response1);
+  const result2 = featuredProjects2Schema.safeParse(response2);
+
+  if (!result1.success) {
+    console.error(`Validation failed for ${endpoint1}:`, result1.error);
+    throw new Error(`Invalid data received from ${endpoint1}`);
+  }
+
+  if (!result2.success) {
+    console.error(`Validation failed for ${endpoint2}:`, result2.error);
+    throw new Error(`Invalid data received from ${endpoint2}`);
+  }
+
+  return {
+    headline: result2.data.data.featuredProjects.headline,
+    supportiveText: result2.data.data.featuredProjects.supportiveText,
+    featuredProjects: result1.data.data,
+  }
+};
+
 export const fetchProject = async (slug) => {
   // Get project by slug
   const endpoint = `/api/projects?filters[slug]=${slug}&populate=*`;
   const response = await fetchData(endpoint);
 
-  const result = project2Schema.safeParse(response);
+  const result = projectSchema.safeParse(response);
 
   if (!result.success) {
     console.error(`Validation failed for ${endpoint}:`, result.error);
@@ -463,24 +531,42 @@ export const fetchProject = async (slug) => {
   }
 };
 
-export const fetchPost = async (slug) => {
-  // Get post by slug
-  const endpoint = `/api/posts?filters[slug]=${slug}&populate=*`;
+export const fetchProjectSlugs = async () => {
+  // Get all possible project slugs
+  const endpoint = '/api/projects?fields=slug';
   const response = await fetchData(endpoint);
 
-  const result = post2Schema.safeParse(response);
+  const result = projectSlugsSchema.safeParse(response);
 
   if (!result.success) {
     console.error(`Validation failed for ${endpoint}:`, result.error);
     throw new Error(`Invalid data received from ${endpoint}`);
   }
 
-  return {
-    title: result.data.data[0].title,
-    content: result.data.data[0].content,
-    publishedAt: result.data.data[0].publishedAt,
-    featuredImage: result.data.data[0].featuredImage,
+  const projects = result.data.data;
+
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
+};
+
+export const fetchProjectSitemap = async () => {
+  const endpoint = '/api/projects?fields=slug&fields=updatedAt';
+  const response = await fetchData(endpoint);
+
+  const result = projectSitemapSchema.safeParse(response);
+
+  if (!result.success) {
+    console.error(`Validation failed for ${endpoint}:`, result.error);
+    throw new Error(`Invalid data received from ${endpoint}`);
   }
+
+  const posts = result.data.data;
+
+  return posts.map((post) => ({
+    slug: post.slug,
+    updatedAt: post.updatedAt,
+  }));
 };
 
 //
@@ -518,42 +604,4 @@ export const fetchDynamicPageMetadata = async (resource, slug) => {
     description: result.data.data[0].excerpt,
     openGraphImage: result.data.data[0].featuredImage,
   }
-};
-
-export const fetchProjectSlugs = async () => {
-  // Get all possible project slugs
-  const endpoint = '/api/projects?fields=slug';
-  const response = await fetchData(endpoint);
-
-  const result = project1Schema.safeParse(response);
-
-  if (!result.success) {
-    console.error(`Validation failed for ${endpoint}:`, result.error);
-    throw new Error(`Invalid data received from ${endpoint}`);
-  }
-
-  const projects = result.data.data;
-
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-};
-
-export const fetchPostSlugs = async () => {
-  // Get all possible post slugs
-  const endpoint = '/api/posts?fields=slug';
-  const response = await fetchData(endpoint);
-
-  const result = post1Schema.safeParse(response);
-
-  if (!result.success) {
-    console.error(`Validation failed for ${endpoint}:`, result.error);
-    throw new Error(`Invalid data received from ${endpoint}`);
-  }
-
-  const posts = result.data.data;
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
 };

@@ -1,6 +1,6 @@
 import Banner from "@/components/Banner";
 import PostList from "@/components/PostList";
-import { fetchStaticPageMetadata, fetchBlog } from "@/lib/api";
+import { fetchStaticPageMetadata, fetchPosts } from "@/lib/api";
 
 export async function generateMetadata(_, parent) {
   let data;
@@ -18,7 +18,7 @@ export async function generateMetadata(_, parent) {
 
   // Destructure/Format the necessary properties
   const { title, description, openGraphImage } = data;
-  const url = new URL('/blog', process.env.NEXT_PUBLIC_WEBSITE).href;
+  const url = new URL('/blog/', process.env.NEXT_PUBLIC_WEBSITE).href;
   const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.STRAPI).href : p.openGraph.images[0];
 
   return {
@@ -40,7 +40,7 @@ export default async function Page() {
   let data;
 
   try {
-    data = await fetchBlog();
+    data = await fetchPosts();
   } catch (error) {
     // Return fallback UI in case of validation or fetch errors
     return (

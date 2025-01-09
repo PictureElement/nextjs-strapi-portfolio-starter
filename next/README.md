@@ -1,6 +1,5 @@
-Generate sitemap (generateSitemaps)
 RSS: See tailwind blog, RSS on the banner https://pepelsbey.dev/articles/, RSS on the menu https://pepelsbey.dev/
-Read more about <Image>. Specify width and height and setup responsive images with srcset and sizes + Add image instruction (size, aspect ratio) in Strapi.
+Read more about <Image>. Specify width and height and setup responsive images with srcset and sizes + Add image instruction (size, aspect ratio) in Strapi. Add sizes to about image.
 Implement form submission
 Navlinks
 Implement Mobile menu
@@ -36,7 +35,7 @@ Future Todo:
 <meta property="og:type" content="">
 <meta property="og:locale" content="en_US" />
 
-<!-- Favicon -->
+<!-- App icons -->
 <link rel="icon" href="" sizes="32x32">
 <link rel="icon" href="" type="image/svg+xml">
 <link rel="apple-touch-icon" href="">

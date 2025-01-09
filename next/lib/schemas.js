@@ -1,5 +1,9 @@
 import { z } from "zod";
 
+//
+// Patterns
+//
+
 const bannerSchema = z.object({
   headline: z.string(),
   supportiveText: z.string(),
@@ -44,38 +48,6 @@ const socialChannelSchema = z.object({
   label: z.string(),
 });
 
-const serviceEntrySchema = z.object({
-  id: z.number(),
-  description: z.string(),
-  title: z.string(),
-});
-
-const experienceEntrySchema = z.object({
-  id: z.number(),
-  role: z.string(),
-  company: z.string(),
-  companyUrl: z.string().nullable(), // Allow null values
-  duration: z.string(),
-  location: z.string(),
-  content: z.string(),
-  companyLogo: imageSchema,
-})
-
-const faqEntrySchema = z.object({
-  id: z.number(),
-  question: z.string(),
-  answer: z.string(),
-});
-
-const testimonialEntrySchema = z.object({
-  id: z.number(),
-  statement: z.string(),
-  author: z.string(),
-  role: z.string(),
-  company: z.string(),
-  companyWebsite: z.string(),
-});
-
 const projectEntrySchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -89,134 +61,9 @@ const sectionHeaderSchema = z.object({
   supportiveText: z.string(),
 });
 
-const childSkillSchema = z.object({
-  name: z.string(),
-  value: z.number(),
-});
-
-const parentSkillSchema = z.object({
-  name: z.string(),
-  children: z.array(childSkillSchema),
-});
-
-const scopeSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-});
-
-const toolSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-});
-
 //
-// Pages
+// Component Related
 //
-
-export const blog1Schema = z.object({
-  data: z.array(postEntrySchema), // Can be empty
-});
-
-export const blog2Schema = z.object({
-  data: z.object({
-    banner: bannerSchema,
-  })
-});
-
-export const projects1Schema = z.object({
-  data: z.array(projectEntrySchema), // Can be empty
-});
-
-export const projects2Schema = z.object({
-  data: z.object({
-    banner: bannerSchema,
-  })
-});
-
-export const contact1Schema = z.object({
-  data: z.object({
-    contactFormHeading: z.string(),
-    otherContactOptionsHeading: z.string(),
-    banner: bannerSchema,
-  })
-});
-
-export const contact2Schema = z.object({
-  data: z.object({
-    contactInformation: contactInformationSchema,
-  })
-});
-
-export const privacySchema = z.object({
-  data: z.object({
-    content: z.string(),
-    banner: bannerSchema,
-  })
-});
-
-export const notFoundSchema = z.object({
-  data: z.object({
-    banner: bannerSchema,
-  })
-});
-
-export const project1Schema = z.object({
-  data: z.array(z.object({
-    slug: z.string(),
-  })),
-});
-
-export const project2Schema = z.object({
-  data: z.array(z.object({
-    title: z.string(),
-    demoUrl: z.string().nullable(), // Allow null values
-    repoUrl: z.string().nullable(), // Allow null values
-    content: z.string(),
-    featuredImage: imageSchema,
-    scopes: z.array(scopeSchema), // Can be empty
-    tools: z.array(toolSchema), // Can be empty
-    designFile: z.object({
-      url: z.string(),
-    }).nullable(), // Allow null values
-  })),
-});
-
-export const post1Schema = z.object({
-  data: z.array(z.object({
-    slug: z.string(),
-  })),
-});
-
-export const post2Schema = z.object({
-  data: z.array(z.object({
-    title: z.string(),
-    content: z.string(),
-    publishedAt: z.string().datetime(),
-    featuredImage: imageSchema,
-  })),
-});
-
-//
-// Components
-//
-
-export const staticPageMetadataSchema = z.object({
-  data: z.object({
-    metadata: z.object({
-      title: z.string().nullable(), // Allow null values
-      description: z.string().nullable(), // Allow null values
-      openGraphImage: imageSchema.nullable(), // Allow null values
-    })
-  })
-});
-
-export const dynamicPageMetadataSchema = z.object({
-  data: z.array(z.object({
-    title: z.string(),
-    excerpt: z.string(),
-    featuredImage: imageSchema,
-  })),
-});
 
 export const miscellaneousSchema = z.object({
   data: z.object({
@@ -275,25 +122,31 @@ export const aboutSchema = z.object({
 export const servicesSchema = z.object({
   data: z.object({
     services: sectionHeaderSchema.extend({
-      serviceList: z.array(serviceEntrySchema).nonempty(), // At least one entry is required
+      serviceList: z.array(
+        z.object({
+          id: z.number(),
+          description: z.string(),
+          title: z.string(),
+        })
+      ).nonempty(), // At least one entry is required
     })
-  })
-});
-
-export const featuredProjects1Schema = z.object({
-  data: z.array(projectEntrySchema), // Can be empty
-});
-
-export const featuredProjects2Schema = z.object({
-  data: z.object({
-    featuredProjects: sectionHeaderSchema,
   })
 });
 
 export const skillsSchema = z.object({
   data: z.object({
     skills: sectionHeaderSchema.extend({
-      chartData: z.array(parentSkillSchema),
+      chartData: z.array(
+        z.object({
+          name: z.string(),
+          children: z.array(
+            z.object({
+              name: z.string(),
+              value: z.number(),
+            })
+          ),
+        })
+      ),
       ariaLabelSSR: z.string(),
       ariaLabelCSR: z.string(),
     })
@@ -303,7 +156,18 @@ export const skillsSchema = z.object({
 export const experienceSchema = z.object({
   data: z.object({
     experience: sectionHeaderSchema.extend({
-      experienceList: z.array(experienceEntrySchema).nonempty(), // At least one entry is required
+      experienceList: z.array(
+        z.object({
+          id: z.number(),
+          role: z.string(),
+          company: z.string(),
+          companyUrl: z.string().nullable(), // Allow null values
+          duration: z.string(),
+          location: z.string(),
+          content: z.string(),
+          companyLogo: imageSchema,
+        })
+      ).nonempty(), // At least one entry is required
     })
   })
 });
@@ -311,7 +175,16 @@ export const experienceSchema = z.object({
 export const testimonialsSchema = z.object({
   data: z.object({
     testimonials: sectionHeaderSchema.extend({
-      testimonialList: z.array(testimonialEntrySchema).nonempty(), // At least one entry is required
+      testimonialList: z.array(
+        z.object({
+          id: z.number(),
+          statement: z.string(),
+          author: z.string(),
+          role: z.string(),
+          company: z.string(),
+          companyWebsite: z.string(),
+        })
+      ).nonempty(), // At least one entry is required
     })
   })
 });
@@ -319,19 +192,15 @@ export const testimonialsSchema = z.object({
 export const faqSchema = z.object({
   data: z.object({
     faq: sectionHeaderSchema.extend({
-      faqList: z.array(faqEntrySchema).nonempty(), // At least one entry is required
+      faqList: z.array(
+        z.object({
+          id: z.number(),
+          question: z.string(),
+          answer: z.string(),
+        })
+      ).nonempty(), // At least one entry is required
     })
   })
-});
-
-export const latestPosts1Schema = z.object({
-  data: z.array(postEntrySchema), // Can be empty
-});
-
-export const latestPosts2Schema = z.object({
-  data: z.object({
-    latestPosts: sectionHeaderSchema,
-  }),
 });
 
 export const ctaSchema = z.object({
@@ -357,3 +226,178 @@ export const footerSchema = z.object({
     contactInformation: contactInformationSchema,
   })
 });
+
+//
+// Single Type Related
+//
+
+export const contact1Schema = z.object({
+  data: z.object({
+    contactFormHeading: z.string(),
+    otherContactOptionsHeading: z.string(),
+    banner: bannerSchema,
+  })
+});
+
+export const contact2Schema = z.object({
+  data: z.object({
+    contactInformation: contactInformationSchema,
+  })
+});
+
+export const privacySchema = z.object({
+  data: z.object({
+    content: z.string(),
+    banner: bannerSchema,
+  })
+});
+
+export const notFoundSchema = z.object({
+  data: z.object({
+    banner: bannerSchema,
+  })
+});
+
+//
+// Collection Type Related
+//
+
+export const posts1Schema = z.object({
+  data: z.array(postEntrySchema), // Can be empty
+});
+
+export const posts2Schema = z.object({
+  data: z.object({
+    banner: bannerSchema,
+  })
+});
+
+export const latestPosts1Schema = z.object({
+  data: z.array(postEntrySchema), // Can be empty
+});
+
+export const latestPosts2Schema = z.object({
+  data: z.object({
+    latestPosts: sectionHeaderSchema,
+  }),
+});
+
+export const postSchema = z.object({
+  data: z.array(z.object({
+    title: z.string(),
+    content: z.string(),
+    publishedAt: z.string().datetime(),
+    featuredImage: imageSchema,
+  })),
+});
+
+export const postSlugsSchema = z.object({
+  data: z.array(z.object({
+    slug: z.string(),
+  })),
+});
+
+export const postSitemapSchema = z.object({
+  data: z.array(z.object({
+    slug: z.string(),
+    updatedAt: z.string().datetime(),
+  })),
+});
+
+export const projects1Schema = z.object({
+  data: z.array(projectEntrySchema), // Can be empty
+});
+
+export const projects2Schema = z.object({
+  data: z.object({
+    banner: bannerSchema,
+  })
+});
+
+export const featuredProjects1Schema = z.object({
+  data: z.array(projectEntrySchema), // Can be empty
+});
+
+export const featuredProjects2Schema = z.object({
+  data: z.object({
+    featuredProjects: sectionHeaderSchema,
+  })
+});
+
+export const projectSchema = z.object({
+  data: z.array(z.object({
+    title: z.string(),
+    demoUrl: z.string().nullable(), // Allow null values
+    repoUrl: z.string().nullable(), // Allow null values
+    content: z.string(),
+    featuredImage: imageSchema,
+    scopes: z.array(
+      z.object({
+        id: z.number(),
+        title: z.string(),
+      })
+    ), // Can be empty
+    tools: z.array(
+      z.object({
+        id: z.number(),
+        title: z.string(),
+      })
+    ), // Can be empty
+    designFile: z.object({
+      url: z.string(),
+    }).nullable(), // Allow null values
+  })),
+});
+
+export const projectSlugsSchema = z.object({
+  data: z.array(z.object({
+    slug: z.string(),
+  })),
+});
+
+export const projectSitemapSchema = z.object({
+  data: z.array(z.object({
+    slug: z.string(),
+    updatedAt: z.string().datetime(),
+  })),
+});
+
+//
+// Utilities
+//
+
+export const staticPageMetadataSchema = z.object({
+  data: z.object({
+    metadata: z.object({
+      title: z.string().nullable(), // Allow null values
+      description: z.string().nullable(), // Allow null values
+      openGraphImage: imageSchema.nullable(), // Allow null values
+    })
+  })
+});
+
+export const dynamicPageMetadataSchema = z.object({
+  data: z.array(z.object({
+    title: z.string(),
+    excerpt: z.string(),
+    featuredImage: imageSchema,
+  })),
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
