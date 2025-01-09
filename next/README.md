@@ -5,7 +5,7 @@ Implement form submission
 Navlinks
 Implement Mobile menu
 Refine backend field descriptions and labels.
-Inlcude "icons", "canonical" and "json-ld (npm schema-dts)"
+Inlcude "json-ld (npm schema-dts)"
 Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
 
 

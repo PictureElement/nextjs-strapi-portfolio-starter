@@ -36,8 +36,6 @@ export async function generateMetadata() {
     return {}
   }
 
-  console.log(JSON.stringify(data));
-
   // Destructure/Format the necessary properties
   const { openGraphLocale, siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
   const imageUrl = new URL(openGraphImage.url, process.env.STRAPI).href;

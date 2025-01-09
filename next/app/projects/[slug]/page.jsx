@@ -46,6 +46,9 @@ export async function generateMetadata({ params }, parent) {
       images: [imageUrl],
       url,
       type: 'article',
+    },
+    alternates: {
+      canonical: url,
     }
   }
 }

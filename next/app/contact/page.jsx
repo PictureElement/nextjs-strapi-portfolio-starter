@@ -31,6 +31,9 @@ export async function generateMetadata(_, parent) {
       images: [imageUrl],
       url,
       type: 'website',
+    },
+    alternates: {
+      canonical: url,
     }
   }
 }
