@@ -270,6 +270,7 @@ export const fetchPost = async (slug) => {
   const validatedData = await validateResponse(response, postSchema, endpoint);
   return {
     title: validatedData.data[0].title,
+    excerpt: validatedData.data[0].excerpt,
     content: validatedData.data[0].content,
     publishedAt: validatedData.data[0].publishedAt,
     featuredImage: validatedData.data[0].featuredImage,

@@ -285,6 +285,7 @@ export const latestPosts2Schema = z.object({
 export const postSchema = z.object({
   data: z.array(z.object({
     title: z.string(),
+    excerpt: z.string(),
     content: z.string(),
     publishedAt: z.string().datetime(),
     featuredImage: imageSchema,

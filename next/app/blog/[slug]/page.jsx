@@ -81,7 +81,7 @@ export default async function Page({ params }) {
   }
 
   // Destructure/Format the necessary properties
-  const { title, content, publishedAt, featuredImage } = data;
+  const { title, excerpt, content, publishedAt, featuredImage } = data;
   const imageUrl = new URL(featuredImage.url, process.env.STRAPI).href;
   const formattedDate = new Date(publishedAt).toLocaleDateString('en-GB');
 
