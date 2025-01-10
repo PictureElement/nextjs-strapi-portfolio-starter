@@ -4,10 +4,9 @@ Implement form submission
 Navlinks
 Implement Mobile menu
 Refine backend field descriptions and labels.
-Inlcude "json-ld (npm schema-dts)"
+Include "json-ld"
 Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
-date locale and dynamic author
-add "Duration" field to project page (January 2023 – June 2023 | March 2024 – Present | Completed in 2022 | Launched in January 2022)
+Dynamic Locale, Author and Duration
 
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI)

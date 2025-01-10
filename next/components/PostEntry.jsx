@@ -7,7 +7,7 @@ export default function PostEntry({ title, excerpt, slug, createdAt }) {
 
   return (
     <article className="relative p-4 py-6 bg-white hover:bg-neutral-100 transition border border-neutral-200 rounded-2xl">
-      <dl className="text-sm leading-6 flex gap-1 mb-1">
+      <dl className="text-xs leading-6 flex gap-1 mb-1">
         <dt className='sr-only'>Posted on:</dt>
         <dd><time dateTime={createdAt}>{formattedCreatedAtDate}</time></dd>
       </dl>

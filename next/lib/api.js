@@ -343,6 +343,7 @@ export const fetchProject = async (slug) => {
   const validatedData = await validateResponse(response, projectSchema, endpoint);
   return {
     title: validatedData.data[0].title,
+    excerpt: validatedData.data[0].excerpt,
     demoUrl: validatedData.data[0].demoUrl,
     repoUrl: validatedData.data[0].repoUrl,
     content: validatedData.data[0].content,

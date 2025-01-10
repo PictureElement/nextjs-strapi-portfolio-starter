@@ -8,6 +8,6 @@ export function cn(...inputs) {
 // Utility function for formatting dates
 export const formatDate = (date, locale = 'en-GB') => {
   return new Intl.DateTimeFormat(locale, {
-    dateStyle: 'long',
+    dateStyle: 'short',
   }).format(new Date(date));
 };

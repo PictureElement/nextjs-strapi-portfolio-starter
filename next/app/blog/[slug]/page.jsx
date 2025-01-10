@@ -94,18 +94,19 @@ export default async function Page({ params }) {
         <div className="mx-auto max-w-5xl px-4">
           <article>
             <header>
-              {/* Assuming precise time-sensitive updates are not a requirement */}
-              {formattedCreatedAtDate !== formattedUpdatedAtDate && (
-                <dl className="text-sm leading-6 flex gap-1">
-                  <dt>Last updated:</dt>
-                  <dd><time dateTime={updatedAt}>{formattedUpdatedAtDate}</time></dd>
-                </dl>
-              )}
-              <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight my-3">{title}</h1>
-              <div className="text-sm leading-6 text-gray-900">
-                Posted by Marios Sofokleous on <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
+              <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
+              <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
+              <div className="text-xs leading-6 mb-12">
+                <div className="text-gray-900">By Marios Sofokleous</div>
+                <div>
+                  Published <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
+                  {/* Assuming precise time-sensitive updates are not a requirement */}
+                  {formattedCreatedAtDate !== formattedUpdatedAtDate && (
+                    <><span className="px-1">·</span>Updated <time dateTime={updatedAt}>{formattedUpdatedAtDate}</time></>
+                  )}
+                </div>
               </div>
-              <div className="my-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
+              <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
                 <Image
                   priority
                   className="object-cover object-center"
@@ -120,7 +121,7 @@ export default async function Page({ params }) {
                 className="[&>*:first-child]:mt-0"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
               />
-              <hr className="border-neutral-100" />
+              <hr />
               <SocialShare />
             </div>
           </article>
