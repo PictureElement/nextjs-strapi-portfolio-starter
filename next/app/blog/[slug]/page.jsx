@@ -5,13 +5,7 @@ import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
 import { fetchPost, fetchPostSlugs, fetchDynamicPageMetadata } from "@/lib/api";
-
-// Utility function for formatting dates
-const formatDate = (date, locale = 'en-GB') => {
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: 'long',
-  }).format(new Date(date));
-};
+import { formatDate } from '@/lib/utils';
 
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {

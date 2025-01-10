@@ -9,6 +9,7 @@ export default function PostList({ postList }) {
           title={entry.title}
           excerpt={entry.excerpt}
           slug={entry.slug}
+          createdAt={entry.createdAt}
         />
       ))}
     </div>

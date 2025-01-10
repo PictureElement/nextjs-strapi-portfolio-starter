@@ -21,6 +21,7 @@ const postEntrySchema = z.object({
   title: z.string(),
   slug: z.string(),
   excerpt: z.string(),
+  createdAt: z.string().datetime(),
 });
 
 const imageSchema = z.object({
