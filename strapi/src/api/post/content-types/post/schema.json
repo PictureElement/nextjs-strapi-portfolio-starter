@@ -37,6 +37,11 @@
     "content": {
       "type": "richtext",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user"
     }
   }
 }
