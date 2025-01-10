@@ -73,6 +73,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "admin::user"
+    },
+    "order": {
+      "type": "integer",
+      "unique": true,
+      "min": 1,
+      "required": true
     }
   }
 }

@@ -6,6 +6,13 @@ import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
 import { fetchPost, fetchPostSlugs, fetchDynamicPageMetadata } from "@/lib/api";
 
+// Utility function for formatting dates
+const formatDate = (date, locale = 'en-GB') => {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: 'long',
+  }).format(new Date(date));
+};
+
 // Return a list of `params` to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   try {
@@ -81,9 +88,10 @@ export default async function Page({ params }) {
   }
 
   // Destructure/Format the necessary properties
-  const { title, excerpt, content, publishedAt, featuredImage } = data;
+  const { title, excerpt, content, createdAt, updatedAt, featuredImage } = data;
   const imageUrl = new URL(featuredImage.url, process.env.STRAPI).href;
-  const formattedDate = new Date(publishedAt).toLocaleDateString('en-GB');
+  const formattedCreatedAtDate = formatDate(createdAt);
+  const formattedUpdatedAtDate = formatDate(updatedAt);
 
   return (
     <>
@@ -92,12 +100,17 @@ export default async function Page({ params }) {
         <div className="mx-auto max-w-5xl px-4">
           <article>
             <header>
-              <dl className="text-sm leading-6 flex gap-1">
-                <dt>Published on</dt>
-                <dd><time dateTime={publishedAt}>{formattedDate}</time></dd>
-              </dl>
+              {/* Assuming precise time-sensitive updates are not a requirement */}
+              {formattedCreatedAtDate !== formattedUpdatedAtDate && (
+                <dl className="text-sm leading-6 flex gap-1">
+                  <dt>Last updated:</dt>
+                  <dd><time dateTime={updatedAt}>{formattedUpdatedAtDate}</time></dd>
+                </dl>
+              )}
               <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight my-3">{title}</h1>
-              <div className="text-sm leading-6 text-gray-900">Posted by Marios Sofokleous</div>
+              <div className="text-sm leading-6 text-gray-900">
+                Posted by Marios Sofokleous on <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
+              </div>
               <div className="my-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
                 <Image
                   priority

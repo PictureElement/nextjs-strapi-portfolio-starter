@@ -180,9 +180,9 @@ export const fetchFooter = async () => {
 //
 
 export const fetchContact = async () => {
-  // Get banner and headings
+  // Fetch banner and headings
   const endpoint1 = "/api/contact-page?populate=banner";
-  // Get contact information
+  // Fetch contact information
   const endpoint2 = "/api/global?populate[contactInformation][populate]=*";
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -228,9 +228,9 @@ export const fetchNotFound = async () => {
 //
 
 export const fetchPosts = async () => {
-  // Get posts
-  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
-  // Get the banner
+  // Fetch posts sorted by the createdAt field in descending order (most recent first)
+  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=createdAt:desc&pagination[page]=1&pagination[pageSize]=100";
+  // Fetch the banner
   const endpoint2 = "/api/blog-page?populate=banner";
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -246,9 +246,9 @@ export const fetchPosts = async () => {
 };
 
 export const fetchLatestPosts = async () => {
-  // Get the latest three posts
-  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=publishedAt:desc&pagination[start]=0&pagination[limit]=3";
-  // Get the headline and supportive text
+  // Fetch posts sorted by the createdAt field in descending order (most recent first)
+  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&sort=createdAt:desc&pagination[start]=0&pagination[limit]=3";
+  // Fetch the headline and supportive text
   const endpoint2 = "/api/homepage?populate[latestPosts][populate]=*";
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -264,7 +264,7 @@ export const fetchLatestPosts = async () => {
 };
 
 export const fetchPost = async (slug) => {
-  // Get post by slug
+  // Fetch post by slug
   const endpoint = `/api/posts?filters[slug]=${slug}&populate=*`;
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, postSchema, endpoint);
@@ -272,13 +272,14 @@ export const fetchPost = async (slug) => {
     title: validatedData.data[0].title,
     excerpt: validatedData.data[0].excerpt,
     content: validatedData.data[0].content,
-    publishedAt: validatedData.data[0].publishedAt,
+    createdAt: validatedData.data[0].createdAt,
+    updatedAt: validatedData.data[0].updatedAt,
     featuredImage: validatedData.data[0].featuredImage,
   }
 };
 
 export const fetchPostSlugs = async () => {
-  // Get all possible post slugs
+  // Fetch all possible post slugs
   const endpoint = '/api/posts?fields=slug';
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, postSlugsSchema, endpoint);
@@ -300,9 +301,9 @@ export const fetchPostSitemap = async () => {
 };
 
 export const fetchProjects = async () => {
-  // Get projects
-  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=publishedAt:desc&pagination[page]=1&pagination[pageSize]=100";
-  // Get the banner
+  // Fetch projects sorted by the order field in ascending order
+  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=order:asc&pagination[page]=1&pagination[pageSize]=100";
+  // Fetch the banner
   const endpoint2 = "/api/projects-page?populate=banner";
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -318,9 +319,9 @@ export const fetchProjects = async () => {
 };
 
 export const fetchFeaturedProjects = async () => {
-  // Get all featured projects
-  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&filters[isFeatured][$eq]=true";
-  // Get the headline and supportive text
+  // Fetch featured projects sorted by the order field in ascending order
+  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&filters[isFeatured][$eq]=true&sort=order:asc";
+  // Fetch the headline and supportive text
   const endpoint2 = "/api/homepage?populate[featuredProjects][populate]=*";
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
@@ -336,7 +337,7 @@ export const fetchFeaturedProjects = async () => {
 };
 
 export const fetchProject = async (slug) => {
-  // Get project by slug
+  // Fetch project by slug
   const endpoint = `/api/projects?filters[slug]=${slug}&populate=*`;
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, projectSchema, endpoint);
@@ -353,7 +354,7 @@ export const fetchProject = async (slug) => {
 };
 
 export const fetchProjectSlugs = async () => {
-  // Get all possible project slugs
+  // Fetch all possible project slugs
   const endpoint = '/api/projects?fields=slug';
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, projectSlugsSchema, endpoint);

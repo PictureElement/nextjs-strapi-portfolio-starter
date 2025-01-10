@@ -287,7 +287,8 @@ export const postSchema = z.object({
     title: z.string(),
     excerpt: z.string(),
     content: z.string(),
-    publishedAt: z.string().datetime(),
+    createdAt: z.string().datetime(),
+    updatedAt: z.string().datetime(),
     featuredImage: imageSchema,
   })),
 });

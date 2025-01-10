@@ -7,6 +7,8 @@ Refine backend field descriptions and labels.
 Inlcude "json-ld (npm schema-dts)"
 Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
 date locale and dynamic author
+add date to blog page cards
+add "Duration" field to project page (January 2023 – June 2023 | March 2024 – Present | Completed in 2022 | Launched in January 2022)
 
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI)
