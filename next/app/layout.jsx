@@ -6,6 +6,8 @@ const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin
 import "./globals.css";
 import { fetchMiscellaneous } from '@/lib/api';
 
+let htmlLang = "en-US";
+
 export async function generateViewport() {
   let data;
 
@@ -37,11 +39,13 @@ export async function generateMetadata() {
   }
 
   // Destructure/Format the necessary properties
-  const { openGraphLocale, siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
+  const { htmlLanguage, openGraphLocale, siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
   const imageUrl = new URL(openGraphImage.url, process.env.STRAPI).href;
   const icoUrl = new URL(iconICO.url, process.env.STRAPI).href;
   const pngUrl = new URL(iconPNG.url, process.env.STRAPI).href;
   const svgUrl = new URL(iconSVG.url, process.env.STRAPI).href;
+
+  htmlLang = htmlLanguage;
 
   return {
     description,
@@ -64,7 +68,7 @@ export async function generateMetadata() {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang={htmlLang}>
       <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
         <Announcement />
         <Header />

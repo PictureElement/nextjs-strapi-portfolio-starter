@@ -76,7 +76,7 @@ export const miscellaneousSchema = z.object({
       openGraphLocale: z.string(),
       siteName: z.string(),
       description: z.string(),
-      htmlLang: z.string(),
+      htmlLanguage: z.string(),
       themeColor: z.string(),
       openGraphImage: imageSchema,
       iconICO: imageSchema,

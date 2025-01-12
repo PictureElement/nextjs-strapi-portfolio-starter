@@ -28,7 +28,7 @@
         "images"
       ]
     },
-    "htmlLang": {
+    "htmlLanguage": {
       "type": "string",
       "default": "en-US",
       "required": true

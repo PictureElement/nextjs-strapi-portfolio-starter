@@ -13,6 +13,7 @@ Future Todo:
 2. Add a breadcrump component (use Hyper UI)
 3. Book a call with Cal.: see Gittings studdio
 4. Limit media upload to specific types if possible
+5. Authentication
 
 
 
