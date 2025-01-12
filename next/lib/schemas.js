@@ -73,7 +73,7 @@ const sectionHeaderSchema = z.object({
 export const miscellaneousSchema = z.object({
   data: z.object({
     miscellaneous: z.object({
-      openGraphLocale: z.string(),
+      localeCode: z.string(),
       siteName: z.string(),
       description: z.string(),
       htmlLanguage: z.string(),

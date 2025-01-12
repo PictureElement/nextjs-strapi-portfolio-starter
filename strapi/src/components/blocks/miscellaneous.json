@@ -6,10 +6,10 @@
   },
   "options": {},
   "attributes": {
-    "openGraphLocale": {
+    "localeCode": {
       "type": "string",
       "required": true,
-      "default": "en_US"
+      "default": "en-US"
     },
     "siteName": {
       "type": "string",

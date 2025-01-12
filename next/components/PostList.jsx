@@ -1,6 +1,22 @@
 import PostEntry from "./PostEntry";
+import { fetchMiscellaneous } from "@/lib/api";
 
-export default function PostList({ postList }) {
+export default async function PostList({ postList }) {
+  let data;
+
+  try {
+    data = await fetchMiscellaneous();
+  } catch (error) {
+    console.error(error.message);
+    // Return fallback metadata in case of validation or fetch errors
+    data = {
+      localeCode: "en-US",
+    }
+  }
+
+  // Destructure/Format the necessary properties
+  const { localeCode } = data;
+
   return (
     <div className="space-y-6">
       {postList.map((entry) => (
@@ -10,6 +26,7 @@ export default function PostList({ postList }) {
           excerpt={entry.excerpt}
           slug={entry.slug}
           createdAt={entry.createdAt}
+          localeCode={localeCode}
         />
       ))}
     </div>

@@ -90,11 +90,11 @@ export interface BlocksMiscellaneous extends Struct.ComponentSchema {
     iconICO: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     iconPNG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     iconSVG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    localeCode: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'en-US'>;
     openGraphImage: Schema.Attribute.Media<'images'> &
       Schema.Attribute.Required;
-    openGraphLocale: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'en_US'>;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
     themeColor: Schema.Attribute.String & Schema.Attribute.Required;
   };

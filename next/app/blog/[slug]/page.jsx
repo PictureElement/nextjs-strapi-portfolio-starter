@@ -4,7 +4,7 @@ import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
-import { fetchPost, fetchPostSlugs, fetchDynamicPageMetadata } from "@/lib/api";
+import { fetchPost, fetchPostSlugs, fetchDynamicPageMetadata, fetchMiscellaneous } from "@/lib/api";
 import { formatDate } from '@/lib/utils';
 
 // Return a list of `params` to populate the [slug] dynamic segment
@@ -56,10 +56,13 @@ export async function generateMetadata({ params }, parent) {
 export default async function Page({ params }) {
   const slug = params.slug;
 
-  let data;
+  let postData, miscData;
 
   try {
-    data = await fetchPost(slug);
+    [postData, miscData] = await Promise.all([
+      fetchPost(slug),
+      fetchMiscellaneous(),
+    ]);
   } catch (error) {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
@@ -77,15 +80,16 @@ export default async function Page({ params }) {
   }
 
   // Redirect to a 404 page if no post was found
-  if (!data) {
+  if (!postData) {
     notFound();
   }
 
   // Destructure/Format the necessary properties
-  const { author, title, excerpt, content, createdAt, updatedAt, featuredImage } = data;
+  const localeCode = miscData.localeCode;
+  const { author, title, excerpt, content, createdAt, updatedAt, featuredImage } = postData;
   const imageUrl = new URL(featuredImage.url, process.env.STRAPI).href;
-  const formattedCreatedAtDate = formatDate(createdAt);
-  const formattedUpdatedAtDate = formatDate(updatedAt);
+  const formattedCreatedAtDate = formatDate(createdAt, localeCode);
+  const formattedUpdatedAtDate = formatDate(updatedAt, localeCode);
 
   return (
     <>

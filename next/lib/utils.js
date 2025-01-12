@@ -6,7 +6,7 @@ export function cn(...inputs) {
 }
 
 // Utility function for formatting dates
-export const formatDate = (date, locale = 'en-GB') => {
+export const formatDate = (date, locale = 'en-US') => {
   return new Intl.DateTimeFormat(locale, {
     dateStyle: 'short',
   }).format(new Date(date));
