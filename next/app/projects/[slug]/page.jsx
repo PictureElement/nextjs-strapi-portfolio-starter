@@ -83,7 +83,7 @@ export default async function Page({ params }) {
   }
 
   // Destructure/Format the necessary properties
-  const { title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile } = data;
+  const { author, title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile } = data;
   const imageUrl = new URL(featuredImage.url, process.env.STRAPI).href;
   const designFileUrl = (designFile ? new URL(designFile.url, process.env.STRAPI).href : null);
 
@@ -97,7 +97,9 @@ export default async function Page({ params }) {
               <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
               <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
               <div className="text-xs leading-6 mb-12">
-                <div className="text-gray-900">By Marios Sofokleous</div>
+                {author &&
+                  <div className="text-gray-900">By {author.displayName}</div>
+                }
                 <div>{duration}</div>
               </div>
               <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">

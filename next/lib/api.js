@@ -269,6 +269,7 @@ export const fetchPost = async (slug) => {
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, postSchema, endpoint);
   return {
+    author: validatedData.data[0].author,
     title: validatedData.data[0].title,
     excerpt: validatedData.data[0].excerpt,
     content: validatedData.data[0].content,
@@ -342,6 +343,7 @@ export const fetchProject = async (slug) => {
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, projectSchema, endpoint);
   return {
+    author: validatedData.data[0].author,
     title: validatedData.data[0].title,
     excerpt: validatedData.data[0].excerpt,
     duration: validatedData.data[0].duration,

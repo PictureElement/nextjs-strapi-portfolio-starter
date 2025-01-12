@@ -41,7 +41,7 @@
     "author": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "admin::user"
+      "target": "api::author.author"
     }
   }
 }

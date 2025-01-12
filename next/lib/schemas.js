@@ -31,6 +31,10 @@ const imageSchema = z.object({
   url: z.string(),
 });
 
+const authorSchema = z.object({
+  displayName: z.string(),
+});
+
 const linkSchema = z.object({
   id: z.number(),
   label: z.string(),
@@ -285,6 +289,7 @@ export const latestPosts2Schema = z.object({
 
 export const postSchema = z.object({
   data: z.array(z.object({
+    author: authorSchema.nullable(), // Allow null values
     title: z.string(),
     excerpt: z.string(),
     content: z.string(),
@@ -329,6 +334,7 @@ export const featuredProjects2Schema = z.object({
 
 export const projectSchema = z.object({
   data: z.array(z.object({
+    author: authorSchema.nullable(), // Allow null values
     title: z.string(),
     excerpt: z.string(),
     duration: z.string(),

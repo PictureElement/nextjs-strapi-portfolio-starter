@@ -69,11 +69,6 @@
       "default": false,
       "required": true
     },
-    "author": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "admin::user"
-    },
     "order": {
       "type": "integer",
       "unique": true,
@@ -83,6 +78,11 @@
     "duration": {
       "type": "string",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }

@@ -82,7 +82,7 @@ export default async function Page({ params }) {
   }
 
   // Destructure/Format the necessary properties
-  const { title, excerpt, content, createdAt, updatedAt, featuredImage } = data;
+  const { author, title, excerpt, content, createdAt, updatedAt, featuredImage } = data;
   const imageUrl = new URL(featuredImage.url, process.env.STRAPI).href;
   const formattedCreatedAtDate = formatDate(createdAt);
   const formattedUpdatedAtDate = formatDate(updatedAt);
@@ -97,7 +97,9 @@ export default async function Page({ params }) {
               <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
               <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
               <div className="text-xs leading-6 mb-12">
-                <div className="text-gray-900">By Marios Sofokleous</div>
+                {author &&
+                  <div className="text-gray-900">By {author.displayName}</div>
+                }
                 <div>
                   Published <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
                   {/* Assuming precise time-sensitive updates are not a requirement */}
