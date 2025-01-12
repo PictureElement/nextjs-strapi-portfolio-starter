@@ -344,6 +344,7 @@ export const fetchProject = async (slug) => {
   return {
     title: validatedData.data[0].title,
     excerpt: validatedData.data[0].excerpt,
+    duration: validatedData.data[0].duration,
     demoUrl: validatedData.data[0].demoUrl,
     repoUrl: validatedData.data[0].repoUrl,
     content: validatedData.data[0].content,

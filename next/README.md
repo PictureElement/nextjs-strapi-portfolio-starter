@@ -6,7 +6,7 @@ Implement Mobile menu
 Refine backend field descriptions and labels.
 Include "json-ld"
 Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
-Dynamic Locale, Author and Duration
+Dynamic Locale, Author
 
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI)

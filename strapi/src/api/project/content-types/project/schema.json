@@ -79,6 +79,10 @@
       "unique": true,
       "min": 1,
       "required": true
+    },
+    "duration": {
+      "type": "string",
+      "required": true
     }
   }
 }

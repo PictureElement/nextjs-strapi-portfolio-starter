@@ -662,6 +662,7 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     demoUrl: Schema.Attribute.String;
     designFile: Schema.Attribute.Media<'files'>;
+    duration: Schema.Attribute.String & Schema.Attribute.Required;
     excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
     featuredImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     isFeatured: Schema.Attribute.Boolean &

@@ -331,6 +331,7 @@ export const projectSchema = z.object({
   data: z.array(z.object({
     title: z.string(),
     excerpt: z.string(),
+    duration: z.string(),
     demoUrl: z.string().nullable(), // Allow null values
     repoUrl: z.string().nullable(), // Allow null values
     content: z.string(),
