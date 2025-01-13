@@ -98,7 +98,7 @@ export const headerSchema = z.object({
   data: z.object({
     header: z.object({
       logo: imageSchema,
-      navItems: z.array(linkSchema).nonempty(), // At least one entry is required
+      additionalNavigationItems: z.array(linkSchema),
       cta: linkSchema,
       logomark: imageSchema,
     })

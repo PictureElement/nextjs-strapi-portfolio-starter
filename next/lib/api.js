@@ -93,7 +93,7 @@ export const fetchHeader = async () => {
   const validatedData = await validateResponse(response, headerSchema, endpoint);
   return {
     logo: validatedData.data.header.logo,
-    navItems: validatedData.data.header.navItems,
+    additionalNavigationItems: validatedData.data.header.additionalNavigationItems,
     cta: validatedData.data.header.cta,
     logomark: validatedData.data.header.logomark,
   };

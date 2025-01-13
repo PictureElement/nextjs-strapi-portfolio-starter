@@ -22,7 +22,7 @@ export default async function Header() {
   }
 
   // Destructure/Format the necessary properties
-  const { logo, navItems, cta, logomark } = data;
+  const { logo, additionalNavigationItems, cta, logomark } = data;
   const logoUrl = new URL(logo.url, process.env.STRAPI).href;
   const logomarkUrl = new URL(logomark.url, process.env.STRAPI).href;
 
@@ -55,13 +55,18 @@ export default async function Header() {
 
           <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center gap-6 text-sm">
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="text-gray-900 transition hover:text-gray-900/75">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              <li><Link href="/projects/" className="text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
+              <li><Link href="/blog/" className="text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
+              <li><Link href="/contact/" className="text-gray-900 transition hover:text-gray-900/75">Contact</Link></li>
+              {additionalNavigationItems.length > 0 &&
+                additionalNavigationItems.map((item) => (
+                  <li key={item.id}>
+                    <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="text-gray-900 transition hover:text-gray-900/75">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))
+              }
             </ul>
           </nav>
 

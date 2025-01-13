@@ -259,12 +259,11 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     displayName: 'Header';
   };
   attributes: {
+    additionalNavigationItems: Schema.Attribute.Component<'basic.button', true>;
     cta: Schema.Attribute.Component<'basic.button', false> &
       Schema.Attribute.Required;
     logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     logomark: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    navItems: Schema.Attribute.Component<'basic.button', true> &
-      Schema.Attribute.Required;
   };
 }
 

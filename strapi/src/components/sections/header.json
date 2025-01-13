@@ -14,11 +14,11 @@
         "images"
       ]
     },
-    "navItems": {
+    "additionalNavigationItems": {
       "type": "component",
       "repeatable": true,
       "component": "basic.button",
-      "required": true
+      "required": false
     },
     "cta": {
       "type": "component",
