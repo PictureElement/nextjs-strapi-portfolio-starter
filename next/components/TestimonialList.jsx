@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import TestimonialEntry from "./TestimonialEntry";
 import { DotButton, useDotButton } from './CarouselDotButton';

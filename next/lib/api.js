@@ -38,7 +38,7 @@ import {
 //
 
 async function fetchData(endpoint, options = {}) {
-  const url = new URL(endpoint, process.env.STRAPI).href;
+  const url = new URL(endpoint, process.env.NEXT_PUBLIC_STRAPI).href;
 
   const cacheStrategy = process.env.NODE_ENV === 'production' ? 'force-cache' : 'no-store';
 

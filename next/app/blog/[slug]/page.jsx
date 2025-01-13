@@ -36,7 +36,7 @@ export async function generateMetadata({ params }, parent) {
   // Destructure/Format the necessary properties
   const { title, description, openGraphImage } = data;
   const url = new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = new URL(openGraphImage.url, process.env.STRAPI).href;
+  const imageUrl = new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return {
     title: `${title} | ${p.openGraph.siteName}`,
@@ -87,7 +87,7 @@ export default async function Page({ params }) {
   // Destructure/Format the necessary properties
   const localeCode = miscData.localeCode;
   const { author, title, excerpt, content, createdAt, updatedAt, featuredImage } = postData;
-  const imageUrl = new URL(featuredImage.url, process.env.STRAPI).href;
+  const imageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const formattedCreatedAtDate = formatDate(createdAt, localeCode);
   const formattedUpdatedAtDate = formatDate(updatedAt, localeCode);
 

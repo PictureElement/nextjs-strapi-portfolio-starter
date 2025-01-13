@@ -4,7 +4,7 @@ export default function ProjectGrid({ projects }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {projects.map((entry) => {
-        const imageUrl = new URL(entry.featuredImage.url, process.env.STRAPI).href;
+        const imageUrl = new URL(entry.featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
         return (
           <ProjectEntry
             key={entry.id}

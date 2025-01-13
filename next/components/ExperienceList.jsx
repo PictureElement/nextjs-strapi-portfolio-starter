@@ -4,7 +4,7 @@ export default function ExperienceList({ experienceList }) {
   return (
     <ol className="relative border-s border-neutral-200 ml-6">
       {experienceList.map((entry, index) => {
-        const imageUrl = new URL(entry.companyLogo.url, process.env.STRAPI).href;
+        const imageUrl = new URL(entry.companyLogo.url, process.env.NEXT_PUBLIC_STRAPI).href;
         return (
           <ExperienceEntry
             key={entry.id}

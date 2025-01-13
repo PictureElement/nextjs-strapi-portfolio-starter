@@ -1,10 +1,9 @@
 Read more about <Image>. Specify width and height and setup responsive images with srcset and sizes + Add image instruction (size, aspect ratio) in Strapi. Add sizes to about image.
 Implement form submission
-Implement Mobile menu
 Refine backend field descriptions and labels.
 Include "json-ld"
 Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
-
+Fetch Announcement data in layout using async/await (similar to Header)
 
 
 

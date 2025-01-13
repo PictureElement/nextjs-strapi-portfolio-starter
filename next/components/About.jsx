@@ -25,7 +25,7 @@ export default async function About() {
 
   // Destructure/Format the necessary properties
   const { headline, supportiveText, content, profileImage } = data;
-  const imageUrl = new URL(profileImage.url, process.env.STRAPI).href;
+  const imageUrl = new URL(profileImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return (
     <section className="bg-white py-24 relative">

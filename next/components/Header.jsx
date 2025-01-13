@@ -1,16 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import BtnPrimary from "./BtnPrimary";
 import { Bars3Icon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
-import { fetchHeader } from '@/lib/api';
+import { useState, useCallback } from 'react';
 
-export default async function Header() {
-  let data;
+export default function Header({ headerData }) {
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  try {
-    data = await fetchHeader();
-  } catch (error) {
-    console.error(error.message);
+  const onClick = useCallback(() => setIsExpanded((!isExpanded), [isExpanded]));
+
+  if (!headerData) {
     // Return fallback UI in case of validation or fetch errors
     return (
       <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
@@ -22,13 +23,14 @@ export default async function Header() {
   }
 
   // Destructure/Format the necessary properties
-  const { logo, additionalNavigationItems, cta, logomark } = data;
-  const logoUrl = new URL(logo.url, process.env.STRAPI).href;
-  const logomarkUrl = new URL(logomark.url, process.env.STRAPI).href;
+  const { logo, additionalNavigationItems, cta, logomark } = headerData;
+  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const logomarkUrl = new URL(logomark.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return (
     <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
-      <div className="flex h-[72px] items-center gap-8 px-4">
+      <nav className="flex flex-wrap gap-4 md:gap-6 items-center justify-between p-4">
+        {/* Brand */}
         <Link
           href="/"
           className="block text-primary-700"
@@ -51,34 +53,16 @@ export default async function Header() {
             height="44"
           />
         </Link>
-        <div className="flex flex-1 items-center justify-end md:justify-between">
-
-          <nav aria-label="Global" className="hidden md:block">
-            <ul className="flex items-center gap-6 text-sm">
-              <li><Link href="/projects/" className="text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
-              <li><Link href="/blog/" className="text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
-              <li><Link href="/contact/" className="text-gray-900 transition hover:text-gray-900/75">Contact</Link></li>
-              {additionalNavigationItems.length > 0 &&
-                additionalNavigationItems.map((item) => (
-                  <li key={item.id}>
-                    <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="text-gray-900 transition hover:text-gray-900/75">
-                      {item.label}
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <BtnPrimary
-              target={cta.openLinkInNewTab ? "_blank" : undefined}
-              rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
-              label={cta.label}
-              url={cta.url}
-            />
-            <button
-              className="
+        {/* CTA & Toggler  */}
+        <div className="flex items-center gap-4 md:order-2">
+          <BtnPrimary
+            target={cta.openLinkInNewTab ? "_blank" : undefined}
+            rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
+            label={cta.label}
+            url={cta.url}
+          />
+          <button
+            className="
                 block
                 justify-items-center
                 w-11 h-11
@@ -91,14 +75,31 @@ export default async function Header() {
               active:bg-primary-200
                 md:hidden
               "
-            >
-              <span className="sr-only">Toggle menu</span>
-              <Bars3Icon className="size-5" />
-            </button>
-          </div>
-
+            aria-label="Toggle navigation"
+            aria-expanded={isExpanded}
+            aria-controls="header-navigation"
+            onClick={onClick}
+          >
+            <span className="sr-only">Toggle menu</span>
+            <Bars3Icon className="size-5" />
+          </button>
         </div>
-      </div>
-    </header >
-  )
+        {/* Navigation */}
+        <ul id="header-navigation" className={`header-navigation flex flex-col basis-full grow gap-2 text-sm md:flex-row md:basis-auto md:gap-6 ${isExpanded ? 'show' : ''}`}>
+          <li><Link href="/projects/" className="text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
+          <li><Link href="/blog/" className="text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
+          <li><Link href="/contact/" className="text-gray-900 transition hover:text-gray-900/75">Contact</Link></li>
+          {additionalNavigationItems.length > 0 &&
+            additionalNavigationItems.map((item) => (
+              <li key={item.id}>
+                <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="text-gray-900 transition hover:text-gray-900/75">
+                  {item.label}
+                </Link>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </header>
+  );
 }

@@ -10,6 +10,21 @@ textarea {
   @apply focus-visible:outline-0 focus-visible:ring focus-visible:ring-secondary;
 }
 
+/* Navigation */
+.header-navigation {
+  @apply hidden;
+}
+
+.header-navigation.show {
+  @apply flex;
+}
+
+@screen md {
+  .header-navigation {
+    @apply flex;
+  }
+}
+
 /* Collapse animation */
 .ReactCollapse--collapse {
   @apply transition-[height];

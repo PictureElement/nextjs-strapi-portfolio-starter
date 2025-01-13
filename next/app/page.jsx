@@ -26,7 +26,7 @@ export async function generateMetadata(_, parent) {
   // Destructure/Format the necessary properties
   const { title, description, openGraphImage } = data;
   const url = new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.STRAPI).href : p.openGraph.images[0];
+  const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
 
   return {
     title: title ? title : `Home | ${p.openGraph.siteName}`,
@@ -46,7 +46,7 @@ export async function generateMetadata(_, parent) {
 export default async function Page() {
   return (
     <>
-      <main className="overflow-hidden -mt-[73px]">
+      <main className="overflow-hidden -mt-[77px]">
         <Hero />
         <About />
         <Skills />

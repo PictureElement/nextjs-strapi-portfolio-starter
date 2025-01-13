@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import { Poppins } from 'next/font/google';
 const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin'] });
 import "./globals.css";
-import { fetchMiscellaneous } from '@/lib/api';
+import { fetchHeader, fetchMiscellaneous } from '@/lib/api';
 
 let htmlLanguage = "en-US";
 
@@ -40,10 +40,10 @@ export async function generateMetadata() {
 
   // Destructure/Format the necessary properties
   const { siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
-  const imageUrl = new URL(openGraphImage.url, process.env.STRAPI).href;
-  const icoUrl = new URL(iconICO.url, process.env.STRAPI).href;
-  const pngUrl = new URL(iconPNG.url, process.env.STRAPI).href;
-  const svgUrl = new URL(iconSVG.url, process.env.STRAPI).href;
+  const imageUrl = new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const icoUrl = new URL(iconICO.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const pngUrl = new URL(iconPNG.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const svgUrl = new URL(iconSVG.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   htmlLanguage = data.htmlLanguage;
 
@@ -66,12 +66,20 @@ export async function generateMetadata() {
   }
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  let headerData = null;
+
+  try {
+    headerData = await fetchHeader();
+  } catch (error) {
+    console.error(error.message);
+  }
+
   return (
     <html lang={htmlLanguage}>
       <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
         <Announcement />
-        <Header />
+        <Header headerData={headerData} />
         {children}
         <Footer />
       </body>

@@ -31,7 +31,7 @@ export default async function FeaturedProjects() {
       <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         {featuredProjects.length > 0 ? (
-          <ProjectCarousel projects={featuredProjects} baseUrl={process.env.STRAPI} />
+          <ProjectCarousel projects={featuredProjects} baseUrl={process.env.NEXT_PUBLIC_STRAPI} />
         ) : (
           <p className="text-center text-gray-500">
             No featured projects available at the moment. Please check back later!

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import ProjectEntry from "./ProjectEntry";
 import useEmblaCarousel from 'embla-carousel-react';

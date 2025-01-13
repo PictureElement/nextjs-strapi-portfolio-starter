@@ -5,9 +5,9 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: new URL(process.env.STRAPI).protocol.replace(':', ''),
-        hostname: new URL(process.env.STRAPI).hostname,
-        port: new URL(process.env.STRAPI).port || '',
+        protocol: new URL(process.env.NEXT_PUBLIC_STRAPI).protocol.replace(':', ''),
+        hostname: new URL(process.env.NEXT_PUBLIC_STRAPI).hostname,
+        port: new URL(process.env.NEXT_PUBLIC_STRAPI).port || '',
         pathname: '/uploads/**',
       },
       {
