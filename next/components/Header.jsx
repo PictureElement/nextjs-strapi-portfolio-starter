@@ -9,7 +9,9 @@ import { useState, useCallback } from 'react';
 export default function Header({ headerData }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const onClick = useCallback(() => setIsExpanded((!isExpanded), [isExpanded]));
+  const handleClick = useCallback(() => {
+    setIsExpanded(!isExpanded);
+  }, [isExpanded]);
 
   if (!headerData) {
     // Return fallback UI in case of validation or fetch errors
@@ -78,7 +80,7 @@ export default function Header({ headerData }) {
             aria-label="Toggle navigation"
             aria-expanded={isExpanded}
             aria-controls="header-navigation"
-            onClick={onClick}
+            onClick={handleClick}
           >
             <span className="sr-only">Toggle menu</span>
             <Bars3Icon className="size-5" />

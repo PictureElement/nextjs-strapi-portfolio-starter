@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import { Poppins } from 'next/font/google';
 const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin'] });
 import "./globals.css";
-import { fetchHeader, fetchMiscellaneous } from '@/lib/api';
+import { fetchAnnouncement, fetchHeader, fetchMiscellaneous } from '@/lib/api';
 
 let htmlLanguage = "en-US";
 
@@ -68,9 +68,13 @@ export async function generateMetadata() {
 
 export default async function RootLayout({ children }) {
   let headerData = null;
+  let announcementData = null;
 
   try {
-    headerData = await fetchHeader();
+    [headerData, announcementData] = await Promise.all([
+      fetchHeader(),
+      fetchAnnouncement()
+    ]);
   } catch (error) {
     console.error(error.message);
   }
@@ -78,7 +82,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang={htmlLanguage}>
       <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
-        <Announcement />
+        <Announcement announcementData={announcementData} />
         <Header headerData={headerData} />
         {children}
         <Footer />

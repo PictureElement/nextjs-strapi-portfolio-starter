@@ -3,8 +3,7 @@ Implement form submission
 Refine backend field descriptions and labels.
 Include "json-ld"
 Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
-Fetch Announcement data in layout using async/await (similar to Header)
-
+Remove unused npm packages
 
 
 Future Todo:
@@ -14,7 +13,7 @@ Future Todo:
 4. Limit media upload to specific types if possible
 5. Authentication
 6. RSS: See tailwind blog, RSS on the banner https://pepelsbey.dev/articles/, RSS on the menu https://pepelsbey.dev/
-
+7. Use the sharp package
 
 
 
