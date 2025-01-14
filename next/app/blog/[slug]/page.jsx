@@ -79,7 +79,7 @@ export default async function Page({ params }) {
     )
   }
 
-  // Redirect to a 404 page if no post was found
+  // If no post data is found, trigger a 404
   if (!postData) {
     notFound();
   }

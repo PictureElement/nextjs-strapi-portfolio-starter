@@ -2,8 +2,6 @@ Read more about <Image>. Specify width and height and setup responsive images wi
 Implement form submission
 Refine backend field descriptions and labels.
 Include "json-ld"
-Check why routes such as /blog/dadadad and /projects/dklahdakhdad don't return 404
-Remove unused npm packages
 
 
 Future Todo:

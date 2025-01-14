@@ -77,7 +77,7 @@ export default async function Page({ params }) {
     )
   }
 
-  // Redirect to a 404 page if no project was found
+  // If no project data is found, trigger a 404
   if (!data) {
     notFound();
   }

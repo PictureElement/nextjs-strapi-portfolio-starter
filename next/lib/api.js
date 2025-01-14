@@ -62,7 +62,9 @@ async function fetchData(endpoint, options = {}) {
 
 async function validateResponse(response, schema, endpoint) {
   const result = schema.safeParse(response);
+  console.log(result);
   if (!result.success) {
+    console.log(result);
     console.error(`Validation failed for ${endpoint}:`, result.error);
     throw new Error(`Invalid data received from ${endpoint}`);
   }
@@ -268,14 +270,20 @@ export const fetchPost = async (slug) => {
   const endpoint = `/api/posts?filters[slug]=${slug}&populate=*`;
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, postSchema, endpoint);
+
+  // Return null if the data is undefined or the array is empty (no post found for the given slug)
+  if (!validatedData.data || validatedData.data.length === 0) return null;
+
+  const post = validatedData.data[0];
+
   return {
-    author: validatedData.data[0].author,
-    title: validatedData.data[0].title,
-    excerpt: validatedData.data[0].excerpt,
-    content: validatedData.data[0].content,
-    createdAt: validatedData.data[0].createdAt,
-    updatedAt: validatedData.data[0].updatedAt,
-    featuredImage: validatedData.data[0].featuredImage,
+    author: post.author,
+    title: post.title,
+    excerpt: post.excerpt,
+    content: post.content,
+    createdAt: post.createdAt,
+    updatedAt: post.updatedAt,
+    featuredImage: post.featuredImage,
   }
 };
 
@@ -342,6 +350,9 @@ export const fetchProject = async (slug) => {
   const endpoint = `/api/projects?filters[slug]=${slug}&populate=*`;
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, projectSchema, endpoint);
+
+  if (!validatedData.data || validatedData.data.length === 0) return null;
+
   return {
     author: validatedData.data[0].author,
     title: validatedData.data[0].title,

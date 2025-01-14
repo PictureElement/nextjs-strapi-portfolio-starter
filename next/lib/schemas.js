@@ -296,7 +296,7 @@ export const postSchema = z.object({
     createdAt: z.string().datetime(),
     updatedAt: z.string().datetime(),
     featuredImage: imageSchema,
-  })),
+  }))
 });
 
 export const postSlugsSchema = z.object({

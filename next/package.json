@@ -15,7 +15,6 @@
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",
     "embla-carousel-react": "^8.3.1",
-    "framer-motion": "^11.11.12",
     "isomorphic-dompurify": "^2.16.0",
     "marked": "^15.0.0",
     "mini-svg-data-uri": "^1.4.4",
