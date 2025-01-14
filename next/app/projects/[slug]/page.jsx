@@ -87,8 +87,35 @@ export default async function Page({ params }) {
   const imageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const designFileUrl = (designFile ? new URL(designFile.url, process.env.NEXT_PUBLIC_STRAPI).href : null);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": title,
+    "description": excerpt,
+    "author": {
+      "@type": "Person",
+      "name": author?.displayName || "Unknown Author",
+    },
+    "image": imageUrl,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+    },
+    "url": demoUrl || new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+    "keywords": [
+      ...scopes.map(scope => scope.title),
+      ...tools.map(tool => tool.title)
+    ].join(", "),
+    "temporalCoverage": duration,
+  };
+
   return (
     <>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <BackTo label="Back to projects" url="/projects/" />
       <main>
         <div className="mx-auto max-w-6xl px-4">
