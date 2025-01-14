@@ -16,10 +16,8 @@ export default function Header({ headerData }) {
   if (!headerData) {
     // Return fallback UI in case of validation or fetch errors
     return (
-      <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
-        <div className="flex h-[72px] items-center justify-center px-4">
-          <div className="text-red-600">Unable to load data for the Header component</div>
-        </div>
+      <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15 h-[77px] text-red-600 flex items-center justify-center">
+        Unable to load data for the Header component
       </header>
     );
   }
@@ -30,7 +28,7 @@ export default function Header({ headerData }) {
   const logomarkUrl = new URL(logomark.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return (
-    <header id="header" className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
+    <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
       <nav className="flex flex-wrap gap-4 md:gap-6 items-center justify-between p-4">
         {/* Brand */}
         <Link
