@@ -62,9 +62,7 @@ async function fetchData(endpoint, options = {}) {
 
 async function validateResponse(response, schema, endpoint) {
   const result = schema.safeParse(response);
-  console.log(result);
   if (!result.success) {
-    console.log(result);
     console.error(`Validation failed for ${endpoint}:`, result.error);
     throw new Error(`Invalid data received from ${endpoint}`);
   }

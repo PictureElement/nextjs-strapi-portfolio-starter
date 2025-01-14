@@ -73,10 +73,10 @@ const sectionHeaderSchema = z.object({
 export const miscellaneousSchema = z.object({
   data: z.object({
     miscellaneous: z.object({
-      localeCode: z.string(),
+      localeString: z.string(),
       siteName: z.string(),
       description: z.string(),
-      htmlLanguage: z.string(),
+      htmlLanguageTag: z.string(),
       themeColor: z.string(),
       openGraphImage: imageSchema,
       iconICO: imageSchema,

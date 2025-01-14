@@ -84,13 +84,13 @@ export interface BlocksMiscellaneous extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    htmlLanguage: Schema.Attribute.String &
+    htmlLanguageTag: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'en-US'>;
+      Schema.Attribute.DefaultTo<'en'>;
     iconICO: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     iconPNG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     iconSVG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    localeCode: Schema.Attribute.String &
+    localeString: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'en-US'>;
     openGraphImage: Schema.Attribute.Media<'images'> &

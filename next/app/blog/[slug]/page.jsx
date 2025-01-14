@@ -85,14 +85,38 @@ export default async function Page({ params }) {
   }
 
   // Destructure/Format the necessary properties
-  const localeCode = miscData.localeCode;
+  const localeString = miscData.localeString;
   const { author, title, excerpt, content, createdAt, updatedAt, featuredImage } = postData;
   const imageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const formattedCreatedAtDate = formatDate(createdAt, localeCode);
-  const formattedUpdatedAtDate = formatDate(updatedAt, localeCode);
+  const formattedCreatedAtDate = formatDate(createdAt, localeString);
+  const formattedUpdatedAtDate = formatDate(updatedAt, localeString);
+
+  // Construct JSON-LD
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: excerpt,
+    datePublished: createdAt,
+    dateModified: updatedAt,
+    author: {
+      "@type": "Person",
+      name: author?.displayName || "Unknown Author",
+    },
+    image: imageUrl,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+    },
+  };
 
   return (
     <>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <BackTo label="Back to blog" url="/blog/" />
       <main>
         <div className="mx-auto max-w-5xl px-4">

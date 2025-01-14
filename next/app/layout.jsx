@@ -6,7 +6,7 @@ const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin
 import "./globals.css";
 import { fetchAnnouncement, fetchHeader, fetchMiscellaneous } from '@/lib/api';
 
-let htmlLanguage = "en-US";
+let htmlLanguageTag = "en";
 
 export async function generateViewport() {
   let data;
@@ -39,18 +39,18 @@ export async function generateMetadata() {
   }
 
   // Destructure/Format the necessary properties
-  const { siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
+  const { localeString, siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
   const imageUrl = new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const icoUrl = new URL(iconICO.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const pngUrl = new URL(iconPNG.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const svgUrl = new URL(iconSVG.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
-  htmlLanguage = data.htmlLanguage;
+  htmlLanguageTag = data.htmlLanguageTag;
 
   return {
     description,
     openGraph: {
-      locale: data.localeCode,
+      locale: localeString.replace('-', '_'),
       siteName: siteName,
       images: [imageUrl],
     },
@@ -80,7 +80,7 @@ export default async function RootLayout({ children }) {
   }
 
   return (
-    <html lang={htmlLanguage}>
+    <html lang={htmlLanguageTag}>
       <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
         <Announcement announcementData={announcementData} />
         <Header headerData={headerData} />

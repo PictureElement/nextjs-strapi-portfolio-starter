@@ -2,8 +2,8 @@ import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
 
-export default function PostEntry({ title, excerpt, slug, createdAt, localeCode }) {
-  const formattedCreatedAtDate = formatDate(createdAt, localeCode);
+export default function PostEntry({ title, excerpt, slug, createdAt, localeString }) {
+  const formattedCreatedAtDate = formatDate(createdAt, localeString);
 
   return (
     <article className="relative p-4 py-6 bg-white hover:bg-neutral-100 transition border border-neutral-200 rounded-2xl">

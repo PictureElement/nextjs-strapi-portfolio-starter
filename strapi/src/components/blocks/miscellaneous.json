@@ -6,10 +6,11 @@
   },
   "options": {},
   "attributes": {
-    "localeCode": {
+    "localeString": {
       "type": "string",
       "required": true,
-      "default": "en-US"
+      "default": "en-US",
+      "regex": "^[a-z]{2}-[A-Z]{2}$"
     },
     "siteName": {
       "type": "string",
@@ -28,9 +29,9 @@
         "images"
       ]
     },
-    "htmlLanguage": {
+    "htmlLanguageTag": {
       "type": "string",
-      "default": "en-US",
+      "default": "en",
       "required": true
     },
     "themeColor": {

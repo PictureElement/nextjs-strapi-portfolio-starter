@@ -10,12 +10,12 @@ export default async function PostList({ postList }) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     data = {
-      localeCode: "en-US",
+      localeString: "en-US",
     }
   }
 
   // Destructure/Format the necessary properties
-  const { localeCode } = data;
+  const { localeString } = data;
 
   return (
     <div className="space-y-6">
@@ -26,7 +26,7 @@ export default async function PostList({ postList }) {
           excerpt={entry.excerpt}
           slug={entry.slug}
           createdAt={entry.createdAt}
-          localeCode={localeCode}
+          localeString={localeString}
         />
       ))}
     </div>
