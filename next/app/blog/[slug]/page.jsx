@@ -99,10 +99,12 @@ export default async function Page({ params }) {
     description: excerpt,
     datePublished: createdAt,
     dateModified: updatedAt,
-    author: {
-      "@type": "Person",
-      name: author?.displayName || "Unknown Author",
-    },
+    ...(author && { // Only include author if it exists
+      author: {
+        "@type": author.isBrand ? "Organization" : "Person",
+        name: author.displayName,
+      },
+    }),
     image: imageUrl,
     mainEntityOfPage: {
       "@type": "WebPage",

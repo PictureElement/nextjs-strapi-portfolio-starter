@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "contactPage": {
-      "type": "string",
-      "default": "Contact Page",
-      "required": true,
-      "private": true
-    },
     "metadata": {
       "type": "component",
       "repeatable": false,
@@ -37,6 +31,11 @@
     "otherContactOptionsHeading": {
       "type": "string",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }

@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "blogPage": {
-      "type": "string",
-      "default": "Blog Page",
-      "required": true,
-      "private": true
-    },
     "metadata": {
       "type": "component",
       "repeatable": false,
@@ -29,6 +23,11 @@
       "repeatable": false,
       "component": "sections.banner",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }

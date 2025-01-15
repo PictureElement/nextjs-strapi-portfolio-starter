@@ -33,6 +33,7 @@ const imageSchema = z.object({
 
 const authorSchema = z.object({
   displayName: z.string(),
+  isBrand: z.boolean(),
 });
 
 const linkSchema = z.object({

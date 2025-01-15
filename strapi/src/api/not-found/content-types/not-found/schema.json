@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
-      "type": "string",
-      "private": true,
-      "default": "Not Found",
-      "required": true
-    },
     "banner": {
       "type": "component",
       "repeatable": false,
@@ -29,6 +23,11 @@
       "repeatable": false,
       "component": "seo.metadata",
       "required": false
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }

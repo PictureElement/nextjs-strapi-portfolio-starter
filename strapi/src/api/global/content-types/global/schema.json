@@ -18,12 +18,6 @@
       "component": "sections.header",
       "required": true
     },
-    "title": {
-      "type": "string",
-      "default": "global",
-      "private": true,
-      "required": true
-    },
     "announcement": {
       "type": "component",
       "repeatable": false,

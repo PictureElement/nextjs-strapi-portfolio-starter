@@ -4,7 +4,8 @@
   "info": {
     "singularName": "author",
     "pluralName": "authors",
-    "displayName": "Author"
+    "displayName": "Author",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,11 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "isBrand": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }

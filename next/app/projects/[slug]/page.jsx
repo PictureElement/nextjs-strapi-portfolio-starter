@@ -90,23 +90,25 @@ export default async function Page({ params }) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": title,
-    "description": excerpt,
-    "author": {
-      "@type": "Person",
-      "name": author?.displayName || "Unknown Author",
-    },
-    "image": imageUrl,
-    "mainEntityOfPage": {
+    name: title,
+    description: excerpt,
+    ...(author && { // Only include author if it exists
+      author: {
+        "@type": author.isBrand ? "Organization" : "Person",
+        name: author.displayName,
+      },
+    }),
+    image: imageUrl,
+    mainEntityOfPage: {
       "@type": "WebPage",
       "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
     },
-    "url": demoUrl || new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-    "keywords": [
+    url: demoUrl || new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+    keywords: [
       ...scopes.map(scope => scope.title),
       ...tools.map(tool => tool.title)
     ].join(", "),
-    "temporalCoverage": duration,
+    temporalCoverage: duration,
   };
 
   return (

@@ -22,17 +22,16 @@
       "type": "richtext",
       "required": true
     },
-    "title": {
-      "type": "string",
-      "required": true,
-      "private": true,
-      "default": "Privacy Policy"
-    },
     "banner": {
       "type": "component",
       "repeatable": false,
       "component": "sections.banner",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author"
     }
   }
 }

@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
   collectionName: 'authors';
   info: {
+    description: '';
     displayName: 'Author';
     pluralName: 'authors';
     singularName: 'author';
@@ -386,6 +387,9 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     displayName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
+    isBrand: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -411,12 +415,9 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
-    blogPage: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'Blog Page'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -446,13 +447,10 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     contactFormHeading: Schema.Attribute.String & Schema.Attribute.Required;
-    contactPage: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'Contact Page'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -508,10 +506,6 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     miscellaneous: Schema.Attribute.Component<'blocks.miscellaneous', false> &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'global'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -532,6 +526,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   attributes: {
     about: Schema.Attribute.Component<'sections.about', false> &
       Schema.Attribute.Required;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -559,10 +554,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       Schema.Attribute.Required;
     testimonials: Schema.Attribute.Component<'sections.testimonials', false> &
       Schema.Attribute.Required;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'Homepage'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -581,6 +572,7 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -594,10 +586,6 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'Not Found'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -649,6 +637,7 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
@@ -663,10 +652,6 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'Privacy Policy'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -739,6 +724,7 @@ export interface ApiProjectsPageProjectsPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -752,10 +738,6 @@ export interface ApiProjectsPageProjectsPage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     metadata: Schema.Attribute.Component<'seo.metadata', false>;
     publishedAt: Schema.Attribute.DateTime;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Private &
-      Schema.Attribute.DefaultTo<'Projects Page'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
