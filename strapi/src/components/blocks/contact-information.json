@@ -20,6 +20,11 @@
     "workingHours": {
       "type": "string",
       "required": true
+    },
+    "socialChannels": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.social-channel"
     }
   }
 }

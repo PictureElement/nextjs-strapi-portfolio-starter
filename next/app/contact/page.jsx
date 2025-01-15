@@ -54,7 +54,7 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { headline, supportiveText, contactFormHeading, otherContactOptionsHeading, author, email, schedulingLink, workingHours, phone } = data;
+  const { headline, supportiveText, contactFormHeading, otherContactOptionsHeading, author, email, schedulingLink, workingHours, phone, socialChannels } = data;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -70,8 +70,7 @@ export default async function Page() {
         url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
         sameAs: [
           ...(schedulingLink ? [schedulingLink] : []), // Add scheduling link if it exists
-          "https://linkedin.com/in/yourprofile",
-          "https://github.com/yourgithub"
+          ...(socialChannels.length > 0 ? socialChannels.map((item) => item.url) : []) // Add social channels if they exist
         ]
       }
     })

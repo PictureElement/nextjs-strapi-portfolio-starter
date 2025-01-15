@@ -75,3 +75,45 @@ scp -r /path/to/local/src/* root@<your-server-ip>:/var/lib/docker/volumes/i0wggs
 1. Generate a transfer token on remote Strapi instace.
 2. Make sure the source and target schemas match. (see The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that)
 3. Push data to remote: npm run strapi transfer -- --to destinationURL/admin
+
+
+
+
+
+
+
+
+
+https://docs.strapi.io/dev-docs/api/rest/interactive-query-builder
+
+{
+populate: {
+  contactInformation: true,
+  footer: {
+    fields: ['statement'],
+    populate: {
+      socialChannels: {
+        fields: ['label']
+      }
+    }
+  },
+},
+}
+
+or
+
+{
+populate: {
+  contactInformation: {
+    fields: ['email', 'phone']
+  },
+  footer: {
+    fields: ['statement'],
+    populate: {
+      socialChannels: {
+        fields: ['label']
+      }
+    }
+  },
+},
+}

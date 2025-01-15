@@ -9,9 +9,20 @@ const bannerSchema = z.object({
   supportiveText: z.string(),
 });
 
+const socialChannelSchema = z.object({
+  id: z.number(),
+  channel: z.string().refine(
+    (val) => val === 'GitHub' || val == 'LinkedIn' || val === 'X',
+    { message: "Value must be 'GitHub', 'LinkedIn' or 'X'" }
+  ),
+  url: z.string(),
+  label: z.string(),
+});
+
 const contactInformationSchema = z.object({
   email: z.string(),
   phone: z.string().nullable(),
+  socialChannels: z.array(socialChannelSchema), // Can be empty
   schedulingLink: z.string().nullable(), // Allow null values
   workingHours: z.string(),
 });
@@ -42,16 +53,6 @@ const linkSchema = z.object({
   url: z.string(),
   openLinkInNewTab: z.boolean(),
   sameHostLink: z.boolean(),
-});
-
-const socialChannelSchema = z.object({
-  id: z.number(),
-  channel: z.string().refine(
-    (val) => val === 'GitHub' || val == 'LinkedIn' || val === 'X',
-    { message: "Value must be 'GitHub', 'LinkedIn' or 'X'" }
-  ),
-  url: z.string(),
-  label: z.string(),
 });
 
 const projectEntrySchema = z.object({
@@ -225,7 +226,6 @@ export const footerSchema = z.object({
       headingColumn2: z.string(),
       headingColumn3: z.string(),
       copyright: z.string(),
-      socialChannels: z.array(socialChannelSchema), // Can be empty
       linksColumn2: z.array(linkSchema), // Can be empty
       linksColumn3: z.array(linkSchema), // Can be empty
     }),

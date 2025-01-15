@@ -33,6 +33,8 @@ import {
   projectSitemapSchema,
 } from "./schemas";
 
+const qs = require('qs');
+
 //
 // Main Fetch Function
 //
@@ -165,13 +167,13 @@ export const fetchFooter = async () => {
     headingColumn2: validatedData.data.footer.headingColumn2,
     headingColumn3: validatedData.data.footer.headingColumn3,
     copyright: validatedData.data.footer.copyright,
-    socialChannels: validatedData.data.footer.socialChannels,
     linksColumn2: validatedData.data.footer.linksColumn2,
     linksColumn3: validatedData.data.footer.linksColumn3,
     email: validatedData.data.contactInformation.email,
     schedulingLink: validatedData.data.contactInformation.schedulingLink,
     workingHours: validatedData.data.contactInformation.workingHours,
     phone: validatedData.data.contactInformation.phone,
+    socialChannels: validatedData.data.contactInformation.socialChannels,
   }
 };
 
@@ -183,7 +185,20 @@ export const fetchContact = async () => {
   // Fetch banner and headings
   const endpoint1 = "/api/contact-page?populate=banner&populate=author";
   // Fetch contact information
-  const endpoint2 = "/api/global?populate[contactInformation][populate]=*";
+  const query2 = qs.stringify(
+    {
+      populate: {
+        contactInformation: {
+          populate: ['socialChannels'],
+        }
+      },
+    },
+    {
+      encodeValuesOnly: true,
+    },
+  );
+  console.log(query2);
+  const endpoint2 = `/api/global?${query2}`;
   const [response1, response2] = await Promise.all([
     fetchData(endpoint1),
     fetchData(endpoint2),
@@ -200,6 +215,7 @@ export const fetchContact = async () => {
     schedulingLink: validatedData2.data.contactInformation.schedulingLink,
     workingHours: validatedData2.data.contactInformation.workingHours,
     phone: validatedData2.data.contactInformation.phone,
+    socialChannels: validatedData2.data.contactInformation.socialChannels,
   }
 };
 

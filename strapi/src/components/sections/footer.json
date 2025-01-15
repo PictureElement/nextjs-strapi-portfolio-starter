@@ -10,11 +10,6 @@
       "type": "text",
       "required": true
     },
-    "socialChannels": {
-      "type": "component",
-      "repeatable": true,
-      "component": "blocks.social-channel"
-    },
     "headingColumn1": {
       "type": "string",
       "default": "Statement",

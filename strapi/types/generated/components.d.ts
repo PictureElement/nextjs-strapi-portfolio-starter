@@ -39,6 +39,7 @@ export interface BlocksContactInformation extends Struct.ComponentSchema {
     email: Schema.Attribute.Email & Schema.Attribute.Required;
     phone: Schema.Attribute.String;
     schedulingLink: Schema.Attribute.String;
+    socialChannels: Schema.Attribute.Component<'blocks.social-channel', true>;
     workingHours: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -230,7 +231,6 @@ export interface SectionsFooter extends Struct.ComponentSchema {
       Schema.Attribute.Required;
     linksColumn3: Schema.Attribute.Component<'basic.button', true> &
       Schema.Attribute.Required;
-    socialChannels: Schema.Attribute.Component<'blocks.social-channel', true>;
     statement: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }

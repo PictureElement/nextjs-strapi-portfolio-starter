@@ -31,7 +31,7 @@ export default async function Footer() {
   }
 
   // Destructure the necessary properties
-  const { statement, headingColumn1, headingColumn2, headingColumn3, copyright, socialChannels, linksColumn2, linksColumn3, email, schedulingLink, workingHours, phone } = data;
+  const { statement, headingColumn1, headingColumn2, headingColumn3, copyright, linksColumn2, linksColumn3, email, schedulingLink, workingHours, phone, socialChannels } = data;
 
   return (
     <footer className="bg-neutral-950">
