@@ -242,6 +242,7 @@ export const contact1Schema = z.object({
     contactFormHeading: z.string(),
     otherContactOptionsHeading: z.string(),
     banner: bannerSchema,
+    author: authorSchema.nullable(), // Allow null values
   })
 });
 

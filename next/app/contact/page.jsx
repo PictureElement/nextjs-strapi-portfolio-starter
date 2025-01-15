@@ -54,47 +54,74 @@ export default async function Page() {
   }
 
   // Destructure the necessary properties
-  const { headline, supportiveText, contactFormHeading, otherContactOptionsHeading, email, schedulingLink, workingHours, phone } = data;
+  const { headline, supportiveText, contactFormHeading, otherContactOptionsHeading, author, email, schedulingLink, workingHours, phone } = data;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: headline,
+    description: supportiveText,
+    ...(author && { // Only include mainEntity if author exists
+      mainEntity: {
+        "@type": author.isBrand ? "Organization" : "Person",
+        name: author.displayName,
+        email: email,
+        ...(phone && { telephone: phone }),
+        url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        sameAs: [
+          ...(schedulingLink ? [schedulingLink] : []), // Add scheduling link if it exists
+          "https://linkedin.com/in/yourprofile",
+          "https://github.com/yourgithub"
+        ]
+      }
+    })
+  };
 
   return (
-    <main className="overflow-hidden relative">
-      <Banner headline={headline} supportiveText={supportiveText} />
-      <section className="mx-auto max-w-5xl px-4 py-24">
-        <article className="border border-neutral-200 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
-          <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{contactFormHeading}</h2>
-          <form className="flex flex-col gap-6 sm:gap-6">
-            <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
-              <input
-                type="email"
-                placeholder="Business Email"
-                className="block rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
-              />
-              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
-                Business Email
-              </span>
-            </label>
-            <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
-              <textarea
-                rows="5"
-                placeholder="Tell us about your project"
-                className="block rounded-lg peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none text-xl"
-              ></textarea>
-              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-translate-y-1/2 peer-focus:text-base peer-focus:text-primary-700">
-                Tell us about your project
-              </span>
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 transition">
-              <div className="relative flex items-center mt-[1px]">
-                <input type="checkbox" className="peer size-5 rounded border border-neutral-400 appearance-none checked:bg-primary-700 checked:border-0" />
-                <CheckIcon className="absolute hidden fill-white peer-checked:block" />
-              </div>
-              <div className="text-pretty font-light text-gray-700">
-                I consent to have this website collect my submitted information so they can respond to my inquiry. I have read and accept the <Link href="/privacy-policy" target="_blank" className="font-medium border-b border-primary-700 hover:border-b-2">Privacy Policy</Link>.
-              </div>
-            </label>
-            <button
-              type="submit"
-              className="
+    <>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="overflow-hidden relative">
+        <Banner headline={headline} supportiveText={supportiveText} />
+        <section className="mx-auto max-w-5xl px-4 py-24">
+          <article className="border border-neutral-200 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
+            <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{contactFormHeading}</h2>
+            <form className="flex flex-col gap-6 sm:gap-6">
+              <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
+                <input
+                  type="email"
+                  placeholder="Business Email"
+                  className="block rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
+                />
+                <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
+                  Business Email
+                </span>
+              </label>
+              <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
+                <textarea
+                  rows="5"
+                  placeholder="Tell us about your project"
+                  className="block rounded-lg peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none text-xl"
+                ></textarea>
+                <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-translate-y-1/2 peer-focus:text-base peer-focus:text-primary-700">
+                  Tell us about your project
+                </span>
+              </label>
+              <label className="flex cursor-pointer items-start gap-3 transition">
+                <div className="relative flex items-center mt-[1px]">
+                  <input type="checkbox" className="peer size-5 rounded border border-neutral-400 appearance-none checked:bg-primary-700 checked:border-0" />
+                  <CheckIcon className="absolute hidden fill-white peer-checked:block" />
+                </div>
+                <div className="text-pretty font-light text-gray-700">
+                  I consent to have this website collect my submitted information so they can respond to my inquiry. I have read and accept the <Link href="/privacy-policy" target="_blank" className="font-medium border-b border-primary-700 hover:border-b-2">Privacy Policy</Link>.
+                </div>
+              </label>
+              <button
+                type="submit"
+                className="
                 group
                 inline-flex
                 justify-center
@@ -113,31 +140,32 @@ export default async function Page() {
                 hover:bg-primary-600
                 active:bg-primary-500
               "
-              aria-label="Submit your message"
-            >
-              Submit message
-              <PaperAirplaneIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
-            </button>
-          </form>
-        </article>
-        <aside>
-          <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{otherContactOptionsHeading}</h2>
-          <div className="grid grid-cols-1 gap-6">
-            <ContactOption title="Email us" label={email} href={`mailto:${email.trim()}`} />
-            {phone &&
-              <ContactOption title="Call us" label={phone} href={`tel:${phone.replace(/\s+/g, '')}`} />
-            }
-            {schedulingLink &&
-              <ContactOption title="Schedule a call" label={schedulingLink} href={schedulingLink} rel="noopener noreferer" target="_blank" />
-            }
-            <div className="text-center py-8 sm:py-12">
-              <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Working Hours</h3>
-              <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{workingHours}</p>
+                aria-label="Submit your message"
+              >
+                Submit message
+                <PaperAirplaneIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+              </button>
+            </form>
+          </article>
+          <aside>
+            <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{otherContactOptionsHeading}</h2>
+            <div className="grid grid-cols-1 gap-6">
+              <ContactOption title="Email us" label={email} href={`mailto:${email.trim()}`} />
+              {phone &&
+                <ContactOption title="Call us" label={phone} href={`tel:${phone.replace(/\s+/g, '')}`} />
+              }
+              {schedulingLink &&
+                <ContactOption title="Schedule a call" label={schedulingLink} href={schedulingLink} rel="noopener noreferer" target="_blank" />
+              }
+              <div className="text-center py-8 sm:py-12">
+                <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Working Hours</h3>
+                <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{workingHours}</p>
+              </div>
             </div>
-          </div>
-        </aside>
-      </section>
-    </main >
+          </aside>
+        </section>
+      </main >
+    </>
   );
 }
 

@@ -181,7 +181,7 @@ export const fetchFooter = async () => {
 
 export const fetchContact = async () => {
   // Fetch banner and headings
-  const endpoint1 = "/api/contact-page?populate=banner";
+  const endpoint1 = "/api/contact-page?populate=banner&populate=author";
   // Fetch contact information
   const endpoint2 = "/api/global?populate[contactInformation][populate]=*";
   const [response1, response2] = await Promise.all([
@@ -195,6 +195,7 @@ export const fetchContact = async () => {
     supportiveText: validatedData1.data.banner.supportiveText,
     contactFormHeading: validatedData1.data.contactFormHeading,
     otherContactOptionsHeading: validatedData1.data.otherContactOptionsHeading,
+    author: validatedData1.data.author,
     email: validatedData2.data.contactInformation.email,
     schedulingLink: validatedData2.data.contactInformation.schedulingLink,
     workingHours: validatedData2.data.contactInformation.workingHours,
