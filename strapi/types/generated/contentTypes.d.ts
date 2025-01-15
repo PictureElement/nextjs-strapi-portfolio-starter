@@ -415,7 +415,8 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -447,7 +448,8 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     contactFormHeading: Schema.Attribute.String & Schema.Attribute.Required;
@@ -526,7 +528,8 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   attributes: {
     about: Schema.Attribute.Component<'sections.about', false> &
       Schema.Attribute.Required;
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -572,7 +575,8 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -604,7 +608,8 @@ export interface ApiPostPost extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -637,7 +642,8 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
@@ -670,7 +676,8 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -724,7 +731,8 @@ export interface ApiProjectsPageProjectsPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
+      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;

@@ -75,7 +75,8 @@
     "author": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::author.author"
+      "target": "api::author.author",
+      "required": true
     }
   }
 }
