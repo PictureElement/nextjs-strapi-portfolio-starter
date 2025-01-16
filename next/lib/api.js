@@ -326,7 +326,7 @@ export const fetchPostSitemap = async () => {
 
 export const fetchProjects = async () => {
   // Fetch projects sorted by the order field in ascending order
-  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&sort=order:asc&pagination[page]=1&pagination[pageSize]=100";
+  const endpoint1 = "/api/projects?fields[0]=title&fields[1]=slug&fields[2]=excerpt&populate[featuredImage][fields][0]=url&populate[featuredImage][fields][1]=alternativeText&populate[featuredImage][fields][2]=width&populate[featuredImage][fields][3]=height&populate=author&sort=order:asc&pagination[page]=1&pagination[pageSize]=100";
   // Fetch the banner
   const endpoint2 = "/api/projects-page?populate=banner";
   const [response1, response2] = await Promise.all([

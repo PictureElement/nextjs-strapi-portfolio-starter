@@ -63,6 +63,7 @@ const projectEntrySchema = z.object({
   slug: z.string(),
   excerpt: z.string(),
   featuredImage: imageSchema,
+  author: authorSchema.nullable(), // Allow null values
 });
 
 const sectionHeaderSchema = z.object({

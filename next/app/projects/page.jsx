@@ -54,18 +54,46 @@ export default async function Page() {
   // Destructure the necessary properties
   const { headline, supportiveText, projects } = data;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: headline,
+    description: supportiveText,
+    url: new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href,
+    mainEntity: projects.map(project => ({
+      "@type": "CreativeWork",
+      name: project.title,
+      description: project.excerpt,
+      url: new URL(`/projects/${project.slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+      image: new URL(project.featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href,
+      ...(project.author && { // Only include author if it exists
+        author: {
+          "@type": project.author.isBrand ? "Organization" : "Person",
+          name: project.author.displayName,
+        },
+      }),
+    }))
+  };
+
   return (
-    <main className="overflow-hidden relative">
-      <Banner headline={headline} supportiveText={supportiveText} />
-      <section className="mx-auto max-w-5xl px-4 py-24">
-        {projects.length > 0 ? (
-          <ProjectGrid projects={projects} />
-        ) : (
-          <p className="text-center text-gray-500">
-            No projects available at the moment. Please check back later!
-          </p>
-        )}
-      </section>
-    </main>
+    <>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="overflow-hidden relative">
+        <Banner headline={headline} supportiveText={supportiveText} />
+        <section className="mx-auto max-w-5xl px-4 py-24">
+          {projects.length > 0 ? (
+            <ProjectGrid projects={projects} />
+          ) : (
+            <p className="text-center text-gray-500">
+              No projects available at the moment. Please check back later!
+            </p>
+          )}
+        </section>
+      </main>
+    </>
   );
 }
