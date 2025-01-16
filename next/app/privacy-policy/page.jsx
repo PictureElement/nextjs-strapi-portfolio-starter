@@ -55,15 +55,34 @@ export default async function Page() {
   // Destructure the necessary properties
   const { headline, supportiveText, content } = data;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: headline,
+    description: supportiveText,
+    url: new URL('/privacy-policy/', process.env.NEXT_PUBLIC_WEBSITE).href,
+    about: {
+      "@type": "Thing",
+      name: "Privacy Policy"
+    }
+  };
+
   return (
-    <main className="overflow-hidden relative">
-      <Banner headline={headline} supportiveText={supportiveText} />
-      <section className="mx-auto max-w-5xl px-4 py-24">
-        <div
-          className="max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto"
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
-        />
-      </section>
-    </main>
+    <>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="overflow-hidden relative">
+        <Banner headline={headline} supportiveText={supportiveText} />
+        <section className="mx-auto max-w-5xl px-4 py-24">
+          <div
+            className="max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto"
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+          />
+        </section>
+      </main>
+    </>
   )
 }
