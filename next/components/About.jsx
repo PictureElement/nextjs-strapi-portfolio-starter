@@ -2,27 +2,9 @@ import SectionHeader from './SectionHeader';
 import Image from 'next/image';
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
-import { fetchAbout } from '@/lib/api';
 import ShapeDivider from './ShapeDivider';
 
-export default async function About() {
-  let data;
-
-  try {
-    data = await fetchAbout();
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
-    return (
-      <section className="bg-white py-24 relative">
-        <ShapeDivider className="fill-neutral-50" />
-        <div className="relative mx-auto max-w-5xl px-4">
-          <div className="text-red-600 text-center">Unable to load data for the About component</div>
-        </div>
-      </section>
-    )
-  }
-
+export default function About({ data }) {
   // Destructure/Format the necessary properties
   const { headline, supportiveText, content, profileImage } = data;
   const imageUrl = new URL(profileImage.url, process.env.NEXT_PUBLIC_STRAPI).href;

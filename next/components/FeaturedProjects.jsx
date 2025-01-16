@@ -1,27 +1,9 @@
 import SectionHeader from "./SectionHeader";
 import ProjectCarousel from "./ProjectCarousel";
 import BtnSecondary from "./BtnSecondary";
-import { fetchFeaturedProjects } from "@/lib/api";
 import ShapeDivider from "./ShapeDivider";
 
-export default async function FeaturedProjects() {
-  let data;
-
-  try {
-    data = await fetchFeaturedProjects();
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
-    return (
-      <section className="bg-white py-24 relative">
-        <ShapeDivider className="fill-neutral-50" />
-        <div className="relative mx-auto max-w-5xl px-4">
-          <div className="text-red-600 text-center">Unable to load data for the FeaturedProjects component</div>
-        </div>
-      </section>
-    );
-  }
-
+export default function FeaturedProjects({ data }) {
   // Destructure the necessary properties
   const { headline, supportiveText, featuredProjects } = data;
 

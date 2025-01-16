@@ -1,13 +1,24 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-// import Services from "@/components/Services";
+import Services from "@/components/Services";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import Faq from "@/components/Faq";
 import Testimonials from "@/components/Testimonials";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import LatestPosts from "@/components/LatestPosts";
-import { fetchStaticPageMetadata } from "@/lib/api";
+import {
+  fetchAbout,
+  fetchExperience,
+  fetchFaq,
+  fetchFeaturedProjects,
+  fetchHero,
+  fetchLatestPosts,
+  fetchServices,
+  fetchSkills,
+  fetchStaticPageMetadata,
+  fetchTestimonials
+} from "@/lib/api";
 
 export async function generateMetadata(_, parent) {
   let data;
@@ -44,18 +55,43 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function Page() {
+
+  let heroData, aboutData, skillsData, experienceData, featuredProjectsData, servicesData, testimonialsData, latestPostsData, faqData = null;
+
+  try {
+    [heroData, aboutData, skillsData, experienceData, featuredProjectsData, servicesData, testimonialsData, latestPostsData, faqData] = await Promise.all([
+      fetchHero(),
+      fetchAbout(),
+      fetchSkills(),
+      fetchExperience(),
+      fetchFeaturedProjects(),
+      fetchServices(),
+      fetchTestimonials(),
+      fetchLatestPosts(),
+      fetchFaq(),
+    ]);
+  } catch (error) {
+    console.error(error.message);
+    // Return fallback UI in case of validation or fetch errors
+    return (
+      <main>
+        <div className="text-red-600 text-center">Unable to load data for the Home page</div>
+      </main>
+    );
+  }
+
   return (
     <>
       <main className="overflow-hidden -mt-[77px]">
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <FeaturedProjects />
-        {/* <Services /> */}
-        <Testimonials />
-        <LatestPosts />
-        <Faq />
+        <Hero data={heroData} />
+        <About data={aboutData} />
+        <Skills data={skillsData} />
+        <Experience data={experienceData} />
+        <FeaturedProjects data={featuredProjectsData} />
+        <Services data={servicesData} />
+        <Testimonials data={testimonialsData} />
+        <LatestPosts data={latestPostsData} />
+        <Faq data={faqData} />
       </main>
     </>
   );

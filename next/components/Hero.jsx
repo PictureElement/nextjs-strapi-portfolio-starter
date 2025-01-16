@@ -2,28 +2,10 @@ import BtnPrimary from './BtnPrimary';
 import AnimatedGradient from './AnimatedGradient';
 import ShapeDivider from './ShapeDivider';
 import { Lobster } from 'next/font/google';
-import { fetchHero } from '@/lib/api';
 import BtnSecondary from './BtnSecondary';
 const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
-export default async function Hero() {
-  let data;
-
-  try {
-    data = await fetchHero();
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
-    return (
-      <section className="bg-neutral-100 relative">
-        <ShapeDivider className="fill-white" />
-        <div className="relative z-50 mx-auto max-w-5xl px-4 pt-[168px] pb-24 sm:pt-48 sm:pb-[120px]">
-          <div className="text-red-600 text-center">Unable to load data for the Hero component</div>
-        </div>
-      </section>
-    )
-  }
-
+export default function Hero({ data }) {
   // Destructure the necessary properties
   const { greeting, headline, supportiveText, primaryButton, secondaryButton } = data;
 
