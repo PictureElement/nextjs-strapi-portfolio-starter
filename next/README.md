@@ -3,7 +3,6 @@ Implement form submission
 Refine backend field descriptions and labels.
 Include "json-ld"
 
-
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI)
 2. Add a breadcrump component (use Hyper UI)
@@ -12,7 +11,7 @@ Future Todo:
 5. Authentication
 6. RSS: See tailwind blog, RSS on the banner https://pepelsbey.dev/articles/, RSS on the menu https://pepelsbey.dev/
 7. Use the sharp package
-
+8. Use qs to generate all queries (this was implemented for the fetchContact only)
 
 
 <head>

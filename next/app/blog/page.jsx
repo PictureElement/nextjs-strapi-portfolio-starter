@@ -54,18 +54,46 @@ export default async function Page() {
   // Destructure the necessary properties
   const { headline, supportiveText, posts } = data;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: headline,
+    description: supportiveText,
+    url: new URL('/blog/', process.env.NEXT_PUBLIC_WEBSITE).href,
+    mainEntity: posts.map(post => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      url: new URL(`/blog/${post.slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+      datePublished: post.createdAt,
+      image: new URL(post.featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href,
+      ...(post.author && { // Only include author if it exists
+        author: {
+          "@type": post.author.isBrand ? "Organization" : "Person",
+          name: post.author.displayName,
+        },
+      }),
+    }))
+  };
+
   return (
-    <main className="overflow-hidden relative">
-      <Banner headline={headline} supportiveText={supportiveText} />
-      <section className="mx-auto max-w-5xl px-4 py-24">
-        {posts.length > 0 ? (
-          <PostList postList={posts} />
-        ) : (
-          <p className="text-center text-gray-500">
-            No posts available at the moment. Please check back later!
-          </p>
-        )}
-      </section>
-    </main>
+    <>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <main className="overflow-hidden relative">
+        <Banner headline={headline} supportiveText={supportiveText} />
+        <section className="mx-auto max-w-5xl px-4 py-24">
+          {posts.length > 0 ? (
+            <PostList postList={posts} />
+          ) : (
+            <p className="text-center text-gray-500">
+              No posts available at the moment. Please check back later!
+            </p>
+          )}
+        </section>
+      </main>
+    </>
   );
 }

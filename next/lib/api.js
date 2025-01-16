@@ -246,7 +246,7 @@ export const fetchNotFound = async () => {
 
 export const fetchPosts = async () => {
   // Fetch posts sorted by the createdAt field in descending order (most recent first)
-  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&fields[3]=createdAt&sort=createdAt:desc&pagination[page]=1&pagination[pageSize]=100";
+  const endpoint1 = "/api/posts?fields[0]=title&fields[1]=slug&fields[2]=excerpt&fields[3]=createdAt&populate=featuredImage&populate=author&sort=createdAt:desc&pagination[page]=1&pagination[pageSize]=100";
   // Fetch the banner
   const endpoint2 = "/api/blog-page?populate=banner";
   const [response1, response2] = await Promise.all([

@@ -4,6 +4,13 @@ import { z } from "zod";
 // Patterns
 //
 
+const imageSchema = z.object({
+  alternativeText: z.string().nullable(), // Allow null values
+  width: z.number().nullable(), // Allow null values
+  height: z.number().nullable(), // Allow null values
+  url: z.string(),
+});
+
 const bannerSchema = z.object({
   headline: z.string(),
   supportiveText: z.string(),
@@ -27,24 +34,19 @@ const contactInformationSchema = z.object({
   workingHours: z.string(),
 });
 
+const authorSchema = z.object({
+  displayName: z.string(),
+  isBrand: z.boolean(),
+});
+
 const postEntrySchema = z.object({
   id: z.number(),
   title: z.string(),
   slug: z.string(),
   excerpt: z.string(),
   createdAt: z.string().datetime(),
-});
-
-const imageSchema = z.object({
-  alternativeText: z.string().nullable(), // Allow null values
-  width: z.number().nullable(), // Allow null values
-  height: z.number().nullable(), // Allow null values
-  url: z.string(),
-});
-
-const authorSchema = z.object({
-  displayName: z.string(),
-  isBrand: z.boolean(),
+  featuredImage: imageSchema,
+  author: authorSchema.nullable(), // Allow null values
 });
 
 const linkSchema = z.object({
