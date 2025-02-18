@@ -6,12 +6,12 @@ import BtnPrimary from "@/components/BtnPrimary";
 import BtnSecondary from "@/components/BtnSecondary";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
-import { fetchProject, fetchProjectSlugs, fetchDynamicPageMetadata } from "@/lib/api";
+import { fetchProjectBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout } from "@/lib/api";
 
-// Return a list of `params` to populate the [slug] dynamic segment
+// Return a list of "params" to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   try {
-    return await fetchProjectSlugs();
+    return await fetchAllSlugs('projects');
   } catch (error) {
     console.error(error.message);
     return [];
@@ -35,9 +35,9 @@ export async function generateMetadata({ params }, parent) {
   const p = await parent;
 
   // Destructure/Format the necessary properties
-  const { title, description, openGraphImage } = data;
+  const { title, description, image } = data;
   const url = new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const imageUrl = new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return {
     title: `${title} | ${p.openGraph.siteName}`,
@@ -57,58 +57,108 @@ export async function generateMetadata({ params }, parent) {
 export default async function Page({ params }) {
   const slug = params.slug;
 
-  let data;
+  let project, global = null;
 
   try {
-    data = await fetchProject(slug);
+    [project, global] = await Promise.all([fetchProjectBySlug(slug), fetchLayout()]);
   } catch (error) {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <>
         <BackTo label="Back to projects" url="/projects/" />
-        <main>
+        <div>
           <div className="mx-auto max-w-6xl px-4">
             <div className="text-red-600 text-center">Unable to load data for the Project page</div>
           </div>
-        </main>
+        </div>
         <BackTo label="Back to projects" url="/projects/" />
       </>
     )
   }
 
   // If no project data is found, trigger a 404
-  if (!data) {
+  if (!project) {
     notFound();
   }
 
   // Destructure/Format the necessary properties
-  const { author, title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile } = data;
-  const imageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const { siteRepresentation, miscellaneous } = global;
+  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const extractedSkills = knowsAbout.flatMap(category =>
+    category.children.map(skill => skill.name)
+  );
+  const { htmlLanguageTag } = miscellaneous;
+  const { title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile, author } = project;
+  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const designFileUrl = (designFile ? new URL(designFile.url, process.env.NEXT_PUBLIC_STRAPI).href : null);
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: title,
-    description: excerpt,
-    ...(author && { // Only include author if it exists
-      author: {
-        "@type": author.isBrand ? "Organization" : "Person",
-        name: author.displayName,
+    "@graph": [
+      {
+        "@type": "ItemPage",
+        "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: `${title} | ${siteName}`,
+        description: excerpt,
+        url: new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        inLanguage: htmlLanguageTag,
+        isPartOf: {
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+        author: {
+          "@type": author.isOrganization ? "Organization" : "Person",
+          name: author.authorName,
+          url: author.url,
+        },
+        image: featuredImageUrl,
+        keywords: [
+          ...scopes.map(scope => scope.title),
+          ...tools.map(tool => tool.title)
+        ].join(", "),
+        temporalCoverage: duration,
       },
-    }),
-    image: imageUrl,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-    },
-    url: demoUrl || new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-    keywords: [
-      ...scopes.map(scope => scope.title),
-      ...tools.map(tool => tool.title)
-    ].join(", "),
-    temporalCoverage: duration,
+      {
+        "@type": "WebSite",
+        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        inLanguage: htmlLanguageTag,
+        publisher: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": isOrganization ? "Organization" : "Person",
+        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: email,
+          ...(telephone && { telephone: telephone })
+        },
+        ...(isOrganization && { logo: logoUrl }),
+        image: siteImageUrl,
+        ...(!isOrganization && { jobTitle: jobTitle }),
+        ...(schedulingLink || socialChannels.length > 0 ? {
+          sameAs: [
+            ...(schedulingLink ? [schedulingLink] : []),
+            ...socialChannels.map((item) => item.url)
+          ]
+        } : {}),
+        knowsAbout: extractedSkills,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: addressLocality,
+        },
+        ...(isOrganization && areaServed && { areaServed: areaServed }),
+      }
+    ]
   };
 
   return (
@@ -119,78 +169,76 @@ export default async function Page({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <BackTo label="Back to projects" url="/projects/" />
-      <main>
-        <div className="mx-auto max-w-6xl px-4">
-          <article>
-            <header>
-              <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
-              <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
-              <div className="text-xs leading-6 mb-12">
-                {author &&
-                  <div className="text-gray-900">By {author.displayName}</div>
-                }
-                <div>{duration}</div>
-              </div>
-              <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
-                <Image
-                  priority
-                  className="object-cover object-center"
-                  src={imageUrl}
-                  alt={featuredImage.alternativeText}
-                  fill
-                />
-              </div>
-            </header>
-            <div className="flex flex-col md:flex-row gap-x-5 justify-between">
-              <section className="max-w-none md:w-2/3 prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mt-12 md:mt-0">
-                <div
-                  className="[&>*:first-child]:mt-0"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
-                />
-                <hr className="border-neutral-100" />
-                <SocialShare />
-              </section>
-              <aside className="order-first md:order-2 md:w-1/3 md:pl-5 md:border-l md:border-neutral-200">
+      <div className="mx-auto max-w-6xl px-4">
+        <article>
+          <header>
+            <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
+            <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
+            <div className="text-xs leading-6 mb-12">
+              {author &&
+                <div className="text-gray-900">By {author.authorName}</div>
+              }
+              <div>{duration}</div>
+            </div>
+            <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
+              <Image
+                priority
+                className="object-cover object-center"
+                src={featuredImageUrl}
+                alt={featuredImage.alternativeText}
+                fill
+              />
+            </div>
+          </header>
+          <div className="flex flex-col md:flex-row gap-x-5 justify-between">
+            <section className="max-w-none md:w-2/3 prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mt-12 md:mt-0">
+              <div
+                className="[&>*:first-child]:mt-0"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+              />
+              <hr className="border-neutral-100" />
+              <SocialShare />
+            </section>
+            <aside className="order-first md:order-2 md:w-1/3 md:pl-5 md:border-l md:border-neutral-200">
+              <dl className="flex flex-col gap-2 mb-5">
+                <dt className="sr-only">Related links</dt>
+                <dd className="flex flex-col gap-3">
+                  {demoUrl && (
+                    <BtnPrimary label="View website" url={demoUrl} target="_blank" rel="noopener noreferrer" />
+                  )}
+                  {repoUrl && (
+                    <BtnSecondary label="View source code" url={repoUrl} target="_blank" rel="noopener noreferrer" />
+                  )}
+                  {designFileUrl && (
+                    <BtnSecondary label="View design file" url={designFileUrl} target="_blank" rel="noopener noreferrer" />
+                  )}
+                </dd>
+              </dl>
+              {scopes.length > 0 && (
                 <dl className="flex flex-col gap-2 mb-5">
-                  <dt className="sr-only">Related links</dt>
-                  <dd className="flex flex-col gap-3">
-                    {demoUrl && (
-                      <BtnPrimary label="View website" url={demoUrl} target="_blank" rel="noopener noreferrer" />
-                    )}
-                    {repoUrl && (
-                      <BtnSecondary label="View source code" url={repoUrl} target="_blank" rel="noopener noreferrer" />
-                    )}
-                    {designFileUrl && (
-                      <BtnSecondary label="View design file" url={designFileUrl} target="_blank" rel="noopener noreferrer" />
-                    )}
+                  <dt className="text-gray-900 font-medium">Scope of work</dt>
+                  <dd className="flex flex-wrap gap-3">
+                    {scopes.map((scope) => (
+                      <span key={scope.id} className="inline-flex items-center rounded-full bg-neutral-50 py-1 px-3 text-sm text-neutral-700 ring-1 ring-inset ring-primary-700/10">{scope.title}</span>
+                    ))}
                   </dd>
                 </dl>
-                {scopes.length > 0 && (
-                  <dl className="flex flex-col gap-2 mb-5">
-                    <dt className="text-gray-900 font-medium">Scope of work</dt>
-                    <dd className="flex flex-wrap gap-3">
-                      {scopes.map((scope) => (
-                        <span key={scope.id} className="inline-flex items-center rounded-full bg-neutral-50 py-1 px-3 text-sm text-neutral-700 ring-1 ring-inset ring-primary-700/10">{scope.title}</span>
-                      ))}
-                    </dd>
-                  </dl>
-                )}
-                {tools.length > 0 && (
-                  <dl className="flex flex-col gap-2 mb-5">
-                    <dt className="text-gray-900 font-medium">Toolset</dt>
-                    <dd className="flex flex-wrap gap-3">
-                      {tools.map((tool) => (
-                        <span key={tool.id} className="inline-flex items-center rounded-full bg-neutral-50 py-1 px-3 text-sm text-neutral-700 ring-1 ring-inset ring-primary-700/10">{tool.title}</span>
-                      ))}
-                    </dd>
-                  </dl>
-                )}
-                <hr className="mt-12 border-neutral-100 md:hidden" />
-              </aside>
-            </div>
-          </article>
-        </div >
-      </main >
+              )}
+              {tools.length > 0 && (
+                <dl className="flex flex-col gap-2 mb-5">
+                  <dt className="text-gray-900 font-medium">Toolset</dt>
+                  <dd className="flex flex-wrap gap-3">
+                    {tools.map((tool) => (
+                      <span key={tool.id} className="inline-flex items-center rounded-full bg-neutral-50 py-1 px-3 text-sm text-neutral-700 ring-1 ring-inset ring-primary-700/10">{tool.title}</span>
+                    ))}
+                  </dd>
+                </dl>
+              )}
+              <hr className="mt-12 border-neutral-100 md:hidden" />
+            </aside>
+          </div>
+        </article>
+      </div >
       <BackTo label="Back to projects" url="/projects/" />
     </>
   );

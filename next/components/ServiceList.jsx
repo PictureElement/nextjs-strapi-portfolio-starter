@@ -22,7 +22,7 @@ export default function ServiceList({ serviceList, defaultOpen = false }) {
           />
         ))}
       </div>
-      <div className={`inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-neutral-50 ${isOpen ? 'static pt-12' : 'absolute pt-64'}`}>
+      <div className={`inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-white ${isOpen ? 'static pt-12' : 'absolute pt-64'}`}>
         <BtnToggle isOpen={isOpen} onToggle={toggleServices} openLabel="Show fewer services" closedLabel="Show all services" aria-controls="serviceList" />
       </div>
     </div>

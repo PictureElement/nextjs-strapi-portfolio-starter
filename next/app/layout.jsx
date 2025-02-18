@@ -1,18 +1,17 @@
 import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CallToAction from '@/components/CallToAction';
 import { Poppins } from 'next/font/google';
 const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin'] });
 import "./globals.css";
-import { fetchAnnouncement, fetchHeader, fetchMiscellaneous } from '@/lib/api';
-
-let htmlLanguageTag = "en";
+import { fetchLayout } from '@/lib/api';
 
 export async function generateViewport() {
   let data;
 
   try {
-    data = await fetchMiscellaneous();
+    data = await fetchLayout();
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
@@ -20,7 +19,7 @@ export async function generateViewport() {
   }
 
   // Destructure the necessary properties
-  const { themeColor } = data;
+  const themeColor = data.miscellaneous.themeColor;
 
   return {
     themeColor,
@@ -31,28 +30,30 @@ export async function generateMetadata() {
   let data;
 
   try {
-    data = await fetchMiscellaneous();
+    data = await fetchLayout();
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {}
   }
 
+  const { siteRepresentation, icons, miscellaneous } = data;
+
   // Destructure/Format the necessary properties
-  const { localeString, siteName, description, openGraphImage, iconICO, iconPNG, iconSVG } = data;
-  const imageUrl = new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const { siteName, siteDescription, siteImage } = siteRepresentation;
+  const { iconICO, iconSVG, iconPNG } = icons;
+  const { localeString } = miscellaneous;
+  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const icoUrl = new URL(iconICO.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const pngUrl = new URL(iconPNG.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const svgUrl = new URL(iconSVG.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
-  htmlLanguageTag = data.htmlLanguageTag;
-
   return {
-    description,
+    siteDescription,
     openGraph: {
       locale: localeString.replace('-', '_'),
       siteName: siteName,
-      images: [imageUrl],
+      images: [siteImageUrl],
     },
     icons: {
       icon: [
@@ -67,25 +68,26 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }) {
-  let headerData = null;
-  let announcementData = null;
+  let data = null;
 
   try {
-    [headerData, announcementData] = await Promise.all([
-      fetchHeader(),
-      fetchAnnouncement()
-    ]);
+    data = await fetchLayout();
   } catch (error) {
     console.error(error.message);
   }
 
+  const { announcement, header, cta, footer, siteRepresentation, miscellaneous } = data;
+
   return (
-    <html lang={htmlLanguageTag}>
+    <html lang={miscellaneous.htmlLanguageTag}>
       <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
-        <Announcement announcementData={announcementData} />
-        <Header headerData={headerData} />
-        {children}
-        <Footer />
+        <Announcement data={announcement} />
+        <Header data={header} siteRepresentation={siteRepresentation} />
+        <main className="relative">
+          {children}
+        </main>
+        <CallToAction data={cta} />
+        <Footer data={footer} siteRepresentation={siteRepresentation} />
       </body>
     </html>
   );

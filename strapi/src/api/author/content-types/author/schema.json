@@ -12,14 +12,18 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "displayName": {
+    "authorName": {
       "type": "string",
       "required": true,
       "unique": true
     },
-    "isBrand": {
+    "isOrganization": {
       "type": "boolean",
       "default": false,
+      "required": true
+    },
+    "url": {
+      "type": "string",
       "required": true
     }
   }

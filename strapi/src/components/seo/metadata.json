@@ -16,7 +16,7 @@
       "maxLength": 160,
       "required": false
     },
-    "openGraphImage": {
+    "image": {
       "type": "media",
       "multiple": false,
       "required": false,

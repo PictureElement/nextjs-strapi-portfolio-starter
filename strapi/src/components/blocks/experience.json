@@ -36,6 +36,11 @@
     "content": {
       "type": "richtext",
       "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 160
     }
   }
 }

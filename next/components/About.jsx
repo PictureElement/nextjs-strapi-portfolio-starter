@@ -6,8 +6,8 @@ import ShapeDivider from './ShapeDivider';
 
 export default function About({ data }) {
   // Destructure/Format the necessary properties
-  const { headline, supportiveText, content, profileImage } = data;
-  const imageUrl = new URL(profileImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const { headline, supportiveText, content, image } = data;
+  const imageUrl = new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return (
     <section className="bg-white py-24 relative">
@@ -20,9 +20,9 @@ export default function About({ data }) {
               priority
               className="w-full object-cover rounded-t-2xl lg:rounded-2xl border border-neutral-200"
               src={imageUrl}
-              alt={profileImage.alternativeText}
-              width={profileImage.width}
-              height={profileImage.height}
+              alt={image.alternativeText}
+              width={image.width}
+              height={image.height}
             />
           </div>
 

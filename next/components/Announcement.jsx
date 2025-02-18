@@ -5,7 +5,7 @@ import { marked } from "marked";
 import { XMarkIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from "react";
 
-export default function Announcement({ announcementData }) {
+export default function Announcement({ data }) {
   const [isVisible, setIsVisible] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function Announcement({ announcementData }) {
     localStorage.setItem("announcementDismissed", "true"); // Persist dismissal in local storage
   };
 
-  if (!announcementData) {
+  if (!data) {
     // Return fallback UI in case of validation or fetch errors
     return (
       <aside className="bg-neutral-950">
@@ -36,7 +36,7 @@ export default function Announcement({ announcementData }) {
   if (!isVisible) return null;
 
   // Destructure the necessary properties
-  const { content } = announcementData;
+  const { content } = data;
 
   // Render nothing if no content
   if (!content) return null;

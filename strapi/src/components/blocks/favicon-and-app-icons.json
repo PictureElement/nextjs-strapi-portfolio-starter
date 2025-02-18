@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_blocks_favicon_and_app_icons",
+  "info": {
+    "displayName": "Favicon & App Icons"
+  },
+  "options": {},
+  "attributes": {
+    "iconICO": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "iconSVG": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "iconPNG": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

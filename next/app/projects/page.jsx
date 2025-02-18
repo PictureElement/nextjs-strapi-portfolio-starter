@@ -1,12 +1,12 @@
 import Banner from "@/components/Banner";
 import ProjectGrid from "@/components/ProjectGrid";
-import { fetchStaticPageMetadata, fetchProjects } from "@/lib/api";
+import { fetchProjectsPage, fetchAllProjects, fetchLayout } from "@/lib/api";
 
 export async function generateMetadata(_, parent) {
-  let data;
+  let page;
 
   try {
-    data = await fetchStaticPageMetadata('projects-page');
+    page = await fetchProjectsPage();
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
@@ -17,9 +17,10 @@ export async function generateMetadata(_, parent) {
   const p = await parent;
 
   // Destructure/Format the necessary properties
-  const { title, description, openGraphImage } = data;
+  const { metadata } = page;
+  const { title, description, image } = metadata;
   const url = new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
+  const imageUrl = image ? new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
 
   return {
     title: title ? title : `Projects | ${p.openGraph.siteName}`,
@@ -37,42 +38,86 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function Page() {
-  let data;
+  let page, projects, global = null;
 
   try {
-    data = await fetchProjects();
+    [page, projects, global] = await Promise.all([fetchProjectsPage(), fetchAllProjects(), fetchLayout()]);
   } catch (error) {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
-      <main className="text-center">
+      <div className="text-center">
         <div className="text-red-600">Unable to load data for the Projects page</div>
-      </main>
+      </div>
     );
   }
 
   // Destructure the necessary properties
-  const { headline, supportiveText, projects } = data;
+  const { metadata, banner } = page;
+  const { title, description } = metadata;
+  const { headline, supportiveText } = banner;
+  const { siteRepresentation, miscellaneous } = global;
+  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const extractedSkills = knowsAbout.flatMap(category =>
+    category.children.map(skill => skill.name)
+  );
+  const { htmlLanguageTag } = miscellaneous;
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: headline,
-    description: supportiveText,
-    url: new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href,
-    mainEntity: projects.map(project => ({
-      "@type": "CreativeWork",
-      name: project.title,
-      description: project.excerpt,
-      url: new URL(`/projects/${project.slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-      image: new URL(project.featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href,
-      ...(project.author && { // Only include author if it exists
-        author: {
-          "@type": project.author.isBrand ? "Organization" : "Person",
-          name: project.author.displayName,
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: title ? title : `Projects | ${siteName}`,
+        description: description ? description : siteDescription,
+        url: new URL('/projects/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        inLanguage: htmlLanguageTag,
+        isPartOf: {
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
         },
-      }),
-    }))
+      },
+      {
+        "@type": "WebSite",
+        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        inLanguage: htmlLanguageTag,
+        publisher: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": isOrganization ? "Organization" : "Person",
+        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: email,
+          ...(telephone && { telephone: telephone })
+        },
+        ...(isOrganization && { logo: logoUrl }),
+        image: siteImageUrl,
+        ...(!isOrganization && { jobTitle: jobTitle }),
+        ...(schedulingLink || socialChannels.length > 0 ? {
+          sameAs: [
+            ...(schedulingLink ? [schedulingLink] : []),
+            ...socialChannels.map((item) => item.url)
+          ]
+        } : {}),
+        knowsAbout: extractedSkills,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: addressLocality,
+        },
+        ...(isOrganization && areaServed && { areaServed: areaServed }),
+      }
+    ]
   };
 
   return (
@@ -82,18 +127,16 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="overflow-hidden relative">
-        <Banner headline={headline} supportiveText={supportiveText} />
-        <section className="mx-auto max-w-5xl px-4 py-24">
-          {projects.length > 0 ? (
-            <ProjectGrid projects={projects} />
-          ) : (
-            <p className="text-center text-gray-500">
-              No projects available at the moment. Please check back later!
-            </p>
-          )}
-        </section>
-      </main>
+      <Banner headline={headline} supportiveText={supportiveText} />
+      <section className="mx-auto max-w-5xl px-4 py-24">
+        {projects.length > 0 ? (
+          <ProjectGrid projects={projects} />
+        ) : (
+          <p className="text-center text-gray-500">
+            No projects available at the moment. Please check back later!
+          </p>
+        )}
+      </section>
     </>
   );
 }

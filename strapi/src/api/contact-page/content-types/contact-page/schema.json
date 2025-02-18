@@ -31,12 +31,6 @@
     "otherContactOptionsHeading": {
       "type": "string",
       "required": true
-    },
-    "author": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::author.author",
-      "required": true
     }
   }
 }

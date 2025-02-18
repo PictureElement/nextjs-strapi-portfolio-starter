@@ -10,33 +10,6 @@
       "type": "text",
       "required": true
     },
-    "headingColumn1": {
-      "type": "string",
-      "default": "Statement",
-      "required": true
-    },
-    "headingColumn2": {
-      "type": "string",
-      "default": "Navigation",
-      "required": true
-    },
-    "headingColumn3": {
-      "type": "string",
-      "default": "Links",
-      "required": true
-    },
-    "linksColumn2": {
-      "type": "component",
-      "repeatable": true,
-      "component": "basic.button",
-      "required": true
-    },
-    "linksColumn3": {
-      "type": "component",
-      "repeatable": true,
-      "component": "basic.button",
-      "required": true
-    },
     "copyright": {
       "type": "text",
       "required": true,

@@ -35,16 +35,22 @@
       "component": "sections.call-to-action",
       "required": true
     },
-    "contactInformation": {
-      "type": "component",
-      "repeatable": false,
-      "component": "blocks.contact-information",
-      "required": true
-    },
     "miscellaneous": {
       "type": "component",
       "repeatable": false,
       "component": "blocks.miscellaneous",
+      "required": true
+    },
+    "siteRepresentation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.site-representation",
+      "required": true
+    },
+    "icons": {
+      "type": "component",
+      "repeatable": false,
+      "component": "blocks.favicon-and-app-icons",
       "required": true
     }
   }

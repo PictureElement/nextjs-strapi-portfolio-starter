@@ -6,8 +6,6 @@ import ChartCSR from "./ChartCSR";
 export default function Chart({
   data,
   children,
-  ariaLabelSSR,
-  ariaLabelCSR
 }) {
   const [isClientReady, setIsClientReady] = useState(false);
 
@@ -20,7 +18,7 @@ export default function Chart({
 
       <div
         aria-hidden={isClientReady ? "false" : "true"}
-        aria-label={ariaLabelCSR}
+        aria-label="An interactive sunburst chart displaying technical and soft skills"
       >
         <ChartCSR
           data={data}
@@ -30,7 +28,7 @@ export default function Chart({
 
       <div
         aria-hidden={isClientReady ? "true" : "false"}
-        aria-label={ariaLabelSSR}
+        aria-label="A static sunburst chart displaying technical and soft skills"
         className={`absolute inset-0 ${isClientReady ? "sr-only" : ""}`}
       >
         {children}

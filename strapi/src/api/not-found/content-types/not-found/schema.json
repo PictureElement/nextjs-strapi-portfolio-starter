@@ -23,12 +23,6 @@
       "repeatable": false,
       "component": "seo.metadata",
       "required": false
-    },
-    "author": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::author.author",
-      "required": true
     }
   }
 }

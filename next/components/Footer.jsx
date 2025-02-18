@@ -2,9 +2,9 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { PhoneIcon } from "@heroicons/react/24/outline";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { ClockIcon } from "@heroicons/react/24/outline";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { MapPinIcon } from "@heroicons/react/24/outline";
 import Link from 'next/link';
-import CallToAction from "./CallToAction";
-import { fetchFooter } from "@/lib/api";
 
 const socialIcons = {
   LinkedIn: (<svg className="size-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg>),
@@ -12,117 +12,135 @@ const socialIcons = {
   X: (<svg className="size-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z" /></svg>),
 };
 
-export default async function Footer() {
-  let data;
-
-  try {
-    data = await fetchFooter();
-  } catch (error) {
-    console.error(error.message);
+export default async function Footer({ data, siteRepresentation }) {
+  if (!data || !siteRepresentation) {
     // Return fallback UI in case of validation or fetch errors
     return (
       <footer className="bg-neutral-950">
-        <CallToAction />
         <div className="mx-auto max-w-5xl px-4 py-16 lg:py-24">
-          <div className="text-red-600 text-center">Unable to load data for the Footer component</div>
+          <div className="text-red-600 text-center">Unable to load data/siteRepresentation for the Footer component</div>
         </div>
       </footer>
     );
   }
 
   // Destructure the necessary properties
-  const { statement, headingColumn1, headingColumn2, headingColumn3, copyright, linksColumn2, linksColumn3, email, schedulingLink, workingHours, phone, socialChannels } = data;
+  const { statement, copyright } = data;
+  const { isOrganization, siteName, email, telephone, schedulingLink, socialChannels, businessHours, addressLocality, areaServed } = siteRepresentation;
 
   return (
     <footer className="bg-neutral-950">
-      <CallToAction />
-      <div className="mx-auto max-w-5xl px-4 pb-6 pt-16 lg:pt-24">
+      <h2 className="sr-only">{siteName} footer</h2>
+      <div className="mx-auto max-w-5xl px-4 py-24">
 
-        <div className="gap-8 grid grid-cols-1 lg:grid-cols-6">
-          <div className="lg:col-span-2">
-            <p className="text-lg font-medium text-center text-white sm:text-left">{headingColumn1}</p>
-            <p className="mt-4 text-sm leading-relaxed text-center text-white/50 sm:text-left">{statement}</p>
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-5 mb-8">
+          {/* Mission statement & social media */}
+          <div className="col-span-1 md:col-span-2">
+            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight text-center md:text-left">Statement</h3>
+            <p className="mt-4 text-white/75 sm:text-lg text-center md:text-left">{statement}</p>
             {socialChannels.length > 0 && (
-              <ul className="mt-6 flex justify-center gap-3 sm:justify-start">
-                {socialChannels.map((item) => (
-                  <li key={item.id}>
-                    <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white inline-block">
-                      <span className="sr-only">{item.label}</span>
-                      {socialIcons[item.channel] || (
-                        <span className="text-red-500">Icon not found</span>
-                      )}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-8">
+                <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight text-center md:text-left">Follow {isOrganization ? "us" : "me"}</h3>
+                {socialChannels.length > 0 && (
+                  <ul className="mt-5 flex justify-center gap-3 md:justify-start">
+                    {socialChannels.map((item) => (
+                      <li key={item.id}>
+                        <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white block">
+                          <span className="sr-only">{item.label}</span>
+                          {socialIcons[item.channel] || (
+                            <span className="text-red-500">Icon not found</span>
+                          )}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             )}
           </div>
-          <div className="gap-8 grid grid-cols-1 sm:grid-cols-4 lg:col-span-4">
-            <div className="text-center sm:text-left sm:col-span-1">
-              <p className="text-lg font-medium text-white">{headingColumn2}</p>
-              <ul className="mt-4 space-y-4 text-sm">
-                {linksColumn2.map((item) => (
-                  <li key={item.id}>
-                    <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} className="text-white/75 transition hover:underline" href={item.url}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="text-center sm:text-left sm:col-span-1">
-              <p className="text-lg font-medium text-white">{headingColumn3}</p>
-              <ul className="mt-4 space-y-4 text-sm">
-                {linksColumn3.map((item) => (
-                  <li key={item.id}>
-                    <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} className="text-white/75 transition hover:underline" href={item.url}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="text-center sm:text-left sm:col-span-2">
-              <p className="text-lg font-medium text-white">Contact Information</p>
-              <ul className="mt-4 space-y-4 text-sm">
+          {/* Navigation */}
+          <div className="mt-[6px] md:mt-0 text-center md:text-left col-span-1">
+            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight">Navigation</h3>
+            <ul className="mt-4 space-y-4 text-sm">
+              <li>
+                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/">Home</Link>
+              </li>
+              <li>
+                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/projects/">Projects</Link>
+              </li>
+              <li>
+                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/blog/">Blog</Link>
+              </li>
+              <li>
+                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/contact/">Contact</Link>
+              </li>
+            </ul>
+          </div>
+          {/* Contact & location */}
+          <div className="text-center md:text-left col-span-1 md:col-span-2">
+            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight">Contact & location</h3>
+            <h4 className="sr-only">Location information</h4>
+            <ul className="mt-4 space-y-4 text-sm">
+              <li>
+                <p className="flex items-center justify-center gap-1.5 md:justify-start group">
+                  <MapPinIcon className="size-5 shrink-0 text-white/75" />
+                  <span className="text-base sm:text-lg text-white/75 truncate">Based in {addressLocality}</span>
+                </p>
+              </li>
+              {isOrganization && areaServed &&
                 <li>
-                  <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`mailto:${email.trim()}`}>
-                    <EnvelopeIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75 group-hover:underline">{email.trim()}</span>
-                  </Link>
-                </li>
-                {phone &&
-                  <li>
-                    <Link className="flex items-center justify-center gap-1.5 sm:justify-start group" href={`tel:${phone.replace(/\s+/g, '')}`}>
-                      <PhoneIcon className="size-5 shrink-0 text-white" />
-                      <span className="text-white/75 group-hover:underline">{phone.trim()}</span>
-                    </Link>
-                  </li>
-                }
-                {schedulingLink &&
-                  <li>
-                    <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 sm:justify-start group" href={schedulingLink}>
-                      <CalendarDaysIcon className="size-5 shrink-0 text-white" />
-                      <span className="text-white/75 group-hover:underline">Schedule Appointment</span>
-                    </Link>
-                  </li>
-                }
-                <li>
-                  <p className="flex items-center justify-center gap-1.5 sm:justify-start group">
-                    <ClockIcon className="size-5 shrink-0 text-white" />
-                    <span className="text-white/75">{workingHours}</span>
+                  <p className="flex items-center justify-center gap-1.5 md:justify-start group">
+                    <GlobeAltIcon className="size-5 shrink-0 text-white/75" />
+                    <span className="text-base sm:text-lg text-white/75 truncate">Serving {areaServed}</span>
                   </p>
                 </li>
-
-              </ul>
-            </div>
+              }
+            </ul>
+            <div className="h-px w-1/4 bg-white/15 mx-auto md:mx-0 my-6"></div>
+            <h4 className="sr-only">Contact methods</h4>
+            <ul className="space-y-4 text-sm">
+              <li>
+                <Link className="flex items-center justify-center gap-1.5 md:justify-start group" href={`mailto:${email.trim()}`}>
+                  <EnvelopeIcon className="size-5 shrink-0 text-white/75" />
+                  <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">{email.trim()}</span>
+                </Link>
+              </li>
+              {telephone &&
+                <li>
+                  <Link className="flex items-center justify-center gap-1.5 md:justify-start group" href={`tel:${telephone.replace(/\s+/g, '')}`}>
+                    <PhoneIcon className="size-5 shrink-0 text-white/75" />
+                    <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">{telephone.trim()}</span>
+                  </Link>
+                </li>
+              }
+              {schedulingLink &&
+                <li>
+                  <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 md:justify-start group" href={schedulingLink}>
+                    <CalendarDaysIcon className="size-5 shrink-0 text-white/75" />
+                    <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">Schedule a call</span>
+                  </Link>
+                </li>
+              }
+            </ul>
+            <div className="h-px w-1/4 bg-white/15 mx-auto md:mx-0 my-6"></div>
+            <h4 className="sr-only">Business hours</h4>
+            {isOrganization && businessHours &&
+              <p className="flex items-center justify-center gap-1.5 md:justify-start group">
+                <ClockIcon className="size-5 shrink-0 text-white/75" />
+                <span className="text-base sm:text-lg text-white/75 truncate">{businessHours}</span>
+              </p>
+            }
           </div>
         </div>
 
+        <div className="h-px bg-white/15 my-10"></div>
+
         {/* Copyright */}
-        <div className="mt-12 border-t border-white/15 pt-6">
-          <div className="text-center sm:flex sm:justify-between sm:text-left">
-            <p className="text-sm">
-              <Link className="inline-block text-white/75 transition hover:underline" href="/privacy-policy">Privacy Policy</Link>
-            </p>
-            <p className="mt-4 text-sm text-white/50 sm:order-first sm:mt-0">{copyright}</p>
-          </div>
+        <div className="text-center md:flex md:justify-between md:text-left">
+          <p className="text-base sm:text-lg">
+            <Link className="inline-block text-white/75 transition underline hover:no-underline" href="/privacy-policy">Privacy policy</Link>
+          </p>
+          <p className="mt-4 text-base sm:text-lg text-white/75 md:order-first md:mt-0">{copyright}</p>
         </div>
 
       </div>

@@ -381,13 +381,13 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    authorName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    displayName: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    isBrand: Schema.Attribute.Boolean &
+    isOrganization: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -400,6 +400,7 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -415,8 +416,6 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
-      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -448,8 +447,6 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
-      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     contactFormHeading: Schema.Attribute.String & Schema.Attribute.Required;
@@ -485,11 +482,6 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
   };
   attributes: {
     announcement: Schema.Attribute.Component<'blocks.announcement', false>;
-    contactInformation: Schema.Attribute.Component<
-      'blocks.contact-information',
-      false
-    > &
-      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -498,6 +490,8 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     footer: Schema.Attribute.Component<'sections.footer', false> &
       Schema.Attribute.Required;
     header: Schema.Attribute.Component<'sections.header', false> &
+      Schema.Attribute.Required;
+    icons: Schema.Attribute.Component<'blocks.favicon-and-app-icons', false> &
       Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -508,6 +502,11 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     miscellaneous: Schema.Attribute.Component<'blocks.miscellaneous', false> &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    siteRepresentation: Schema.Attribute.Component<
+      'blocks.site-representation',
+      false
+    > &
+      Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -527,8 +526,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
   attributes: {
     about: Schema.Attribute.Component<'sections.about', false> &
-      Schema.Attribute.Required;
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -575,8 +572,6 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
-      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
@@ -642,8 +637,6 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
-      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
@@ -731,8 +724,6 @@ export interface ApiProjectsPageProjectsPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'> &
-      Schema.Attribute.Required;
     banner: Schema.Attribute.Component<'sections.banner', false> &
       Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;

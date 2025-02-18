@@ -29,21 +29,6 @@ export interface BlocksAnnouncement extends Struct.ComponentSchema {
   };
 }
 
-export interface BlocksContactInformation extends Struct.ComponentSchema {
-  collectionName: 'components_blocks_contact_informations';
-  info: {
-    description: '';
-    displayName: 'Contact Information';
-  };
-  attributes: {
-    email: Schema.Attribute.Email & Schema.Attribute.Required;
-    phone: Schema.Attribute.String;
-    schedulingLink: Schema.Attribute.String;
-    socialChannels: Schema.Attribute.Component<'blocks.social-channel', true>;
-    workingHours: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
 export interface BlocksExperience extends Struct.ComponentSchema {
   collectionName: 'components_blocks_experiences';
   info: {
@@ -55,6 +40,11 @@ export interface BlocksExperience extends Struct.ComponentSchema {
     companyLogo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     companyUrl: Schema.Attribute.String;
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
     duration: Schema.Attribute.String & Schema.Attribute.Required;
     location: Schema.Attribute.String & Schema.Attribute.Required;
     role: Schema.Attribute.String & Schema.Attribute.Required;
@@ -73,6 +63,18 @@ export interface BlocksFaq extends Struct.ComponentSchema {
   };
 }
 
+export interface BlocksFaviconAndAppIcons extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_favicon_and_app_icons';
+  info: {
+    displayName: 'Favicon & App Icons';
+  };
+  attributes: {
+    iconICO: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    iconPNG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    iconSVG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+  };
+}
+
 export interface BlocksMiscellaneous extends Struct.ComponentSchema {
   collectionName: 'components_blocks_miscellaneous';
   info: {
@@ -80,23 +82,12 @@ export interface BlocksMiscellaneous extends Struct.ComponentSchema {
     displayName: 'Miscellaneous';
   };
   attributes: {
-    description: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetMinMaxLength<{
-        maxLength: 160;
-      }>;
     htmlLanguageTag: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'en'>;
-    iconICO: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    iconPNG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    iconSVG: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     localeString: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'en-US'>;
-    openGraphImage: Schema.Attribute.Media<'images'> &
-      Schema.Attribute.Required;
-    siteName: Schema.Attribute.String & Schema.Attribute.Required;
     themeColor: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -110,6 +101,37 @@ export interface BlocksService extends Struct.ComponentSchema {
   attributes: {
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BlocksSiteRepresentation extends Struct.ComponentSchema {
+  collectionName: 'components_blocks_site_representations';
+  info: {
+    description: '';
+    displayName: 'Site Representation';
+  };
+  attributes: {
+    addressLocality: Schema.Attribute.String & Schema.Attribute.Required;
+    areaServed: Schema.Attribute.String;
+    businessHours: Schema.Attribute.String;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    isOrganization: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    jobTitle: Schema.Attribute.String;
+    knowsAbout: Schema.Attribute.JSON & Schema.Attribute.Required;
+    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    logomark: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    schedulingLink: Schema.Attribute.String;
+    siteDescription: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    siteImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    siteName: Schema.Attribute.String & Schema.Attribute.Required;
+    socialChannels: Schema.Attribute.Component<'blocks.social-channel', true>;
+    telephone: Schema.Attribute.String;
   };
 }
 
@@ -151,7 +173,7 @@ export interface SectionsAbout extends Struct.ComponentSchema {
   attributes: {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
     headline: Schema.Attribute.String & Schema.Attribute.Required;
-    profileImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     supportiveText: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -218,19 +240,6 @@ export interface SectionsFooter extends Struct.ComponentSchema {
     copyright: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'\u00A9 [Year] [Your Company Name]. All rights reserved.'>;
-    headingColumn1: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Statement'>;
-    headingColumn2: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Navigation'>;
-    headingColumn3: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Links'>;
-    linksColumn2: Schema.Attribute.Component<'basic.button', true> &
-      Schema.Attribute.Required;
-    linksColumn3: Schema.Attribute.Component<'basic.button', true> &
-      Schema.Attribute.Required;
     statement: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
@@ -262,8 +271,6 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     additionalNavigationItems: Schema.Attribute.Component<'basic.button', true>;
     cta: Schema.Attribute.Component<'basic.button', false> &
       Schema.Attribute.Required;
-    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
-    logomark: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
   };
 }
 
@@ -327,9 +334,6 @@ export interface SectionsSkills extends Struct.ComponentSchema {
     displayName: 'Skills';
   };
   attributes: {
-    ariaLabelCSR: Schema.Attribute.Text & Schema.Attribute.Required;
-    ariaLabelSSR: Schema.Attribute.Text & Schema.Attribute.Required;
-    chartData: Schema.Attribute.JSON & Schema.Attribute.Required;
     headline: Schema.Attribute.String & Schema.Attribute.Required;
     supportiveText: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -360,7 +364,7 @@ export interface SeoMetadata extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
       }>;
-    openGraphImage: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 60;
@@ -373,11 +377,12 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'basic.button': BasicButton;
       'blocks.announcement': BlocksAnnouncement;
-      'blocks.contact-information': BlocksContactInformation;
       'blocks.experience': BlocksExperience;
       'blocks.faq': BlocksFaq;
+      'blocks.favicon-and-app-icons': BlocksFaviconAndAppIcons;
       'blocks.miscellaneous': BlocksMiscellaneous;
       'blocks.service': BlocksService;
+      'blocks.site-representation': BlocksSiteRepresentation;
       'blocks.social-channel': BlocksSocialChannel;
       'blocks.testimonial': BlocksTestimonial;
       'sections.about': SectionsAbout;

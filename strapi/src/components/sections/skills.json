@@ -13,18 +13,6 @@
     "supportiveText": {
       "type": "string",
       "required": true
-    },
-    "chartData": {
-      "type": "json",
-      "required": true
-    },
-    "ariaLabelSSR": {
-      "type": "text",
-      "required": true
-    },
-    "ariaLabelCSR": {
-      "type": "text",
-      "required": true
     }
   }
 }

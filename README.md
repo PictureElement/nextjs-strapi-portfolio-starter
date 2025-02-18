@@ -264,3 +264,31 @@ JSOn_LD for home:
     }
   ]
 }
+
+
+
+{
+  populate: {
+    announcement: true,
+    header: {
+      populate: ['additionalNavigationItems', 'cta'],
+    },
+    footer: {
+      populate: ['linksColumn2', 'linksColumn3']
+    }
+    author: {
+      populate: ['logo', 'logomark', 'socialChannels']
+    }
+  }
+}
+
+
+
+    {
+      populate: {
+        banner: trulobaloe,
+        author: {
+          populate: ['socialChannels', 'profileImage', 'logo', 'logomark'],
+        },
+      },
+    }

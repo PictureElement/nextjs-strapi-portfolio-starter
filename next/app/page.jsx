@@ -7,24 +7,13 @@ import Faq from "@/components/Faq";
 import Testimonials from "@/components/Testimonials";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import LatestPosts from "@/components/LatestPosts";
-import {
-  fetchAbout,
-  fetchExperience,
-  fetchFaq,
-  fetchFeaturedProjects,
-  fetchHero,
-  fetchLatestPosts,
-  fetchServices,
-  fetchSkills,
-  fetchStaticPageMetadata,
-  fetchTestimonials
-} from "@/lib/api";
+import { fetchHomePage, fetchFeaturedProjects, fetchLatestPosts, fetchLayout } from "@/lib/api";
 
 export async function generateMetadata(_, parent) {
-  let data;
+  let page;
 
   try {
-    data = await fetchStaticPageMetadata('homepage');
+    page = await fetchHomePage();
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
@@ -35,9 +24,10 @@ export async function generateMetadata(_, parent) {
   const p = await parent;
 
   // Destructure/Format the necessary properties
-  const { title, description, openGraphImage } = data;
+  const { metadata } = page;
+  const { title, description, image } = metadata;
   const url = new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
+  const imageUrl = image ? new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
 
   return {
     title: title ? title : `Home | ${p.openGraph.siteName}`,
@@ -55,44 +45,107 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function Page() {
-
-  let heroData, aboutData, skillsData, experienceData, featuredProjectsData, servicesData, testimonialsData, latestPostsData, faqData = null;
+  let page, projects, posts, global = null;
 
   try {
-    [heroData, aboutData, skillsData, experienceData, featuredProjectsData, servicesData, testimonialsData, latestPostsData, faqData] = await Promise.all([
-      fetchHero(),
-      fetchAbout(),
-      fetchSkills(),
-      fetchExperience(),
-      fetchFeaturedProjects(),
-      fetchServices(),
-      fetchTestimonials(),
-      fetchLatestPosts(),
-      fetchFaq(),
-    ]);
+    [page, projects, posts, global] = await Promise.all([fetchHomePage(), fetchFeaturedProjects(), fetchLatestPosts(), fetchLayout()]);
   } catch (error) {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
-      <main>
+      <div>
         <div className="text-red-600 text-center">Unable to load data for the Home page</div>
-      </main>
+      </div>
     );
+  }
+
+  // Destructure/Format the necessary properties
+  const { metadata, hero, about, services, featuredProjects, skills, experience, testimonials, faq, latestPosts } = page;
+  const { title, description } = metadata;
+  const { siteRepresentation, miscellaneous } = global;
+  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const extractedSkills = knowsAbout.flatMap(category =>
+    category.children.map(skill => skill.name)
+  );
+  const { htmlLanguageTag, localeString } = miscellaneous;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: title ? title : `Home | ${siteName}`,
+        description: description ? description : siteDescription,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        inLanguage: htmlLanguageTag,
+        isPartOf: {
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+        about: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        inLanguage: htmlLanguageTag,
+        publisher: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": isOrganization ? "Organization" : "Person",
+        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: email,
+          ...(telephone && { telephone: telephone })
+        },
+        ...(isOrganization && { logo: logoUrl }),
+        image: siteImageUrl,
+        ...(!isOrganization && { jobTitle: jobTitle }),
+        ...(schedulingLink || socialChannels.length > 0 ? {
+          sameAs: [
+            ...(schedulingLink ? [schedulingLink] : []),
+            ...socialChannels.map((item) => item.url)
+          ]
+        } : {}),
+        knowsAbout: extractedSkills,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: addressLocality,
+        },
+        ...(isOrganization && areaServed && { areaServed: areaServed }),
+      }
+    ]
   }
 
   return (
     <>
-      <main className="overflow-hidden -mt-[77px]">
-        <Hero data={heroData} />
-        <About data={aboutData} />
-        <Skills data={skillsData} />
-        <Experience data={experienceData} />
-        <FeaturedProjects data={featuredProjectsData} />
-        <Services data={servicesData} />
-        <Testimonials data={testimonialsData} />
-        <LatestPosts data={latestPostsData} />
-        <Faq data={faqData} />
-      </main>
+      {/* Add JSON-LD to your page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="-mt-[77px]">
+        <Hero data={hero} />
+        <About data={about} />
+        <Skills data={skills} skills={knowsAbout} />
+        {isOrganization ? <Services data={services} /> : <Experience data={experience} />}
+        <FeaturedProjects data={featuredProjects} projects={projects} />
+        <Testimonials data={testimonials} />
+        <LatestPosts data={latestPosts} posts={posts} localeString={localeString} />
+        <Faq data={faq} />
+      </div>
     </>
   );
 }

@@ -4,13 +4,13 @@ import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
-import { fetchPost, fetchPostSlugs, fetchDynamicPageMetadata, fetchMiscellaneous } from "@/lib/api";
+import { fetchPostBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout } from "@/lib/api";
 import { formatDate } from '@/lib/utils';
 
-// Return a list of `params` to populate the [slug] dynamic segment
+// Return a list of "params" to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   try {
-    return await fetchPostSlugs();
+    return await fetchAllSlugs('posts');
   } catch (error) {
     console.error(error.message);
     return [];
@@ -34,9 +34,9 @@ export async function generateMetadata({ params }, parent) {
   const p = await parent;
 
   // Destructure/Format the necessary properties
-  const { title, description, openGraphImage } = data;
+  const { title, description, image } = data;
   const url = new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const imageUrl = new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return {
     title: `${title} | ${p.openGraph.siteName}`,
@@ -56,60 +56,122 @@ export async function generateMetadata({ params }, parent) {
 export default async function Page({ params }) {
   const slug = params.slug;
 
-  let postData, miscData;
+  let post, global = null;
 
   try {
-    [postData, miscData] = await Promise.all([
-      fetchPost(slug),
-      fetchMiscellaneous(),
-    ]);
+    [post, global] = await Promise.all([fetchPostBySlug(slug), fetchLayout()]);
   } catch (error) {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
       <>
         <BackTo label="Back to blog" url="/blog/" />
-        <main>
+        <div>
           <div className="mx-auto max-w-5xl px-4">
             <div className="text-red-600 text-center">Unable to load data for the Post page</div>
           </div>
-        </main>
+        </div>
         <BackTo label="Back to blog" url="/blog/" />
       </>
     )
   }
 
   // If no post data is found, trigger a 404
-  if (!postData) {
+  if (!post) {
     notFound();
   }
 
   // Destructure/Format the necessary properties
-  const localeString = miscData.localeString;
-  const { author, title, excerpt, content, createdAt, updatedAt, featuredImage } = postData;
-  const imageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const { siteRepresentation, miscellaneous } = global;
+  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const extractedSkills = knowsAbout.flatMap(category =>
+    category.children.map(skill => skill.name)
+  );
+  const { htmlLanguageTag, localeString } = miscellaneous;
+  const { title, excerpt, content, createdAt, updatedAt, featuredImage, author } = post;
+  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const formattedCreatedAtDate = formatDate(createdAt, localeString);
   const formattedUpdatedAtDate = formatDate(updatedAt, localeString);
 
-  // Construct JSON-LD
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: title,
-    description: excerpt,
-    datePublished: createdAt,
-    dateModified: updatedAt,
-    ...(author && { // Only include author if it exists
-      author: {
-        "@type": author.isBrand ? "Organization" : "Person",
-        name: author.displayName,
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": new URL(`/blog/${slug}/#blogposting`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        headline: title,
+        description: excerpt,
+        datePublished: createdAt,
+        dateModified: updatedAt,
+        image: featuredImageUrl,
+        inLanguage: htmlLanguageTag,
+        author: {
+          "@type": author.isOrganization ? "Organization" : "Person",
+          name: author.authorName,
+          url: author.url,
+        },
+        publisher: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+        isPartOf: {
+          "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+        mainEntityOfPage: {
+          "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
       },
-    }),
-    image: imageUrl,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-    },
+      {
+        "@type": "WebPage",
+        "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: `${title} | ${siteName}`,
+        description: excerpt,
+        url: new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+        inLanguage: htmlLanguageTag,
+        isPartOf: {
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        inLanguage: htmlLanguageTag,
+        publisher: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": isOrganization ? "Organization" : "Person",
+        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: email,
+          ...(telephone && { telephone: telephone })
+        },
+        ...(isOrganization && { logo: logoUrl }),
+        image: siteImageUrl,
+        ...(!isOrganization && { jobTitle: jobTitle }),
+        ...(schedulingLink || socialChannels.length > 0 ? {
+          sameAs: [
+            ...(schedulingLink ? [schedulingLink] : []),
+            ...socialChannels.map((item) => item.url)
+          ]
+        } : {}),
+        knowsAbout: extractedSkills,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: addressLocality,
+        },
+        ...(isOrganization && areaServed && { areaServed: areaServed }),
+      }
+    ]
   };
 
   return (
@@ -120,45 +182,43 @@ export default async function Page({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <BackTo label="Back to blog" url="/blog/" />
-      <main>
-        <div className="mx-auto max-w-5xl px-4">
-          <article>
-            <header>
-              <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
-              <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
-              <div className="text-xs leading-6 mb-12">
-                {author &&
-                  <div className="text-gray-900">By {author.displayName}</div>
-                }
-                <div>
-                  Published <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
-                  {/* Assuming precise time-sensitive updates are not a requirement */}
-                  {formattedCreatedAtDate !== formattedUpdatedAtDate && (
-                    <><span className="px-1">·</span>Updated <time dateTime={updatedAt}>{formattedUpdatedAtDate}</time></>
-                  )}
-                </div>
+      <div className="mx-auto max-w-5xl px-4">
+        <article>
+          <header>
+            <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
+            <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
+            <div className="text-xs leading-6 mb-12">
+              {author &&
+                <div className="text-gray-900">By {author.authorName}</div>
+              }
+              <div>
+                Published <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
+                {/* Assuming precise time-sensitive updates are not a requirement */}
+                {formattedCreatedAtDate !== formattedUpdatedAtDate && (
+                  <><span className="px-1">·</span>Updated <time dateTime={updatedAt}>{formattedUpdatedAtDate}</time></>
+                )}
               </div>
-              <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
-                <Image
-                  priority
-                  className="object-cover object-center"
-                  src={imageUrl}
-                  alt={featuredImage.alternativeText}
-                  fill
-                />
-              </div>
-            </header>
-            <div className="prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto">
-              <div
-                className="[&>*:first-child]:mt-0"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
-              />
-              <hr />
-              <SocialShare />
             </div>
-          </article>
-        </div>
-      </main>
+            <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
+              <Image
+                priority
+                className="object-cover object-center"
+                src={featuredImageUrl}
+                alt={featuredImage.alternativeText}
+                fill
+              />
+            </div>
+          </header>
+          <div className="prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto">
+            <div
+              className="[&>*:first-child]:mt-0"
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+            />
+            <hr />
+            <SocialShare />
+          </div>
+        </article>
+      </div>
       <BackTo label="Back to blog" url="/blog/" />
     </>
   );

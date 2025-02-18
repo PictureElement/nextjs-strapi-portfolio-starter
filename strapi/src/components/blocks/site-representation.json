@@ -1,0 +1,80 @@
+{
+  "collectionName": "components_blocks_site_representations",
+  "info": {
+    "displayName": "Site Representation",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "isOrganization": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "siteName": {
+      "type": "string",
+      "required": true
+    },
+    "jobTitle": {
+      "type": "string"
+    },
+    "siteDescription": {
+      "type": "text",
+      "required": true,
+      "maxLength": 160
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "schedulingLink": {
+      "type": "string"
+    },
+    "siteImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "socialChannels": {
+      "type": "component",
+      "repeatable": true,
+      "component": "blocks.social-channel"
+    },
+    "addressLocality": {
+      "type": "string",
+      "required": true
+    },
+    "areaServed": {
+      "type": "string"
+    },
+    "businessHours": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logomark": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "knowsAbout": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

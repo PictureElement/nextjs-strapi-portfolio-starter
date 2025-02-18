@@ -21,7 +21,7 @@ export default async function sitemap() {
   const createUrlDefinitions = (items, basePath) =>
     items.map((item) => ({
       url: new URL(`${basePath}/${item.slug}/`, BASE_URL).href,
-      lastModified: new Date(item.updatedAt),
+      lastModified: item.updatedAt,
       changeFrequency: 'monthly',
       priority: 0.5,
     }));

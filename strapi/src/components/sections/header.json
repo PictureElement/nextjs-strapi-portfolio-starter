@@ -6,14 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "logo": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "additionalNavigationItems": {
       "type": "component",
       "repeatable": true,
@@ -25,14 +17,6 @@
       "repeatable": false,
       "component": "basic.button",
       "required": true
-    },
-    "logomark": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
     }
   }
 }

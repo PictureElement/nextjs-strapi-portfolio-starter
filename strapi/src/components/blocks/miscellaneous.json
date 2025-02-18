@@ -12,23 +12,6 @@
       "default": "en-US",
       "regex": "^[a-z]{2}-[A-Z]{2}$"
     },
-    "siteName": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "text",
-      "required": true,
-      "maxLength": 160
-    },
-    "openGraphImage": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "htmlLanguageTag": {
       "type": "string",
       "default": "en",
@@ -38,30 +21,6 @@
       "type": "string",
       "required": true,
       "regex": "^#([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$"
-    },
-    "iconICO": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "iconSVG": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "iconPNG": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "images"
-      ]
     }
   }
 }

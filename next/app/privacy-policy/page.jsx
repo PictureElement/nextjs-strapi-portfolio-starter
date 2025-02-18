@@ -1,13 +1,13 @@
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 import Banner from "@/components/Banner";
-import { fetchStaticPageMetadata, fetchPrivacy } from "@/lib/api";
+import { fetchPrivacyPage, fetchLayout } from "@/lib/api";
 
 export async function generateMetadata(_, parent) {
-  let data;
+  let page;
 
   try {
-    data = await fetchStaticPageMetadata('privacy-policy');
+    page = await fetchPrivacyPage();
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
@@ -18,9 +18,10 @@ export async function generateMetadata(_, parent) {
   const p = await parent;
 
   // Destructure/Format the necessary properties
-  const { title, description, openGraphImage } = data;
+  const { metadata } = page;
+  const { title, description, image } = metadata;
   const url = new URL('/privacy-policy/', process.env.NEXT_PUBLIC_WEBSITE).href;
-  const imageUrl = openGraphImage ? new URL(openGraphImage.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
+  const imageUrl = image ? new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href : p.openGraph.images[0];
 
   return {
     title: title ? title : `Privacy Policy | ${p.openGraph.siteName}`,
@@ -38,33 +39,86 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function Page() {
-  let data;
+  let page, global = null;
 
   try {
-    data = await fetchPrivacy();
+    [page, global] = await Promise.all([fetchPrivacyPage(), fetchLayout()]);
   } catch (error) {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
-      <main className="text-center">
+      <div className="text-center">
         <div className="text-red-600">Unable to load data for the Privacy Policy page</div>
-      </main>
+      </div>
     );
   }
 
-  // Destructure the necessary properties
-  const { headline, supportiveText, content } = data;
+  // Destructure/Format the necessary properties
+  const { metadata, banner, content } = page;
+  const { title, description } = metadata;
+  const { headline, supportiveText } = banner;
+  const { siteRepresentation, miscellaneous } = global;
+  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const extractedSkills = knowsAbout.flatMap(category =>
+    category.children.map(skill => skill.name)
+  );
+  const { htmlLanguageTag } = miscellaneous;
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: headline,
-    description: supportiveText,
-    url: new URL('/privacy-policy/', process.env.NEXT_PUBLIC_WEBSITE).href,
-    about: {
-      "@type": "Thing",
-      name: "Privacy Policy"
-    }
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": new URL('/privacy-policy/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: title ? title : `Privacy policy | ${siteName}`,
+        description: description ? description : siteDescription,
+        url: new URL('/privacy-policy/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        inLanguage: htmlLanguageTag,
+        isPartOf: {
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        inLanguage: htmlLanguageTag,
+        publisher: {
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        },
+      },
+      {
+        "@type": isOrganization ? "Organization" : "Person",
+        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+        name: siteName,
+        description: siteDescription,
+        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+        contactPoint: {
+          "@type": "ContactPoint",
+          email: email,
+          ...(telephone && { telephone: telephone })
+        },
+        ...(isOrganization && { logo: logoUrl }),
+        image: siteImageUrl,
+        ...(!isOrganization && { jobTitle: jobTitle }),
+        ...(schedulingLink || socialChannels.length > 0 ? {
+          sameAs: [
+            ...(schedulingLink ? [schedulingLink] : []),
+            ...socialChannels.map((item) => item.url)
+          ]
+        } : {}),
+        knowsAbout: extractedSkills,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: addressLocality,
+        },
+        ...(isOrganization && areaServed && { areaServed: areaServed }),
+      }
+    ]
   };
 
   return (
@@ -74,15 +128,13 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="overflow-hidden relative">
-        <Banner headline={headline} supportiveText={supportiveText} />
-        <section className="mx-auto max-w-5xl px-4 py-24">
-          <div
-            className="max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto"
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
-          />
-        </section>
-      </main>
+      <Banner headline={headline} supportiveText={supportiveText} />
+      <section className="mx-auto max-w-5xl px-4 py-24">
+        <div
+          className="max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto"
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+        />
+      </section>
     </>
   )
 }

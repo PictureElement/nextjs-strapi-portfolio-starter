@@ -6,26 +6,28 @@ import { Bars3Icon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 import { useState, useCallback } from 'react';
 
-export default function Header({ headerData }) {
+export default function Header({ data, siteRepresentation }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleClick = useCallback(() => {
     setIsExpanded(!isExpanded);
   }, [isExpanded]);
 
-  if (!headerData) {
+  if (!data || !siteRepresentation) {
     // Return fallback UI in case of validation or fetch errors
     return (
       <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15 h-[77px] text-red-600 flex items-center justify-center">
-        Unable to load data for the Header component
+        Unable to load data/siteRepresentation for the Header component
       </header>
     );
   }
 
   // Destructure/Format the necessary properties
-  const { logo, additionalNavigationItems, cta, logomark } = headerData;
+  const { additionalNavigationItems, cta } = data;
+  const { logo, logomark } = siteRepresentation;
   const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const logomarkUrl = new URL(logomark.url, process.env.NEXT_PUBLIC_STRAPI).href;
+
 
   return (
     <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
@@ -88,7 +90,6 @@ export default function Header({ headerData }) {
         <ul id="header-navigation" className={`header-navigation flex flex-col basis-full grow gap-2 text-sm md:flex-row md:basis-auto md:gap-6 ${isExpanded ? 'show' : ''}`}>
           <li><Link href="/projects/" className="text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
           <li><Link href="/blog/" className="text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
-          <li><Link href="/contact/" className="text-gray-900 transition hover:text-gray-900/75">Contact</Link></li>
           {additionalNavigationItems.length > 0 &&
             additionalNavigationItems.map((item) => (
               <li key={item.id}>
