@@ -270,6 +270,26 @@ export const notFoundPageSchema = z.object({
 });
 
 //
+// Form
+//
+export const formSchema = z.object({
+  email: z.string().trim().nonempty({
+    message: 'Email is required.',
+  }).email({
+    message: 'Invalid email address.',
+  }),
+  message: z.string().trim().nonempty({
+    message: 'Message is required.',
+  }).min(10, {
+    message: 'Message must be at least 10 characters long.',
+  }),
+  consent: z.boolean().refine(
+    (val) => val === true,
+    { message: 'Consent is required.' }
+  ),
+});
+
+//
 // Utilities
 //
 

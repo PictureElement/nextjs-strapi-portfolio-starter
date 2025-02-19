@@ -1,8 +1,6 @@
 import Banner from "@/components/Banner";
-import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
-import { CheckIcon } from '@heroicons/react/16/solid';
-import Link from "next/link";
 import { fetchContactPage, fetchLayout } from "@/lib/api";
+import Form from "@/components/Form";
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -133,63 +131,7 @@ export default async function Page() {
       <section className="mx-auto max-w-5xl px-4 py-24">
         <article className="border border-neutral-200 bg-neutral-50 p-8 sm:p-12 rounded-2xl mb-8 sm:mb-12">
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{contactFormHeading}</h2>
-          <form className="flex flex-col gap-6 sm:gap-6">
-            <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
-              <input
-                type="email"
-                placeholder="Business Email"
-                className="block rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
-              />
-              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
-                Your email
-              </span>
-            </label>
-            <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
-              <textarea
-                rows="5"
-                placeholder="Tell us about your project"
-                className="block rounded-lg peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none text-xl"
-              ></textarea>
-              <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text-base transition-all peer-placeholder-shown:translate-y-1/2 peer-placeholder-shown:text-base peer-focus:-translate-y-1/2 peer-focus:text-base peer-focus:text-primary-700">
-                Your message
-              </span>
-            </label>
-            <label className="flex cursor-pointer items-start gap-3 transition">
-              <div className="relative flex items-center mt-[1px]">
-                <input type="checkbox" className="peer size-5 rounded border border-neutral-400 appearance-none checked:bg-primary-700 checked:border-0" />
-                <CheckIcon className="absolute hidden fill-white peer-checked:block" />
-              </div>
-              <div className="text-pretty font-light text-gray-700">
-                I have read the <Link href="/privacy-policy" target="_blank" className="font-medium border-b border-primary-700 hover:border-b-2">privacy policy</Link> and consent to having my submitted information collected and processed to respond to my inquiry.
-              </div>
-            </label>
-            <button
-              type="submit"
-              className="
-                group
-                inline-flex
-                justify-center
-                items-center
-                transition
-                px-4
-                h-11
-                font-medium
-                leading-none
-                rounded-lg
-                text-white
-                border border-primary-700
-                hover:border-primary-600
-                active:border-primary-500
-                bg-primary-700
-                hover:bg-primary-600
-                active:bg-primary-500
-              "
-              aria-label="Submit your message"
-            >
-              Submit message
-              <PaperAirplaneIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
-            </button>
-          </form>
+          <Form />
         </article>
         <aside>
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{otherContactOptionsHeading}</h2>
