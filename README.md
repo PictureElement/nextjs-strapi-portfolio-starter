@@ -62,13 +62,13 @@ Under volumes change: - 'strapi-uploads:/opt/app/public/uploads' to - 'strapi-pu
 # The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that:
 
 0. Make sure both target and source Strapi instances have the same version.
-1. Stop the container/service.
+1. Stop the Strapi container/service.
 2. Identify Strapi src volume name under Storages. In my case is i0wggsgwkw4gwokc8cg0k8w8_strapi-src
-3. Access the Volume on the Host Server: cd /var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
+3. Connect to host via SSH and access the volume on the Host Server: cd /var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
 4. Remove Old Files: rm -rf *
 5. Copy new files:
 scp -r /path/to/local/src/* root@<your-server-ip>:/var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
-6. Restart the Application in Coolify
+6. Restart Strapi service in Coolify
 
 # Data transfer from local to remote
 0. Make sure both target and source Strapi instances have the same version. (see Upgrade Strapi to the latest version)
