@@ -27,7 +27,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
           />
         </a>
       </span>
-      <h3 className="text-gray-900 font-medium text-xl sm:text-2xl">{role}</h3>
+      <h3 className="text-gray-900 font-normal text-xl sm:text-2xl">{role}</h3>
       <p className="text-gray-900 mb-1">{company}</p>
       <p className="mb-1"><time className="">{duration}</time></p>
       <p className='mb-6'>{location}</p>
@@ -35,7 +35,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
       <Collapse isOpened={isOpen}>
         <div className="pt-6">
           <div
-            className="text-gray-700 max-w-none prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 p-6 bg-neutral-50 border border-neutral-200 rounded-2xl"
+            className="text-gray-700 max-w-none prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 p-6 bg-neutral-50 border border-neutral-200 rounded-2xl"
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
           />
         </div>

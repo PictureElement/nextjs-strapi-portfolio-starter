@@ -172,9 +172,9 @@ export default async function Page({ params }) {
       <div className="mx-auto max-w-6xl px-4">
         <article>
           <header>
-            <h1 className="text-gray-900 font-extrabold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
+            <h1 className="text-gray-900 font-bold text-3xl md:text-4xl tracking-tight mb-3">{title}</h1>
             <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
-            <div className="text-xs leading-6 mb-12">
+            <div className="text-sm mb-12">
               {author &&
                 <div className="text-gray-900">By {author.authorName}</div>
               }
@@ -191,7 +191,7 @@ export default async function Page({ params }) {
             </div>
           </header>
           <div className="flex flex-col md:flex-row gap-x-5 justify-between">
-            <section className="max-w-none md:w-2/3 prose prose-gray prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mt-12 md:mt-0">
+            <section className="max-w-none md:w-2/3 prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mt-12 md:mt-0">
               <div
                 className="[&>*:first-child]:mt-0"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}

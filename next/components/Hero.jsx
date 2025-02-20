@@ -17,7 +17,7 @@ export default function Hero({ data }) {
         {greeting && (
           <p className={`${lobster.className} font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4`}>{greeting}</p>
         )}
-        <h1 className="text-gray-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+        <h1 className="text-gray-900 font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
           {headline}
         </h1>
         <p className="text-gray-700 text-lg mt-6">{supportiveText}</p>

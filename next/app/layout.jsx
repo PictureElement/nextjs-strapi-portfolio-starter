@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
 import { Poppins } from 'next/font/google';
-const poppins = Poppins({ weight: ['300', '400', '500', '800'], subsets: ['latin'] });
+const poppins = Poppins({ weight: ['300', '400', '500', '700'], subsets: ['latin'] });
 import "./globals.css";
 import { fetchLayout } from '@/lib/api';
 

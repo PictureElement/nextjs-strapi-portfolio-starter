@@ -363,6 +363,7 @@ export interface SeoMetadata extends Struct.ComponentSchema {
     description: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 160;
+        minLength: 50;
       }>;
     image: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String &

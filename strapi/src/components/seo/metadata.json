@@ -14,7 +14,8 @@
     "description": {
       "type": "text",
       "maxLength": 160,
-      "required": false
+      "required": false,
+      "minLength": 50
     },
     "image": {
       "type": "media",
