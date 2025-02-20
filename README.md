@@ -67,11 +67,11 @@ Under volumes change: - 'strapi-uploads:/opt/app/public/uploads' to - 'strapi-pu
 3. Connect to host via SSH and access the volume on the Host Server: cd /var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
 4. Remove Old Files: rm -rf *
 5. Copy new files:
-scp -r /path/to/local/src/* root@<your-server-ip>:/var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
+scp -r strapi/src/* root@<your-server-ip>:/var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
 6. Restart Strapi service in Coolify
 
 # Data transfer from local to remote
-0. Make sure both target and source Strapi instances have the same version. (see Upgrade Strapi to the latest version)
+0. Make sure both target and source Strapi instances have the same version.
 1. Generate a transfer token on remote Strapi instace.
 2. Make sure the source and target schemas match. (see The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that)
 3. Push data to remote: npm run strapi transfer -- --to destinationURL/admin
