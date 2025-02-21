@@ -115,7 +115,7 @@ export const projectCollectionSchema = z.object({
 export const layoutSchema = z.object({
   data: z.object({
     announcement: z.object({
-      content: z.string(),
+      content: z.string().nullable(), // Allow null values
     }),
     header: z.object({
       additionalNavigationItems: z.array(linkSchema),
@@ -180,32 +180,8 @@ export const homePageSchema = z.object({
       content: z.string(),
       image: imageSchema,
     }),
-    services: sectionHeaderSchema.extend({
-      serviceList: z.array(
-        z.object({
-          id: z.number(),
-          description: z.string(),
-          title: z.string(),
-        })
-      ).nonempty(), // At least one entry is required
-    }),
     featuredProjects: sectionHeaderSchema,
     skills: sectionHeaderSchema,
-    experience: sectionHeaderSchema.extend({
-      experienceList: z.array(
-        z.object({
-          id: z.number(),
-          role: z.string(),
-          company: z.string(),
-          companyUrl: z.string().nullable(), // Allow null values
-          duration: z.string(),
-          location: z.string(),
-          description: z.string(),
-          content: z.string(),
-          companyLogo: imageSchema,
-        })
-      ).nonempty(), // At least one entry is required
-    }),
     testimonials: sectionHeaderSchema.extend({
       testimonialList: z.array(
         z.object({
@@ -228,6 +204,36 @@ export const homePageSchema = z.object({
       ).nonempty(), // At least one entry is required
     }),
     latestPosts: sectionHeaderSchema,
+    useCaseSpecificContent: z.array(
+      z.discriminatedUnion('__component', [
+        sectionHeaderSchema.extend({
+          __component: z.literal('sections.services'),
+          serviceList: z.array(
+            z.object({
+              id: z.number(),
+              description: z.string(),
+              title: z.string(),
+            })
+          ).nonempty(), // At least one service entry is required
+        }),
+        sectionHeaderSchema.extend({
+          __component: z.literal('sections.experience'),
+          experienceList: z.array(
+            z.object({
+              id: z.number(),
+              role: z.string(),
+              company: z.string(),
+              companyUrl: z.string().nullable(), // Allow null values
+              duration: z.string(),
+              location: z.string(),
+              description: z.string(),
+              content: z.string(),
+              companyLogo: imageSchema,
+            })
+          ).nonempty(), // At least one experience entry is required
+        }),
+      ]),
+    ),
   })
 });
 

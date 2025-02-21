@@ -60,7 +60,9 @@ export default async function Page() {
   }
 
   // Destructure/Format the necessary properties
-  const { metadata, hero, about, services, featuredProjects, skills, experience, testimonials, faq, latestPosts } = page;
+  const { metadata, hero, about, featuredProjects, skills, testimonials, faq, latestPosts, useCaseSpecificContent } = page;
+  const dynamicData = useCaseSpecificContent[0];
+  const showServices = dynamicData?.__component === 'sections.services';
   const { title, description } = metadata;
   const { siteRepresentation, miscellaneous } = global;
   const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
@@ -140,7 +142,7 @@ export default async function Page() {
         <Hero data={hero} />
         <About data={about} />
         <Skills data={skills} skills={knowsAbout} />
-        {isOrganization ? <Services data={services} /> : <Experience data={experience} />}
+        {showServices ? <Services data={dynamicData} /> : <Experience data={dynamicData} />}
         <FeaturedProjects data={featuredProjects} projects={projects} />
         <Testimonials data={testimonials} />
         <LatestPosts data={latestPosts} posts={posts} localeString={localeString} />

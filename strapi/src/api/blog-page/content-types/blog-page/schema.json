@@ -16,7 +16,7 @@
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
-      "required": false
+      "required": true
     },
     "banner": {
       "type": "component",

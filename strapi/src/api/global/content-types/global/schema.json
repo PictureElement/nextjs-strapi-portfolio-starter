@@ -21,7 +21,8 @@
     "announcement": {
       "type": "component",
       "repeatable": false,
-      "component": "blocks.announcement"
+      "component": "blocks.announcement",
+      "required": true
     },
     "footer": {
       "type": "component",

@@ -427,7 +427,8 @@ export interface ApiBlogPageBlogPage extends Struct.SingleTypeSchema {
       'api::blog-page.blog-page'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
+    metadata: Schema.Attribute.Component<'seo.metadata', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -459,7 +460,8 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
       'api::contact-page.contact-page'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
+    metadata: Schema.Attribute.Component<'seo.metadata', false> &
+      Schema.Attribute.Required;
     otherContactOptionsHeading: Schema.Attribute.String &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
@@ -481,7 +483,8 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    announcement: Schema.Attribute.Component<'blocks.announcement', false>;
+    announcement: Schema.Attribute.Component<'blocks.announcement', false> &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -530,8 +533,6 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    experience: Schema.Attribute.Component<'sections.experience', false> &
-      Schema.Attribute.Required;
     faq: Schema.Attribute.Component<'sections.faq', false> &
       Schema.Attribute.Required;
     featuredProjects: Schema.Attribute.Component<'sections.portfolio', false> &
@@ -546,10 +547,9 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'api::homepage.homepage'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
-    publishedAt: Schema.Attribute.DateTime;
-    services: Schema.Attribute.Component<'sections.services', false> &
+    metadata: Schema.Attribute.Component<'seo.metadata', false> &
       Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
     skills: Schema.Attribute.Component<'sections.skills', false> &
       Schema.Attribute.Required;
     testimonials: Schema.Attribute.Component<'sections.testimonials', false> &
@@ -557,6 +557,17 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    useCaseSpecificContent: Schema.Attribute.DynamicZone<
+      ['sections.experience', 'sections.services']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 1;
+        },
+        number
+      >;
   };
 }
 
@@ -583,7 +594,8 @@ export interface ApiNotFoundNotFound extends Struct.SingleTypeSchema {
       'api::not-found.not-found'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
+    metadata: Schema.Attribute.Component<'seo.metadata', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -649,7 +661,8 @@ export interface ApiPrivacyPolicyPrivacyPolicy extends Struct.SingleTypeSchema {
       'api::privacy-policy.privacy-policy'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
+    metadata: Schema.Attribute.Component<'seo.metadata', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -735,7 +748,8 @@ export interface ApiProjectsPageProjectsPage extends Struct.SingleTypeSchema {
       'api::projects-page.projects-page'
     > &
       Schema.Attribute.Private;
-    metadata: Schema.Attribute.Component<'seo.metadata', false>;
+    metadata: Schema.Attribute.Component<'seo.metadata', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

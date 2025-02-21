@@ -74,6 +74,14 @@ export default async function RootLayout({ children }) {
     data = await fetchLayout();
   } catch (error) {
     console.error(error.message);
+    data = {
+      announcement: null,
+      header: null,
+      cta: null,
+      footer: null,
+      siteRepresentation: null,
+      miscellaneous: { htmlLanguageTag: 'en' }
+    }
   }
 
   const { announcement, header, cta, footer, siteRepresentation, miscellaneous } = data;

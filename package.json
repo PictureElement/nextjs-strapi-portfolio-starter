@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "clear": "cd next && rm -rf .next && rm -rf cache",
+    "setup:next": "cd next && npm install",
+    "setup:strapi": "cd strapi && npm install",
+    "setup": "npm install && npm run setup:next && npm run setup:strapi",
+    "dev:next": "cd next && npm run dev",
+    "dev:strapi": "cd strapi && npm run develop",
+    "dev": "npm run clear && concurrently \"npm run dev:next\" \"npm run dev:strapi\"",
+    "seed": "cd strapi && npm run strapi import -f ../seed-data.tar.gz",
+    "config": "cd strapi && npm run strapi configuration:restore -- -f dump.json",
+    "export": "cd strapi && npm run strapi export --no-encrypt -f ../seed-data"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "npm-check-updates": "^16.14.15"
+  }
+}

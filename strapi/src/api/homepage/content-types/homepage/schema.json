@@ -16,7 +16,7 @@
       "type": "component",
       "repeatable": false,
       "component": "seo.metadata",
-      "required": false
+      "required": true
     },
     "hero": {
       "type": "component",
@@ -36,12 +36,6 @@
       "component": "sections.testimonials",
       "required": true
     },
-    "experience": {
-      "type": "component",
-      "repeatable": false,
-      "component": "sections.experience",
-      "required": true
-    },
     "about": {
       "type": "component",
       "repeatable": false,
@@ -52,12 +46,6 @@
       "type": "component",
       "repeatable": false,
       "component": "sections.skills",
-      "required": true
-    },
-    "services": {
-      "type": "component",
-      "repeatable": false,
-      "component": "sections.services",
       "required": true
     },
     "faq": {
@@ -71,6 +59,16 @@
       "repeatable": false,
       "component": "sections.posts",
       "required": true
+    },
+    "useCaseSpecificContent": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.experience",
+        "sections.services"
+      ],
+      "required": true,
+      "min": 1,
+      "max": 1
     }
   }
 }

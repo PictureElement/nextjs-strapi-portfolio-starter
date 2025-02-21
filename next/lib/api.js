@@ -18,13 +18,21 @@ const qs = require('qs');
 // Main Fetch Function
 //
 
-async function fetchData(endpoint, options = {}) {
+async function fetchData(endpoint) {
+  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   const url = new URL(endpoint, process.env.NEXT_PUBLIC_STRAPI).href;
-
   const cacheStrategy = process.env.NODE_ENV === 'production' ? 'force-cache' : 'no-store';
 
+  const options = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    cache: cacheStrategy,
+  };
+
   try {
-    const res = await fetch(url, { cache: cacheStrategy, ...options });
+    const res = await fetch(url, options);
 
     if (!res.ok) {
       throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
@@ -92,17 +100,23 @@ export const fetchHomePage = async () => {
         metadata: { populate: "*" },
         hero: { populate: "*" },
         about: { populate: "*" },
-        services: { populate: "*" },
         featuredProjects: true,
         skills: true,
-        experience: {
-          populate: {
-            experienceList: { populate: "*" },
-          }
-        },
         testimonials: { populate: "*" },
         faq: { populate: "*" },
         latestPosts: true,
+        useCaseSpecificContent: {
+          on: {
+            'sections.experience': {
+              populate: {
+                experienceList: { populate: "*" },
+              }
+            },
+            'sections.services': {
+              populate: "*",
+            }
+          },
+        },
       }
     },
     {
@@ -116,13 +130,12 @@ export const fetchHomePage = async () => {
     metadata: validatedData.data.metadata,
     hero: validatedData.data.hero,
     about: validatedData.data.about,
-    services: validatedData.data.services,
     featuredProjects: validatedData.data.featuredProjects,
     skills: validatedData.data.skills,
-    experience: validatedData.data.experience,
     testimonials: validatedData.data.testimonials,
     faq: validatedData.data.faq,
     latestPosts: validatedData.data.latestPosts,
+    useCaseSpecificContent: validatedData.data.useCaseSpecificContent,
   }
 };
 
