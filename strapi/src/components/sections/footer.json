@@ -12,8 +12,7 @@
     },
     "copyright": {
       "type": "text",
-      "required": true,
-      "default": "© [Year] [Your Company Name]. All rights reserved."
+      "required": true
     }
   }
 }

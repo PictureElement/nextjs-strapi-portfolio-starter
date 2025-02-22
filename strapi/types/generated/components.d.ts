@@ -82,12 +82,8 @@ export interface BlocksMiscellaneous extends Struct.ComponentSchema {
     displayName: 'Miscellaneous';
   };
   attributes: {
-    htmlLanguageTag: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'en'>;
-    localeString: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'en-US'>;
+    htmlLanguageTag: Schema.Attribute.String & Schema.Attribute.Required;
+    localeString: Schema.Attribute.String & Schema.Attribute.Required;
     themeColor: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -237,9 +233,7 @@ export interface SectionsFooter extends Struct.ComponentSchema {
     displayName: 'Footer';
   };
   attributes: {
-    copyright: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'\u00A9 [Year] [Your Company Name]. All rights reserved.'>;
+    copyright: Schema.Attribute.Text & Schema.Attribute.Required;
     statement: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }

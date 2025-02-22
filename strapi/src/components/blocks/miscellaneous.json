@@ -9,12 +9,10 @@
     "localeString": {
       "type": "string",
       "required": true,
-      "default": "en-US",
       "regex": "^[a-z]{2}-[A-Z]{2}$"
     },
     "htmlLanguageTag": {
       "type": "string",
-      "default": "en",
       "required": true
     },
     "themeColor": {
