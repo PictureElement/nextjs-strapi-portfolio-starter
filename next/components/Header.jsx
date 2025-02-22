@@ -16,9 +16,11 @@ export default function Header({ data, siteRepresentation }) {
   if (!data || !siteRepresentation) {
     // Return fallback UI in case of validation or fetch errors
     return (
-      <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15 h-[77px] text-red-600 flex items-center justify-center">
-        Unable to load data/siteRepresentation for the Header component
-      </header>
+      <div className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
+        <div className="mx-auto max-w-5xl p-4">
+          <div className="text-red-600 text-center">Unable to load data/siteRepresentation for the "Header" component</div>
+        </div>
+      </div>
     );
   }
 
@@ -30,7 +32,7 @@ export default function Header({ data, siteRepresentation }) {
 
 
   return (
-    <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15" >
+    <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
       <nav className="flex flex-wrap gap-4 md:gap-6 items-center justify-between p-4">
         {/* Brand */}
         <Link

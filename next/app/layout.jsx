@@ -34,7 +34,13 @@ export async function generateMetadata() {
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
-    return {}
+    return {
+      description: 'Example Site Description',
+      openGraph: {
+        siteName: 'Example Site Name',
+        images: ['https://placehold.co/1200x630.jpg'],
+      }
+    }
   }
 
   const { siteRepresentation, icons, miscellaneous } = data;
@@ -49,7 +55,7 @@ export async function generateMetadata() {
   const svgUrl = new URL(iconSVG.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return {
-    siteDescription,
+    description: siteDescription,
     openGraph: {
       locale: localeString.replace('-', '_'),
       siteName: siteName,

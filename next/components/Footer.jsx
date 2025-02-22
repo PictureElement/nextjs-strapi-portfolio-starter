@@ -16,11 +16,11 @@ export default async function Footer({ data, siteRepresentation }) {
   if (!data || !siteRepresentation) {
     // Return fallback UI in case of validation or fetch errors
     return (
-      <footer className="bg-neutral-950">
-        <div className="mx-auto max-w-5xl px-4 py-16 lg:py-24">
-          <div className="text-red-600 text-center">Unable to load data/siteRepresentation for the Footer component</div>
+      <div className="bg-neutral-950">
+        <div className="mx-auto max-w-5xl p-4">
+          <div className="text-red-600 text-center">Unable to load data/siteRepresentation for the "Footer" component</div>
         </div>
-      </footer>
+      </div>
     );
   }
 
@@ -78,7 +78,7 @@ export default async function Footer({ data, siteRepresentation }) {
           </div>
           {/* Contact & location */}
           <div className="text-center md:text-left col-span-1 md:col-span-2">
-            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight">Contact & location</h3>
+            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight">Location & contact</h3>
             <h4 className="sr-only">Location information</h4>
             <ul className="mt-4 space-y-4 text-sm">
               <li>

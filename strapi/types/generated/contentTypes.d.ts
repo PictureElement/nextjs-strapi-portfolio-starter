@@ -558,7 +558,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     useCaseSpecificContent: Schema.Attribute.DynamicZone<
-      ['sections.experience', 'sections.services']
+      ['sections.services', 'sections.experience']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMax<

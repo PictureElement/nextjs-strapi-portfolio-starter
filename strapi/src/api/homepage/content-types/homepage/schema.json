@@ -63,8 +63,8 @@
     "useCaseSpecificContent": {
       "type": "dynamiczone",
       "components": [
-        "sections.experience",
-        "sections.services"
+        "sections.services",
+        "sections.experience"
       ],
       "required": true,
       "min": 1,

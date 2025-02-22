@@ -67,10 +67,8 @@ export default async function Page({ params }) {
     return (
       <>
         <BackTo label="Back to projects" url="/projects/" />
-        <div>
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="text-red-600 text-center">Unable to load data for the Project page</div>
-          </div>
+        <div className="mx-auto max-w-5xl p-4">
+          <div className="text-red-600 text-center">Unable to load data for the "Project" page</div>
         </div>
         <BackTo label="Back to projects" url="/projects/" />
       </>
@@ -108,11 +106,13 @@ export default async function Page({ params }) {
         isPartOf: {
           "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
         },
-        author: {
-          "@type": author.isOrganization ? "Organization" : "Person",
-          name: author.authorName,
-          url: author.url,
-        },
+        ...(author ? {
+          author: {
+            "@type": author.isOrganization ? "Organization" : "Person",
+            name: author.authorName,
+            url: author.url,
+          }
+        } : {}),
         image: featuredImageUrl,
         keywords: [
           ...scopes.map(scope => scope.title),

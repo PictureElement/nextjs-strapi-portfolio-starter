@@ -66,10 +66,8 @@ export default async function Page({ params }) {
     return (
       <>
         <BackTo label="Back to blog" url="/blog/" />
-        <div>
-          <div className="mx-auto max-w-5xl px-4">
-            <div className="text-red-600 text-center">Unable to load data for the Post page</div>
-          </div>
+        <div className="mx-auto max-w-5xl p-4">
+          <div className="text-red-600 text-center">Unable to load data for the "Post" page</div>
         </div>
         <BackTo label="Back to blog" url="/blog/" />
       </>
@@ -107,11 +105,13 @@ export default async function Page({ params }) {
         dateModified: updatedAt,
         image: featuredImageUrl,
         inLanguage: htmlLanguageTag,
-        author: {
-          "@type": author.isOrganization ? "Organization" : "Person",
-          name: author.authorName,
-          url: author.url,
-        },
+        ...(author ? {
+          author: {
+            "@type": author.isOrganization ? "Organization" : "Person",
+            name: author.authorName,
+            url: author.url,
+          }
+        } : {}),
         publisher: {
           "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
         },

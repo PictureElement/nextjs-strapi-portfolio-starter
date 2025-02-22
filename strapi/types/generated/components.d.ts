@@ -167,7 +167,11 @@ export interface SectionsAbout extends Struct.ComponentSchema {
     displayName: 'About';
   };
   attributes: {
-    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 700;
+      }>;
     headline: Schema.Attribute.String & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     supportiveText: Schema.Attribute.String & Schema.Attribute.Required;

@@ -8,7 +8,8 @@
     "dev:strapi": "cd strapi && npm run develop",
     "dev": "npm run clear && concurrently \"npm run dev:next\" \"npm run dev:strapi\"",
     "seed": "cd strapi && npm run strapi import -f ../seed-data.tar.gz",
-    "config": "cd strapi && npm run strapi configuration:restore -- -f dump.json",
+    "config:dump": "cd strapi && npm run strapi configuration:dump -- -f dump.json",
+    "config:restore": "cd strapi && npm run strapi configuration:restore -- -f dump.json",
     "export": "cd strapi && npm run strapi export --no-encrypt -f ../seed-data"
   },
   "dependencies": {

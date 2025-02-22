@@ -11,8 +11,8 @@ export default function PostEntry({ title, excerpt, slug, createdAt, localeStrin
         <dt className='sr-only'>Posted on:</dt>
         <dd><time dateTime={createdAt}>{formattedCreatedAtDate}</time></dd>
       </dl>
-      <h3 className="text-gray-900 font-normal text-xl sm:text-2xl tracking-tight mb-2 relative">{title}</h3>
-      <p className="text-gray-700 mb-3 relative">{excerpt}</p>
+      <h3 className="text-gray-900 font-normal text-xl sm:text-2xl tracking-tight relative">{title}</h3>
+      <p className="text-gray-700 mt-2 mb-4 relative">{excerpt}</p>
       <Link
         href={`/blog/${slug}/`}
         className="

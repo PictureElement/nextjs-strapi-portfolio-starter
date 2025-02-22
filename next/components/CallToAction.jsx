@@ -4,11 +4,11 @@ export default async function CallToAction({ data }) {
   if (!data) {
     // Return fallback UI in case of validation or fetch errors
     return (
-      <section className="bg-primary-900 bg-dot-white/20 relative">
-        <div className="mx-auto max-w-5xl px-4 py-24 text-center">
-          <div className="text-red-600">Unable to load data for the CallToAction component</div>
+      <div className="bg-primary-900 bg-dot-white/20">
+        <div className="mx-auto max-w-5xl p-4">
+          <div className="text-red-600 text-center">Unable to load data for the "CallToAction" component</div>
         </div>
-      </section>
+      </div>
     )
   }
 

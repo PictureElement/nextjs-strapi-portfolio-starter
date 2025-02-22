@@ -54,7 +54,7 @@ const authorEntrySchema = z.object({
   authorName: z.string(),
   isOrganization: z.boolean(),
   url: z.string()
-});
+}).nullable();
 
 const postEntrySchema = z.object({
   id: z.number(),

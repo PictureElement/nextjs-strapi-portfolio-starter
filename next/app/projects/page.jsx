@@ -46,8 +46,8 @@ export default async function Page() {
     console.error(error.message);
     // Return fallback UI in case of validation or fetch errors
     return (
-      <div className="text-center">
-        <div className="text-red-600">Unable to load data for the Projects page</div>
+      <div className="mx-auto max-w-5xl p-4">
+        <div className="text-red-600 text-center">Unable to load data for the "Projects" page</div>
       </div>
     );
   }

@@ -23,13 +23,11 @@ export default function Announcement({ data }) {
   if (!data) {
     // Return fallback UI in case of validation or fetch errors
     return (
-      <aside className="bg-neutral-950">
-        <div className="flex items-center justify-center gap-3 mx-auto max-w-screen-xl text-white px-4 py-2">
-          <div className="text-center max-w-none prose prose-sm prose-invert prose-strong:font-medium">
-            Unable to load data for the Announcement component
-          </div>
+      <div className="bg-neutral-950">
+        <div className="mx-auto max-w-5xl p-4">
+          <div className="text-white text-center">Unable to load data for the "Announcement" component</div>
         </div>
-      </aside>
+      </div>
     )
   }
 
