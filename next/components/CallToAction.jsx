@@ -6,7 +6,7 @@ export default async function CallToAction({ data }) {
     return (
       <div className="bg-primary-900 bg-dot-white/20">
         <div className="mx-auto max-w-5xl p-4">
-          <div className="text-red-600 text-center">Unable to load data for the "CallToAction" component</div>
+          <div className="text-red-600 text-center">Error: We encountered an issue while loading the "Call-to-action" component.</div>
         </div>
       </div>
     )

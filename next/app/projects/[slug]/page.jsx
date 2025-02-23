@@ -57,109 +57,108 @@ export async function generateMetadata({ params }, parent) {
 export default async function Page({ params }) {
   const slug = params.slug;
 
-  let project, global = null;
+  const [project, global] = await Promise.allSettled([fetchProjectBySlug(slug), fetchLayout()]);
 
-  try {
-    [project, global] = await Promise.all([fetchProjectBySlug(slug), fetchLayout()]);
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
+  if (project.status === 'rejected') {
     return (
-      <>
-        <BackTo label="Back to projects" url="/projects/" />
-        <div className="mx-auto max-w-5xl p-4">
-          <div className="text-red-600 text-center">Unable to load data for the "Project" page</div>
-        </div>
-        <BackTo label="Back to projects" url="/projects/" />
-      </>
-    )
+      <div className="mx-auto max-w-5xl p-4">
+        <div className="text-red-600 text-center">Error: We encountered an issue while loading the project.</div>
+      </div>
+    );
   }
 
   // If no project data is found, trigger a 404
-  if (!project) {
+  if (!project.value) {
     notFound();
   }
 
+  let jsonLd = null;
+
+  if (global.status === 'fulfilled') {
+    // Destructure/Format the necessary properties
+    const { siteRepresentation, miscellaneous } = global.value;
+    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const extractedSkills = knowsAbout.flatMap(category =>
+      category.children.map(skill => skill.name)
+    );
+    const { htmlLanguageTag } = miscellaneous;
+
+    // Construct the JSON-LD
+    jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ItemPage",
+          "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: `${title} | ${siteName}`,
+          description: excerpt,
+          url: new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          inLanguage: htmlLanguageTag,
+          isPartOf: {
+            "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+          ...(author ? {
+            author: {
+              "@type": author.isOrganization ? "Organization" : "Person",
+              name: author.authorName,
+              url: author.url,
+            }
+          } : {}),
+          image: featuredImageUrl,
+          keywords: [
+            ...scopes.map(scope => scope.title),
+            ...tools.map(tool => tool.title)
+          ].join(", "),
+          temporalCoverage: duration,
+        },
+        {
+          "@type": "WebSite",
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: siteName,
+          description: siteDescription,
+          inLanguage: htmlLanguageTag,
+          publisher: {
+            "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+        },
+        {
+          "@type": isOrganization ? "Organization" : "Person",
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: siteName,
+          description: siteDescription,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: email,
+            ...(telephone && { telephone: telephone })
+          },
+          ...(isOrganization && { logo: logoUrl }),
+          image: siteImageUrl,
+          ...(!isOrganization && { jobTitle: jobTitle }),
+          ...(schedulingLink || socialChannels.length > 0 ? {
+            sameAs: [
+              ...(schedulingLink ? [schedulingLink] : []),
+              ...socialChannels.map((item) => item.url)
+            ]
+          } : {}),
+          knowsAbout: extractedSkills,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: addressLocality,
+          },
+          ...(isOrganization && areaServed && { areaServed: areaServed }),
+        }
+      ]
+    };
+  }
+
   // Destructure/Format the necessary properties
-  const { siteRepresentation, miscellaneous } = global;
-  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
-  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const extractedSkills = knowsAbout.flatMap(category =>
-    category.children.map(skill => skill.name)
-  );
-  const { htmlLanguageTag } = miscellaneous;
-  const { title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile, author } = project;
+  const { title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile, author } = project.value;
   const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const designFileUrl = (designFile ? new URL(designFile.url, process.env.NEXT_PUBLIC_STRAPI).href : null);
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ItemPage",
-        "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: `${title} | ${siteName}`,
-        description: excerpt,
-        url: new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        inLanguage: htmlLanguageTag,
-        isPartOf: {
-          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-        ...(author ? {
-          author: {
-            "@type": author.isOrganization ? "Organization" : "Person",
-            name: author.authorName,
-            url: author.url,
-          }
-        } : {}),
-        image: featuredImageUrl,
-        keywords: [
-          ...scopes.map(scope => scope.title),
-          ...tools.map(tool => tool.title)
-        ].join(", "),
-        temporalCoverage: duration,
-      },
-      {
-        "@type": "WebSite",
-        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        inLanguage: htmlLanguageTag,
-        publisher: {
-          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-      },
-      {
-        "@type": isOrganization ? "Organization" : "Person",
-        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        contactPoint: {
-          "@type": "ContactPoint",
-          email: email,
-          ...(telephone && { telephone: telephone })
-        },
-        ...(isOrganization && { logo: logoUrl }),
-        image: siteImageUrl,
-        ...(!isOrganization && { jobTitle: jobTitle }),
-        ...(schedulingLink || socialChannels.length > 0 ? {
-          sameAs: [
-            ...(schedulingLink ? [schedulingLink] : []),
-            ...socialChannels.map((item) => item.url)
-          ]
-        } : {}),
-        knowsAbout: extractedSkills,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: addressLocality,
-        },
-        ...(isOrganization && areaServed && { areaServed: areaServed }),
-      }
-    ]
-  };
 
   return (
     <>

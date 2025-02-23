@@ -12,9 +12,13 @@ export default function Skills({ data, skills }) {
       <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
-        <Chart data={skills}>
-          <ChartSSR data={skills} />
-        </Chart>
+        {skills ? (
+          <Chart data={skills}>
+            <ChartSSR data={skills} />
+          </Chart>
+        ) : (
+          <div className="text-red-600 text-center">Error: We encountered an issue while loading the skills.</div>
+        )}
       </div>
     </section >
   )

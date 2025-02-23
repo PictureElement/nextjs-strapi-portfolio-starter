@@ -38,87 +38,91 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function Page() {
-  let page, global = null;
+  const [page, global] = await Promise.allSettled([fetchContactPage(), fetchLayout()]);
 
-  try {
-    [page, global] = await Promise.all([fetchContactPage(), fetchLayout()]);
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
+  if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-5xl p-4">
-        <div className="text-red-600 text-center">Unable to load data for the "Contact" page</div>
+        <div className="text-red-600 text-center">Error: We encountered an issue while loading the "Contact" page.</div>
       </div>
     );
   }
 
   // Destructure the necessary properties
-  const { metadata, banner, contactFormHeading, otherContactOptionsHeading } = page;
+  const { metadata, banner, contactFormHeading, otherContactOptionsHeading } = page.value;
   const { title, description } = metadata;
   const { headline, supportiveText } = banner;
-  const { siteRepresentation, miscellaneous } = global;
-  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, businessHours, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
-  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const extractedSkills = knowsAbout.flatMap(category =>
-    category.children.map(skill => skill.name)
-  );
-  const { htmlLanguageTag } = miscellaneous;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ContactPage",
-        "@id": new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: title ? title : `Contact | ${siteName}`,
-        description: description ? description : siteDescription,
-        url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        inLanguage: htmlLanguageTag,
-        isPartOf: {
+  let jsonLd = null;
+  let businessHours = null;
+
+  if (global.status === 'fulfilled') {
+    const { siteRepresentation, miscellaneous } = global.value;
+    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    businessHours = siteRepresentation.businessHours;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const extractedSkills = knowsAbout.flatMap(category =>
+      category.children.map(skill => skill.name)
+    );
+    const { htmlLanguageTag } = miscellaneous;
+
+    // Construct the JSON-LD
+    jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ContactPage",
+          "@id": new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: title ? title : `Contact | ${siteName}`,
+          description: description ? description : siteDescription,
+          url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          inLanguage: htmlLanguageTag,
+          isPartOf: {
+            "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+        },
+        {
+          "@type": "WebSite",
           "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: siteName,
+          description: siteDescription,
+          inLanguage: htmlLanguageTag,
+          publisher: {
+            "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
         },
-      },
-      {
-        "@type": "WebSite",
-        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        inLanguage: htmlLanguageTag,
-        publisher: {
+        {
+          "@type": isOrganization ? "Organization" : "Person",
           "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-      },
-      {
-        "@type": isOrganization ? "Organization" : "Person",
-        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        contactPoint: {
-          "@type": "ContactPoint",
-          email: email,
-          ...(telephone && { telephone: telephone })
-        },
-        ...(isOrganization && { logo: logoUrl }),
-        image: siteImageUrl,
-        ...(!isOrganization && { jobTitle: jobTitle }),
-        ...(schedulingLink || socialChannels.length > 0 ? {
-          sameAs: [
-            ...(schedulingLink ? [schedulingLink] : []),
-            ...socialChannels.map((item) => item.url)
-          ]
-        } : {}),
-        knowsAbout: extractedSkills,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: addressLocality,
-        },
-        ...(isOrganization && areaServed && { areaServed: areaServed }),
-      }
-    ]
-  };
+          name: siteName,
+          description: siteDescription,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: email,
+            ...(telephone && { telephone: telephone })
+          },
+          ...(isOrganization && { logo: logoUrl }),
+          image: siteImageUrl,
+          ...(!isOrganization && { jobTitle: jobTitle }),
+          ...(schedulingLink || socialChannels.length > 0 ? {
+            sameAs: [
+              ...(schedulingLink ? [schedulingLink] : []),
+              ...socialChannels.map((item) => item.url)
+            ]
+          } : {}),
+          knowsAbout: extractedSkills,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: addressLocality,
+          },
+          ...(isOrganization && areaServed && { areaServed: areaServed }),
+        }
+      ]
+    };
+  }
 
   return (
     <>
@@ -135,25 +139,29 @@ export default async function Page() {
         </article>
         <aside>
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">{otherContactOptionsHeading}</h2>
-          <div className="grid grid-cols-1 gap-6">
-            <ContactOption title="Email" label={email} href={`mailto:${email.trim()}`} />
-            {telephone &&
-              <ContactOption title="Phone" label={telephone} href={`tel:${telephone.replace(/\s+/g, '')}`} />
-            }
-            {schedulingLink &&
-              <ContactOption title="Schedule a call" label={schedulingLink} href={schedulingLink} rel="noopener noreferer" target="_blank" />
-            }
-            <div className="text-center py-8 sm:py-12">
-              <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Location</h3>
-              <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">Based in {addressLocality}{isOrganization && areaServed && ` - Serving ${areaServed}`}</p>
-            </div>
-            {isOrganization && businessHours &&
+          {global.status === 'rejected' ? (
+            <div className="text-red-600 text-center">Error: We encountered an issue while loading the contact options and location details.</div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6">
+              <ContactOption title="Email" label={email} href={`mailto:${email.trim()}`} />
+              {telephone &&
+                <ContactOption title="Phone" label={telephone} href={`tel:${telephone.replace(/\s+/g, '')}`} />
+              }
+              {schedulingLink &&
+                <ContactOption title="Schedule a call" label={schedulingLink} href={schedulingLink} rel="noopener noreferer" target="_blank" />
+              }
               <div className="text-center py-8 sm:py-12">
-                <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Business hours</h3>
-                <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{businessHours}</p>
+                <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Location</h3>
+                <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">Based in {addressLocality}{isOrganization && areaServed && ` - Serving ${areaServed}`}</p>
               </div>
-            }
-          </div>
+              {isOrganization && businessHours &&
+                <div className="text-center py-8 sm:py-12">
+                  <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Business hours</h3>
+                  <p className="text-gray-700 font-light text-xl md:text-2xl tracking-tight">{businessHours}</p>
+                </div>
+              }
+            </div>
+          )}
         </aside>
       </section>
     </>

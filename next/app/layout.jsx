@@ -35,10 +35,10 @@ export async function generateMetadata() {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
     return {
-      description: 'Example Site Description',
+      description: 'Description',
       openGraph: {
-        siteName: 'Example Site Name',
-        images: ['https://placehold.co/1200x630.jpg'],
+        siteName: 'Site Name',
+        images: ['https://placehold.co/1200x630.jpg?text=Fallback+Image'],
       }
     }
   }

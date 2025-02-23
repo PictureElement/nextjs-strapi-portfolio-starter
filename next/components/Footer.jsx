@@ -18,7 +18,7 @@ export default async function Footer({ data, siteRepresentation }) {
     return (
       <div className="bg-neutral-950">
         <div className="mx-auto max-w-5xl p-4">
-          <div className="text-red-600 text-center">Unable to load data/siteRepresentation for the "Footer" component</div>
+          <div className="text-red-600 text-center">Error: We encountered an issue while loading the "Footer" component.</div>
         </div>
       </div>
     );

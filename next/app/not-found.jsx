@@ -32,75 +32,77 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function NotFound() {
-  let page, global = null;
+  const [page, global] = await Promise.allSettled([fetchNotFoundPage(), fetchLayout()]);
 
-  try {
-    [page, global] = await Promise.all([fetchNotFoundPage(), fetchLayout()]);
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
+  if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-5xl p-4">
-        <div className="text-red-600 text-center">Unable to load data for the "Not Found" page</div>
+        <div className="text-red-600 text-center">Error: We encountered an issue while loading the "404 - Page not found" page.</div>
       </div>
     );
   }
 
   // Destructure the necessary properties
-  const { banner } = page;
+  const { banner } = page.value;
   const { headline, supportiveText } = banner;
-  const { siteRepresentation, miscellaneous } = global;
-  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
-  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const extractedSkills = knowsAbout.flatMap(category =>
-    category.children.map(skill => skill.name)
-  );
-  const { htmlLanguageTag } = miscellaneous;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        inLanguage: htmlLanguageTag,
-        publisher: {
+  let jsonLd = null;
+
+  if (global.status === 'fulfilled') {
+    const { siteRepresentation, miscellaneous } = global.value;
+    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const extractedSkills = knowsAbout.flatMap(category =>
+      category.children.map(skill => skill.name)
+    );
+    const { htmlLanguageTag } = miscellaneous;
+
+    // Construct JSON-LD
+    jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: siteName,
+          description: siteDescription,
+          inLanguage: htmlLanguageTag,
+          publisher: {
+            "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+        },
+        {
+          "@type": isOrganization ? "Organization" : "Person",
           "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-      },
-      {
-        "@type": isOrganization ? "Organization" : "Person",
-        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        contactPoint: {
-          "@type": "ContactPoint",
-          email: email,
-          ...(telephone && { telephone: telephone })
-        },
-        ...(isOrganization && { logo: logoUrl }),
-        image: siteImageUrl,
-        ...(!isOrganization && { jobTitle: jobTitle }),
-        ...(schedulingLink || socialChannels.length > 0 ? {
-          sameAs: [
-            ...(schedulingLink ? [schedulingLink] : []),
-            ...socialChannels.map((item) => item.url)
-          ]
-        } : {}),
-        knowsAbout: extractedSkills,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: addressLocality,
-        },
-        ...(isOrganization && areaServed && { areaServed: areaServed }),
-      }
-    ]
-  };
+          name: siteName,
+          description: siteDescription,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: email,
+            ...(telephone && { telephone: telephone })
+          },
+          ...(isOrganization && { logo: logoUrl }),
+          image: siteImageUrl,
+          ...(!isOrganization && { jobTitle: jobTitle }),
+          ...(schedulingLink || socialChannels.length > 0 ? {
+            sameAs: [
+              ...(schedulingLink ? [schedulingLink] : []),
+              ...socialChannels.map((item) => item.url)
+            ]
+          } : {}),
+          knowsAbout: extractedSkills,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: addressLocality,
+          },
+          ...(isOrganization && areaServed && { areaServed: areaServed }),
+        }
+      ]
+    };
+  }
 
   return (
     <>

@@ -56,123 +56,124 @@ export async function generateMetadata({ params }, parent) {
 export default async function Page({ params }) {
   const slug = params.slug;
 
-  let post, global = null;
+  const [post, global] = await Promise.allSettled([fetchPostBySlug(slug), fetchLayout()]);
 
-  try {
-    [post, global] = await Promise.all([fetchPostBySlug(slug), fetchLayout()]);
-  } catch (error) {
-    console.error(error.message);
-    // Return fallback UI in case of validation or fetch errors
+  if (post.status === 'rejected') {
     return (
-      <>
-        <BackTo label="Back to blog" url="/blog/" />
-        <div className="mx-auto max-w-5xl p-4">
-          <div className="text-red-600 text-center">Unable to load data for the "Post" page</div>
-        </div>
-        <BackTo label="Back to blog" url="/blog/" />
-      </>
-    )
+      <div className="mx-auto max-w-5xl p-4">
+        <div className="text-red-600 text-center">Error: We encountered an issue while loading the blog post.</div>
+      </div>
+    );
   }
 
   // If no post data is found, trigger a 404
-  if (!post) {
+  if (!post.value) {
     notFound();
   }
 
+  let localeString = 'en-US';
+  let jsonLd = null;
+
+  if (global.status === 'fulfilled') {
+    // Destructure/Format the necessary properties
+    const { siteRepresentation, miscellaneous } = global.value;
+    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
+    const extractedSkills = knowsAbout.flatMap(category =>
+      category.children.map(skill => skill.name)
+    );
+    const { htmlLanguageTag } = miscellaneous;
+    localeString = miscellaneous.localeString
+
+    // Construct the JSON-LD
+    jsonLd = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "@id": new URL(`/blog/${slug}/#blogposting`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          headline: title,
+          description: excerpt,
+          datePublished: createdAt,
+          dateModified: updatedAt,
+          image: featuredImageUrl,
+          inLanguage: htmlLanguageTag,
+          ...(author ? {
+            author: {
+              "@type": author.isOrganization ? "Organization" : "Person",
+              name: author.authorName,
+              url: author.url,
+            }
+          } : {}),
+          publisher: {
+            "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+          isPartOf: {
+            "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+          mainEntityOfPage: {
+            "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+        },
+        {
+          "@type": "WebPage",
+          "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: `${title} | ${siteName}`,
+          description: excerpt,
+          url: new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
+          inLanguage: htmlLanguageTag,
+          isPartOf: {
+            "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+        },
+        {
+          "@type": "WebSite",
+          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: siteName,
+          description: siteDescription,
+          inLanguage: htmlLanguageTag,
+          publisher: {
+            "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          },
+        },
+        {
+          "@type": isOrganization ? "Organization" : "Person",
+          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
+          name: siteName,
+          description: siteDescription,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: email,
+            ...(telephone && { telephone: telephone })
+          },
+          ...(isOrganization && { logo: logoUrl }),
+          image: siteImageUrl,
+          ...(!isOrganization && { jobTitle: jobTitle }),
+          ...(schedulingLink || socialChannels.length > 0 ? {
+            sameAs: [
+              ...(schedulingLink ? [schedulingLink] : []),
+              ...socialChannels.map((item) => item.url)
+            ]
+          } : {}),
+          knowsAbout: extractedSkills,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: addressLocality,
+          },
+          ...(isOrganization && areaServed && { areaServed: areaServed }),
+        }
+      ]
+    };
+  }
+
   // Destructure/Format the necessary properties
-  const { siteRepresentation, miscellaneous } = global;
-  const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
-  const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const extractedSkills = knowsAbout.flatMap(category =>
-    category.children.map(skill => skill.name)
-  );
-  const { htmlLanguageTag, localeString } = miscellaneous;
-  const { title, excerpt, content, createdAt, updatedAt, featuredImage, author } = post;
+  const { title, excerpt, content, createdAt, updatedAt, featuredImage, author } = post.value;
   const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const formattedCreatedAtDate = formatDate(createdAt, localeString);
   const formattedUpdatedAtDate = formatDate(updatedAt, localeString);
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BlogPosting",
-        "@id": new URL(`/blog/${slug}/#blogposting`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        headline: title,
-        description: excerpt,
-        datePublished: createdAt,
-        dateModified: updatedAt,
-        image: featuredImageUrl,
-        inLanguage: htmlLanguageTag,
-        ...(author ? {
-          author: {
-            "@type": author.isOrganization ? "Organization" : "Person",
-            name: author.authorName,
-            url: author.url,
-          }
-        } : {}),
-        publisher: {
-          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-        isPartOf: {
-          "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-        mainEntityOfPage: {
-          "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-      },
-      {
-        "@type": "WebPage",
-        "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: `${title} | ${siteName}`,
-        description: excerpt,
-        url: new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
-        inLanguage: htmlLanguageTag,
-        isPartOf: {
-          "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-      },
-      {
-        "@type": "WebSite",
-        "@id": new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        inLanguage: htmlLanguageTag,
-        publisher: {
-          "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        },
-      },
-      {
-        "@type": isOrganization ? "Organization" : "Person",
-        "@id": isOrganization ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
-        name: siteName,
-        description: siteDescription,
-        url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
-        contactPoint: {
-          "@type": "ContactPoint",
-          email: email,
-          ...(telephone && { telephone: telephone })
-        },
-        ...(isOrganization && { logo: logoUrl }),
-        image: siteImageUrl,
-        ...(!isOrganization && { jobTitle: jobTitle }),
-        ...(schedulingLink || socialChannels.length > 0 ? {
-          sameAs: [
-            ...(schedulingLink ? [schedulingLink] : []),
-            ...socialChannels.map((item) => item.url)
-          ]
-        } : {}),
-        knowsAbout: extractedSkills,
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: addressLocality,
-        },
-        ...(isOrganization && areaServed && { areaServed: areaServed }),
-      }
-    ]
-  };
 
   return (
     <>

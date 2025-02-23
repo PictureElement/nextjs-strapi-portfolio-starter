@@ -23,9 +23,9 @@ export default function Announcement({ data }) {
   if (!data) {
     // Return fallback UI in case of validation or fetch errors
     return (
-      <div className="bg-neutral-950">
+      <div className="bg-neutral-950 relative z-[10000]">
         <div className="mx-auto max-w-5xl p-4">
-          <div className="text-white text-center">Unable to load data for the "Announcement" component</div>
+          <div className="text-red-600 text-center">Error: We encountered an issue while loading the "Announcement" component.</div>
         </div>
       </div>
     )

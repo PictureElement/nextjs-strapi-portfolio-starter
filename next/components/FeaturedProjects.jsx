@@ -12,12 +12,16 @@ export default function FeaturedProjects({ data, projects }) {
       <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
-        {projects.length > 0 ? (
-          <ProjectCarousel projects={projects} baseUrl={process.env.NEXT_PUBLIC_STRAPI} />
+        {projects.status === 'rejected' ? (
+          <div className="text-red-600 text-center">Error: We encountered an issue while loading the featured projects.</div>
         ) : (
-          <p className="text-center text-gray-500">
-            No featured projects available at the moment. Please check back later!
-          </p>
+          projects.value.length > 0 ? (
+            <ProjectCarousel projects={projects.value} baseUrl={process.env.NEXT_PUBLIC_STRAPI} />
+          ) : (
+            <p className="text-center text-gray-500">
+              No featured projects available at the moment. Please check back later!
+            </p>
+          )
         )}
         <div className="mt-6 md:mt-12 flex items-center justify-center gap-x-4">
           <BtnSecondary label="View all projects" url="/projects/" />
