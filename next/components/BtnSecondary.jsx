@@ -19,8 +19,10 @@ export default function BtnSecondary({
         group
         inline-flex
         justify-center
+        items-center
         transition
-        px-4 py-3
+        px-4
+        h-11
         font-medium
         leading-none
         rounded-full
@@ -35,9 +37,9 @@ export default function BtnSecondary({
     >
       {label}
       {rel === undefined ? (
-        <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+        <ArrowRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
       ) : (
-        <ArrowUpRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+        <ArrowUpRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
       )}
     </Link>
   );

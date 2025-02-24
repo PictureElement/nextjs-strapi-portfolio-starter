@@ -145,7 +145,7 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="-mt-[77px]">
+      <div className="-mt-[69px]">
         <Hero data={hero} />
         <About data={about} />
         <Skills data={skills} skills={knowsAbout} />

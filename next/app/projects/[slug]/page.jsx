@@ -72,6 +72,11 @@ export default async function Page({ params }) {
     notFound();
   }
 
+  // Destructure/Format the necessary properties
+  const { title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile, author } = project.value;
+  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  const designFileUrl = (designFile ? new URL(designFile.url, process.env.NEXT_PUBLIC_STRAPI).href : null);
+
   let jsonLd = null;
 
   if (global.status === 'fulfilled') {
@@ -155,11 +160,6 @@ export default async function Page({ params }) {
     };
   }
 
-  // Destructure/Format the necessary properties
-  const { title, excerpt, duration, demoUrl, repoUrl, content, featuredImage, scopes, tools, designFile, author } = project.value;
-  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const designFileUrl = (designFile ? new URL(designFile.url, process.env.NEXT_PUBLIC_STRAPI).href : null);
-
   return (
     <>
       {/* Add JSON-LD to your page */}
@@ -179,15 +179,15 @@ export default async function Page({ params }) {
               }
               <div>{duration}</div>
             </div>
-            <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
-              <Image
-                priority
-                className="object-cover object-center"
-                src={featuredImageUrl}
-                alt={featuredImage.alternativeText}
-                fill
-              />
-            </div>
+            <Image
+              className="mb-12 rounded-2xl overflow-hidden w-full border border-neutral-100"
+              priority
+              src={featuredImageUrl}
+              alt={featuredImage.alternativeText}
+              width={1468}
+              height={769}
+              sizes="(max-width: 1152px) calc(100vw - 34px), 1118px"
+            />
           </header>
           <div className="flex flex-col md:flex-row gap-x-5 justify-between">
             <section className="max-w-none md:w-2/3 prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mt-12 md:mt-0">

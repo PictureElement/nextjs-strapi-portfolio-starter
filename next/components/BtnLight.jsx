@@ -39,9 +39,9 @@ export default function BtnLight({
     >
       {label}
       {rel === undefined ? (
-        <ArrowRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+        <ArrowRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
       ) : (
-        <ArrowUpRightIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+        <ArrowUpRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
       )}
     </Link>
   );

@@ -55,11 +55,23 @@ export default async function Page() {
 
   let jsonLd = null;
   let businessHours = null;
+  let email = null;
+  let telephone = null;
+  let schedulingLink = null;
+  let addressLocality = null;
+  let isOrganization = null;
+  let areaServed = null;
 
   if (global.status === 'fulfilled') {
     const { siteRepresentation, miscellaneous } = global.value;
-    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    const { siteImage, logo, knowsAbout, siteName, siteDescription, jobTitle, socialChannels } = siteRepresentation;
     businessHours = siteRepresentation.businessHours;
+    email = siteRepresentation.email;
+    telephone = siteRepresentation.telephone;
+    schedulingLink = siteRepresentation.schedulingLink;
+    addressLocality = siteRepresentation.addressLocality;
+    isOrganization = siteRepresentation.isOrganization;
+    areaServed = siteRepresentation.areaServed;
     const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap(category =>

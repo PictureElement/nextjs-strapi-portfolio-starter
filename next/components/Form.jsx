@@ -135,7 +135,7 @@ export default function Form() {
           ) : (
             <>
               Submit message
-              <PaperAirplaneIcon className="size-4 ms-1 group-hover:translate-x-0.5 transition" />
+              <PaperAirplaneIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
             </>
           )}
         </button>

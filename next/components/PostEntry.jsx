@@ -28,7 +28,7 @@ export default function PostEntry({ title, excerpt, slug, createdAt, localeStrin
           Read more
           <span className="sr-only">, about {title}</span>
         </span>
-        <ArrowRightIcon className="relative size-4 ms-1 group-hover:translate-x-0.5 transition" />
+        <ArrowRightIcon className="relative h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
       </Link>
     </article>
   );

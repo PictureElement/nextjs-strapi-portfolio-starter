@@ -71,6 +71,10 @@ export default async function Page({ params }) {
     notFound();
   }
 
+  // Destructure/Format the necessary properties
+  const { title, excerpt, content, createdAt, updatedAt, featuredImage, author } = post.value;
+  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+
   let localeString = 'en-US';
   let jsonLd = null;
 
@@ -169,9 +173,7 @@ export default async function Page({ params }) {
     };
   }
 
-  // Destructure/Format the necessary properties
-  const { title, excerpt, content, createdAt, updatedAt, featuredImage, author } = post.value;
-  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
+  // Format dates based on locality
   const formattedCreatedAtDate = formatDate(createdAt, localeString);
   const formattedUpdatedAtDate = formatDate(updatedAt, localeString);
 
@@ -200,15 +202,15 @@ export default async function Page({ params }) {
                 )}
               </div>
             </div>
-            <div className="mb-12 rounded-2xl overflow-hidden aspect-[1200/630] w-full relative border border-neutral-100">
-              <Image
-                priority
-                className="object-cover object-center"
-                src={featuredImageUrl}
-                alt={featuredImage.alternativeText}
-                fill
-              />
-            </div>
+            <Image
+              className="mb-12 rounded-2xl overflow-hidden w-full border border-neutral-100"
+              priority
+              src={featuredImageUrl}
+              alt={featuredImage.alternativeText}
+              width={1468}
+              height={769}
+              sizes="(max-width: 1024px) calc(100vw - 34px), 990px"
+            />
           </header>
           <div className="prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto">
             <div

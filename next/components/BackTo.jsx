@@ -19,7 +19,7 @@ export default function BackTo({
             text-primary-700
             "
       >
-        <ArrowLeftIcon className="relative size-4 me-1 group-hover:-translate-x-0.5 transition" />
+        <ArrowLeftIcon className="relative h-[1em] w-[1em] me-1 group-hover:-translate-x-0.5 transition" />
         <span className="relative">
           {label}
         </span>

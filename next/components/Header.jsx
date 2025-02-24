@@ -45,21 +45,24 @@ export default function Header({ data, siteRepresentation }) {
             src={logoUrl}
             alt={logo.alternativeText}
             className="hidden md:block"
-            width="212"
-            height="44"
+            width={logo?.width / 2}
+            height={logo?.height / 2}
+            sizes={`${logo?.width / 2}px`}
           />
           <Image
             priority
             src={logomarkUrl}
             alt={logomark.alternativeText}
             className="md:hidden"
-            width="44"
-            height="44"
+            width={logomark?.width / 2}
+            height={logomark?.height / 2}
+            sizes={`${logomark?.width / 2}px`}
           />
         </Link>
         {/* CTA & Toggler  */}
         <div className="flex items-center gap-4 md:order-2">
           <BtnPrimary
+            className="!h-9 !px-3 text-sm"
             target={cta.openLinkInNewTab ? "_blank" : undefined}
             rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
             label={cta.label}
@@ -69,7 +72,7 @@ export default function Header({ data, siteRepresentation }) {
             className="
                 block
                 justify-items-center
-                w-11 h-11
+                w-9 h-9
                 rounded-full
                 transition
                 border border-primary-100

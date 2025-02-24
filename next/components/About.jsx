@@ -14,21 +14,22 @@ export default function About({ data }) {
       <ShapeDivider className="fill-neutral-50" />
       <div className="relative mx-auto max-w-5xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center">
           <div className="relative z-10">
             <Image
+              className="rounded-t-2xl md:rounded-2xl w-full border border-neutral-200"
               priority
-              className="w-full object-cover rounded-t-2xl lg:rounded-2xl border border-neutral-200"
               src={imageUrl}
               alt={image.alternativeText}
-              width={image.width}
-              height={image.height}
+              width={1466}
+              height={1100}
+              sizes="(max-width: 767px) calc(100vw - 34px), (max-width: 1024px) calc(50vw - 18px), 494px"
             />
           </div>
-          <div className="relative flex items-center bg-neutral-50 rounded-b-2xl border-x border-b border-neutral-200 lg:rounded-none lg:rounded-r-2xl lg:border-l-0 lg:border-y">
-            <span className="hidden lg:absolute lg:-inset-y-[1px] lg:-start-16 lg:block lg:w-16 lg:bg-neutral-50 lg:rounded-l-2xl lg:border-y lg:border-l border-neutral-200"></span>
+          <div className="relative flex items-center bg-neutral-50 rounded-b-2xl border-x border-b border-neutral-200 md:rounded-none md:rounded-r-2xl md:border-l-0 md:border-y">
+            <span className="hidden md:absolute md:-inset-y-[1px] md:-start-16 md:block md:w-16 md:bg-neutral-50 md:rounded-l-2xl md:border-y md:border-l border-neutral-200"></span>
             <div
-              className="p-6 lg:p-8 max-w-none prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
+              className="p-6 md:p-8 max-w-none prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
             />
           </div>

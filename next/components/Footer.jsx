@@ -83,14 +83,14 @@ export default async function Footer({ data, siteRepresentation }) {
             <ul className="mt-4 space-y-4 text-sm">
               <li>
                 <p className="flex items-center justify-center gap-1.5 md:justify-start group">
-                  <MapPinIcon className="size-5 shrink-0 text-white/75" />
+                  <MapPinIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
                   <span className="text-base sm:text-lg text-white/75 truncate">Based in {addressLocality}</span>
                 </p>
               </li>
               {isOrganization && areaServed &&
                 <li>
                   <p className="flex items-center justify-center gap-1.5 md:justify-start group">
-                    <GlobeAltIcon className="size-5 shrink-0 text-white/75" />
+                    <GlobeAltIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
                     <span className="text-base sm:text-lg text-white/75 truncate">Serving {areaServed}</span>
                   </p>
                 </li>
@@ -101,14 +101,14 @@ export default async function Footer({ data, siteRepresentation }) {
             <ul className="space-y-4 text-sm">
               <li>
                 <Link className="flex items-center justify-center gap-1.5 md:justify-start group" href={`mailto:${email.trim()}`}>
-                  <EnvelopeIcon className="size-5 shrink-0 text-white/75" />
+                  <EnvelopeIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
                   <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">{email.trim()}</span>
                 </Link>
               </li>
               {telephone &&
                 <li>
                   <Link className="flex items-center justify-center gap-1.5 md:justify-start group" href={`tel:${telephone.replace(/\s+/g, '')}`}>
-                    <PhoneIcon className="size-5 shrink-0 text-white/75" />
+                    <PhoneIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
                     <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">{telephone.trim()}</span>
                   </Link>
                 </li>
@@ -116,7 +116,7 @@ export default async function Footer({ data, siteRepresentation }) {
               {schedulingLink &&
                 <li>
                   <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 md:justify-start group" href={schedulingLink}>
-                    <CalendarDaysIcon className="size-5 shrink-0 text-white/75" />
+                    <CalendarDaysIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
                     <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">Schedule a call</span>
                   </Link>
                 </li>
@@ -126,7 +126,7 @@ export default async function Footer({ data, siteRepresentation }) {
             <h4 className="sr-only">Business hours</h4>
             {isOrganization && businessHours &&
               <p className="flex items-center justify-center gap-1.5 md:justify-start group">
-                <ClockIcon className="size-5 shrink-0 text-white/75" />
+                <ClockIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
                 <span className="text-base sm:text-lg text-white/75 truncate">{businessHours}</span>
               </p>
             }

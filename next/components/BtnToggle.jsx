@@ -34,9 +34,9 @@ export default function BtnToggle({
       <span className="flex items-center">
         {isOpen ? openLabel : closedLabel}
         {isOpen ? (
-          <ArrowUpIcon className="size-4 ms-1" />
+          <ArrowUpIcon className="h-[1em] w-[1em] ms-1" />
         ) : (
-          <ArrowDownIcon className="size-4 ms-1" />
+          <ArrowDownIcon className="h-[1em] w-[1em] ms-1" />
         )}
       </span>
     </button >
