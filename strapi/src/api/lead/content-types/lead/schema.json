@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leads",
+  "info": {
+    "singularName": "lead",
+    "pluralName": "leads",
+    "displayName": "Lead",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "maxLength": 254
+    },
+    "message": {
+      "type": "text",
+      "required": true,
+      "maxLength": 1000
+    },
+    "leadStatus": {
+      "type": "enumeration",
+      "enum": [
+        "New",
+        "In Progress",
+        "Closed"
+      ],
+      "default": "New",
+      "required": true,
+      "private": true
+    },
+    "consent": {
+      "type": "boolean",
+      "default": false,
+      "required": true,
+      "private": true
+    }
+  }
+}
