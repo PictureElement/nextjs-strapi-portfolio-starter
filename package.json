@@ -5,10 +5,8 @@
     "setup:strapi": "cd strapi && npm install",
     "setup": "npm install && npm run setup:strapi && npm run setup:next",
     "dev": "npm run clear && concurrently \"cd strapi && npm run develop\" \"cd next && npm run dev\"",
-    "seed": "cd strapi && npm run strapi import -- --file ../seed-data.tar.gz",
-    "config:dump": "cd strapi && npm run strapi configuration:dump -- --file dump.json",
-    "config:restore": "cd strapi && npm run strapi configuration:restore -- --file dump.json",
-    "export": "cd strapi && npm run strapi export -- --no-encrypt --file ../seed-data"
+    "config:dump": "cd strapi && npm run strapi configuration:dump -- --file src/dump.json",
+    "config:restore": "cd strapi && npm run strapi configuration:restore -- --file src/dump.json"
   },
   "dependencies": {
     "concurrently": "^8.2.2",

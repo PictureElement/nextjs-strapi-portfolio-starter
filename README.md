@@ -1,15 +1,3 @@
-## 1. Start Strapi
-
-- `cd strapi`
-- `npm install`
-- `npm run develop`
-
-## 2. Start Next.js
-
-- `cd next`
-- `npm install`
-- `npm run dev`
-
 # When connecting Strapi to a PostgreSQL database, the database user requires SCHEMA permissions. While the database admin has this permission by default, a new database user explicitly created for the Strapi application will not. This would result in a 500 error when trying to load the admin console.
 
 To create a new PostgreSQL user with the SCHEMA permission, use the following steps:
@@ -29,49 +17,51 @@ CREATE USER my_strapi_db_user WITH PASSWORD 'password';
 ## Step 5: Grant schema privileges to the new user
 GRANT ALL ON SCHEMA public TO my_strapi_db_user;
 
+---
 
-
-
-# transfer files securely over SSH.
+## Transfer files securely over SSH.
 scp /path/to/local/file username@remote_host:/path/to/remote/directory
 
-
-
-# ssh root@xxx.xxx.xxx.xxx
-
+## ssh root@xxx.xxx.xxx.xxx
 
 # Upgrade Strapi to the latest version
 npx @strapi/upgrade latest
 
+---
 
+# Install Strapi using the elestio/strapi-development image
 
-
-
-
-
-# Installing Strapi.
-
-1. Choose the Strapi image for Coolify
-2. Change Strapi Node Env. to production
-3. Edit Compose File.
-Under volumes change: - 'strapi-uploads:/opt/app/public/uploads' to - 'strapi-public:/opt/app/public'
-4. For Strapi Domains remove the port 1337 from the domain.
-5. Deploy.
+1. Create a Strapi resource in Coolify (based on elestio/strapi-development image)
+2. Change Strapi Node Environment to "production".
+4. Under the Strapi service remove the port 1337 from the domain.
+5. Deploy the resource.
 6. Afer deployment don't register and stop the service. Follow the next instructions.
 
-# The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that:
+---
 
-0. Make sure both target and source Strapi instances have the same version.
-1. Stop the Strapi container/service.
-2. Identify Strapi src volume name under Storages. In my case is i0wggsgwkw4gwokc8cg0k8w8_strapi-src
-3. Connect to host via SSH and access the volume on the Host Server: cd /var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
-4. Remove Old Files: rm -rf *
-5. Copy new files:
-scp -r strapi/src/* root@<your-server-ip>:/var/lib/docker/volumes/i0wggsgwkw4gwokc8cg0k8w8_strapi-src/_data/
-6. Restart Strapi service in Coolify
+# 1. The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. To achieve that we need to replace the remote Strapi src directory with our local Strapi src directory.
 
-# Data transfer from local to remote
-0. Make sure both target and source Strapi instances have the same version.
-1. Generate a transfer token on remote Strapi instace.
-2. Make sure the source and target schemas match. (see The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that)
-3. Push data to remote: npm run strapi transfer -- --to destinationURL/admin
+1. Make sure both target and source Strapi instances have the same version.
+2. Stop the remote Strapi service.
+3. Update the Docker Compose file to replace the named volume `strapi-src` with a bind mount that maps the host directory `/home/strapi/src` to the container path `/opt/app/src`. This allows direct synchronization between the host's source code and the container. The change replaces:
+`- strapi-src:/opt/app/src`
+with:
+`- /home/strapi/src:/opt/app/src`
+4. Create the directory on the host: `mkdir -p /home/strapi/src`
+5. Copy files (using rsync):
+- `rsync -avz --progress strapi/src/ deploy@your-server-ip:/home/strapi/src/`
+- `rsync -avz -e "ssh -i ~/.ssh/your_private_key" strapi/src/ root@<server-ip>:/home/strapi/src/`, Replace `~/.ssh/your_private_key` with the path to your private key (e.g., `id_ed25519`).
+6. Restart remote Strapi service.
+7. Access remote Strapi container temrinal and restore the configuration dump: `npm run strapi configuration:restore -- -f src/dump.json`
+
+
+
+
+
+
+# 2. Data transfer from local to remote
+
+1. Make sure both target and source Strapi instances have the same version.
+2. Generate a transfer token on remote Strapi instace.
+3. Make sure the source and target schemas match. (see The source and target schemas must match to successfully use strapi import, meaning all content types must be identical. Let's do that)
+4. Push data to remote: cd strapi & npm run strapi transfer -- --to destinationURL/admin
