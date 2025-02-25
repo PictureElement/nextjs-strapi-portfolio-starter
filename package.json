@@ -6,11 +6,14 @@
     "setup": "npm install && npm run setup:next && npm run setup:strapi",
     "dev:next": "cd next && npm run dev",
     "dev:strapi": "cd strapi && npm run develop",
-    "dev": "npm run clear && concurrently \"npm run dev:next\" \"npm run dev:strapi\"",
+    "dev": "npm run clear && concurrently \"npm run dev:strapi\" \"npm run dev:next\"",
+    "build:next": "cd next && npm run build",
+    "build": "npm run clear && concurrently -k \"npm run dev:strapi\" \"npm run build:next\"",
+    "start": "cd next && npm run start",
     "seed": "cd strapi && npm run strapi import -f ../seed-data.tar.gz",
     "config:dump": "cd strapi && npm run strapi configuration:dump -- -f dump.json",
     "config:restore": "cd strapi && npm run strapi configuration:restore -- -f dump.json",
-    "export": "cd strapi && npm run strapi export --no-encrypt -f ../seed-data"
+    "export": "cd strapi && npm run strapi export -- --no-encrypt --file ../seed-data"
   },
   "dependencies": {
     "concurrently": "^8.2.2",

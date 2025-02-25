@@ -50,7 +50,7 @@ export default async function Page() {
   if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-5xl p-4">
-        <div className="text-red-600 text-center">Error: We encountered an issue while loading the "Home" page.</div>
+        <div className="text-red-600 text-center">Error: We encountered an issue while loading the &quot;Home&quot; page.</div>
       </div>
     );
   }

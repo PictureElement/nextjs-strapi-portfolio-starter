@@ -18,7 +18,7 @@ export default function Header({ data, siteRepresentation }) {
     return (
       <div className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
         <div className="mx-auto max-w-5xl p-4">
-          <div className="text-red-600 text-center">Error: We encountered an issue while loading the "Header" component.</div>
+          <div className="text-red-600 text-center">Error: We encountered an issue while loading the &quot;Header&quot; component.</div>
         </div>
       </div>
     );
