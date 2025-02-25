@@ -45,18 +45,18 @@ export default function Header({ data, siteRepresentation }) {
             src={logoUrl}
             alt={logo.alternativeText}
             className="hidden md:block"
-            width={logo?.width / 2}
-            height={logo?.height / 2}
-            sizes={`${logo?.width / 2}px`}
+            width={Math.round((logo?.width ?? 36) / 2)}
+            height={Math.round((logo?.height ?? 36) / 2)}
+            sizes={`${Math.round((logo?.width ?? 36) / 2)}px`}
           />
           <Image
             priority
             src={logomarkUrl}
             alt={logomark.alternativeText}
             className="md:hidden"
-            width={logomark?.width / 2}
-            height={logomark?.height / 2}
-            sizes={`${logomark?.width / 2}px`}
+            width={Math.round((logomark?.width ?? 36) / 2)}
+            height={Math.round((logomark?.height ?? 36) / 2)}
+            sizes={`${Math.round((logomark?.width ?? 36) / 2)}px`}
           />
         </Link>
         {/* CTA & Toggler  */}

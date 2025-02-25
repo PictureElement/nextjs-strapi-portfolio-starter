@@ -7,7 +7,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
 import Link from "next/link";
 import { formSchema } from '@/lib/schemas';
-import { onSubmitAction } from '@/app/actions';
+import { onSubmitAction } from '@/lib/actions';
 
 export default function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -17,21 +17,38 @@ export default function Form() {
   const { register, handleSubmit, reset, setFocus, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: '',
       email: '',
       message: '',
       consent: false,
     }
   });
 
+  const sanitizeInput = (data) => ({
+    name: data.name.trim(),
+    email: data.email.trim(),
+    message: data.message.trim(),
+    consent: data.consent,
+  });
+
   const onSubmit = async (data) => {
     setIsSubmitting(true); // Disable button
     setHasServerError(false); // Reset server error
+
+    // Stop submission if honeypot is filled. Don't provide feedback to the user.
+    if (data.name) {
+      reset(); // Reset form
+      setIsSubmitting(false); // Enable button
+      return;
+    }
+
     try {
-      await onSubmitAction(data); // Call server action
+      const sanitizedData = sanitizeInput(data);
+      await onSubmitAction(sanitizedData); // Call server action
 
       reset(); // Reset form after successful submission
       setIsSubmitted(true); // Show success message
-      setTimeout(() => setIsSubmitted(false), 5000); // Hide success message after a few seconds
+      setTimeout(() => setIsSubmitted(false), 10000); // Hide success message after a few seconds
     } catch (error) {
       console.error("Error submitting form: ", error);
       setHasServerError(true);
@@ -52,10 +69,24 @@ export default function Form() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-6 sm:gap-6">
+        <div style={{ display: 'none' }}>
+          <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
+            <input
+              {...register("name")}
+              type="hidden"
+              placeholder="Your name"
+              className="rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+            <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text- transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
+              Your name
+            </span>
+          </label>
+        </div>
         <div>
           <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
             <input
-              name="email"
               aria-describedby="email-error"
               aria-invalid={errors.email ? 'true' : 'false'}
               {...register("email")}
@@ -72,7 +103,6 @@ export default function Form() {
         <div>
           <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
             <textarea
-              name="message"
               aria-describedby="message-error"
               aria-invalid={errors.message ? 'true' : 'false'}
               {...register("message")}

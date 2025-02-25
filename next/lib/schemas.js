@@ -279,6 +279,7 @@ export const notFoundPageSchema = z.object({
 // Form
 //
 export const formSchema = z.object({
+  name: z.string().trim(),
   email: z.string().trim().nonempty({
     message: 'Email is required.',
   }).email({
