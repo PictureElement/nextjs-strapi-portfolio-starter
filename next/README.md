@@ -1,5 +1,3 @@
-1. Back to top.
-
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI).
 2. Add a CAPTCHA solution

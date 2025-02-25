@@ -5,6 +5,7 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import Link from 'next/link';
+import { ArrowUpIcon } from '@heroicons/react/16/solid';
 
 const socialIcons = {
   LinkedIn: (<svg className="size-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg>),
@@ -29,120 +30,122 @@ export default async function Footer({ data, siteRepresentation }) {
   const { isOrganization, siteName, email, telephone, schedulingLink, socialChannels, businessHours, addressLocality, areaServed } = siteRepresentation;
 
   return (
-    <footer className="bg-neutral-950">
+    <footer>
+      <Link className="text-white/75 text-base transition hover:underline bg-neutral-800 block text-center px-4 py-2" href="#">Back to top</Link>
       <h2 className="sr-only">{siteName} footer</h2>
-      <div className="mx-auto max-w-5xl px-4 py-24">
-
-        <div className="gap-8 grid grid-cols-1 md:grid-cols-5 mb-8">
-          {/* Mission statement & social media */}
-          <div className="col-span-1 md:col-span-2">
-            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight text-center md:text-left">Statement</h3>
-            <p className="mt-4 text-white/75 sm:text-lg text-center md:text-left">{statement}</p>
-            {socialChannels.length > 0 && (
-              <div className="mt-8">
-                <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight text-center md:text-left">Follow {isOrganization ? "us" : "me"}</h3>
-                {socialChannels.length > 0 && (
-                  <ul className="mt-5 flex justify-center gap-3 md:justify-start">
-                    {socialChannels.map((item) => (
-                      <li key={item.id}>
-                        <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white block">
-                          <span className="sr-only">{item.label}</span>
-                          {socialIcons[item.channel] || (
-                            <span className="text-red-500">Icon not found</span>
-                          )}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            )}
-          </div>
-          {/* Navigation */}
-          <div className="mt-[6px] md:mt-0 text-center md:text-left col-span-1">
-            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight">Navigation</h3>
-            <ul className="mt-4 space-y-4 text-sm">
-              <li>
-                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/">Home</Link>
-              </li>
-              <li>
-                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/projects/">Projects</Link>
-              </li>
-              <li>
-                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/blog/">Blog</Link>
-              </li>
-              <li>
-                <Link className="text-base sm:text-lg text-white/75 hover:underline truncate" href="/contact/">Contact</Link>
-              </li>
-            </ul>
-          </div>
-          {/* Contact & location */}
-          <div className="text-center md:text-left col-span-1 md:col-span-2">
-            <h3 className="text-white font-medium text-xl sm:text-2xl tracking-tight">Location & contact</h3>
-            <h4 className="sr-only">Location information</h4>
-            <ul className="mt-4 space-y-4 text-sm">
-              <li>
-                <p className="flex items-center justify-center gap-1.5 md:justify-start group">
-                  <MapPinIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
-                  <span className="text-base sm:text-lg text-white/75 truncate">Based in {addressLocality}</span>
-                </p>
-              </li>
-              {isOrganization && areaServed &&
+      <div className="bg-neutral-950">
+        <div className="mx-auto max-w-5xl px-4 py-24">
+          <div className="gap-8 grid grid-cols-1 md:grid-cols-5 mb-8">
+            {/* Mission statement & social media */}
+            <div className="col-span-1 md:col-span-2">
+              <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">Statement</h3>
+              <p className="mt-4 text-white/75 text-base text-center md:text-start">{statement}</p>
+              {socialChannels.length > 0 && (
+                <div className="mt-8">
+                  <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">Follow {isOrganization ? "us" : "me"}</h3>
+                  {socialChannels.length > 0 && (
+                    <ul className="mt-5 flex justify-center gap-3 md:justify-start">
+                      {socialChannels.map((item) => (
+                        <li key={item.id}>
+                          <Link href={item.url} rel="noopener noreferrer" target="_blank" className="text-white/75 transition hover:text-white block">
+                            <span className="sr-only">{item.label}</span>
+                            {socialIcons[item.channel] || (
+                              <span className="text-red-500">Icon not found</span>
+                            )}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+            </div>
+            {/* Navigation */}
+            <div className="mt-[6px] md:mt-0 col-span-1">
+              <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">Navigation</h3>
+              <ul className="mt-4 space-y-4">
+                <li className="text-center md:text-start">
+                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/">Home</Link>
+                </li>
+                <li className="text-center md:text-start">
+                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/projects/">Projects</Link>
+                </li>
+                <li className="text-center md:text-start">
+                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/blog/">Blog</Link>
+                </li>
+                <li className="text-center md:text-start">
+                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/contact/">Contact</Link>
+                </li>
+              </ul>
+            </div>
+            {/* Contact & location */}
+            <div className="col-span-1 md:col-span-2">
+              <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">Location & contact</h3>
+              <h4 className="sr-only">Location information</h4>
+              <ul className="mt-4 space-y-4">
                 <li>
-                  <p className="flex items-center justify-center gap-1.5 md:justify-start group">
-                    <GlobeAltIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
-                    <span className="text-base sm:text-lg text-white/75 truncate">Serving {areaServed}</span>
+                  <p className="flex items-center justify-center gap-1.5 md:justify-start group text-base text-white/75">
+                    <MapPinIcon className="h-[1.2em] w-[1.2em] shrink-0" />
+                    <span className="truncate">Based in {addressLocality}</span>
                   </p>
                 </li>
-              }
-            </ul>
-            <div className="h-px w-1/4 bg-white/15 mx-auto md:mx-0 my-6"></div>
-            <h4 className="sr-only">Contact methods</h4>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link className="flex items-center justify-center gap-1.5 md:justify-start group" href={`mailto:${email.trim()}`}>
-                  <EnvelopeIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
-                  <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">{email.trim()}</span>
-                </Link>
-              </li>
-              {telephone &&
+                {isOrganization && areaServed &&
+                  <li>
+                    <p className="flex items-center justify-center gap-1.5 md:justify-start group text-base text-white/75">
+                      <GlobeAltIcon className="h-[1.2em] w-[1.2em] shrink-0" />
+                      <span className="truncate">Serving {areaServed}</span>
+                    </p>
+                  </li>
+                }
+              </ul>
+              <div className="h-px w-1/4 bg-white/15 mx-auto md:mx-0 my-6"></div>
+              <h4 className="sr-only">Contact methods</h4>
+              <ul className="space-y-4">
                 <li>
-                  <Link className="flex items-center justify-center gap-1.5 md:justify-start group" href={`tel:${telephone.replace(/\s+/g, '')}`}>
-                    <PhoneIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
-                    <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">{telephone.trim()}</span>
+                  <Link className="flex md:inline-flex items-center justify-center gap-1.5 group text-base text-white/75" href={`mailto:${email.trim()}`}>
+                    <EnvelopeIcon className="h-[1.2em] w-[1.2em] shrink-0" />
+                    <span className="group-hover:underline truncate">{email.trim()}</span>
                   </Link>
                 </li>
+                {telephone &&
+                  <li>
+                    <Link className="flex md:inline-flex items-center justify-center gap-1.5 group text-base text-white/75" href={`tel:${telephone.replace(/\s+/g, '')}`}>
+                      <PhoneIcon className="h-[1.2em] w-[1.2em] shrink-0" />
+                      <span className="group-hover:underline truncate">{telephone.trim()}</span>
+                    </Link>
+                  </li>
+                }
+                {schedulingLink &&
+                  <li>
+                    <Link className="flex md:inline-flex items-center justify-center gap-1.5 group text-base text-white/75" href={schedulingLink} rel="noopener noreferrer" target="_blank">
+                      <CalendarDaysIcon className="h-[1.2em] w-[1.2em] shrink-0" />
+                      <span className="group-hover:underline">Schedule a call</span>
+                    </Link>
+                  </li>
+                }
+              </ul>
+              {isOrganization && businessHours &&
+                <>
+                  <div className="h-px w-1/4 bg-white/15 mx-auto md:mx-0 my-6"></div>
+                  <h4 className="sr-only">Business hours</h4>
+                  <p className="flex items-center justify-center gap-1.5 md:justify-start group text-base text-white/75">
+                    <ClockIcon className="h-[1.2em] w-[1.2em] shrink-0" />
+                    <span className="truncate">{businessHours}</span>
+                  </p>
+                </>
               }
-              {schedulingLink &&
-                <li>
-                  <Link rel="noopener noreferrer" target="_blank" className="flex items-center justify-center gap-1.5 md:justify-start group" href={schedulingLink}>
-                    <CalendarDaysIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
-                    <span className="text-base sm:text-lg text-white/75 group-hover:underline truncate">Schedule a call</span>
-                  </Link>
-                </li>
-              }
-            </ul>
-            <div className="h-px w-1/4 bg-white/15 mx-auto md:mx-0 my-6"></div>
-            <h4 className="sr-only">Business hours</h4>
-            {isOrganization && businessHours &&
-              <p className="flex items-center justify-center gap-1.5 md:justify-start group">
-                <ClockIcon className="h-[1.5em] w-[1.5em] shrink-0 text-white/75" />
-                <span className="text-base sm:text-lg text-white/75 truncate">{businessHours}</span>
-              </p>
-            }
+            </div>
           </div>
+
+          <div className="h-px bg-white/15 my-10"></div>
+
+          {/* Copyright */}
+          <div className="flex flex-col md:flex-row md:justify-between">
+            <Link className="text-white/75 text-base transition hover:underline md:order-2 text-center mb-4 md:mb-0" href="/privacy-policy">Privacy policy</Link>
+            <p className="text-white/75 text-base md:order-1 text-center">{copyright}</p>
+          </div>
+
         </div>
-
-        <div className="h-px bg-white/15 my-10"></div>
-
-        {/* Copyright */}
-        <div className="text-center md:flex md:justify-between md:text-left">
-          <p className="text-base sm:text-lg">
-            <Link className="inline-block text-white/75 transition underline hover:no-underline" href="/privacy-policy">Privacy policy</Link>
-          </p>
-          <p className="mt-4 text-base sm:text-lg text-white/75 md:order-first md:mt-0">{copyright}</p>
-        </div>
-
       </div>
     </footer >
   );
