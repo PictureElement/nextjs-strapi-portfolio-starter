@@ -43,7 +43,7 @@ export default function Header({ data, siteRepresentation }) {
           <Image
             priority
             src={logoUrl}
-            alt={logo.alternativeText}
+            alt={logo.alternativeText ?? ''}
             className="hidden md:block"
             width={Math.round((logo?.width ?? 36) / 2)}
             height={Math.round((logo?.height ?? 36) / 2)}
@@ -52,7 +52,7 @@ export default function Header({ data, siteRepresentation }) {
           <Image
             priority
             src={logomarkUrl}
-            alt={logomark.alternativeText}
+            alt={logomark.alternativeText ?? ''}
             className="md:hidden"
             width={Math.round((logomark?.width ?? 36) / 2)}
             height={Math.round((logomark?.height ?? 36) / 2)}

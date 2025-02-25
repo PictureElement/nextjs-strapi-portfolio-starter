@@ -1,5 +1,4 @@
-1. Implement form submission.
-2. Back to top.
+1. Back to top.
 
 Future Todo:
 1. Implement pagination to Blog and Projects (use Hyper UI).

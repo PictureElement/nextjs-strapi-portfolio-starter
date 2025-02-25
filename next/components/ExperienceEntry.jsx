@@ -23,7 +23,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
             src={companyLogoUrl}
             width={92}
             height={92}
-            alt={companyLogoAlternativeText}
+            alt={companyLogoAlternativeText ?? ''}
             sizes="46px"
           />
         </a>

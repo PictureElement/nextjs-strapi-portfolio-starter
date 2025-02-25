@@ -20,7 +20,7 @@ export default function About({ data }) {
               className="rounded-t-2xl md:rounded-2xl w-full border border-neutral-200"
               priority
               src={imageUrl}
-              alt={image.alternativeText}
+              alt={image.alternativeText ?? ''}
               width={1466}
               height={1100}
               sizes="(max-width: 767px) calc(100vw - 34px), (max-width: 1024px) calc(50vw - 18px), 494px"

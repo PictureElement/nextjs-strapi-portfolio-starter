@@ -25,7 +25,7 @@
     "react-collapse": "^5.1.1",
     "react-dom": "^18",
     "react-hook-form": "^7.54.2",
-    "react-share": "^5.1.1",
+    "react-share": "^5.2.2",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.4",
     "zod": "^3.24.1"

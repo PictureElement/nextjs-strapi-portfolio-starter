@@ -183,7 +183,7 @@ export default async function Page({ params }) {
               className="mb-12 rounded-2xl overflow-hidden w-full border border-neutral-100"
               priority
               src={featuredImageUrl}
-              alt={featuredImage.alternativeText}
+              alt={featuredImage.alternativeText ?? ''}
               width={1468}
               height={769}
               sizes="(max-width: 1152px) calc(100vw - 34px), 1118px"

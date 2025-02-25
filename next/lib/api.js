@@ -19,7 +19,7 @@ const qs = require('qs');
 //
 
 async function fetchData(endpoint) {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+  const token = process.env.STRAPI_API_TOKEN;
   const url = new URL(endpoint, process.env.NEXT_PUBLIC_STRAPI).href;
   const cacheStrategy = process.env.NODE_ENV === 'production' ? 'force-cache' : 'no-store';
 
