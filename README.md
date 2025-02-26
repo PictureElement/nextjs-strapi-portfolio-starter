@@ -1,3 +1,100 @@
+# Next.js, Strapi Portfolio
+
+## Description
+
+## Features
+
+## Development setup guide
+
+### Step 1: Clone & install
+
+```
+git clone https://github.com/PictureElement/next-strapi-portfolio.git
+cd next-strapi-portfolio
+npm run setup  # Installs dependencies for both Next.js and Strapi
+```
+
+### Step 2: Configure Strapi
+
+1. Navigate to Strapi directory:
+
+	```
+	cd strapi
+	```
+
+2. Create `.env` file (use `.env.example` as template):
+
+	```
+	HOST=localhost
+	PORT=1337
+	APP_KEYS="generatedKey1,generatedKey2,generatedKey3,generatedKey4"
+	API_TOKEN_SALT=your_random_salt
+	ADMIN_JWT_SECRET=your_jwt_secret
+	TRANSFER_TOKEN_SALT=your_transfer_salt
+	JWT_SECRET=your_jwt_secret
+	```
+
+	🛠️ For development: Keep the default placeholder values (no need to modify them).
+
+### Step 3: Start Strapi
+
+```
+npm run develop
+```
+
+Access admin at `http://localhost:1337/admin` and create your first admin user.
+
+### Step 4: Create API tokens
+
+In Strapi Admin (`http://localhost:1337/admin`):
+
+1. **Read-Only Token**  
+	- Go to **Settings → API Tokens → Create New**  
+	- Name: *API-TOKEN*  
+	- Type: *Read-only*  
+	- Duration: *Unlimited*  
+	- Save and note the token.
+
+2. **Form Submission Token**  
+	- Go to **Settings → API Tokens → Create New**  
+	- Name: *FORM-SUBMISSION-TOKEN*
+	- Type: *Custom*  
+	- Permissions: Grant **Create** access *only* to **Lead** content type.  
+	- Save and note the token.
+
+### Step 5: Configure Next.js
+
+1. Navigate to Next.js directory:
+
+	```
+	cd next
+	```
+
+2. Create `.env` file:
+
+	```
+	NEXT_PUBLIC_STRAPI=http://localhost:1337
+	NEXT_PUBLIC_WEBSITE=http://localhost:3000
+	STRAPI_API_TOKEN=<API-TOKEN> # Paste your read-only token
+	STRAPI_FORM_SUBMISSION_TOKEN=<FORM-SUBMISSION-TOKEN> # Paste form token
+	```
+
+### Step 6: Start Next.js
+
+```
+npm run dev
+```
+
+App will run at `http://localhost:3000`.
+
+### Quick start (optional)
+
+To launch both Strapi and Next.js simultaneously from the **root directory**:
+
+```
+npm run dev  # Starts both apps in parallel
+```
+
 ## **Guide 1: How to deploy Strapi on Coolify**
 
 ### **Prerequisites**
