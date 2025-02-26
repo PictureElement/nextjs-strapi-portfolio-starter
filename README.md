@@ -276,3 +276,32 @@ Replace `YOUR_TRANSFER_TOKEN` with the token from Step 1.
 
 - Transfer tokens expire automatically—set short-lived tokens for safety.
 - Use HTTPS for production Strapi to encrypt data in transit.
+
+## Future enhancements
+
+1. Implement pagination to Blog and Projects pages.  
+2. Add a CAPTCHA solution.  
+3. Add a breadcrumb component, including breadcrumbs and breadcrumbs-related schema for SEO.  
+4. Limit media upload to specific file types if possible.  
+5. Implement an RSS feed.
+
+## Acknowledgements
+
+Special thanks to the amazing contributors and open-source communities behind the tools that made this project possible:
+
+- The [Strapi](https://strapi.io/) team for their incredible headless CMS, which powers the backend of this application.
+- The [Next.js](https://nextjs.org/) team for providing a robust framework that simplifies building modern web applications.
+- The [Tailwind CSS](https://tailwindcss.com/) community for their elegant and efficient utility-first CSS framework.
+- The [React](https://react.dev/) ecosystem and its contributors for enabling seamless UI development.
+
+Your dedication to open-source innovation inspires developers worldwide. Thank you!
+
+## Contributing
+
+Your contributions are highly appreciated! If you wish to contribute to this project, please adhere to the following steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature`.
+3. Make your modifications and commit them: `git commit -m 'Add a new feature'`.
+4. Push to the branch: `git push origin feature/your-feature`.
+5. Open a pull request.
