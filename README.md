@@ -1,6 +1,4 @@
-# **Guide 1: How to deploy Strapi on Coolify**
-
----
+## **Guide 1: How to deploy Strapi on Coolify**
 
 ### **Prerequisites**
 
@@ -39,11 +37,9 @@
 
 ---
 
-# **Guide 2: Transfer of Strapi schemas & configuration to a Coolify-hosted production instance**
+## **Guide 2: Transfer of Strapi schemas & configuration to a Coolify-hosted production instance**
 
 *A one-time transfer of content types (strapi/src/) and configuration (dump.json) from localhost to production.*
-
----
 
 ### **Prerequisites**
 
@@ -110,11 +106,9 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 
 ---
 
-# **Guide 3: How to transfer Strapi data to a Coolify-hosted production instance**
+## **Guide 3: How to transfer Strapi data to a Coolify-hosted production instance**
 
 *Securely migrate content (entries, media) from local Strapi to a Coolify-hosted production instance.*
-
----
 
 ### **Prerequisites**
 
@@ -131,8 +125,6 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 
 ✅ **Transfer token permissions**:
 - You have admin access to the production Strapi’s admin panel to generate a transfer token.
-
----
 
 ### **Step 1: Generate a transfer token in production**
 
