@@ -7,13 +7,17 @@
 ### **Step 1: Create a Strapi resource**
 
 1. Go to your Coolify dashboard.
+
 2. Create a new project (or select an existing one).
+
 3. Under the project, add a new resource.
+
 4. Search for the **Strapi** template (based on the `elestio/strapi-development` Docker image).
 
 ### **Step 2: Configure for production**
 
 1. In the resource configuration, locate the **Strapi Node Environment** field.
+
 2. Change the environment from `development` to `production`.
 
 ### **Step 3: Set up domains**
@@ -31,6 +35,7 @@
 ### **Step 4: Deploy**
 
 1. Click **Deploy** to deploy the resource.
+
 2. Coolify will:
 	- Provision the Postgres database.
 	- Deploy Strapi in production mode.
@@ -63,12 +68,16 @@ Stop the remote Strapi service on Coolify.
 
 1. In your Coolify Strapi configuration modify the Docker Compose file.
 	- Replace the named volume `strapi-src:/opt/app/src` with a bind mount:
+
 	```
 	volumes:
 	    - /home/strapi/src:/opt/app/src
 	```
+
 	- *Why?* Bind mounts allow direct file access between host and container.
+
 2. Create the host directory:
+
 	```
 	mkdir -p /home/strapi/src
 	```
@@ -76,6 +85,7 @@ Stop the remote Strapi service on Coolify.
 ### **Step 3: Copy schema files to remote host**
 
 Transfer files from local to remote using `rsync`:
+
    ```
    # Basic rsync (password/auth prompt):
    rsync -avz --progress strapi/src/ deploy@<server-ip>:/home/strapi/src/
@@ -87,12 +97,15 @@ Transfer files from local to remote using `rsync`:
    # SSH key-based rsync (replace paths):
    rsync -avz -e "ssh -i ~/.ssh/id_ed25519" strapi/src/ root@<server-ip>:/home/strapi/src/
    ```
+
 Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private key path.
 
 ### **Step 4: Restore Strapi configuration on production instance**
 
 1. Restart the remote Strapi service (via Coolify dashboard).
+
 2. Access the Strapi container’s terminal (via Coolify) and restore the configuration dump:
+
 	```
 	npm run strapi configuration:restore -- -f src/dump.json
 	```
@@ -125,20 +138,27 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 ### **Step 1: Generate a transfer token in production**
 
 1. Log in to your production Strapi admin panel (`https://your-domain.com/admin`).
+
 2. Go to Settings → Transfer Tokens → Create New Transfer Token.
+
 3. Name the token (e.g., “Local to Prod Transfer”), set an expiration date and give it full access.
+
 4. Copy the generated token.
 
 ### **Step 2: Transfer data from local to production**
 
 1. Navigate to your local Strapi project:
+
 	```
 	cd strapi
 	```
+
 2. Run the transfer command:
+
 	```
 	npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token YOUR_TRANSFER_TOKEN
 	```
+
 	Replace `YOUR_TRANSFER_TOKEN` with the token from Step 1.
 
 ### **Key notes**
