@@ -16,13 +16,13 @@ npm run setup  # Installs dependencies for both Next.js and Strapi
 
 ### Step 2: Configure Strapi
 
-**i. Navigate to Strapi directory:**
+i. Navigate to Strapi directory:
 
 ```
 cd strapi
 ```
 
-**ii. Create `.env` file (use `.env.example` as template):**
+ii. Create `.env` file (use `.env.example` as template):
 
 ```
 HOST=localhost
@@ -48,31 +48,31 @@ Access admin at `http://localhost:1337/admin` and create your first admin user.
 
 In Strapi Admin (`http://localhost:1337/admin`):
 
-**i. Read-only token**
+i. Read-only token
 
-- Go to **Settings → API Tokens → Create New**
-- Name: *API-TOKEN*
-- Type: *Read-only*
-- Duration: *Unlimited*
+- Go to *Settings → API Tokens → Create New*
+- Name: API-TOKEN
+- Type: Read-only
+- Duration: Unlimited
 - Save and note the token.
 
-**ii. Form submission token**
+ii. Form submission token
 
-- Go to **Settings → API Tokens → Create New**
-- Name: *FORM-SUBMISSION-TOKEN*
-- Type: *Custom*
-- Permissions: Grant **Create** access *only* to **Lead** content type.
+- Go to *Settings → API Tokens → Create New*
+- Name: FORM-SUBMISSION-TOKEN
+- Type: Custom
+- Permissions: Grant *Create* access only to *Lead* content type.
 - Save and note the token.
 
 ### Step 5: Configure Next.js
 
-**i. Navigate to Next.js directory:**
+i. Navigate to Next.js directory:
 
 ```
 cd next
 ```
 
-**ii. Create `.env` file:**
+ii. Create `.env` file:
 
 ```
 NEXT_PUBLIC_STRAPI=http://localhost:1337
@@ -91,7 +91,7 @@ App will run at `http://localhost:3000`.
 
 ### Quick start (optional)
 
-To launch both Strapi and Next.js simultaneously from the **root directory**:
+To launch both Strapi and Next.js simultaneously from the root directory:
 
 ```
 npm run dev  # Starts both apps in parallel
@@ -111,33 +111,33 @@ ii. Create a new project (or select an existing one).
 
 iii. Under the project, add a new resource.
 
-iv. Search for the **Strapi** template (based on the `elestio/strapi-development` Docker image).
+iv. Search for the *Strapi* template (based on the `elestio/strapi-development` Docker image).
 
 ### Step 2: Configure for production
 
-i. In the resource configuration, locate the **Strapi Node Environment** field.
+i. In the resource configuration, locate the *Strapi Node Environment* field.
 
 ii. Change the environment from `development` to `production`.
 
 ### Step 3: Set up domains
 
-**i. The resource includes two services:**
+i. The resource includes two services:
 
-- Strapi (elestio/strapi-development:latest)
-- Postgresql (elestio/postgres:latest)
+- `Strapi (elestio/strapi-development:latest)`
+- `Postgresql (elestio/postgres:latest)`
 
-**ii. Under the settings of the Strapi service:**
+ii. Under the settings of the Strapi service:
 
-- In the **Domains** field, remove the default `:1337` port from the URL.
-	- *Why?*  
+- In the *Domains* field, remove the default `:1337` port from the URL.
+	- Why?
 		- Non-standard ports (like `1337`) are unnecessary in production.
-		- Coolify’s built-in reverse proxy automatically handles SSL termination (HTTPS on port 443) and forwards traffic to Strapi’s internal port 1337.
+		- Coolify’s built-in reverse proxy automatically handles SSL termination (HTTPS on port `443`) and forwards traffic to Strapi’s internal port `1337`.
 
 ### Step 4: Deploy
 
-**i. Click **Deploy** to deploy the resource.**
+i. Click *Deploy* to deploy the resource.
 
-**ii. Coolify will:**
+ii. Coolify will:
 
 - Provision the Postgres database.
 - Deploy Strapi in production mode.
@@ -172,16 +172,18 @@ Stop the remote Strapi service on Coolify.
 
 ### Step 2: Update Docker volume binding
 
-**i. In your Coolify Strapi configuration modify the Docker Compose file.**
+i. In your Coolify Strapi configuration modify the Docker Compose file.
 
-- Replace the named volume `strapi-src:/opt/app/src` with a bind mount:
-	```
-	volumes:
-		- /home/strapi/src:/opt/app/src
-	```
-- *Why?* Bind mounts allow direct file access between host and container.
+Replace the named volume `strapi-src:/opt/app/src` with a bind mount:
 
-**ii. Create the host directory:**
+```
+volumes:
+	- /home/strapi/src:/opt/app/src
+```
+
+Why? Bind mounts allow direct file access between host and container.
+
+ii. Create the host directory:
 
 ```
 mkdir -p /home/strapi/src
@@ -207,9 +209,9 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 
 ### Step 4: Restore Strapi configuration on production instance
 
-**i. Restart the remote Strapi service (via Coolify dashboard).**
+i. Restart the remote Strapi service (via Coolify dashboard).
 
-**ii. Access the Strapi container’s terminal (via Coolify) and restore the configuration dump:**
+ii. Access the Strapi container’s terminal (via Coolify) and restore the configuration dump:
 
 ```
 npm run strapi configuration:restore -- -f src/dump.json
@@ -246,23 +248,23 @@ npm run strapi configuration:restore -- -f src/dump.json
 
 ### Step 1: Generate a transfer token in production
 
-**i. Log in to your production Strapi admin panel (`https://your-domain.com/admin`).**
+i. Log in to your production Strapi admin panel (`https://your-domain.com/admin`).
 
-**ii. Go to Settings → Transfer Tokens → Create New Transfer Token.**
+ii. Go to *Settings → Transfer Tokens → Create New Transfer Token*.
 
-**iii. Name the token (e.g., “Local to Prod Transfer”), set an expiration date and give it full access.**
+iii. Name the token (e.g., "Local to Prod Transfer"), set an expiration date and give it full access.
 
-**iv. Copy the generated token.**
+iv. Copy the generated token.
 
 ### Step 2: Transfer data from local to production
 
-**i. Navigate to your local Strapi project:**
+i. Navigate to your local Strapi project:
 
 ```
 cd strapi
 ```
 
-**ii. Run the transfer command:**
+ii. Run the transfer command:
 
 ```
 npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token YOUR_TRANSFER_TOKEN
