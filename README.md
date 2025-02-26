@@ -35,8 +35,6 @@
 	- Provision the Postgres database.
 	- Deploy Strapi in production mode.
 
----
-
 ## **Guide 2: Transfer of Strapi schemas & configuration to a Coolify-hosted production instance**
 
 *A one-time transfer of content types (strapi/src/) and configuration (dump.json) from localhost to production.*
@@ -103,8 +101,6 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 
 - 🚫 **Schema/configurations only**: This only transfers schemas/configs (no content data).  
 - 🔄 **One-time transfer**: Repeat steps manually if schemas change (no automatic sync).
-
----
 
 ## **Guide 3: How to transfer Strapi data to a Coolify-hosted production instance**
 
