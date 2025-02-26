@@ -126,12 +126,12 @@ i. The resource includes two services:
 - `Strapi (elestio/strapi-development:latest)`
 - `Postgresql (elestio/postgres:latest)`
 
-ii. Under the settings of the Strapi service:
+ii. Under the settings of the Strapi service remove the default `:1337` port from *Domains* field.
 
-- In the *Domains* field, remove the default `:1337` port from the URL.
-	- Why?
-		- Non-standard ports (like `1337`) are unnecessary in production.
-		- Coolify’s built-in reverse proxy automatically handles SSL termination (HTTPS on port `443`) and forwards traffic to Strapi’s internal port `1337`.
+Why?
+
+- Non-standard ports (like `1337`) are unnecessary in production.
+- Coolify’s built-in reverse proxy automatically handles SSL termination (HTTPS on port `443`) and forwards traffic to Strapi’s internal port `1337`.
 
 ### Step 4: Deploy
 
@@ -178,7 +178,7 @@ Replace the named volume `strapi-src:/opt/app/src` with a bind mount:
 
 ```
 volumes:
-	- /home/strapi/src:/opt/app/src
+  - /home/strapi/src:/opt/app/src
 ```
 
 Why? Bind mounts allow direct file access between host and container.
