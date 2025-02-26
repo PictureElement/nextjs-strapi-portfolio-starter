@@ -63,27 +63,27 @@ Stop the remote Strapi service on Coolify.
 
 1. In your Coolify Strapi configuration modify the Docker Compose file.
 	- Replace the named volume `strapi-src:/opt/app/src` with a bind mount:
-	```yaml
+	```
 	volumes:
-		- /home/strapi/src:/opt/app/src
-	```  
-	 - *Why?* Bind mounts allow direct file access between host and container.
+	    - /home/strapi/src:/opt/app/src
+	```
+	- *Why?* Bind mounts allow direct file access between host and container.
 2. Create the host directory:
-	```bash
+	```
 	mkdir -p /home/strapi/src
 	```
 
 ### **Step 3: Copy schema files to remote host**
 
 Transfer files from local to remote using `rsync`:
-   ```bash
+   ```
    # Basic rsync (password/auth prompt):
    rsync -avz --progress strapi/src/ deploy@<server-ip>:/home/strapi/src/
    ```
 
 **OR**
 
-   ```bash
+   ```
    # SSH key-based rsync (replace paths):
    rsync -avz -e "ssh -i ~/.ssh/id_ed25519" strapi/src/ root@<server-ip>:/home/strapi/src/
    ```
@@ -93,9 +93,9 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 
 1. Restart the remote Strapi service (via Coolify dashboard).
 2. Access the Strapi container’s terminal (via Coolify) and restore the configuration dump:
-	```bash
+	```
 	npm run strapi configuration:restore -- -f src/dump.json
-	```  
+	```
 
 ### **Key notes**
 
@@ -132,11 +132,11 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 ### **Step 2: Transfer data from local to production**
 
 1. Navigate to your local Strapi project:
-	```bash
+	```
 	cd strapi
 	```
 2. Run the transfer command:
-	```bash
+	```
 	npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token YOUR_TRANSFER_TOKEN
 	```
 	Replace `YOUR_TRANSFER_TOKEN` with the token from Step 1.
