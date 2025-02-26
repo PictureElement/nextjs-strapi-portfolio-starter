@@ -106,21 +106,25 @@ npm run dev  # Starts both apps in parallel
 ### Step 1: Create a Strapi resource
 
 i. Go to your Coolify dashboard.
+
 ii. Create a new project (or select an existing one).
+
 iii. Under the project, add a new resource.
+
 iv. Search for the **Strapi** template (based on the `elestio/strapi-development` Docker image).
 
 ### Step 2: Configure for production
 
 i. In the resource configuration, locate the **Strapi Node Environment** field.
+
 ii. Change the environment from `development` to `production`.
 
 ### Step 3: Set up domains
 
 **i. The resource includes two services:**
 
-- **Strapi (elestio/strapi-development:latest)**
-- **Postgresql (elestio/postgres:latest)**
+- Strapi (elestio/strapi-development:latest)
+- Postgresql (elestio/postgres:latest)
 
 **ii. Under the settings of the Strapi service:**
 
@@ -192,7 +196,7 @@ Transfer files from local to remote using `rsync`:
 rsync -avz --progress strapi/src/ deploy@<server-ip>:/home/strapi/src/
 ```
 
-**OR**
+OR
 
 ```
 # SSH key-based rsync (replace paths):
