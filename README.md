@@ -34,7 +34,7 @@ TRANSFER_TOKEN_SALT=your_transfer_salt
 JWT_SECRET=your_jwt_secret
 ```
 
-🛠️ For development: Keep the default placeholder values (no need to modify them).
+For development: Keep the default placeholder values (no need to modify them).
 
 ### Step 3: Start Strapi
 
@@ -97,52 +97,93 @@ To launch both Strapi and Next.js simultaneously from the root directory:
 npm run dev  # Starts both apps in parallel
 ```
 
-## Guide 1: How to deploy Strapi on Coolify
+## Production setup guide
 
-### Prerequisites
+### Introduction
 
-✅ A running Coolify instance on your server
+This guide demonstrates configuring a production environment using Coolify—an open-source, self-hosted Platform-as-a-Service (PaaS) alternative to managed platforms like Netlify, Vercel, and Heroku. Designed for developers seeking full infrastructure control, Coolify simplifies deployment workflows while eliminating reliance on third-party cloud services.
 
-### Step 1: Create a Strapi resource
+### Disclaimer
 
-i. Go to your Coolify dashboard.
+- Coolify is currently in public Beta, so while it offers powerful CI/CD automation and deployment workflows, carefully evaluate its stability for critical production workloads.
 
-ii. Create a new project (or select an existing one).
+- For this tutorial, we'll use a Hetzner Cloud VPS as our hosting platform. I'm not affiliated with Hetzner—it's chosen purely for its cost-effective performance-to-price ratio, though alternatives like AWS Lightsail or DigitalOcean would work similarly. Coolify's self-hosted nature allows flexibility in VPS provider selection.
 
-iii. Under the project, add a new resource.
+### Step 1: VPS & Coolify setup
 
-iv. Search for the *Strapi* template (based on the `elestio/strapi-development` Docker image).
+Follow CJ Reynolds' [Coolify Crash Course](https://youtu.be/taJlPG82Ucw) on the [Syntax](https://www.youtube.com/@syntaxfm) YouTube channel to configure Coolify on a Hetzner Cloud VPS server. The tutorial covers essential steps such as SSH setup, firewall configuration, reverse proxy settings, SSL termination, and more.
 
-### Step 2: Configure for production
+### Step 2: Strapi backend deployment
 
-i. In the resource configuration, locate the *Strapi Node Environment* field.
+i. Create a Strapi resource
 
-ii. Change the environment from `development` to `production`.
+In Coolify dashboard navigate to *Projects* and create a new project (or select an existing one). Under the project, add a new resource. Search for the *Strapi* template (based on the `elestio/strapi-development` image).
 
-### Step 3: Set up domains
+ii. Production configuration
 
-i. The resource includes two services:
+- Set "Strapi Node Environment" to `production`
+- Configure the Strapi domain(s). Remove explicit ports (e.g., `:1337`) from domain entries.
+  
+  Why?
 
-- `Strapi (elestio/strapi-development:latest)`
-- `Postgresql (elestio/postgres:latest)`
+  - Using non-standard ports (like `1337`) in a production environment is unnecessary and can expose your application to potential security risks. It's a best practice to configure your firewall to block traffic on all ports except the essential ones (e.g., `80` for HTTP, `443` for HTTPS, and `22` for SSH).
+  - Coolify's built-in reverse proxy automatically handles SSL termination (HTTPS on port `443`) and forwards traffic to Strapi's internal port `1337`.
 
-ii. Under the settings of the Strapi service remove the default `:1337` port from *Domains* field.
+iii. Deploy Strapi
 
-Why?
+Click *Deploy* to deploy Strapi in production.
 
-- Non-standard ports (like `1337`) are unnecessary in production.
-- Coolify’s built-in reverse proxy automatically handles SSL termination (HTTPS on port `443`) and forwards traffic to Strapi’s internal port `1337`.
+### Step 3: Strapi admin setup
 
-### Step 4: Deploy
+i. Access admin UI: `https://<your-strapi-domain>/admin`
 
-i. Click *Deploy* to deploy the resource.
+ii. Create admin user
 
-ii. Coolify will:
+iii. Generate API Tokens (*Settings → API Tokens*):
 
-- Provision the Postgres database.
-- Deploy Strapi in production mode.
+| Token Name              | Type       | Permissions               |
+|-------------------------|------------|---------------------------|
+| `API-TOKEN`             | Read-only  | All content types         |
+| `FORM-SUBMISSION-TOKEN` | Custom     | Leads → Create only       |
 
-## Guide 2: Transfer of Strapi schemas & configuration to a Coolify-hosted production instance
+iv. Note down the tokens for later use.
+
+### Step 4: GitHub integration
+
+i. In Coolify dashboard navigate to *Sources* and add a new GitHub App. Name the app and register the webhook endpoint (make sure to use `https`).
+
+ii. Proceed with the creation of the GitHub App on GitHub's authorization page.
+
+iii. After returning to Coolify, click *Install Repositories on GitHub* and select the `next-strapi-portfolio` repository to authorize access.
+
+### Step 5: Next.js frontend deployment
+
+i. Create a Next.js resource
+
+In Coolify dashboard navigate to *Projects* and create a new project (or select an existing one). Under the project, add a new resource. Select the *Private Repository (with GitHub App)* type, choose the `next-strapi-portfolio` repository and load it.
+
+ii. Production configuration
+
+- Under *Configuration/General* configure the following settings:
+  - Build Pack: Nixpacks
+  - Domains: https://<your-nextjs-domain>
+  - Install Command: `npm install`
+  - Build Command: `npm run build`
+  - Start Command: `npm run start`
+  - Base Directory: `/next`
+  - Publish Directory: `/next`
+
+- Under *Configuration/Environment Variables* add the following variables:
+  - `NEXT_PUBLIC_STRAPI=https://<your-strapi-domain>`
+  - `NEXT_PUBLIC_WEBSITE=https://<your-nextjs-domain>`
+  - `STRAPI_API_TOKEN=<api-token-from-step-3>`
+  - `STRAPI_FORM_SUBMISSION_TOKEN=<form-token-from-step-3>`
+
+iii. Deploy Next.js
+
+Click *Deploy* to deploy Next.js in production.
+
+## Guide 1: Transfer Strapi schemas & configuration to production
 
 *A one-time transfer of content types (strapi/src/) and configuration (dump.json) from localhost to production.*
 
@@ -150,7 +191,7 @@ ii. Coolify will:
 
 ✅ Remote Strapi instance on Coolify:
 
-- Your production Strapi is already deployed via Coolify.
+- Your production Strapi is already deployed via Coolify (You've followed the *Production setup guide*).
 
 ✅ Matching Strapi versions:
 
@@ -211,7 +252,7 @@ Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private ke
 
 i. Restart the remote Strapi service (via Coolify dashboard).
 
-ii. Access the Strapi container’s terminal (via Coolify) and restore the configuration dump:
+ii. Access the Strapi container's terminal (via Coolify) and restore the configuration dump:
 
 ```
 npm run strapi configuration:restore -- -f src/dump.json
@@ -219,10 +260,10 @@ npm run strapi configuration:restore -- -f src/dump.json
 
 ### Key notes
 
-- 🚫 Schema/configurations only: This only transfers schemas/configs (no content data).  
-- 🔄 One-time transfer: Repeat steps manually if schemas change (no automatic sync).
+- Schema/configurations only: This only transfers schemas/configs (no content data).  
+- One-time transfer: Repeat steps manually if schemas change (no automatic sync).
 
-## Guide 3: How to transfer Strapi data to a Coolify-hosted production instance
+## Guide 2: Migrate Strapi content to production
 
 *Securely migrate content (entries, media) from local Strapi to a Coolify-hosted production instance.*
 
@@ -230,7 +271,7 @@ npm run strapi configuration:restore -- -f src/dump.json
 
 ✅ Remote Strapi instance on Coolify:
 
-- Your production Strapi is already deployed via Coolify.
+- Your production Strapi is already deployed via Coolify (You've followed the *Production setup guide*).
 
 ✅ Matching Strapi versions:
 
@@ -244,7 +285,7 @@ npm run strapi configuration:restore -- -f src/dump.json
 
 ✅ Transfer token permissions:
 
-- You have admin access to the production Strapi’s admin panel to generate a transfer token.
+- You have admin access to the production Strapi's admin panel to generate a transfer token.
 
 ### Step 1: Generate a transfer token in production
 
