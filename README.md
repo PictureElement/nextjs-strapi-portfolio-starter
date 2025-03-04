@@ -150,7 +150,7 @@ iv. Note down the tokens for later use.
 
 ### Step 4: GitHub integration
 
-i. In Coolify dashboard navigate to *Sources* and add a new GitHub App. Name the app and register the webhook endpoint (make sure to use `https`).
+i. In Coolify dashboard navigate to *Sources* and add a new GitHub App. Name the app and register the webhook endpoint (make sure to use `https://`).
 
 ii. Proceed with the creation of the GitHub App on GitHub's authorization page.
 
@@ -166,7 +166,7 @@ ii. Production configuration
 
 - Under *Configuration/General* configure the following settings:
   - Build Pack: Nixpacks
-  - Domains: https://<your-nextjs-domain>
+  - Domains: `https://<your-nextjs-domain>`
   - Install Command: `npm install`
   - Build Command: `npm run build`
   - Start Command: `npm run start`
