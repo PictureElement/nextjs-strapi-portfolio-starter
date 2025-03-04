@@ -86,6 +86,8 @@ npm run dev
 
 App will run at `http://localhost:3000`.
 
+At this stage, you will see a screen displaying error messages. Don’t worry—this is expected! These errors will resolve as soon as you populate the backend with the required data. Once the backend is set up, various parts of the website will dynamically update with real content.
+
 ### Quick start (optional)
 
 To launch both Strapi and Next.js simultaneously from the root directory:
