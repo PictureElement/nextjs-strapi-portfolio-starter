@@ -27,11 +27,11 @@ ii. Create `.env` file (use `.env.example` as template):
 ```
 HOST=localhost
 PORT=1337
-APP_KEYS="generatedKey1,generatedKey2,generatedKey3,generatedKey4"
-API_TOKEN_SALT=your_random_salt
-ADMIN_JWT_SECRET=your_jwt_secret
-TRANSFER_TOKEN_SALT=your_transfer_salt
-JWT_SECRET=your_jwt_secret
+APP_KEYS="toBeModified1,toBeModified2,toBeModified3,toBeModified4"
+API_TOKEN_SALT=tobemodified
+ADMIN_JWT_SECRET=tobemodified
+TRANSFER_TOKEN_SALT=tobemodified
+JWT_SECRET=tobemodified
 ```
 
 For development: Keep the default placeholder values (no need to modify them).
@@ -50,7 +50,7 @@ In Strapi Admin (`http://localhost:1337/admin`):
 
 i. Read-only token
 
-- Go to *Settings → API Tokens → Create New*
+- Go to *Settings → API Tokens → Create New API Token*
 - Name: API-TOKEN
 - Type: Read-only
 - Duration: Unlimited
@@ -58,9 +58,10 @@ i. Read-only token
 
 ii. Form submission token
 
-- Go to *Settings → API Tokens → Create New*
+- Go to *Settings → API Tokens → Create New API Token*
 - Name: FORM-SUBMISSION-TOKEN
 - Type: Custom
+- Duration: Unlimited
 - Permissions: Grant *Create* access only to *Lead* content type.
 - Save and note the token.
 
@@ -72,14 +73,16 @@ i. Navigate to Next.js directory:
 cd next
 ```
 
-ii. Create `.env` file:
+ii. Create `.env` file (use `.env.example` as template):
 
 ```
 NEXT_PUBLIC_STRAPI=http://localhost:1337
 NEXT_PUBLIC_WEBSITE=http://localhost:3000
-STRAPI_API_TOKEN=<API-TOKEN> # Paste your read-only token
-STRAPI_FORM_SUBMISSION_TOKEN=<FORM-SUBMISSION-TOKEN> # Paste form token
+STRAPI_API_TOKEN=your_generated_token
+STRAPI_FORM_SUBMISSION_TOKEN=your_generated_token
 ```
+
+Replace `your_generated_token` with the tokens you created earlier.
 
 ### Step 6: Start Next.js
 
