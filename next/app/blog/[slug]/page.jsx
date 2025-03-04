@@ -6,6 +6,7 @@ import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
 import { fetchPostBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout } from "@/lib/api";
 import { formatDate } from '@/lib/utils';
+import PrismLoader from "@/components/PrismLoader";
 
 // Return a list of "params" to populate the [slug] dynamic segment
 export async function generateStaticParams() {
