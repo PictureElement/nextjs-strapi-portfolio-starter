@@ -86,7 +86,9 @@ npm run dev
 
 App will run at `http://localhost:3000`.
 
-At this stage, you will see a screen displaying error messages. Don’t worry—this is expected! These errors will resolve as soon as you populate the backend with the required data. Once the backend is set up, various parts of the website will dynamically update with real content.
+At this stage, you will see a screen displaying error messages. Don't worry—this is expected! These errors will resolve as soon as you populate the backend with the required data. Once the backend is set up, various parts of the website will dynamically update with real content.
+
+**Tip:** Start by populating the Global Settings type first. Once that's complete, move on to adding content for pages, posts, and projects to see your site come to life!
 
 ### Quick start (optional)
 
