@@ -16,13 +16,7 @@ npm run setup  # Installs dependencies for both Next.js and Strapi
 
 ### Step 2: Configure Strapi
 
-i. Navigate to Strapi directory:
-
-```
-cd strapi
-```
-
-ii. Create `.env` file (use `.env.example` as template):
+Navigate to the `strapi` directory and create `.env` file (use `.env.example` as template):
 
 ```
 HOST=localhost
@@ -34,9 +28,15 @@ TRANSFER_TOKEN_SALT=tobemodified
 JWT_SECRET=tobemodified
 ```
 
-For development: Keep the default placeholder values (no need to modify them).
+Since this is a development environment, you can leave the default placeholder values as they are—no modifications are needed.
 
-### Step 3: Start Strapi
+### Step 3: Restore the configuration dump
+
+```
+npm run strapi configuration:restore -- --file src/dump.json
+```
+
+### Step 4: Start Strapi
 
 ```
 npm run develop
@@ -44,7 +44,7 @@ npm run develop
 
 Access admin at `http://localhost:1337/admin` and create your first admin user.
 
-### Step 4: Create API tokens
+### Step 5: Create API tokens
 
 In Strapi Admin (`http://localhost:1337/admin`):
 
@@ -65,15 +65,9 @@ ii. Form submission token
 - Permissions: Grant *Create* access only to *Lead* content type.
 - Save and note the token.
 
-### Step 5: Configure Next.js
+### Step 6: Configure Next.js
 
-i. Navigate to Next.js directory:
-
-```
-cd next
-```
-
-ii. Create `.env` file (use `.env.example` as template):
+Keep Strapi running, then open another terminal, navigate to the `next` directory, and create a `.env` file (use `.env.example` as template):
 
 ```
 NEXT_PUBLIC_STRAPI=http://localhost:1337
@@ -82,9 +76,9 @@ STRAPI_API_TOKEN=your_generated_token
 STRAPI_FORM_SUBMISSION_TOKEN=your_generated_token
 ```
 
-Replace `your_generated_token` with the tokens you created earlier.
+Replace `your_generated_token` with the tokens you created in the previous step.
 
-### Step 6: Start Next.js
+### Step 7: Start Next.js
 
 ```
 npm run dev
