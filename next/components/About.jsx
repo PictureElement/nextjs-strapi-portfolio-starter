@@ -22,7 +22,7 @@ export default function About({ data }) {
               src={imageUrl}
               alt={image.alternativeText ?? ''}
               width={1466}
-              height={1100}
+              height={1466}
               sizes="(max-width: 767px) calc(100vw - 34px), (max-width: 1024px) calc(50vw - 18px), 494px"
             />
           </div>
