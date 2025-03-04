@@ -67,6 +67,8 @@ ii. Form submission token
 
 ### Step 6: Configure Next.js
 
+i. Set up environment variables
+
 Keep Strapi running, then open another terminal, navigate to the `next` directory, and create a `.env` file (use `.env.example` as template):
 
 ```
@@ -77,6 +79,33 @@ STRAPI_FORM_SUBMISSION_TOKEN=your_generated_token
 ```
 
 Replace `your_generated_token` with the tokens you created in the previous step.
+
+ii. Customize Tailwind CSS colors (optional)
+
+In the `next` directory, update your color palette in the `tailwind.config.js` file to match your design preferences. Below is an example configuration:
+
+```
+colors: {
+  secondary: '#E81547',
+  primary: {
+    '50': '#effef1',
+    '100': '#d9ffde',
+    '200': '#b5fdbe',
+    '300': '#7cf98e',
+    '400': '#3cec55',
+    '500': '#13d430',
+    '600': '#0ac526',
+    '700': '#0b8a1e',
+    '800': '#0f6c1e',
+    '900': '#0e591c',
+    '950': '#01320a',
+  },
+},
+```
+
+To generate a custom color scale for your primary color, use a Tailwind CSS color generator tool such as [UI Colors](https://uicolors.app/). Select your desired primary color and create a gradient scale ranging from `50` to `950`.
+
+The secondary color is used primarily for the ring focus of focusable elements, such as buttons, input fields, and links, to enhance accessibility and visual feedback during navigation. Choose a secondary color that complements the primary color while offering sufficient contrast.
 
 ### Step 7: Start Next.js
 
