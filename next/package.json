@@ -18,6 +18,7 @@
     "embla-carousel-react": "^8.3.1",
     "isomorphic-dompurify": "^2.16.0",
     "marked": "^15.0.0",
+    "marked-highlight": "^2.2.1",
     "mini-svg-data-uri": "^1.4.4",
     "next": "14.2.14",
     "prismjs": "^1.29.0",
