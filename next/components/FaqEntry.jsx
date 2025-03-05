@@ -11,7 +11,7 @@ export default function FaqEntry({ question, answer }) {
       </summary>
       <div
         className="mt-4 px-4 max-w-none prose prose-gray prose-modifier"
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(answer)) }}
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(answer)) }}
       />
     </details>
   );

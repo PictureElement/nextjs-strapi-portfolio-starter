@@ -30,7 +30,7 @@ export default function About({ data }) {
             <span className="hidden md:absolute md:-inset-y-[1px] md:-start-16 md:block md:w-16 md:bg-neutral-50 md:rounded-l-2xl md:border-y md:border-l border-neutral-200"></span>
             <div
               className="p-6 md:p-8 max-w-none prose prose-gray prose-modifier"
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
             />
           </div>
         </div>

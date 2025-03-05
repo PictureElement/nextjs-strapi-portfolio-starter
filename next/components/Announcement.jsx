@@ -44,7 +44,7 @@ export default function Announcement({ data }) {
       <div className="flex items-center justify-center gap-3 mx-auto max-w-screen-xl text-white pl-[56px] pr-4 py-2">
         <div
           className="text-center max-w-none prose prose-sm prose-invert prose-modifier"
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
         />
         <button
           aria-label="Dismiss announcement"

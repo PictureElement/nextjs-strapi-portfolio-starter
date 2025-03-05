@@ -1,5 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
-import { marked } from "marked";
+import { Marked } from "marked";
+import { markedHighlight } from "marked-highlight";
 import Image from "next/image";
 import BackTo from "@/components/BackTo";
 import BtnPrimary from "@/components/BtnPrimary";
@@ -7,6 +8,22 @@ import BtnSecondary from "@/components/BtnSecondary";
 import SocialShare from "@/components/SocialShare";
 import { notFound } from "next/navigation";
 import { fetchProjectBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout } from "@/lib/api";
+import Prism from "prismjs";
+import "prismjs/themes/prism-okaidia.css";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+
+// Configure Marked with the marked-highlight plugin
+// This plugin allows integration of custom syntax highlighting logic during Markdown parsing
+const marked = new Marked(
+  markedHighlight({
+    langPrefix: 'language-',
+    highlight(code, lang) {
+      const validLanguage = Prism.languages[lang] ? lang : 'plaintext';
+      return Prism.highlight(code, Prism.languages[validLanguage], validLanguage);
+    }
+  })
+);
 
 // Return a list of "params" to populate the [slug] dynamic segment
 export async function generateStaticParams() {
@@ -193,7 +210,7 @@ export default async function Page({ params }) {
             <section className="mt-12 md:mt-0 max-w-none md:w-2/3 prose prose-gray prose-modifier">
               <div
                 className="[&>*:first-child]:mt-0"
-                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
               />
               <hr className="border-neutral-100" />
               <SocialShare />

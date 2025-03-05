@@ -134,7 +134,7 @@ export default async function Page() {
       <section className="mx-auto max-w-5xl px-4 py-24">
         <div
           className="mx-auto max-w-none prose prose-gray prose-modifier"
-          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
         />
       </section>
     </>
