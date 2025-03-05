@@ -29,7 +29,7 @@ export default function About({ data }) {
           <div className="relative flex items-center bg-neutral-50 rounded-b-2xl border-x border-b border-neutral-200 md:rounded-none md:rounded-r-2xl md:border-l-0 md:border-y">
             <span className="hidden md:absolute md:-inset-y-[1px] md:-start-16 md:block md:w-16 md:bg-neutral-50 md:rounded-l-2xl md:border-y md:border-l border-neutral-200"></span>
             <div
-              className="p-6 md:p-8 max-w-none prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
+              className="p-6 md:p-8 max-w-none prose prose-gray prose-modifier"
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
             />
           </div>

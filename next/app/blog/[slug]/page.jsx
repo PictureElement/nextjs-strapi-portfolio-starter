@@ -213,7 +213,7 @@ export default async function Page({ params }) {
               sizes="(max-width: 1024px) calc(100vw - 34px), 990px"
             />
           </header>
-          <div className="prose prose-gray prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2 mx-auto">
+          <div className="mx-auto prose prose-gray prose-modifier">
             <div
               className="[&>*:first-child]:mt-0"
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}

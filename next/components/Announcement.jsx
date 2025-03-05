@@ -43,7 +43,7 @@ export default function Announcement({ data }) {
     <aside className="bg-neutral-950 relative z-[10000]">
       <div className="flex items-center justify-center gap-3 mx-auto max-w-screen-xl text-white pl-[56px] pr-4 py-2">
         <div
-          className="text-center max-w-none prose prose-sm prose-invert prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2"
+          className="text-center max-w-none prose prose-sm prose-invert prose-modifier"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked(content)) }}
         />
         <button

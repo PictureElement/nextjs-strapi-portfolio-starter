@@ -34,3 +34,7 @@ textarea {
 .triangle-path::after {
   clip-path: polygon(100% 0, 0% 100%, 100% 100%);
 }
+
+.prose-modifier {
+  @apply prose-img:rounded-md prose-img:my-0 prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2;
+}
