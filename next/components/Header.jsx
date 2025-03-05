@@ -67,6 +67,8 @@ export default function Header({ data, siteRepresentation }) {
             rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
             label={cta.label}
             url={cta.url}
+            showIcon={cta.showIcon}
+            iconType={cta.iconType}
           />
           <button
             className="

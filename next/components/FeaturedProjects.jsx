@@ -24,7 +24,7 @@ export default function FeaturedProjects({ data, projects }) {
           )
         )}
         <div className="mt-6 md:mt-12 flex items-center justify-center gap-x-4">
-          <BtnSecondary label="View all projects" url="/projects/" />
+          <BtnSecondary label="View all projects" url="/projects/" showIcon={true} />
         </div>
       </div>
     </section>

@@ -38,6 +38,8 @@ const linkSchema = z.object({
   url: z.string(),
   openLinkInNewTab: z.boolean(),
   sameHostLink: z.boolean(),
+  showIcon: z.boolean(),
+  iconType: z.enum(["arrowRight", "arrowUpRight"]),
 });
 
 const sectionHeaderSchema = z.object({

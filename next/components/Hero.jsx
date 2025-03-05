@@ -29,6 +29,8 @@ export default function Hero({ data }) {
               className="w-full sm:w-auto"
               label={primaryButton.label}
               url={primaryButton.url}
+              showIcon={primaryButton.showIcon}
+              iconType={primaryButton.iconType}
             />
           )}
           {secondaryButton && (
@@ -38,6 +40,8 @@ export default function Hero({ data }) {
               className="w-full sm:w-auto"
               label={secondaryButton.label}
               url={secondaryButton.url}
+              showIcon={secondaryButton.showIcon}
+              iconType={secondaryButton.iconType}
             />
           )}
         </div>

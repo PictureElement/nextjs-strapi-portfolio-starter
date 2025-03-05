@@ -201,7 +201,7 @@ export default async function Page({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BackTo label="Back to blog" url="/blog/" />
+      <BackTo label="Back to Blog" url="/blog/" />
       <div className="mx-auto max-w-5xl px-4">
         <article>
           <header>
@@ -239,7 +239,7 @@ export default async function Page({ params }) {
           </div>
         </article>
       </div>
-      <BackTo label="Back to blog" url="/blog/" />
+      <BackTo label="Back to Blog" url="/blog/" />
     </>
   );
 }

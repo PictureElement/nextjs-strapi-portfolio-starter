@@ -8,8 +8,28 @@ export default function BtnPrimary({
   target = undefined,
   rel = undefined,
   className = '',
+  showIcon = false,
+  iconType = 'arrowRight',
   ...rest
 }) {
+
+  // Helper function to render the appropriate icon
+  const renderIcon = () => {
+    if (!showIcon) return null; // If showIcon is false, return nothing
+
+    switch (iconType) {
+      case 'arrowUpRight':
+        return (
+          <ArrowUpRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
+        );
+      case 'arrowRight':
+      default:
+        return (
+          <ArrowRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
+        );
+    }
+  };
+
   return (
     <Link
       target={target}
@@ -38,11 +58,7 @@ export default function BtnPrimary({
       {...rest}
     >
       {label}
-      {rel === undefined ? (
-        <ArrowRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
-      ) : (
-        <ArrowUpRightIcon className="h-[1em] w-[1em] ms-1 group-hover:translate-x-0.5 transition" />
-      )}
+      {renderIcon()}
     </Link>
   );
 }

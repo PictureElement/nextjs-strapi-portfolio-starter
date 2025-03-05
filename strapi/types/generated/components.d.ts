@@ -7,6 +7,9 @@ export interface BasicButton extends Struct.ComponentSchema {
     displayName: 'Button';
   };
   attributes: {
+    iconType: Schema.Attribute.Enumeration<['arrowRight', 'arrowUpRight']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'arrowRight'>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     openLinkInNewTab: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
@@ -14,6 +17,9 @@ export interface BasicButton extends Struct.ComponentSchema {
     sameHostLink: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
+    showIcon: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }

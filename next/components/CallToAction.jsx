@@ -26,6 +26,8 @@ export default async function CallToAction({ data }) {
             rel={button.sameHostLink ? undefined : "noopener noreferrer"}
             label={button.label}
             url={button.url}
+            showIcon={button.showIcon}
+            iconType={button.iconType}
           />
         </div>
       </div>

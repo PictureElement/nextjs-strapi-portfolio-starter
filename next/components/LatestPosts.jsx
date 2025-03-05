@@ -24,7 +24,7 @@ export default function LatestPosts({ data, posts, localeString }) {
           )
         )}
         < div className="mt-6 md:mt-12 flex items-center justify-center gap-x-4">
-          <BtnSecondary label="View all posts" url="/blog" />
+          <BtnSecondary label="View all posts" url="/blog" showIcon={true} />
         </div>
       </div>
     </section >

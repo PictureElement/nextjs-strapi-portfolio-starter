@@ -184,7 +184,7 @@ export default async function Page({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <BackTo label="Back to projects" url="/projects/" />
+      <BackTo label="Back to Projects" url="/projects/" />
       <div className="mx-auto max-w-6xl px-4">
         <article>
           <header>
@@ -220,10 +220,10 @@ export default async function Page({ params }) {
                 <dt className="sr-only">Related links</dt>
                 <dd className="flex flex-col gap-3">
                   {demoUrl && (
-                    <BtnPrimary label="View website" url={demoUrl} target="_blank" rel="noopener noreferrer" />
+                    <BtnPrimary label="View project" url={demoUrl} target="_blank" rel="noopener noreferrer" showIcon={true} iconType="arrowUpRight" />
                   )}
                   {repoUrl && (
-                    <BtnSecondary label="View source code" url={repoUrl} target="_blank" rel="noopener noreferrer" />
+                    <BtnSecondary label="View source code" url={repoUrl} target="_blank" rel="noopener noreferrer" showIcon={true} iconType="arrowUpRight" />
                   )}
                   {designFileUrl && (
                     <BtnSecondary label="View design file" url={designFileUrl} target="_blank" rel="noopener noreferrer" />
@@ -255,7 +255,7 @@ export default async function Page({ params }) {
           </div>
         </article>
       </div >
-      <BackTo label="Back to projects" url="/projects/" />
+      <BackTo label="Back to Projects" url="/projects/" />
     </>
   );
 }

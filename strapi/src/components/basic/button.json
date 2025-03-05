@@ -23,6 +23,20 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "iconType": {
+      "type": "enumeration",
+      "enum": [
+        "arrowRight",
+        "arrowUpRight"
+      ],
+      "required": true,
+      "default": "arrowRight"
     }
   }
 }
