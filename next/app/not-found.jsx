@@ -81,8 +81,7 @@ export default async function NotFound() {
           url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
             "@type": "ContactPoint",
-            email: email,
-            ...(telephone && { telephone: telephone })
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
