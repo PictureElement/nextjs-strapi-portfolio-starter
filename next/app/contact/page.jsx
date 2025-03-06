@@ -1,6 +1,8 @@
 import Banner from "@/components/Banner";
 import { fetchContactPage, fetchLayout } from "@/lib/api";
 import Form from "@/components/Form";
+import NoSSRWrapper from "@/components/NoSSRWrapper";
+import { customDecode, customEncode } from "@/lib/utils";
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -136,6 +138,12 @@ export default async function Page() {
     };
   }
 
+  const encodedEmail = customEncode(email.trim());
+  const encodedTelephone = customEncode(telephone.trim());
+
+  const decodedEmail = customDecode(encodedEmail);
+  const decodedTelephone = customDecode(encodedTelephone);
+
   return (
     <>
       {/* Add JSON-LD to your page */}
@@ -155,9 +163,13 @@ export default async function Page() {
             <div className="text-red-600 text-center">Error: We encountered an issue while loading the contact options and location details.</div>
           ) : (
             <div className="grid grid-cols-1 gap-6">
-              <ContactOption title="Email" label={email} href={`mailto:${email.trim()}`} />
+              <NoSSRWrapper>
+                <ContactOption title="Email" label={decodedEmail} href={`mailto:${decodedEmail}`} />
+              </NoSSRWrapper>
               {telephone &&
-                <ContactOption title="Phone" label={telephone} href={`tel:${telephone.replace(/\s+/g, '')}`} />
+                <NoSSRWrapper>
+                  <ContactOption title="Phone" label={decodedTelephone} href={`tel:${decodedTelephone.replace(/[^\d+]/g, '')}`} />
+                </NoSSRWrapper>
               }
               {schedulingLink &&
                 <ContactOption title="Schedule a call" label={schedulingLink} href={schedulingLink} rel="noopener noreferer" target="_blank" />
