@@ -6,7 +6,7 @@
 
 This project is a modern portfolio website built as a monorepo containing **Next.js** and **Strapi CMS**. Designed for developers, freelancers, and agencies, it effectively showcases skills, projects, and achievements through a performant, SEO-optimized platform.
 
-The website features statically generated pages for projects, blog posts, and a secure contact form with both client-side and server-side validation. Content is seamlessly managed in Strapi CMS, including SEO configurations (titles, meta descriptions), while JSON-LD schemas (BlogPosting, Organization, etc.) enhance search engine visibility. Optimizations include automated sitemaps, priority image loading, accessibility-focused markup and many more.
+The website features statically generated pages for projects, blog posts, and a secure contact form with both client-side and server-side validation. Content is seamlessly managed in Strapi CMS, including SEO configurations (titles, meta descriptions), while JSON-LD schemas (BlogPosting, Organization, etc.) enhance search engine visibility. Optimizations include a dynamic XML sitemap, OpenGraph metadata, image optimizations, semantic HTML and many more.
 
 Security measures like honeypot spam protection, API rate limiting, and email obfuscation safeguard sensitive data. Built with Tailwind CSS for rapid styling and Coolify deployment guides for self-hosted production environments, this template balances flexibility with maintainability—ideal for portfolios, agencies, or developers prioritizing performance, accessibility, and modern best practices.
 
@@ -26,10 +26,10 @@ Security measures like honeypot spam protection, API rate limiting, and email ob
 
 ✅ Home page:
 
-- A landing page featuring a hero, about, skills, experience or services, projects, testimonials, FAQ, and more.
+- Features a hero, about, skills, experience or services, featured projects, testimonials, latest posts, FAQ, and a prominent call-to-action.
 - A dynamic zone allows users to tailor the homepage based on their needs:
-  - Experience section: For individuals showcasing their career journey.
-  - Services section: For organizations or freelancers highlighting their offerings.
+  - Experience section: For developers showcasing their career journey.
+  - Services section: For freelance developers or agencies highlighting their offerings.
 
 ✅ Projects page:
 
@@ -55,19 +55,20 @@ Security measures like honeypot spam protection, API rate limiting, and email ob
 
 ✅ Optimized images:
 
-- Explicit dimensions to prevent layout shifts.
-- Priority loading for critical images.
-- The `sizes` property is used to serve appropriately sized images for different screen widths and device pixel ratios, reducing unnecessary bandwidth usage and improving page load times.
+- Explicit dimensions to prevent layout shifts and enhancing user experience.
+- Priority loading for critical above-the-fold images and lazy loading for non-essential images, reducing initial page load time and enhancing user experience.
+- Utilization of the `sizes` property to serve appropriately sized images for different screen widths and device pixel ratios, minimizing bandwidth usage and improving page performance.
 
 ### SEO & accessibility
 
 ✅ Semantic HTML:
 
 - Ensures accessibility and screen reader compatibility.
+- Enhances SEO by providing clear structure and context to web content, making it easier for search engines to crawl, index, and understand the content. This can improve visibility and relevance in search results.
 
 ✅ SEO enhancements:
 
-- Automated sitemap.xml generation.
+- Automated XML sitemap generation.
 - Canonical tags for all pages.
 - Supports various JSON-LD schemas (e.g., Organization, Person, BlogPosting, ItemPage, ContactPage, CollectionPage, WebPage) to enhance SEO and provide rich search engine results.
 - OpenGraph metadata for social sharing across platforms.
