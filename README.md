@@ -16,21 +16,26 @@ npm run setup  # Installs dependencies for both Next.js and Strapi
 
 ### Step 2: Configure Strapi
 
-Navigate to the `strapi` directory and create `.env` file (use `.env.example` as template):
+Navigate to the `/strapi/` directory and create `.env` file (use `.env.example` as template):
 
 ```
-HOST=localhost
+# Server
+HOST="localhost"
 PORT=1337
+
+# Secrets
 APP_KEYS="toBeModified1,toBeModified2,toBeModified3,toBeModified4"
-API_TOKEN_SALT=tobemodified
-ADMIN_JWT_SECRET=tobemodified
-TRANSFER_TOKEN_SALT=tobemodified
-JWT_SECRET=tobemodified
+API_TOKEN_SALT="toBeModified"
+ADMIN_JWT_SECRET="toBeModified"
+TRANSFER_TOKEN_SALT="toBeModified"
+JWT_SECRET="toBeModified"
 ```
 
 Since this is a development environment, you can leave the default placeholder values as they are—no modifications are needed.
 
 ### Step 3: Restore the configuration dump
+
+Navigate to the `/strapi/` directory and restore configuration:
 
 ```
 npm run config:restore
@@ -38,63 +43,60 @@ npm run config:restore
 
 ### Step 4: Import demo
 
+Navigate to the `/strapi/` directory and import demo:
+
 ```
 npm run import
 ```
 
 ### Step 5: Start Strapi
 
+Navigate to the `/strapi/` directory and start Strapi:
+
 ```
 npm run develop
 ```
 
-Access admin at `http://localhost:1337/admin` and create your first admin user.
-
 ### Step 6: Create API tokens
 
-In Strapi Admin (`http://localhost:1337/admin`):
+i. Access admin at `http://localhost:1337/admin`
 
-i. Read-only token
+ii. Create your first admin user
 
-- Go to *Settings → API Tokens → Create New API Token*
-- Name: API-TOKEN
-- Type: Read-only
-- Duration: Unlimited
-- Save and note the token.
+iii. Generate API tokens (*Settings → API Tokens*):
 
-ii. Form submission token
+| Token Name              | Type       | Permissions               |
+|-------------------------|------------|---------------------------|
+| `API-TOKEN`             | Read-only  | All content types         |
+| `FORM-SUBMISSION-TOKEN` | Custom     | Leads → Create only       |
 
-- Go to *Settings → API Tokens → Create New API Token*
-- Name: FORM-SUBMISSION-TOKEN
-- Type: Custom
-- Duration: Unlimited
-- Permissions: Grant *Create* access only to *Lead* content type.
-- Save and note the token.
+iv. Note down the tokens for later use.
 
 ### Step 7: Configure Next.js
 
 i. Set up environment variables
 
-Keep Strapi running, then open another terminal, navigate to the `next` directory, and create a `.env` file (use `.env.example` as template):
+Keep Strapi running, then open another terminal, navigate to the `/next/` directory, and create a `.env` file (use `.env.example` as template):
 
 ```
-NEXT_PUBLIC_STRAPI=http://localhost:1337
-NEXT_PUBLIC_WEBSITE=http://localhost:3000
-NEXT_PUBLIC_EMAIL_ENCODED="your_base64_encoded_version_of_your_email"
-NEXT_PUBLIC_TELEPHONE_ENCODED="your_base64_encoded_version_of_your_telephone"
-STRAPI_API_TOKEN=your_generated_token
-STRAPI_FORM_SUBMISSION_TOKEN=your_generated_token
+# Public URLs
+NEXT_PUBLIC_STRAPI="http://localhost:1337" # URL for the Strapi backend (default: localhost)
+NEXT_PUBLIC_WEBSITE="http://localhost:3000" # URL for the website frontend (default: localhost)
+
+# Encoded Contact Information
+NEXT_PUBLIC_EMAIL_ENCODED="am9obmRvZUBleGFtcGxlLmNvbQ==" # Base64-encoded email address (e.g., johndoe@example.com)
+NEXT_PUBLIC_TELEPHONE_ENCODED="KzEgKDU1NSkgMTIzLTQ1Njc=" # Base64-encoded telephone number (e.g., +1 (555) 123-4567)
+
+# API Tokens
+STRAPI_API_TOKEN="your_generated_token" # Replace with your generated Strapi API token
+STRAPI_FORM_SUBMISSION_TOKEN="your_generated_token" # Replace with your generated Strapi API token
 ```
 
-Notes:
-
-- `NEXT_PUBLIC_EMAIL_ENCODED` should contain the Base64-encoded version of your email address (e.g., `johndoe@example.com` → `am9obmRvZUBleGFtcGxlLmNvbQ==`).
-- `NEXT_PUBLIC_TELEPHONE_ENCODED` should contain the Base64-encoded version of your telephone number (e.g., `+1 (555) 123-4567` → `KzEgKDU1NSkgMTIzLTQ1Njc=`).
-- Replace `your_generated_token` with the API tokens you created in the previous step.
+Replace `your_generated_token` with the API tokens you created in the previous step. For the remaining placeholder values, you can leave them as-is since this is a development environment—no further modifications are required.
 
 ii. Customize Tailwind CSS colors (optional)
 
-In the `next` directory, update your color palette in the `tailwind.config.js` file to match your design preferences. Below is an example configuration:
+Update your color palette in `/next/tailwind.config.js` to match your design preferences. Below is an example configuration:
 
 ```
 colors: {
@@ -121,15 +123,13 @@ The secondary color is used primarily for the ring focus of focusable elements, 
 
 ### Step 8: Start Next.js
 
+Navigate to the `/next/` directory and start Next.js:
+
 ```
 npm run dev
 ```
 
-App will run at `http://localhost:3000`.
-
-At this stage, you will see a screen displaying error messages. Don't worry—this is expected! These errors will resolve as soon as you populate the backend with the required data. Once the backend is set up, various parts of the website will dynamically update with real content.
-
-**Tip:** Start by populating the Global Settings type first. Once that's complete, move on to adding content for pages, posts, and projects to see your site come to life!
+Website will run at `http://localhost:3000`.
 
 ### Quick start (optional)
 
@@ -155,7 +155,7 @@ This guide demonstrates configuring a production environment using Coolify—an 
 
 Follow CJ Reynolds' [Coolify Crash Course](https://youtu.be/taJlPG82Ucw) on the [Syntax](https://www.youtube.com/@syntaxfm) YouTube channel to configure Coolify on a Hetzner Cloud VPS server. The tutorial covers essential steps such as SSH setup, firewall configuration, reverse proxy settings, SSL termination, and more.
 
-### Step 2: Strapi backend deployment
+### Step 2: Strapi deployment
 
 i. Create a Strapi resource
 
@@ -175,13 +175,13 @@ iii. Deploy Strapi
 
 Click *Deploy* to deploy Strapi in production.
 
-### Step 3: Strapi admin setup
+### Step 3: Create API tokens
 
-i. Access admin UI: `https://<your-strapi-domain>/admin`
+i. Access admin at `https://<your-strapi-domain>/admin`
 
-ii. Create admin user
+ii. Create your first admin user
 
-iii. Generate API Tokens (*Settings → API Tokens*):
+iii. Generate API tokens (*Settings → API Tokens*):
 
 | Token Name              | Type       | Permissions               |
 |-------------------------|------------|---------------------------|
@@ -198,7 +198,7 @@ ii. Proceed with the creation of the GitHub App on GitHub's authorization page.
 
 iii. After returning to Coolify, click *Install Repositories on GitHub* and select the `next-strapi-portfolio` repository to authorize access.
 
-### Step 5: Next.js frontend deployment
+### Step 5: Next.js deployment
 
 i. Create a Next.js resource
 
@@ -223,18 +223,13 @@ ii. Production configuration
   - `STRAPI_API_TOKEN=<api-token-from-step-3>`
   - `STRAPI_FORM_SUBMISSION_TOKEN=<form-token-from-step-3>`
 
-Notes:
-
-- `NEXT_PUBLIC_EMAIL_ENCODED` should contain the Base64-encoded version of your email address (e.g., `johndoe@example.com` → `am9obmRvZUBleGFtcGxlLmNvbQ==`).
-- `NEXT_PUBLIC_TELEPHONE_ENCODED` should contain the Base64-encoded version of your telephone number (e.g., `+1 (555) 123-4567` → `KzEgKDU1NSkgMTIzLTQ1Njc=`).
-
 iii. Deploy Next.js
 
 Click *Deploy* to deploy Next.js in production.
 
 ## Guide 1: Transfer Strapi schemas & configuration to production
 
-*A one-time transfer of content types (strapi/src/) and configuration (dump.json) from localhost to production.*
+*A one-time transfer of content types and configuration from localhost to production.*
 
 ### Prerequisites
 
@@ -273,7 +268,7 @@ volumes:
 
 Why? Bind mounts allow direct file access between host and container.
 
-ii. Create the host directory:
+ii. Create the following host directory:
 
 ```
 mkdir -p /home/strapi/src
@@ -281,7 +276,7 @@ mkdir -p /home/strapi/src
 
 ### Step 3: Copy schema files to remote host
 
-Transfer files from local to remote using `rsync`:
+Navigate to your local project root and use one of the following `rsync` commands to transfer files from your local machine to the remote server.
 
 ```
 # Basic rsync (password/auth prompt):
@@ -348,13 +343,7 @@ iv. Copy the generated token.
 
 ### Step 2: Transfer data from local to production
 
-i. Navigate to your local Strapi project:
-
-```
-cd strapi
-```
-
-ii. Run the transfer command:
+Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:
 
 ```
 npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token YOUR_TRANSFER_TOKEN
