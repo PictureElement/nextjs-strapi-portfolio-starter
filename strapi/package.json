@@ -8,7 +8,11 @@
     "deploy": "strapi deploy",
     "develop": "strapi develop",
     "start": "strapi start",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "export": "npm run strapi export --no-encrypt -- --no-encrypt --file src/data",
+    "import": "npm run strapi import -- --file src/data.tar.gz",
+    "config:dump": "npm run strapi configuration:dump -- --file src/dump.json",
+    "config:restore": "npm run strapi configuration:restore -- --file src/dump.json"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.10.3",

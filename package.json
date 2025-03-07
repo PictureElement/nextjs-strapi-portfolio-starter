@@ -4,9 +4,7 @@
     "setup:next": "cd next && npm install",
     "setup:strapi": "cd strapi && npm install",
     "setup": "npm install && npm run setup:strapi && npm run setup:next",
-    "dev": "npm run clear && concurrently \"cd strapi && npm run develop\" \"cd next && npm run dev\"",
-    "config:dump": "cd strapi && npm run strapi configuration:dump -- --file src/dump.json",
-    "config:restore": "cd strapi && npm run strapi configuration:restore -- --file src/dump.json"
+    "dev": "npm run clear && concurrently \"cd strapi && npm run develop\" \"cd next && npm run dev\""
   },
   "dependencies": {
     "concurrently": "^8.2.2",

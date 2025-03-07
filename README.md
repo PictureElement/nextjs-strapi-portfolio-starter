@@ -33,10 +33,16 @@ Since this is a development environment, you can leave the default placeholder v
 ### Step 3: Restore the configuration dump
 
 ```
-npm run strapi configuration:restore -- --file src/dump.json
+npm run config:restore
 ```
 
-### Step 4: Start Strapi
+### Step 4: Import demo
+
+```
+npm run import
+```
+
+### Step 5: Start Strapi
 
 ```
 npm run develop
@@ -44,7 +50,7 @@ npm run develop
 
 Access admin at `http://localhost:1337/admin` and create your first admin user.
 
-### Step 5: Create API tokens
+### Step 6: Create API tokens
 
 In Strapi Admin (`http://localhost:1337/admin`):
 
@@ -65,7 +71,7 @@ ii. Form submission token
 - Permissions: Grant *Create* access only to *Lead* content type.
 - Save and note the token.
 
-### Step 6: Configure Next.js
+### Step 7: Configure Next.js
 
 i. Set up environment variables
 
@@ -74,11 +80,17 @@ Keep Strapi running, then open another terminal, navigate to the `next` director
 ```
 NEXT_PUBLIC_STRAPI=http://localhost:1337
 NEXT_PUBLIC_WEBSITE=http://localhost:3000
+NEXT_PUBLIC_EMAIL_ENCODED="your_base64_encoded_version_of_your_email"
+NEXT_PUBLIC_TELEPHONE_ENCODED="your_base64_encoded_version_of_your_telephone"
 STRAPI_API_TOKEN=your_generated_token
 STRAPI_FORM_SUBMISSION_TOKEN=your_generated_token
 ```
 
-Replace `your_generated_token` with the tokens you created in the previous step.
+Notes:
+
+- `NEXT_PUBLIC_EMAIL_ENCODED` should contain the Base64-encoded version of your email address (e.g., `johndoe@example.com` → `am9obmRvZUBleGFtcGxlLmNvbQ==`).
+- `NEXT_PUBLIC_TELEPHONE_ENCODED` should contain the Base64-encoded version of your telephone number (e.g., `+1 (555) 123-4567` → `KzEgKDU1NSkgMTIzLTQ1Njc=`).
+- Replace `your_generated_token` with the API tokens you created in the previous step.
 
 ii. Customize Tailwind CSS colors (optional)
 
@@ -107,7 +119,7 @@ To generate a custom color scale for your primary color, use a Tailwind CSS colo
 
 The secondary color is used primarily for the ring focus of focusable elements, such as buttons, input fields, and links, to enhance accessibility and visual feedback during navigation. Choose a secondary color that complements the primary color while offering sufficient contrast.
 
-### Step 7: Start Next.js
+### Step 8: Start Next.js
 
 ```
 npm run dev
@@ -206,8 +218,15 @@ ii. Production configuration
 - Under *Configuration/Environment Variables* add the following variables:
   - `NEXT_PUBLIC_STRAPI=https://<your-strapi-domain>`
   - `NEXT_PUBLIC_WEBSITE=https://<your-nextjs-domain>`
+  - `NEXT_PUBLIC_EMAIL_ENCODED=<your-base64-encoded-version-of-your-email>`
+  - `NEXT_PUBLIC_TELEPHONE_ENCODED=<your-base64-encoded-version-of-your-telephone>`
   - `STRAPI_API_TOKEN=<api-token-from-step-3>`
   - `STRAPI_FORM_SUBMISSION_TOKEN=<form-token-from-step-3>`
+
+Notes:
+
+- `NEXT_PUBLIC_EMAIL_ENCODED` should contain the Base64-encoded version of your email address (e.g., `johndoe@example.com` → `am9obmRvZUBleGFtcGxlLmNvbQ==`).
+- `NEXT_PUBLIC_TELEPHONE_ENCODED` should contain the Base64-encoded version of your telephone number (e.g., `+1 (555) 123-4567` → `KzEgKDU1NSkgMTIzLTQ1Njc=`).
 
 iii. Deploy Next.js
 
@@ -285,7 +304,7 @@ i. Restart the remote Strapi service (via Coolify dashboard).
 ii. Access the Strapi container's terminal (via Coolify) and restore the configuration dump:
 
 ```
-npm run strapi configuration:restore -- -f src/dump.json
+npm run config:restore
 ```
 
 ### Key notes
