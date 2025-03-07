@@ -136,8 +136,6 @@ export const layoutSchema = z.object({
       siteDescription: z.string(),
       siteImage: imageSchema,
       jobTitle: z.string().nullable(), // Allow null values
-      email: z.string(),
-      telephone: z.string().nullable(), // Allow null values
       schedulingLink: z.string().nullable(), // Allow null values
       logo: imageSchema,
       logomark: imageSchema,

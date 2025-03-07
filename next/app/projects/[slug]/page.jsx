@@ -99,7 +99,7 @@ export default async function Page({ params }) {
   if (global.status === 'fulfilled') {
     // Destructure/Format the necessary properties
     const { siteRepresentation, miscellaneous } = global.value;
-    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    const { siteImage, logo, knowsAbout, isOrganization, siteName, siteDescription, jobTitle, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
     const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap(category =>

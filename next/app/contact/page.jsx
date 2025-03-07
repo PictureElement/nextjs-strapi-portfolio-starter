@@ -3,6 +3,8 @@ import { fetchContactPage, fetchLayout } from "@/lib/api";
 import Form from "@/components/Form";
 import NoSSRWrapper from "@/components/NoSSRWrapper";
 import { customDecode, customEncode } from "@/lib/utils";
+import Link from "next/link";
+import ContactLink from "@/components/ContactLink";
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -57,8 +59,6 @@ export default async function Page() {
 
   let jsonLd = null;
   let businessHours = null;
-  let email = null;
-  let telephone = null;
   let schedulingLink = null;
   let addressLocality = null;
   let isOrganization = null;
@@ -68,8 +68,6 @@ export default async function Page() {
     const { siteRepresentation, miscellaneous } = global.value;
     const { siteImage, logo, knowsAbout, siteName, siteDescription, jobTitle, socialChannels } = siteRepresentation;
     businessHours = siteRepresentation.businessHours;
-    email = siteRepresentation.email;
-    telephone = siteRepresentation.telephone;
     schedulingLink = siteRepresentation.schedulingLink;
     addressLocality = siteRepresentation.addressLocality;
     isOrganization = siteRepresentation.isOrganization;
@@ -137,12 +135,6 @@ export default async function Page() {
     };
   }
 
-  const encodedEmail = customEncode(email.trim());
-  const encodedTelephone = customEncode(telephone.trim());
-
-  const decodedEmail = customDecode(encodedEmail);
-  const decodedTelephone = customDecode(encodedTelephone);
-
   return (
     <>
       {/* Add JSON-LD to your page */}
@@ -162,12 +154,20 @@ export default async function Page() {
             <div className="text-red-600 text-center">Error: We encountered an issue while loading the contact options and location details.</div>
           ) : (
             <div className="grid grid-cols-1 gap-6">
-              <NoSSRWrapper>
-                <ContactOption title="Email" label={decodedEmail} href={`mailto:${decodedEmail}`} />
-              </NoSSRWrapper>
-              {telephone &&
+              {process.env.NEXT_PUBLIC_EMAIL_ENCODED &&
                 <NoSSRWrapper>
-                  <ContactOption title="Phone" label={decodedTelephone} href={`tel:${decodedTelephone.replace(/[^\d+]/g, '')}`} />
+                  <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
+                    <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Email</h3>
+                    <ContactLink type="email" className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" showIcon={false} />
+                  </div>
+                </NoSSRWrapper>
+              }
+              {process.env.NEXT_PUBLIC_TELEPHONE_ENCODED &&
+                <NoSSRWrapper>
+                  <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
+                    <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">Telephone</h3>
+                    <ContactLink type="telephone" className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" showIcon={false} />
+                  </div>
                 </NoSSRWrapper>
               }
               {schedulingLink &&
@@ -194,6 +194,6 @@ export default async function Page() {
 const ContactOption = ({ title, label, href, rel = undefined, target = undefined }) => (
   <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
     <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">{title}</h3>
-    <a rel={rel} target={target} className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href={href}>{label}</a>
+    <Link className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2" href={href} rel={rel} target={target}>{label}</Link>
   </div>
 );

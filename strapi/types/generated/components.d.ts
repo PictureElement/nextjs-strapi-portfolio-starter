@@ -116,7 +116,6 @@ export interface BlocksSiteRepresentation extends Struct.ComponentSchema {
     addressLocality: Schema.Attribute.String & Schema.Attribute.Required;
     areaServed: Schema.Attribute.String;
     businessHours: Schema.Attribute.String;
-    email: Schema.Attribute.Email & Schema.Attribute.Required;
     isOrganization: Schema.Attribute.Boolean &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<false>;
@@ -133,7 +132,6 @@ export interface BlocksSiteRepresentation extends Struct.ComponentSchema {
     siteImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     siteName: Schema.Attribute.String & Schema.Attribute.Required;
     socialChannels: Schema.Attribute.Component<'blocks.social-channel', true>;
-    telephone: Schema.Attribute.String;
   };
 }
 

@@ -23,13 +23,6 @@
       "required": true,
       "maxLength": 160
     },
-    "email": {
-      "type": "email",
-      "required": true
-    },
-    "telephone": {
-      "type": "string"
-    },
     "schedulingLink": {
       "type": "string"
     },

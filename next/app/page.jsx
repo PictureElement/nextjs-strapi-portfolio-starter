@@ -68,7 +68,7 @@ export default async function Page() {
   if (global.status === 'fulfilled') {
     // Destructure the necessary properties
     const { siteRepresentation, miscellaneous } = global.value;
-    const { siteImage, logo, isOrganization, siteName, siteDescription, jobTitle, email, telephone, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
+    const { siteImage, logo, isOrganization, siteName, siteDescription, jobTitle, schedulingLink, socialChannels, addressLocality, areaServed } = siteRepresentation;
     knowsAbout = siteRepresentation.knowsAbout;
     const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
