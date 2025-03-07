@@ -1,5 +1,7 @@
 # Next.js, Strapi Portfolio
 
+![Banner Image](banner.png)
+
 ## Description
 
 This project is a modern portfolio website built as a monorepo containing **Next.js** and **Strapi CMS**. Designed for developers, freelancers, and agencies, it effectively showcases skills, projects, and achievements through a performant, SEO-optimized platform.
