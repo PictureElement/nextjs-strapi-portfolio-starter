@@ -11,9 +11,3 @@ export const formatDate = (date, localeString = 'en-US') => {
     dateStyle: 'short',
   }).format(new Date(date));
 };
-
-// Custom encoding function
-export const customEncode = (str) => btoa([...str].reverse().join(''));
-
-// Custom decoding function
-export const customDecode = (encoded) => [...atob(encoded)].reverse().join('');
