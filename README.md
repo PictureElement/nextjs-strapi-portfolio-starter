@@ -2,7 +2,106 @@
 
 ## Description
 
+This project is a modern portfolio website built as a monorepo containing **Next.js** and **Strapi CMS**. Designed for developers, freelancers, and agencies, it effectively showcases skills, projects, and achievements through a performant, SEO-optimized platform.
+
+The website features statically generated pages for projects, blog posts, and a secure contact form with both client-side and server-side validation. Content is seamlessly managed in Strapi CMS, including SEO configurations (titles, meta descriptions), while JSON-LD schemas (BlogPosting, Organization, etc.) enhance search engine visibility. Advanced optimizations include automated sitemaps, priority image loading, and accessibility-focused markup.
+
+Security measures like honeypot spam protection, API rate limiting, and email obfuscation safeguard sensitive data. Built with Tailwind CSS for rapid styling and Coolify deployment guides for self-hosted production environments, this template balances flexibility with maintainability—ideal for portfolios, agencies, or developers prioritizing performance, accessibility, and modern best practices.
+
+**[View demo](https://github.com/PictureElement/next-strapi-portfolio)**
+
 ## Features
+
+### Core functionality
+
+✅ Dynamic content management:
+
+- All content is managed via Strapi CMS, allowing easy updates without code changes.
+
+✅ Demo content & quick setup:
+
+- Pre-built demo included for instant exploration.
+
+✅ Home page:
+
+- A landing page featuring a hero, about, skills, experience or services, projects, testimonials, FAQ, and more.
+- A dynamic zone allows users to tailor the homepage based on their needs:
+  - Experience section: For individuals showcasing their career journey.
+  - Services section: For organizations or freelancers highlighting their offerings.
+
+✅ Projects page:
+
+- A dynamically updated projects page that lists all published projects and supports dynamic sorting. Each project has a dedicated page with detailed information, rich metadata for SEO, and syntax highlighting for code snippets.
+
+✅ Blog page:
+
+- A dynamically updated blog page that lists all published posts in reverse chronological order. Each post has a dedicated page with detailed content, rich metadata for SEO, and syntax highlighting for code snippets.
+
+✅ Contact page:
+
+- Features a secure contact form with both client-side and server-side validation powered by Zod, along with spam protection implemented through a honeypot.
+
+✅ Privacy policy page:
+
+- A dedicated page for privacy-related information.
+
+### Performance & optimization
+
+✅ Static site generation (SSG):
+
+- Ensures optimal performance and SEO.
+
+✅ Optimized images:
+
+- Explicit dimensions to prevent layout shifts.
+- Priority loading for critical images.
+- The `sizes` property is used to serve appropriately sized images for different screen widths and device pixel ratios, reducing unnecessary bandwidth usage and improving page load times.
+
+### SEO & accessibility
+
+✅ Semantic HTML:
+
+- Ensures accessibility and screen reader compatibility.
+
+✅ SEO enhancements:
+
+- Automated sitemap.xml generation.
+- Canonical tags for all pages.
+- Supports various JSON-LD schemas (e.g., Organization, Person, BlogPosting, ItemPage, ContactPage, CollectionPage, WebPage) to enhance SEO and provide rich search engine results.
+- OpenGraph metadata for social sharing across platforms.
+
+### Security & spam protection
+
+✅ Spam protection:
+
+- Honeypot implementation to block bot submissions in the contact form.
+
+✅ Email & phone obfuscation:
+
+- Protects sensitive contact information using Base64 encoding and client-side rendering.
+
+✅ Rate limiting Strapi middleware:
+
+- Protects APIs from abuse using a fixed window rate limiter.
+
+✅ API validation with Zod:
+
+- Ensures type safety and robust error handling across all API interactions.
+
+### Developer experience
+
+✅ Centralized API logic:
+
+- Simplifies data fetching and error handling across components.
+
+✅ Reusable components:
+
+- Implements the single responsibility principle (SRP) for maintainable and scalable code.
+
+✅ Tailwind CSS integration:
+
+- Fully customizable color palette with accessible focus states.
+- Utility-first approach for rapid development.
 
 ## Development setup guide
 
@@ -31,7 +130,10 @@ TRANSFER_TOKEN_SALT="toBeModified"
 JWT_SECRET="toBeModified"
 ```
 
-Since this is a development environment, you can leave the default placeholder values as they are—no modifications are needed.
+Notes:
+
+- Since this is a development environment, you can leave the default placeholder values as they are—no modifications are needed.
+- The placeholder secrets are only for local development and should never be used in production.
 
 ### Step 3: Restore the configuration dump
 
@@ -147,7 +249,7 @@ This guide demonstrates configuring a production environment using Coolify—an 
 
 ### Disclaimer
 
-- Coolify is currently in public Beta, so while it offers powerful CI/CD automation and deployment workflows, carefully evaluate its stability for critical production workloads.
+- Coolify is currently in public beta, and while it provides powerful CI/CD automation and deployment workflows, its stability should be carefully evaluated for critical production workloads. If stability is a concern, you can always opt for more established managed services like Vercel, Netlify, or Heroku.
 
 - For this tutorial, we'll use a Hetzner Cloud VPS as our hosting platform. I'm not affiliated with Hetzner—it's chosen purely for its cost-effective performance-to-price ratio, though alternatives like AWS Lightsail or DigitalOcean would work similarly. Coolify's self-hosted nature allows flexibility in VPS provider selection.
 
@@ -358,11 +460,11 @@ Replace `YOUR_TRANSFER_TOKEN` with the token from Step 1.
 
 ## Future enhancements
 
-1. Implement pagination to Blog and Projects pages.  
-2. Add a CAPTCHA solution.  
-3. Add a breadcrumb component, including breadcrumbs and breadcrumbs-related schema for SEO.  
-4. Limit media upload to specific file types if possible.  
-5. Implement an RSS feed.
+1. Implement an RSS feed.
+2. Add a CAPTCHA solution.
+3. Implement pagination to Blog and Projects pages.
+3. Add a breadcrumb component, including breadcrumbs and breadcrumbs-related schema for SEO.
+4. Limit media upload to specific file types and size if possible.
 
 ## Acknowledgements
 
