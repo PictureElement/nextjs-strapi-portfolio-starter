@@ -489,3 +489,7 @@ Your contributions are highly appreciated! If you wish to contribute to this pro
 3. Make your modifications and commit them: `git commit -m 'Add a new feature'`.
 4. Push to the branch: `git push origin feature/your-feature`.
 5. Open a pull request.
+
+## License
+
+&copy; 2025 [Marios Sofokleous](https://www.msof.me/). Code released under the [MIT](LICENSE) license.
