@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
   output: 'export',
+  basePath: '/next-strapi-portfolio',
   distDir: '../docs',
   images: {
     remotePatterns: [
