@@ -2,12 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
-  output: 'export',
-  basePath: '/next-strapi-portfolio',
-  assetPrefix: '/next-strapi-portfolio/',
-  distDir: '../docs',
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: new URL(process.env.NEXT_PUBLIC_STRAPI).protocol.replace(':', ''),
