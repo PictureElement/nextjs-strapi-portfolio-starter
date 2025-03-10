@@ -2,7 +2,6 @@ import Banner from "@/components/Banner";
 import { fetchContactPage, fetchLayout } from "@/lib/api";
 import Form from "@/components/Form";
 import NoSSRWrapper from "@/components/NoSSRWrapper";
-import { customDecode, customEncode } from "@/lib/utils";
 import Link from "next/link";
 import ContactLink from "@/components/ContactLink";
 

@@ -7,7 +7,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
 import Link from "next/link";
 import { formSchema } from '@/lib/schemas';
-import { onSubmitAction } from '@/lib/actions';
+// import { onSubmitAction } from '@/lib/actions';
 
 export default function Form() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,7 +44,7 @@ export default function Form() {
 
     try {
       const sanitizedData = sanitizeInput(data);
-      await onSubmitAction(sanitizedData); // Call server action
+      // await onSubmitAction(sanitizedData); // Call server action
 
       reset(); // Reset form after successful submission
       setIsSubmitted(true); // Show success message
