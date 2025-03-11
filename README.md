@@ -10,7 +10,7 @@ The website features statically generated pages for projects, blog posts, and a 
 
 Security measures like honeypot spam protection, API rate limiting, and email obfuscation safeguard sensitive data. Built with Tailwind CSS for rapid styling and Coolify deployment guides for self-hosted production environments, this template balances flexibility with maintainability—ideal for portfolios, agencies, or developers prioritizing performance, accessibility, and modern best practices.
 
-**[View demo](https://github.com/PictureElement/next-strapi-portfolio)**
+**[View demo](https://next-strapi-portfolio.pulsifylabs.com/)**
 
 ## Features
 
