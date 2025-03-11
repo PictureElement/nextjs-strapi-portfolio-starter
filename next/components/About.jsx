@@ -18,6 +18,7 @@ export default function About({ data }) {
           <div className="relative z-10">
             <Image
               className="rounded-t-2xl md:rounded-2xl w-full border border-neutral-200"
+              priority
               src={imageUrl}
               alt={image.alternativeText ?? ''}
               width={1466}
