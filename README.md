@@ -172,8 +172,8 @@ iii. Generate API tokens (*Settings → API Tokens*):
 
 | Token Name              | Type       | Permissions               |
 |-------------------------|------------|---------------------------|
-| `API-TOKEN`             | Read-only  | All content types         |
-| `FORM-SUBMISSION-TOKEN` | Custom     | Leads → Create only       |
+| `READ-ONLY-TOKEN`       | Read-only  | All content types         |
+| `FORM-TOKEN`            | Custom     | Leads → Create only       |
 
 iv. Note down the tokens for later use.
 
@@ -193,8 +193,8 @@ NEXT_PUBLIC_EMAIL_ENCODED="am9obmRvZUBleGFtcGxlLmNvbQ==" # Base64-encoded email 
 NEXT_PUBLIC_TELEPHONE_ENCODED="KzEgKDU1NSkgMTIzLTQ1Njc=" # Base64-encoded telephone number (e.g., +1 (555) 123-4567)
 
 # API Tokens
-STRAPI_API_TOKEN="your_generated_token" # Replace with your generated Strapi API token
-STRAPI_FORM_SUBMISSION_TOKEN="your_generated_token" # Replace with your generated Strapi API token
+STRAPI_READ_ONLY_TOKEN="your_generated_token" # Replace with your generated Strapi API token
+STRAPI_FORM_TOKEN="your_generated_token" # Replace with your generated Strapi API token
 ```
 
 Replace `your_generated_token` with the API tokens you created in the previous step. For the remaining placeholder values, you can leave them as-is since this is a development environment—no further modifications are required.
@@ -290,8 +290,8 @@ iii. Generate API tokens (*Settings → API Tokens*):
 
 | Token Name              | Type       | Permissions               |
 |-------------------------|------------|---------------------------|
-| `API-TOKEN`             | Read-only  | All content types         |
-| `FORM-SUBMISSION-TOKEN` | Custom     | Leads → Create only       |
+| `READ-ONLY-TOKEN`       | Read-only  | All content types         |
+| `FORM-TOKEN`            | Custom     | Leads → Create only       |
 
 iv. Note down the tokens for later use.
 
@@ -319,14 +319,15 @@ ii. Production configuration
   - Start Command: `npm run start`
   - Base Directory: `/next`
   - Publish Directory: `/next`
+  - Watch Paths: `next/**`
 
 - Under *Configuration/Environment Variables* add the following variables:
   - `NEXT_PUBLIC_STRAPI=https://<your-strapi-domain>`
   - `NEXT_PUBLIC_WEBSITE=https://<your-nextjs-domain>`
   - `NEXT_PUBLIC_EMAIL_ENCODED=<your-base64-encoded-version-of-your-email>`
   - `NEXT_PUBLIC_TELEPHONE_ENCODED=<your-base64-encoded-version-of-your-telephone>`
-  - `STRAPI_API_TOKEN=<api-token-from-step-3>`
-  - `STRAPI_FORM_SUBMISSION_TOKEN=<form-token-from-step-3>`
+  - `STRAPI_READ_ONLY_TOKEN=<api-token-from-step-3>`
+  - `STRAPI_FORM_TOKEN=<form-token-from-step-3>`
 
 iii. Deploy Next.js
 
@@ -360,39 +361,36 @@ Click *Deploy* to deploy Next.js in production.
 
 Stop the remote Strapi service on Coolify.
 
-### Step 2: Update Docker volume binding
+### Step 2: Update Docker Compose
 
-i. In your Coolify Strapi configuration modify the Docker Compose file.
-
-Replace the named volume `strapi-src:/opt/app/src` with a bind mount:
+In your Coolify Strapi configuration, modify the Docker Compose file to ensure the Strapi volumes are defined as follows:
 
 ```
 volumes:
-  - /home/strapi/src:/opt/app/src
+  - '/home/strapi/backup:/opt/app/backup'
+  - '/home/strapi/src:/opt/app/src'
+  - 'strapi-uploads:/opt/app/public'
+  - 'strapi-config:/opt/app/config'
 ```
 
-Why? Bind mounts allow direct file access between host and container.
+Note: The first two lines create a bind mount to allow direct file access between host and container. This is useful for managing backups or restoring data without needing to access the container directly.
 
-ii. Create the following host directory:
+### Step 3: Copy backup and source files to remote host
 
-```
-mkdir -p /home/strapi/src
-```
-
-### Step 3: Copy schema files to remote host
-
-Navigate to your local project root and use one of the following `rsync` commands to transfer files from your local machine to the remote server.
+Navigate to the local `/strapi/` directory and use one of the following `rsync` commands to synchronize the `backup` and `src` directories between local and production:
 
 ```
 # Basic rsync (password/auth prompt):
-rsync -avz --progress strapi/src/ deploy@<server-ip>:/home/strapi/src/
+rsync -avz --progress backup/ deploy@<server-ip>:/home/strapi/backup/
+rsync -avz --progress src/ deploy@<server-ip>:/home/strapi/src/
 ```
 
 OR
 
 ```
 # SSH key-based rsync (replace paths):
-rsync -avz -e "ssh -i ~/.ssh/id_ed25519" strapi/src/ root@<server-ip>:/home/strapi/src/
+rsync -avz -e "ssh -i ~/.ssh/id_ed25519" backup/ root@<server-ip>:/home/strapi/backup/
+rsync -avz -e "ssh -i ~/.ssh/id_ed25519" src/ root@<server-ip>:/home/strapi/src/
 ```
 
 Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private key path.
@@ -404,7 +402,7 @@ i. Restart the remote Strapi service (via Coolify dashboard).
 ii. Access the Strapi container's terminal (via Coolify) and restore the configuration dump:
 
 ```
-npm run config:restore
+npm run strapi config:restore -- --file backup/config.json
 ```
 
 ### Key notes
@@ -432,11 +430,37 @@ npm run config:restore
 - Content types (schemas) must be identical between local and production.
 - Follow the *Transfer of Strapi schemas & configuration to a Coolify-hosted production instance* guide to align them first.
 
-✅ Transfer token permissions:
+### Method 1: Using `strapi import`
 
-- You have admin access to the production Strapi's admin panel to generate a transfer token.
+i. Navigate to the local `/strapi/` directory and export data:
 
-### Step 1: Generate a transfer token in production
+```
+npm run export
+```
+
+ii. Use one of the following `rsync` commands to synchronize the `backup` directory between local and production:
+
+```
+# Basic rsync (password/auth prompt):
+rsync -avz --progress backup/ deploy@<server-ip>:/home/strapi/backup/
+```
+
+OR
+
+```
+# SSH key-based rsync (replace paths):
+rsync -avz -e "ssh -i ~/.ssh/id_ed25519" backup/ root@<server-ip>:/home/strapi/backup/
+```
+
+Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private key path.
+
+iii. Access the Strapi container's terminal (via Coolify) and import data from the backup directory:
+
+```
+npm run strapi import -- --file backup/data.tar.gz
+```
+
+### Method 2: Using `strapi transfer`
 
 i. Log in to your production Strapi admin panel (`https://your-domain.com/admin`).
 
@@ -446,20 +470,13 @@ iii. Name the token (e.g., "Local to Prod Transfer"), set an expiration date and
 
 iv. Copy the generated token.
 
-### Step 2: Transfer data from local to production
-
-Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:
+v. Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:
 
 ```
 npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token YOUR_TRANSFER_TOKEN
 ```
 
-Replace `YOUR_TRANSFER_TOKEN` with the token from Step 1.
-
-### Key notes
-
-- Transfer tokens expire automatically—set short-lived tokens for safety.
-- Use HTTPS for production Strapi to encrypt data in transit.
+Replace `YOUR_TRANSFER_TOKEN` with the token from Step iv.
 
 ## Future enhancements
 

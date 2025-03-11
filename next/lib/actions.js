@@ -3,7 +3,7 @@
 import { formSchema } from "./schemas";
 
 const createLead = async (data) => {
-  const token = process.env.STRAPI_FORM_SUBMISSION_TOKEN;
+  const token = process.env.STRAPI_FORM_TOKEN;
   const endpoint = `/api/leads`;
 
   const options = {

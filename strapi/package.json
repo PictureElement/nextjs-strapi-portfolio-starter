@@ -9,15 +9,13 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
-    "export": "npm run strapi export --no-encrypt -- --no-encrypt --file src/data",
-    "import": "npm run strapi import -- --file src/data.tar.gz",
-    "config:dump": "npm run strapi configuration:dump -- --file src/dump.json",
-    "config:restore": "npm run strapi configuration:restore -- --file src/dump.json"
+    "export": "npm run strapi export -- --no-encrypt --file backup/data",
+    "config:dump": "npm run strapi configuration:dump -- --file backup/config.json"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.10.3",
-    "@strapi/plugin-users-permissions": "5.10.3",
-    "@strapi/strapi": "5.10.3",
+    "@strapi/plugin-cloud": "5.11.0",
+    "@strapi/plugin-users-permissions": "5.11.0",
+    "@strapi/strapi": "5.11.0",
     "better-sqlite3": "^11.8.1",
     "koa2-ratelimit": "^1.1.3",
     "pg": "^8.13.1",
