@@ -2,6 +2,18 @@
 
 ![Banner Image](banner.png)
 
+## Table of Contents
+1. [Description](#description)
+2. [Features](#features)
+3. [Development setup guide](#development-setup-guide)
+4. [Production setup guide](#production-setup-guide)
+5. [Guide 1: Transfer Strapi schemas & configuration to production](#guide-1-transfer-strapi-schemas--configuration-to-production)
+6. [Guide 2: Migrate Strapi content to production](#guide-2-migrate-strapi-content-to-production)
+7. [Roadmap](#roadmap)
+8. [Acknowledgements](#acknowledgements)
+9. [Contributing](#contributing)
+10. [License](#license)
+
 ## Description
 
 This project is a modern portfolio website built as a monorepo containing **Next.js** and **Strapi CMS**. Designed for developers, freelancers, and agencies, it effectively showcases skills, projects, and achievements through a performant, SEO-optimized platform.
@@ -11,6 +23,13 @@ The website features statically generated pages for projects, blog posts, and a 
 Security measures like honeypot spam protection, API rate limiting, and email obfuscation safeguard sensitive data. Built with Tailwind CSS for rapid styling and Coolify deployment guides for self-hosted production environments, this template balances flexibility with maintainability—ideal for portfolios, agencies, or developers prioritizing performance, accessibility, and modern best practices.
 
 **[View demo](https://next-strapi-portfolio.pulsifylabs.com/)**
+
+The demo website achieves outstanding PageSpeed scores:
+
+| Device   | Performance | Accessibility | Best Practices | SEO |
+|----------|-------------|---------------|----------------|-----|
+| Desktop  | 100         | 100           | 100            | 100 |
+| Mobile   | 95          | 96            | 100            | 100 |
 
 ## Features
 
@@ -478,13 +497,13 @@ npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token Y
 
 Replace `YOUR_TRANSFER_TOKEN` with the token from Step iv.
 
-## Future enhancements
+## Roadmap
 
-1. Implement an RSS feed.
-2. Add a CAPTCHA solution.
-3. Implement pagination to Blog and Projects pages.
-3. Add a breadcrumb component, including breadcrumbs and breadcrumbs-related schema for SEO.
-4. Limit media upload to specific file types and size if possible.
+- [ ] Implement RSS feed
+- [ ] Add CAPTCHA solution for contact form
+- [ ] Add pagination to Blog and Projects pages
+- [ ] Create breadcrumb component with SEO schema integration
+- [ ] Restrict media uploads by file type and size
 
 ## Acknowledgements
 
