@@ -17,6 +17,7 @@ export default function Chart({
     <div className="relative">
 
       <div
+        role="region"
         aria-hidden={isClientReady ? "false" : "true"}
         aria-label="An interactive sunburst chart displaying technical and soft skills"
       >
@@ -27,6 +28,7 @@ export default function Chart({
       </div>
 
       <div
+        role="region"
         aria-hidden={isClientReady ? "true" : "false"}
         aria-label="A static sunburst chart displaying technical and soft skills"
         className={`absolute inset-0 ${isClientReady ? "sr-only" : ""}`}
