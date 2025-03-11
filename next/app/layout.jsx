@@ -2,8 +2,8 @@ import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
-import { Poppins } from 'next/font/google';
-const poppins = Poppins({ weight: ['300', '400', '500', '700'], subsets: ['latin'] });
+import { Sora } from 'next/font/google'; // Ensure the font supports weights: '300', '400', '500', and '700'.
+const sora = Sora({ subsets: ['latin'] });
 import "./globals.css";
 import { fetchLayout } from '@/lib/api';
 
@@ -94,7 +94,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={miscellaneous.htmlLanguageTag}>
-      <body className={`${poppins.className} antialiased text-gray-500 text-base`}>
+      <body className={`${sora.className} antialiased text-gray-500 text-base`}>
         <Announcement data={announcement} />
         <Header data={header} siteRepresentation={siteRepresentation} />
         <main className="relative">

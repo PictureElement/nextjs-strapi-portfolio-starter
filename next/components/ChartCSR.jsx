@@ -1,7 +1,7 @@
 'use client';
 
-import { Poppins } from 'next/font/google';
-const poppins = Poppins({ weight: ['400'], subsets: ['latin'] });
+import { Sora } from 'next/font/google'; // Ensure the font supports weights: '300', '400', '500', and '700'.
+const sora = Sora({ subsets: ['latin'] });
 import { useEffect, useRef, useMemo } from 'react';
 import ReactEChartsCore from 'echarts-for-react/lib/core';
 import * as echarts from 'echarts/core';
@@ -53,7 +53,7 @@ export default function ChartCSR({ data, onClientReady }) {
           label: {
             position: 'inside',
             fontSize: 12,
-            fontFamily: `${poppins.style.fontFamily}`,
+            fontFamily: `${sora.style.fontFamily}`,
             fontWeight: '400',
             color: '#111827',
             padding: 0,
@@ -66,7 +66,7 @@ export default function ChartCSR({ data, onClientReady }) {
           label: {
             position: 'outside',
             fontSize: 12,
-            fontFamily: `${poppins.style.fontFamily}`,
+            fontFamily: `${sora.style.fontFamily}`,
             fontWeight: '400',
             color: '#374151',
             padding: 0,
@@ -90,7 +90,7 @@ export default function ChartCSR({ data, onClientReady }) {
                 label: {
                   position: 'inside',
                   fontSize: 16,
-                  fontFamily: `${poppins.style.fontFamily}`,
+                  fontFamily: `${sora.style.fontFamily}`,
                   fontWeight: '400',
                   color: '#111827',
                   padding: 2,
@@ -103,7 +103,7 @@ export default function ChartCSR({ data, onClientReady }) {
                 label: {
                   position: 'outside',
                   fontSize: 16,
-                  fontFamily: `${poppins.style.fontFamily}`,
+                  fontFamily: `${sora.style.fontFamily}`,
                   fontWeight: '400',
                   color: '#374151',
                   padding: 2,
