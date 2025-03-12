@@ -2,7 +2,7 @@
 
 ![Banner Image](banner.png)
 
-## Table of Contents
+## Table of contents
 1. [Description](#description)
 2. [Features](#features)
 3. [Development setup guide](#development-setup-guide)

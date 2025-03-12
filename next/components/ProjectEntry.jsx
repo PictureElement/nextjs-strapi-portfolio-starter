@@ -6,6 +6,7 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
   return (
     <article className="bg-white hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative h-full">
       <Image
+        draggable="false"
         className="rounded-t-2xl overflow-hidden w-full"
         priority={priority}
         {...(priority ? { priority: true } : { loading: "lazy" })}

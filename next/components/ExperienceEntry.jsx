@@ -19,6 +19,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
       <span className="absolute flex items-center justify-center w-12 h-12 bg-neutral-50 rounded-full -start-6 ring-8 ring-white">
         <a className="underline hover:no-underline hover:scale-105 transition" aria-label={`Visit ${company} website`} target="_blank" rel="noopener noreferrer" href={companyUrl}>
           <Image
+            draggable="false"
             className='rounded-full border border-neutral-200'
             src={companyLogoUrl}
             width={92}

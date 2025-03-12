@@ -41,6 +41,7 @@ export default function Header({ data, siteRepresentation }) {
         >
           <span className="sr-only">Home</span>
           <Image
+            draggable="false"
             priority
             src={logoUrl}
             alt={logo.alternativeText ?? ''}
@@ -50,6 +51,7 @@ export default function Header({ data, siteRepresentation }) {
             sizes={`${Math.round((logo?.width ?? 36) / 2)}px`}
           />
           <Image
+            draggable="false"
             priority
             src={logomarkUrl}
             alt={logomark.alternativeText ?? ''}
