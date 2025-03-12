@@ -70,13 +70,17 @@ The demo website achieves outstanding PageSpeed scores:
 
 ✅ Static site generation (SSG):
 
-- Ensures optimal performance and SEO.
+- Delivers optimal performance and improves SEO by pre-rendering pages at build time.
 
 ✅ Optimized images:
 
-- Explicit dimensions to prevent layout shifts and enhancing user experience.
-- Priority loading for critical above-the-fold images and lazy loading for non-essential images, reducing initial page load time and enhancing user experience.
-- Utilization of the `sizes` property to serve appropriately sized images for different screen widths and device pixel ratios, minimizing bandwidth usage and improving page performance.
+- Explicitly defined dimensions prevent layout shifts, improving visual stability and user experience.
+- Priority loading for critical above-the-fold images and lazy loading for non-essential images reduce initial page load time and improve user experience.
+- The `sizes` property is used to deliver appropriately sized images based on screen widths and device pixel ratios, minimizing bandwidth usage and enhancing page performance.
+
+✅ Inline CSS:
+
+- Reduces additional network requests by inlining critical CSS, improving key performance metrics like First Contentful Paint (FCP) and Largest Contentful Paint (LCP).
 
 ### SEO & accessibility
 
