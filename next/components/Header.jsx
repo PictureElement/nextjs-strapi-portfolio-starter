@@ -97,12 +97,12 @@ export default function Header({ data, siteRepresentation }) {
         </div>
         {/* Navigation */}
         <ul id="header-navigation" className={`header-navigation flex flex-col basis-full grow text-base md:flex-row md:basis-auto ${isExpanded ? 'show' : ''}`}>
-          <li><Link href="/projects/" className="block h-9 leading-9 md:px-2 text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
-          <li><Link href="/blog/" className="block h-9 leading-9 md:px-2 text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
+          <li><Link href="/projects/" className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
+          <li><Link href="/blog/" className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
           {additionalNavigationItems.length > 0 &&
             additionalNavigationItems.map((item) => (
               <li key={item.id}>
-                <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="block h-9 leading-9 md:px-2 text-gray-900 transition hover:text-gray-900/75">
+                <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">
                   {item.label}
                 </Link>
               </li>
