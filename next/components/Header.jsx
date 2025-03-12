@@ -64,7 +64,7 @@ export default function Header({ data, siteRepresentation }) {
         {/* CTA & Toggler  */}
         <div className="flex items-center gap-4 md:order-2">
           <BtnPrimary
-            className="!h-9 !px-3 text-sm"
+            className="!h-9"
             target={cta.openLinkInNewTab ? "_blank" : undefined}
             rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
             label={cta.label}
@@ -96,13 +96,13 @@ export default function Header({ data, siteRepresentation }) {
           </button>
         </div>
         {/* Navigation */}
-        <ul id="header-navigation" className={`header-navigation flex flex-col basis-full grow gap-2 text-sm md:flex-row md:basis-auto md:gap-6 ${isExpanded ? 'show' : ''}`}>
-          <li><Link href="/projects/" className="text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
-          <li><Link href="/blog/" className="text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
+        <ul id="header-navigation" className={`header-navigation flex flex-col basis-full grow text-base md:flex-row md:basis-auto ${isExpanded ? 'show' : ''}`}>
+          <li><Link href="/projects/" className="block h-9 leading-9 md:px-2 text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
+          <li><Link href="/blog/" className="block h-9 leading-9 md:px-2 text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
           {additionalNavigationItems.length > 0 &&
             additionalNavigationItems.map((item) => (
               <li key={item.id}>
-                <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="text-gray-900 transition hover:text-gray-900/75">
+                <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="block h-9 leading-9 md:px-2 text-gray-900 transition hover:text-gray-900/75">
                   {item.label}
                 </Link>
               </li>
