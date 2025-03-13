@@ -1,9 +1,7 @@
 import BtnPrimary from './BtnPrimary';
 // import AnimatedGradient from './AnimatedGradient';
 import ShapeDivider from './ShapeDivider';
-import { Lobster } from 'next/font/google';
 import BtnSecondary from './BtnSecondary';
-const lobster = Lobster({ weight: '400', subsets: ['latin'] });
 
 export default function Hero({ data }) {
   // Destructure the necessary properties
@@ -14,7 +12,7 @@ export default function Hero({ data }) {
       <ShapeDivider className="fill-white" />
       <div className="relative z-50 mx-auto max-w-5xl px-4 pt-[168px] pb-24 sm:pt-48 sm:pb-[120px] text-center">
         {greeting && (
-          <p className={`${lobster.className} font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4`}>{greeting}</p>
+          <p className="font-normal text-xl sm:text-2xl lg:text-3xl text-primary-700 -rotate-3 mb-4">{greeting}</p>
         )}
         <h1 className="text-gray-900 font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight">
           {headline}

@@ -3,8 +3,7 @@ import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
-import { Sora } from 'next/font/google'; // Ensure the font supports weights: '300', '400', '500', and '700'.
-const sora = Sora({ subsets: ['latin'] });
+
 import { fetchLayout } from '@/lib/api';
 
 export async function generateViewport() {
@@ -94,7 +93,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={miscellaneous.htmlLanguageTag}>
-      <body className={`${sora.className} antialiased text-gray-500 text-base`}>
+      <body className="antialiased text-gray-500 text-base">
         <Announcement data={announcement} />
         <Header data={header} siteRepresentation={siteRepresentation} />
         <main className="relative">
