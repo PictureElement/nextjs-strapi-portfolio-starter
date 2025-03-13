@@ -132,7 +132,7 @@ export default async function Page() {
       <Banner headline={headline} supportiveText={supportiveText} />
       <section className="mx-auto max-w-5xl px-4 py-24">
         <div
-          className="mx-auto max-w-none prose prose-gray prose-modifier"
+          className="mx-auto prose prose-gray prose-modifier"
           dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
         />
       </section>
