@@ -131,6 +131,7 @@ export default async function Page() {
       />
       <Banner headline={headline} supportiveText={supportiveText} />
       <section className="mx-auto max-w-5xl px-4 py-24">
+        <h2 className="sr-only">Explore all projects</h2>
         {projects.status === 'rejected' ? (
           <div className="text-red-600 text-center">Error: We encountered an issue while loading the projects.</div>
         ) : (
