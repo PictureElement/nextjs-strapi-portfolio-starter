@@ -9,6 +9,9 @@ import { fetchPostBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout }
 import { formatDate } from '@/lib/utils';
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";
+import "prismjs/components/prism-scss";
+import "prismjs/components/prism-yaml";
+import "prismjs/components/prism-bash";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 

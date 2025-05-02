@@ -10,6 +10,9 @@ import { notFound } from "next/navigation";
 import { fetchProjectBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout } from "@/lib/api";
 import Prism from "prismjs";
 import "prismjs/themes/prism-okaidia.css";
+import "prismjs/components/prism-scss";
+import "prismjs/components/prism-yaml";
+import "prismjs/components/prism-bash";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 
@@ -207,7 +210,7 @@ export default async function Page(props) {
             />
           </header>
           <div className="flex flex-col md:flex-row gap-x-5 justify-between">
-            <section className="mt-12 md:mt-0 max-w-none md:w-2/3 prose prose-gray prose-modifier">
+            <section className="mt-12 md:mt-0 md:w-2/3 prose prose-gray prose-modifier">
               <div
                 className="[&>*:first-child]:mt-0"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
@@ -215,7 +218,7 @@ export default async function Page(props) {
               <hr className="border-neutral-100" />
               <SocialShare />
             </section>
-            <aside className="order-first md:order-2 md:w-1/3 md:pl-5 md:border-l md:border-neutral-200">
+            <aside className="order-first md:order-2 md:w-1/3 md:pl-5 md:border-l md:border-neutral-200 md:sticky md:self-start md:top-[116px]">
               <dl className="flex flex-col gap-2 mb-5">
                 <dt className="sr-only">Related links</dt>
                 <dd className="flex flex-col gap-3">

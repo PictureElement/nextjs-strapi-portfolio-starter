@@ -10,7 +10,7 @@ export default function FaqEntry({ question, answer }) {
         <ArrowDownIcon className="mt-1 h-[1em] w-[1em] shrink-0 transition duration-300 group-open:-rotate-180" />
       </summary>
       <div
-        className="mt-4 px-4 max-w-none prose prose-gray prose-modifier"
+        className="mt-4 px-4 prose prose-gray prose-modifier"
         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(answer)) }}
       />
     </details>
