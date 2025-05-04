@@ -13,9 +13,9 @@
     "config:dump": "npm run strapi configuration:dump -- --file backup/config.json"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.11.0",
-    "@strapi/plugin-users-permissions": "5.11.0",
-    "@strapi/strapi": "5.11.0",
+    "@strapi/plugin-cloud": "5.12.7",
+    "@strapi/plugin-users-permissions": "5.12.7",
+    "@strapi/strapi": "5.12.7",
     "better-sqlite3": "^11.8.1",
     "koa2-ratelimit": "^1.1.3",
     "pg": "^8.13.1",

@@ -7,12 +7,10 @@
 2. [Features](#features)
 3. [Development setup guide](#development-setup-guide)
 4. [Production setup guide](#production-setup-guide)
-5. [Guide 1: Transfer Strapi schemas & configuration to production](#guide-1-transfer-strapi-schemas--configuration-to-production)
-6. [Guide 2: Migrate Strapi content to production](#guide-2-migrate-strapi-content-to-production)
-7. [Roadmap](#roadmap)
-8. [Acknowledgements](#acknowledgements)
-9. [Contributing](#contributing)
-10. [License](#license)
+5. [Roadmap](#roadmap)
+6. [Acknowledgements](#acknowledgements)
+7. [Contributing](#contributing)
+8. [License](#license)
 
 ## Description
 
@@ -280,7 +278,18 @@ To launch both Strapi and Next.js simultaneously from the root directory:
 npm run dev  # Starts both apps in parallel
 ```
 
-## Production setup guide
+## Production setup guide (Coolify + Hetzner Cloud VPS)
+
+### Prerequisites
+
+✅ SSH access to Coolify server:
+
+- You have SSH credentials (username + key/password) to the host running Coolify.
+- Test access: `ssh deploy@your-coolify-server-ip`.
+
+✅ Directory permissions on Coolify host:
+
+- Ensure you can create/modify directories on the Coolify server (e.g., `/home/strapi/src`).
 
 ### Introduction
 
@@ -296,40 +305,113 @@ This guide demonstrates configuring a production environment using Coolify—an 
 
 Follow CJ Reynolds' [Coolify Crash Course](https://youtu.be/taJlPG82Ucw) on the [Syntax](https://www.youtube.com/@syntaxfm) YouTube channel to configure Coolify on a Hetzner Cloud VPS server. The tutorial covers essential steps such as SSH setup, firewall configuration, reverse proxy settings, SSL termination, and more.
 
-### Step 2: Strapi deployment
+### Step 2: Strapi setup
 
-i. Create a Strapi resource
+> If you encounter errors such as "Failed to fetch dynamically imported module" when accessing the admin dashboard during this step, try clearing your browser's cache and performing a hard reload. 
 
-In Coolify dashboard navigate to *Projects* and create a new project (or select an existing one). Under the project, add a new resource. Search for the *Strapi* template (based on the `elestio/strapi-development` image).
+**i. Create a Strapi resource**
 
-ii. Production configuration
+- In the Coolify dashboard, go to "Projects".
+- Create a new project (or select an existing one).
+- Under your chosen project, add a new resource.
+- Search for the *Strapi* template (based on the `elestio/strapi-development` image).
 
-- Set "Strapi Node Environment" to `production`
-- Configure the Strapi domain(s). Remove explicit ports (e.g., `:1337`) from domain entries.
-  
-  Why?
+**ii. Set the Node environment**
 
-  - Using non-standard ports (like `1337`) in a production environment is unnecessary and can expose your application to potential security risks. It's a best practice to configure your firewall to block traffic on all ports except the essential ones (e.g., `80` for HTTP, `443` for HTTPS, and `22` for SSH).
-  - Coolify's built-in reverse proxy automatically handles SSL termination (HTTPS on port `443`) and forwards traffic to Strapi's internal port `1337`.
+- In the resource settings, find "Strapi Node Environment".
+- Set it to `production` to ensure Strapi runs in production mode.
 
-iii. Deploy Strapi
+**iii. Update Docker Compose**
 
-Click *Deploy* to deploy Strapi in production.
+In the resource configuration, modify the Docker Compose file to ensure the Strapi volumes are defined as follows:
 
-### Step 3: Create API tokens
+```
+volumes:
+  - '/home/strapi/backup:/opt/app/backup'
+  - '/home/strapi/src:/opt/app/src'
+  - 'strapi-uploads:/opt/app/public'
+  - 'strapi-config:/opt/app/config'
+```
 
-i. Access admin at `https://<your-strapi-domain>/admin`
+Note: The first two lines create a bind mount to allow direct file access between host and container. This is useful for managing backups or restoring data without needing to access the container directly.
 
-ii. Create your first admin user
+**iv. Copy backup and source files to remote host**
 
-iii. Generate API tokens (*Settings → API Tokens*):
+Navigate to the local `/strapi/` directory and use the following `rsync` commands to synchronize the `backup` and `src` directories between local and production:
 
-| Token Name              | Type       | Permissions               |
-|-------------------------|------------|---------------------------|
-| `READ-ONLY-TOKEN`       | Read-only  | All content types         |
-| `FORM-TOKEN`            | Custom     | Leads → Create only       |
+```
+rsync -avz -e "ssh -i /path/to/private_key" backup/ root@<server-ip>:/home/strapi/backup/
+```
+```
+rsync -avz -e "ssh -i /path/to/private_key" src/ root@<server-ip>:/home/strapi/src/
+```
 
-iv. Note down the tokens for later use.
+Replace `<server-ip>` and `/path/to/private_key` with your server IP and private key path.
+
+**v. Deploy Strapi**
+
+- Click "Deploy" to start the deployment process.
+- Wait for the deployment to finish.
+
+**vi. Create API tokens**
+
+- Access admin at `https://<your-strapi-domain>/admin`
+- Create your first admin user
+- Generate API tokens (*Settings → API Tokens*):
+    | Token Name              | Type       | Permissions               |
+    |-------------------------|------------|---------------------------|
+    | `READ-ONLY-TOKEN`       | Read-only  | All content types         |
+    | `FORM-TOKEN`            | Custom     | Leads → Create only       |
+- Note down the tokens for later use.
+
+**vii. Update local and remote Strapi to the same version**
+
+To update local Strapi, navigate to the local `/strapi/` directory and run:
+
+```
+npx @strapi/upgrade latest
+```
+
+To update remote Strapi, access the Strapi container's terminal (via Coolify) and run:
+
+```
+npx @strapi/upgrade latest
+```
+
+**viii. Restore Strapi schemas & configuration on production**
+
+*A one-time transfer of content types and configuration from localhost to production.*
+
+Access the Strapi container's terminal (via Coolify) and restore the configuration dump:
+
+```
+npm run strapi config:restore -- --file backup/config.json
+```
+
+**ix. Migrate demo content to production (optional)**
+
+*Securely migrate content (entries, media) from from localhost to production.*
+
+<u>Method 1:</u>
+
+Access the Strapi container's terminal (via Coolify) and import data from the backup directory:
+
+```
+npm run strapi import -- --file backup/data.tar.gz
+```
+
+<u>Method 2:</u>
+
+- Log in to your production Strapi admin panel (`https://<your-strapi-domain>/admin`).
+- Go to *Settings → Transfer Tokens → Create New Transfer Token*.
+- Name the token (e.g., "Local to Prod Transfer"), set an expiration date and give it full access.
+- Copy the generated token.
+- Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:  
+
+    ```
+    npm run strapi transfer -- --to https://<your-strapi-domain>.com/admin --to-token YOUR_TRANSFER_TOKEN
+    ```
+    Replace `YOUR_TRANSFER_TOKEN` with the token from Step iv.
 
 ### Step 4: GitHub integration
 
@@ -368,151 +450,6 @@ ii. Production configuration
 iii. Deploy Next.js
 
 Click *Deploy* to deploy Next.js in production.
-
-## Guide 1: Transfer Strapi schemas & configuration to production
-
-*A one-time transfer of content types and configuration from localhost to production.*
-
-### Prerequisites
-
-✅ Remote Strapi instance on Coolify:
-
-- Your production Strapi is already deployed via Coolify (You've followed the *Production setup guide*).
-
-✅ Matching Strapi versions:
-
-- Local and Remote Strapi versions must be identical.
-- Verify with `strapi version` in both environments.
-
-✅ SSH access to Coolify server:
-
-- You have SSH credentials (username + key/password) to the host running Coolify.
-- Test access: `ssh deploy@your-coolify-server-ip`.
-
-✅ Directory permissions on Coolify host:
-
-- Ensure you can create/modify directories on the Coolify server (e.g., `/home/strapi/src`).
-
-### Step 1: Prepare the remote Strapi instance
-
-Stop the remote Strapi service on Coolify.
-
-### Step 2: Update Docker Compose
-
-In your Coolify Strapi configuration, modify the Docker Compose file to ensure the Strapi volumes are defined as follows:
-
-```
-volumes:
-  - '/home/strapi/backup:/opt/app/backup'
-  - '/home/strapi/src:/opt/app/src'
-  - 'strapi-uploads:/opt/app/public'
-  - 'strapi-config:/opt/app/config'
-```
-
-Note: The first two lines create a bind mount to allow direct file access between host and container. This is useful for managing backups or restoring data without needing to access the container directly.
-
-### Step 3: Copy backup and source files to remote host
-
-Navigate to the local `/strapi/` directory and use one of the following `rsync` commands to synchronize the `backup` and `src` directories between local and production:
-
-```
-# Basic rsync (password/auth prompt):
-rsync -avz --progress backup/ deploy@<server-ip>:/home/strapi/backup/
-rsync -avz --progress src/ deploy@<server-ip>:/home/strapi/src/
-```
-
-OR
-
-```
-# SSH key-based rsync (replace paths):
-rsync -avz -e "ssh -i ~/.ssh/id_ed25519" backup/ root@<server-ip>:/home/strapi/backup/
-rsync -avz -e "ssh -i ~/.ssh/id_ed25519" src/ root@<server-ip>:/home/strapi/src/
-```
-
-Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private key path.
-
-### Step 4: Restore Strapi configuration on production instance
-
-i. Restart the remote Strapi service (via Coolify dashboard).
-
-ii. Access the Strapi container's terminal (via Coolify) and restore the configuration dump:
-
-```
-npm run strapi config:restore -- --file backup/config.json
-```
-
-### Key notes
-
-- Schema/configurations only: This only transfers schemas/configs (no content data).  
-- One-time transfer: Repeat steps manually if schemas change (no automatic sync).
-
-## Guide 2: Migrate Strapi content to production
-
-*Securely migrate content (entries, media) from local Strapi to a Coolify-hosted production instance.*
-
-### Prerequisites
-
-✅ Remote Strapi instance on Coolify:
-
-- Your production Strapi is already deployed via Coolify (You've followed the *Production setup guide*).
-
-✅ Matching Strapi versions:
-
-- Local and Remote Strapi versions must be identical.
-- Verify with `strapi version` in both environments.
-
-✅ Matching schemas:
-
-- Content types (schemas) must be identical between local and production.
-- Follow the *Transfer of Strapi schemas & configuration to a Coolify-hosted production instance* guide to align them first.
-
-### Method 1: Using `strapi import`
-
-i. Navigate to the local `/strapi/` directory and export data:
-
-```
-npm run export
-```
-
-ii. Use one of the following `rsync` commands to synchronize the `backup` directory between local and production:
-
-```
-# Basic rsync (password/auth prompt):
-rsync -avz --progress backup/ deploy@<server-ip>:/home/strapi/backup/
-```
-
-OR
-
-```
-# SSH key-based rsync (replace paths):
-rsync -avz -e "ssh -i ~/.ssh/id_ed25519" backup/ root@<server-ip>:/home/strapi/backup/
-```
-
-Replace `<server-ip>` and `~/.ssh/id_ed25519` with your server IP and private key path.
-
-iii. Access the Strapi container's terminal (via Coolify) and import data from the backup directory:
-
-```
-npm run strapi import -- --file backup/data.tar.gz
-```
-
-### Method 2: Using `strapi transfer`
-
-i. Log in to your production Strapi admin panel (`https://your-domain.com/admin`).
-
-ii. Go to *Settings → Transfer Tokens → Create New Transfer Token*.
-
-iii. Name the token (e.g., "Local to Prod Transfer"), set an expiration date and give it full access.
-
-iv. Copy the generated token.
-
-v. Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:
-
-```
-npm run strapi transfer -- --to https://your-domain.com/admin ‑‑to‑token YOUR_TRANSFER_TOKEN
-```
-
-Replace `YOUR_TRANSFER_TOKEN` with the token from Step iv.
 
 ## Roadmap
 
