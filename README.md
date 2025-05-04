@@ -400,7 +400,7 @@ npm run strapi import -- --file backup/data.tar.gz
     ```
     npm run strapi transfer -- --to https://<your-strapi-domain>.com/admin --to-token YOUR_TRANSFER_TOKEN
     ```
-    Replace `YOUR_TRANSFER_TOKEN` with the token from Step iv.
+    Replace `YOUR_TRANSFER_TOKEN` with the token.
 
 ### Step 4: GitHub integration
 
