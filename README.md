@@ -353,18 +353,7 @@ Replace `<server-ip>` and `/path/to/private_key` with your server IP and private
 - Click "Deploy" to start the deployment process.
 - Wait for the deployment to finish.
 
-**vi. Create API tokens**
-
-- Access admin at `https://<your-strapi-domain>/admin`
-- Create your first admin user
-- Generate API tokens (*Settings → API Tokens*):
-    | Token Name              | Type       | Permissions               |
-    |-------------------------|------------|---------------------------|
-    | `READ-ONLY-TOKEN`       | Read-only  | All content types         |
-    | `FORM-TOKEN`            | Custom     | Leads → Create only       |
-- Note down the tokens for later use.
-
-**vii. Update local and remote Strapi to the same version**
+**vi. Update local and remote Strapi to the same version**
 
 To update local Strapi, navigate to the local `/strapi/` directory and run:
 
@@ -378,7 +367,7 @@ To update remote Strapi, access the Strapi container's terminal (via Coolify) an
 npx @strapi/upgrade latest
 ```
 
-**viii. Restore Strapi schemas & configuration on production**
+**vii. Restore Strapi schemas & configuration on production**
 
 *A one-time transfer of content types and configuration from localhost to production.*
 
@@ -388,7 +377,7 @@ Access the Strapi container's terminal (via Coolify) and restore the configurati
 npm run strapi config:restore -- --file backup/config.json
 ```
 
-**ix. Migrate demo content to production (optional)**
+**viii. Migrate demo content to production (optional)**
 
 *Securely migrate content (entries, media) from from localhost to production.*
 
@@ -423,11 +412,21 @@ iii. After returning to Coolify, click *Install Repositories on GitHub* and sele
 
 ### Step 5: Next.js deployment
 
-i. Create a Next.js resource
+**i. Create your Strapi API tokens**
+
+- Access Strapi admin at `https://<your-strapi-domain>/admin`
+- Generate API tokens (*Settings → API Tokens*):
+    | Token Name              | Type       | Permissions               |
+    |-------------------------|------------|---------------------------|
+    | `READ-ONLY-TOKEN`       | Read-only  | All content types         |
+    | `FORM-TOKEN`            | Custom     | Leads → Create only       |
+- Note down the tokens for later use.
+
+**ii. Create a Next.js resource**
 
 In Coolify dashboard navigate to *Projects* and create a new project (or select an existing one). Under the project, add a new resource. Select the *Private Repository (with GitHub App)* type, choose the `next-strapi-portfolio` repository and load it.
 
-ii. Production configuration
+**iii. Production configuration**
 
 - Under *Configuration/General* configure the following settings:
   - Build Pack: Nixpacks
@@ -444,10 +443,10 @@ ii. Production configuration
   - `NEXT_PUBLIC_WEBSITE=https://<your-nextjs-domain>`
   - `NEXT_PUBLIC_EMAIL_ENCODED=<your-base64-encoded-version-of-your-email>`
   - `NEXT_PUBLIC_TELEPHONE_ENCODED=<your-base64-encoded-version-of-your-telephone>`
-  - `STRAPI_READ_ONLY_TOKEN=<api-token-from-step-3>`
-  - `STRAPI_FORM_TOKEN=<form-token-from-step-3>`
+  - `STRAPI_READ_ONLY_TOKEN=<api-token-from-step-i>`
+  - `STRAPI_FORM_TOKEN=<form-token-from-step-i>`
 
-iii. Deploy Next.js
+**iv. Deploy Next.js**
 
 Click *Deploy* to deploy Next.js in production.
 
