@@ -23,22 +23,22 @@ export default function SocialShare() {
     <dl className="flex flex-col gap-2 not-prose">
       <dt className="text-gray-900 font-medium">Share this page</dt>
       <dd className="flex flex-wrap gap-3">
-        <TwitterShareButton url={fullUrl}>
+        <TwitterShareButton url={fullUrl} aria-label="Share on X">
           {socialIcons["X"] || (
             <span className="text-red-500">Icon not found</span>
           )}
         </TwitterShareButton>
-        <LinkedinShareButton url={fullUrl}>
+        <LinkedinShareButton url={fullUrl} aria-label="Share on LinkedIn">
           {socialIcons["LinkedIn"] || (
             <span className="text-red-500">Icon not found</span>
           )}
         </LinkedinShareButton>
-        <FacebookShareButton url={fullUrl}>
+        <FacebookShareButton url={fullUrl} aria-label="Share on Facebook">
           {socialIcons["Facebook"] || (
             <span className="text-red-500">Icon not found</span>
           )}
         </FacebookShareButton>
-        <EmailShareButton url={fullUrl}>
+        <EmailShareButton url={fullUrl} aria-label="Share via Email">
           {socialIcons["Envelope"] || (
             <span className="text-red-500">Icon not found</span>
           )}
