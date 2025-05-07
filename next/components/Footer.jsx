@@ -44,6 +44,7 @@ export default async function Footer({ data, siteRepresentation }) {
               <div className="flex justify-center md:justify-start gap-4">
                 <Link href="https://www.w3.org/WAI/WCAG2AA-Conformance" rel="noopener noreferrer" target="_blank" title="Explanation of WCAG 2 Level AA conformance">
                   <Image
+                    className="grayscale hover:grayscale-0 transition"
                     src="/wcag2AA-blue-v.svg"
                     height={40}
                     width={114}
@@ -52,6 +53,7 @@ export default async function Footer({ data, siteRepresentation }) {
                 </Link>
                 <Link href="/privacy-policy/" target="_blank" title="Read our privacy policy">
                   <Image
+                    className="grayscale hover:grayscale-0 transition"
                     src="/gdpr-badge.svg"
                     height={40}
                     width={114}
