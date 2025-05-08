@@ -24,8 +24,7 @@
     },
     "content": {
       "type": "richtext",
-      "required": true,
-      "maxLength": 900
+      "required": true
     }
   }
 }
