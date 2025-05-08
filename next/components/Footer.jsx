@@ -46,8 +46,8 @@ export default async function Footer({ data, siteRepresentation }) {
                   <Image
                     className="grayscale hover:grayscale-0 transition"
                     src="/wcag2AA-blue-v.svg"
-                    height={40}
-                    width={114}
+                    height={28}
+                    width={80}
                     alt="Level AA conformance, W3C WAI Web Content Accessibility Guidelines 2.0"
                   />
                 </Link>
@@ -55,8 +55,8 @@ export default async function Footer({ data, siteRepresentation }) {
                   <Image
                     className="grayscale hover:grayscale-0 transition"
                     src="/gdpr-badge.svg"
-                    height={40}
-                    width={114}
+                    height={28}
+                    width={80}
                     alt="GDPR compliance badge"
                   />
                 </Link>
