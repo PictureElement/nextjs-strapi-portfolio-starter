@@ -1,4 +1,4 @@
-# Next.js, Strapi Portfolio
+# Next.js, Strapi Portfolio Starter
 
 ![Banner Image](banner.png)
 
@@ -18,9 +18,9 @@ This project is a modern portfolio website built as a monorepo containing **Next
 
 The website features statically generated pages for projects, blog posts, and a secure contact form with both client-side and server-side validation. Content is seamlessly managed in Strapi CMS, including SEO configurations (titles, meta descriptions), while JSON-LD schemas (BlogPosting, Organization, etc.) enhance search engine visibility. Optimizations include a dynamic XML sitemap, OpenGraph metadata, image optimizations, semantic HTML and many more.
 
-Security measures like honeypot spam protection, API rate limiting, and email obfuscation safeguard sensitive data. Built with Tailwind CSS for rapid styling and Coolify deployment guides for self-hosted production environments, this template balances flexibility with maintainability—ideal for portfolios, agencies, or developers prioritizing performance, accessibility, and modern best practices.
+Security measures like honeypot spam protection, API rate limiting, and email obfuscation safeguard sensitive data. Built with Tailwind CSS for rapid styling, this starter template balances flexibility with maintainability—ideal for portfolios, agencies, or developers prioritizing performance, accessibility, and modern best practices.
 
-**[View demo](https://next-strapi-portfolio.pulsifylabs.com/)**
+**[View demo](https://msof.me/)**
 
 The demo website achieves outstanding PageSpeed scores:
 
@@ -52,7 +52,7 @@ The demo website achieves outstanding PageSpeed scores:
 
 ✅ Demo content & quick setup:
 
-- Pre-built demo included for instant exploration.
+- Demo included for instant exploration.
 
 ✅ Home page:
 
@@ -61,11 +61,11 @@ The demo website achieves outstanding PageSpeed scores:
   - Experience section: For developers showcasing their career journey.
   - Services section: For freelance developers or agencies highlighting their offerings.
 
-✅ Projects page:
+✅ Projects:
 
 - A dynamically updated projects page that lists all published projects and supports dynamic sorting. Each project has a dedicated page with detailed information, rich metadata for SEO, and syntax highlighting for code snippets.
 
-✅ Blog page:
+✅ Blog:
 
 - A dynamically updated blog page that lists all published posts in reverse chronological order. Each post has a dedicated page with detailed content, rich metadata for SEO, and syntax highlighting for code snippets.
 
@@ -402,7 +402,7 @@ npm run strapi import -- --file backup/data.tar.gz
     ```
     Replace `YOUR_TRANSFER_TOKEN` with the token.
 
-### Step 4: GitHub integration
+### Step 3: GitHub integration
 
 i. In Coolify dashboard navigate to *Sources* and add a new GitHub App. Name the app and register the webhook endpoint (make sure to use `https://`).
 
@@ -410,7 +410,7 @@ ii. Proceed with the creation of the GitHub App on GitHub's authorization page.
 
 iii. After returning to Coolify, click *Install Repositories on GitHub* and select the `next-strapi-portfolio` repository to authorize access.
 
-### Step 5: Next.js deployment
+### Step 4: Next.js deployment
 
 **i. Create your Strapi API tokens**
 
