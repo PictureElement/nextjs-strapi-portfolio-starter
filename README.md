@@ -1,6 +1,6 @@
 # Next.js, Strapi Portfolio Starter
 
-![Banner Image](banner.png)
+![Banner Image](banner.jpg)
 
 ## Table of contents
 1. [Description](#description)
