@@ -31,30 +31,6 @@ The demo website achieves outstanding PageSpeed scores:
 
 *Captured at May 8, 2025, 3:18 PM GMT+3*
 
-Mobile:
-- Emulated Moto G Power with Lighthouse 12.6.0:
-  - Unthrottled CPU/Memory Power: 934
-  - CPU throttling: 1.2x slowdown (Simulated)
-  - Screen emulation: 412x823, DPR 1.75
-  - Axe version: 4.10.3
-- Slow 4G throttling:
-  - Network throttling: 150 ms TCP RTT, 1,638.4 kb/s throughput (Simulated)
-  - Browser location: Europe
-- Using HeadlessChromium 135.0.7049.114 with lr:
-  - User agent (network): "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Mobile Safari/537.36"
-
-Desktop:
-- Emulated Desktop with Lighthouse 12.6.0:
-  - Unthrottled CPU/Memory Power: 1144
-  - CPU throttling: 1x slowdown (Simulated)
-  - Screen emulation: 1350x940, DPR 1
-  - Axe version: 4.10.3
-- Custom throttling:
-  - Network throttling: 40 ms TCP RTT, 10,240 kb/s throughput (Simulated)
-  - Browser location: Europe
-- Using HeadlessChromium 135.0.7049.114 with lr:
-  - User agent (network): "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-
 ## Features
 
 ### Core functionality
