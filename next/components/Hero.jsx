@@ -1,5 +1,5 @@
 import BtnPrimary from './BtnPrimary';
-// import AnimatedGradient from './AnimatedGradient';
+import AnimatedGradient from './AnimatedGradient';
 import ShapeDivider from './ShapeDivider';
 import BtnSecondary from './BtnSecondary';
 
@@ -9,6 +9,7 @@ export default function Hero({ data }) {
 
   return (
     <section className="bg-neutral-100 relative">
+      <AnimatedGradient />
       <ShapeDivider className="fill-white" />
       <div className="relative z-50 mx-auto max-w-5xl px-4 pt-[168px] pb-24 sm:pt-48 sm:pb-[120px] text-center">
         {greeting && (
