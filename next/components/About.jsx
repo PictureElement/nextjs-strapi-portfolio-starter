@@ -17,7 +17,7 @@ export default function About({ data }) {
         <div className="grid grid-cols-1 md:grid-cols-2 items-center">
           <div className="relative z-10">
             <Image
-              className="rounded-t-2xl md:rounded-2xl w-full border border-neutral-200 transition-transform md:border-none md:-rotate-3 md:hover:rotate-0 md:shadow-2xl"
+              className="rounded-t-2xl md:rounded-2xl w-full border border-neutral-200 md:border-none md:shadow-2xl"
               priority
               src={imageUrl}
               alt={image.alternativeText ?? ''}
