@@ -134,8 +134,8 @@ The demo website achieves outstanding PageSpeed scores:
 ### Step 1: Clone & install
 
 ```
-git clone https://github.com/PictureElement/next-strapi-portfolio.git
-cd next-strapi-portfolio
+git clone https://github.com/PictureElement/nextjs-strapi-portfolio-starter.git
+cd nextjs-strapi-portfolio-starter
 npm run setup  # Installs dependencies for both Next.js and Strapi
 ```
 
@@ -166,15 +166,15 @@ Notes:
 Navigate to the `/strapi/` directory and restore configuration:
 
 ```
-npm run config:restore
+npm run strapi config:restore --file backup/config.json
 ```
 
-### Step 4: Import demo
+### Step 4: Import demo (optional)
 
 Navigate to the `/strapi/` directory and import demo:
 
 ```
-npm run import
+npm run strapi import -- --file backup/data.tar.gz
 ```
 
 ### Step 5: Start Strapi
@@ -196,7 +196,7 @@ iii. Generate API tokens (*Settings → API Tokens*):
 | Token Name              | Type       | Permissions               |
 |-------------------------|------------|---------------------------|
 | `READ-ONLY-TOKEN`       | Read-only  | All content types         |
-| `FORM-TOKEN`            | Custom     | Leads → Create only       |
+| `FORM-TOKEN`            | Custom     | Lead → Create only       |
 
 iv. Note down the tokens for later use.
 
