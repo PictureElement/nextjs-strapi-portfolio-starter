@@ -4,10 +4,13 @@ import Image from 'next/image';
 import BtnPrimary from "./BtnPrimary";
 import { Bars3Icon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
+import { useTransitionRouter } from 'next-view-transitions';
+import { pageAnimation } from '@/lib/utils';
 import { useState, useCallback } from 'react';
 
 export default function Header({ data, siteRepresentation }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const router = useTransitionRouter();
 
   const handleClick = useCallback(() => {
     setIsExpanded(!isExpanded);
@@ -38,6 +41,12 @@ export default function Header({ data, siteRepresentation }) {
         <Link
           href="/"
           className="block text-primary-700"
+          onClick={(e) => {
+            e.preventDefault();
+            router.push('/', {
+              onTransitionReady: pageAnimation,
+            });
+          }}
         >
           <span className="sr-only">Home</span>
           <Image
@@ -97,12 +106,39 @@ export default function Header({ data, siteRepresentation }) {
         </div>
         {/* Navigation */}
         <ul id="header-navigation" className={`header-navigation flex flex-col basis-full grow text-base md:flex-row md:basis-auto ${isExpanded ? 'show' : ''}`}>
-          <li><Link href="/projects/" className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">Projects</Link></li>
-          <li><Link href="/blog/" className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">Blog</Link></li>
+          <li>
+            <Link
+              href="/projects/"
+              className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push('/projects/', {
+                  onTransitionReady: pageAnimation,
+                });
+              }}
+            >
+              Projects
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/blog/"
+              className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75"
+              onClick={(e) => {
+                e.preventDefault();
+                router.push('/blog/', {
+                  onTransitionReady: pageAnimation,
+                });
+              }}
+            >
+              Blog
+            </Link>
+          </li>
           {additionalNavigationItems.length > 0 &&
             additionalNavigationItems.map((item) => (
               <li key={item.id}>
-                <Link target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">
+                <Link
+                  target={item.openLinkInNewTab ? "_blank" : undefined} rel={item.sameHostLink ? undefined : "noopener noreferrer"} href={item.url} className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75">
                   {item.label}
                 </Link>
               </li>
@@ -113,3 +149,4 @@ export default function Header({ data, siteRepresentation }) {
     </header>
   );
 }
+

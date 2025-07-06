@@ -6,6 +6,8 @@ import Link from 'next/link';
 import NoSSRWrapper from "./NoSSRWrapper";
 import ContactLink from "./ContactLink";
 import Image from "next/image";
+import FooterNavigation from "./FooterNavigation";
+import FooterCopyright from "./FooterCopyright";
 
 const socialIcons = {
   LinkedIn: (<svg className="size-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" /></svg>),
@@ -82,23 +84,7 @@ export default async function Footer({ data, siteRepresentation }) {
               )}
             </div>
             {/* Navigation */}
-            <div className="mt-[6px] md:mt-0 col-span-1">
-              <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">Navigation</h3>
-              <ul className="mt-4 space-y-4">
-                <li className="text-center md:text-start">
-                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/">Home</Link>
-                </li>
-                <li className="text-center md:text-start">
-                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/projects/">Projects</Link>
-                </li>
-                <li className="text-center md:text-start">
-                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/blog/">Blog</Link>
-                </li>
-                <li className="text-center md:text-start">
-                  <Link className="block md:inline text-base text-white/75 hover:underline" href="/contact/">Contact</Link>
-                </li>
-              </ul>
-            </div>
+            <FooterNavigation />
             {/* Contact & location */}
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">Location & contact</h3>
@@ -161,10 +147,7 @@ export default async function Footer({ data, siteRepresentation }) {
           <div className="h-px bg-white/15 my-10"></div>
 
           {/* Copyright */}
-          <div className="flex flex-col md:flex-row md:justify-between">
-            <Link className="text-white/75 text-base transition hover:underline md:order-2 text-center mb-4 md:mb-0" href="/privacy-policy">Privacy policy</Link>
-            <p className="text-white/75 text-base md:order-1 text-center">{copyright}</p>
-          </div>
+          <FooterCopyright copyright={copyright} />
 
         </div>
       </div>

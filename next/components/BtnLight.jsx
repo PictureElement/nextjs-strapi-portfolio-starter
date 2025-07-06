@@ -1,6 +1,10 @@
+'use client';
+
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import { ArrowUpRightIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
+import { useTransitionRouter } from 'next-view-transitions';
+import { pageAnimation } from '@/lib/utils';
 
 export default function BtnLight({
   label = 'Default label',
@@ -12,6 +16,7 @@ export default function BtnLight({
   iconType = 'arrowRight',
   ...rest
 }) {
+  const router = useTransitionRouter();
 
   // Helper function to render the appropriate icon
   const renderIcon = () => {
@@ -35,6 +40,12 @@ export default function BtnLight({
       target={target}
       rel={rel}
       href={url}
+      onClick={(e) => {
+        e.preventDefault();
+        router.push(url, {
+          onTransitionReady: pageAnimation,
+        });
+      }}
       className={`
         group
         inline-flex

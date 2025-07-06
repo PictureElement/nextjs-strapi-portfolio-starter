@@ -1,8 +1,14 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
+import { useTransitionRouter } from 'next-view-transitions';
+import { pageAnimation } from '@/lib/utils';
 
 export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativeText, title, excerpt, slug, priority = false }) {
+  const router = useTransitionRouter();
+
   return (
     <article className="bg-white hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative h-full">
       <Image
@@ -21,6 +27,12 @@ export default function ProjectEntry({ featuredImageUrl, featuredImageAlternativ
         <p className="text-gray-700 mt-2 mb-4">{excerpt}</p>
         <Link
           href={`/projects/${slug}/`}
+          onClick={(e) => {
+            e.preventDefault();
+            router.push(`/projects/${slug}/`, {
+              onTransitionReady: pageAnimation,
+            });
+          }}
           className="
             group
             flex
