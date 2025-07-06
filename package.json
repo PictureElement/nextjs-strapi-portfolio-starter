@@ -1,7 +1,7 @@
 {
   "scripts": {
     "clear": "cd next && rm -rf .next && rm -rf cache",
-    "setup:next": "cd next && npm install",
+    "setup:next": "cd next && npm install --legacy-peer-deps",
     "setup:strapi": "cd strapi && npm install",
     "setup": "npm install && npm run setup:strapi && npm run setup:next",
     "dev": "npm run clear && concurrently \"cd strapi && npm run develop\" \"cd next && npm run dev\""
