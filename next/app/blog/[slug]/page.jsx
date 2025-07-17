@@ -15,6 +15,21 @@ import "prismjs/components/prism-bash";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-jsx";
 
+const sanitizerConfig = {
+  ADD_TAGS: ['iframe'],
+  ADD_ATTR: [
+    'src',
+    'style',
+    'title',
+    'allow',
+    'sandbox',
+    'width',
+    'height',
+    'frameborder',
+    'allowfullscreen'
+  ]
+};
+
 // Configure Marked with the marked-highlight plugin
 // This plugin allows integration of custom syntax highlighting logic during Markdown parsing
 const marked = new Marked(
@@ -235,7 +250,7 @@ export default async function Page(props) {
           <div className="mx-auto prose prose-gray prose-modifier">
             <div
               className="[&>*:first-child]:mt-0"
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content)) }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(marked.parse(content), sanitizerConfig) }}
             />
             <hr />
             <SocialShare />
