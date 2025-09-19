@@ -38,23 +38,3 @@ textarea {
 .prose-modifier {
   @apply max-w-[80ch] prose-code:bg-gray-200 prose-code:px-1 prose-code:py-[2px] prose-code:rounded-md prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-img:rounded-md prose-img:border prose-img:mt-0 prose-img:mb-3 prose-h2:font-medium prose-h3:font-medium prose-strong:font-medium prose-a:no-underline prose-a:font-medium prose-a:border-b prose-a:border-primary-700 hover:prose-a:border-b-2;
 }
-
-::view-transition-group(root) {
-  z-index: auto !important;
-}
-
-::view-transition-image-pair(root) {
-  isolation: isolate;
-  will-change: transform, opacity, scale;
-  z-index: 1;
-}
-
-::view-transition-new(root) {
-  z-index: 2;
-  animation: none !important;
-}
-
-::view-transition-old(root) {
-  z-index: 1;
-  animation: none !important;
-}

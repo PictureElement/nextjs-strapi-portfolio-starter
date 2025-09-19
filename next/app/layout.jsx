@@ -3,7 +3,6 @@ import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CallToAction from '@/components/CallToAction';
-import { ViewTransitions } from 'next-view-transitions';
 import { fetchLayout } from '@/lib/api';
 
 export async function generateViewport() {
@@ -92,18 +91,16 @@ export default async function RootLayout({ children }) {
   const { announcement, header, cta, footer, siteRepresentation, miscellaneous } = data;
 
   return (
-    <ViewTransitions>
-      <html lang={miscellaneous.htmlLanguageTag}>
-        <body className="antialiased text-gray-500 text-base">
-          <Announcement data={announcement} />
-          <Header data={header} siteRepresentation={siteRepresentation} />
-          <main className="relative">
-            {children}
-          </main>
-          <CallToAction data={cta} />
-          <Footer data={footer} siteRepresentation={siteRepresentation} />
-        </body>
-      </html>
-    </ViewTransitions>
+    <html lang={miscellaneous.htmlLanguageTag}>
+      <body className="antialiased text-gray-500 text-base">
+        <Announcement data={announcement} />
+        <Header data={header} siteRepresentation={siteRepresentation} />
+        <main className="relative">
+          {children}
+        </main>
+        <CallToAction data={cta} />
+        <Footer data={footer} siteRepresentation={siteRepresentation} />
+      </body>
+    </html>
   );
 }

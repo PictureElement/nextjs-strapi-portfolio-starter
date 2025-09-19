@@ -1,14 +1,9 @@
-'use client';
-
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import Link from 'next/link';
 import { formatDate } from '@/lib/utils';
-import { useTransitionRouter } from 'next-view-transitions';
-import { pageAnimation } from '@/lib/utils';
 
 export default function PostEntry({ title, excerpt, slug, createdAt, localeString }) {
   const formattedCreatedAtDate = formatDate(createdAt, localeString);
-  const router = useTransitionRouter();
 
   return (
     <article className="relative p-4 py-6 bg-white hover:bg-neutral-100 transition border border-neutral-200 rounded-2xl">
@@ -20,12 +15,6 @@ export default function PostEntry({ title, excerpt, slug, createdAt, localeStrin
       <p className="text-gray-700 mt-2 mb-4 relative">{excerpt}</p>
       <Link
         href={`/blog/${slug}/`}
-        onClick={(e) => {
-          e.preventDefault();
-          router.push(`/blog/${slug}/`, {
-            onTransitionReady: pageAnimation,
-          });
-        }}
         className="
           group
           flex
