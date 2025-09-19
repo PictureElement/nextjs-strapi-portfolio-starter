@@ -166,7 +166,7 @@ Notes:
 Navigate to the `/strapi/` directory and restore configuration:
 
 ```
-npm run strapi config:restore --file backup/config.json
+npm run strapi config:restore -- --file backup/config.json
 ```
 
 ### Step 4: Import demo (optional)

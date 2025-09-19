@@ -1,34 +1,38 @@
 {
-  "name": "strapi-dev-portfolio",
+  "name": "strapi",
   "version": "0.1.0",
   "private": true,
   "description": "A Strapi application",
   "scripts": {
     "build": "strapi build",
+    "console": "strapi console",
     "deploy": "strapi deploy",
+    "dev": "strapi develop",
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
+    "upgrade": "npx @strapi/upgrade latest",
+    "upgrade:dry": "npx @strapi/upgrade latest --dry",
     "export": "npm run strapi export -- --no-encrypt --file backup/data",
     "config:dump": "npm run strapi configuration:dump -- --file backup/config.json"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.12.7",
-    "@strapi/plugin-users-permissions": "5.12.7",
-    "@strapi/strapi": "5.12.7",
-    "better-sqlite3": "^11.8.1",
+    "@strapi/plugin-cloud": "5.23.6",
+    "@strapi/plugin-users-permissions": "5.23.6",
+    "@strapi/strapi": "5.23.6",
+    "better-sqlite3": "11.3.0",
     "koa2-ratelimit": "^1.1.3",
-    "pg": "^8.13.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "styled-components": "^6.0.0"
   },
   "engines": {
-    "node": ">=18.0.0 <=20.x.x",
+    "node": ">=18.0.0 <=22.x.x",
     "npm": ">=6.0.0"
   },
   "strapi": {
-    "uuid": "e9db54e5-609b-4954-9bef-83a73318cc9a"
+    "uuid": "b9579e72-0918-4fd9-aff8-13355deab87a",
+    "installId": "e39b3bbd0c123eedee2418458504e52659a7d148dc53f556dd54cce91e579d26"
   }
 }

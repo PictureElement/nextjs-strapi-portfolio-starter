@@ -1,0 +1,1 @@
+Backup files exported from Strapi version 5.23.6

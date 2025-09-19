@@ -1,5 +1,4 @@
 module.exports = ({ env }) => ({
-  url: env('ADMIN_PANEL_PATH', '/admin'),
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -10,6 +9,9 @@ module.exports = ({ env }) => ({
     token: {
       salt: env('TRANSFER_TOKEN_SALT'),
     },
+  },
+  secrets: {
+    encryptionKey: env('ENCRYPTION_KEY'),
   },
   flags: {
     nps: env.bool('FLAG_NPS', true),
