@@ -82,7 +82,7 @@ export default async function Footer({ data, siteRepresentation }) {
             {/* Mission statement & social media */}
             <div className="col-span-1 md:col-span-2">
               <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">
-                Statement
+                Mission
               </h3>
               <p className="mt-4 mb-6 text-white/75 text-base text-center md:text-start">
                 {statement}
