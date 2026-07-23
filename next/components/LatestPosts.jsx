@@ -8,8 +8,8 @@ export default function LatestPosts({ data, posts, localeString }) {
   const { headline, supportiveText } = data;
 
   return (
-    <section className="bg-neutral-50 py-24 relative">
-      <ShapeDivider className="fill-white" />
+    <section className="bg-white py-24 relative">
+      <ShapeDivider className="fill-gray-50" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         {posts.status === "rejected" ? (

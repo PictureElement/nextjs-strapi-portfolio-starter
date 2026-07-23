@@ -11,7 +11,7 @@ export default function ProjectEntry({
   priority = false,
 }) {
   return (
-    <article className="bg-white hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative h-full">
+    <article className="bg-neutral-50 hover:bg-neutral-100 transition rounded-2xl border border-neutral-200 relative h-full">
       <Image
         draggable="false"
         className="rounded-t-2xl overflow-hidden w-full"
@@ -24,9 +24,7 @@ export default function ProjectEntry({
         sizes="(max-width: 639px) calc(100vw - 34px), (max-width: 1278px) calc(50vw - 30px), 610px"
       />
       <div className="p-6">
-        <h3 className="text-gray-900 font-normal text-xl sm:text-2xl tracking-tight">
-          {title}
-        </h3>
+        <h3 className="text-gray-900 font-normal text-xl sm:text-2xl tracking-tight">{title}</h3>
         <p className="text-gray-700 mt-2 mb-4">{excerpt}</p>
         <Link
           href={`/projects/${slug}/`}

@@ -7,8 +7,8 @@ export default function Services({ data }) {
   const { headline, supportiveText, serviceList } = data;
 
   return (
-    <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-gray-50" />
+    <section className="bg-neutral-50 py-24 relative">
+      <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         <ServiceList serviceList={serviceList} defaultOpen={false} />

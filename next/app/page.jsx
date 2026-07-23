@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import IndependentEngineering from "@/components/IndependentEngineering";
 import Services from "@/components/Services";
 import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
@@ -198,6 +199,7 @@ export default async function Page() {
         ) : (
           <Experience data={dynamicData} />
         )}
+        <IndependentEngineering />
         <FeaturedProjects data={featuredProjects} projects={projects} />
         <Testimonials data={testimonials} />
         <LatestPosts

@@ -7,8 +7,8 @@ export default function Testimonials({ data }) {
   const { headline, supportiveText, testimonialList } = data;
 
   return (
-    <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-neutral-50" />
+    <section className="bg-neutral-50 py-24 relative">
+      <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         <TestimonialList testimonialList={testimonialList} />
