@@ -15,13 +15,13 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
   }
 
   return (
-    <li className="mb-14 ms-10">
-      <span className="absolute flex items-center justify-center w-12 h-12 bg-neutral-50 rounded-full -start-6 ring-8 ring-white">
+    <li className="mb-14 sm:ms-10">
+      <span className="sm:absolute mb-2 sm:mb-0 flex items-center justify-center w-12 h-12 bg-neutral-50 rounded-full -start-6 ring-8 ring-white">
         {companyUrl ? (
           <a className="underline hover:no-underline hover:scale-105 transition" aria-label={`Visit ${company} website`} target="_blank" rel="noopener noreferrer" href={companyUrl}>
             <Image
               draggable="false"
-              className='rounded-full border border-neutral-200'
+              className='rounded-md border border-neutral-200'
               src={companyLogoUrl}
               width={92}
               height={92}
@@ -32,7 +32,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
         ) : (
           <Image
             draggable="false"
-            className='rounded-full border border-neutral-200'
+            className='rounded-md border border-neutral-200'
             src={companyLogoUrl}
             width={92}
             height={92}
@@ -44,7 +44,7 @@ export default function ExperienceEntry({ companyLogoUrl, companyLogoAlternative
       <h3 className="text-gray-900 font-normal text-xl sm:text-2xl">{role}</h3>
       <p className="text-gray-900 mb-1">{company}</p>
       <p className="mb-1"><time className="">{duration}</time></p>
-      <p className='mb-6'>{location}</p>
+      <p className='mb-8'>{location}</p>
       <BtnToggle isOpen={isOpen} onToggle={toggleContent} />
       <Collapse isOpened={isOpen}>
         <div className="pt-6">

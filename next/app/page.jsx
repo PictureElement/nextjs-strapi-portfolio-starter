@@ -8,6 +8,7 @@ import Faq from "@/components/Faq";
 import Testimonials from "@/components/Testimonials";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import LatestPosts from "@/components/LatestPosts";
+import HardwareIntegration from "@/components/HardwareIntegration";
 import {
   fetchHomePage,
   fetchFeaturedProjects,
@@ -207,6 +208,7 @@ export default async function Page() {
           posts={posts}
           localeString={localeString}
         />
+        <HardwareIntegration />
         <Faq data={faq} />
       </div>
     </>
