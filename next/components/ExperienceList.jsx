@@ -16,7 +16,8 @@ export default function ExperienceList({ experienceList }) {
             companyUrl={entry.companyUrl}
             location={entry.location}
             content={entry.content}
-            defaultOpen={index === 0 ? true : false}
+            // defaultOpen={index === 0 ? true : false}
+            defaultOpen={false}
           />
         );
       })}
