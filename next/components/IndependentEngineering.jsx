@@ -1,8 +1,9 @@
-import Services from "@/components/Services";
+import Services from '@/components/Services';
 
 const data = {
-  headline: 'INDEPENDENT ENGINEERING',
-  supportiveText: 'Architecting decoupled web systems and open-source software',
+  headline: 'INDEPENDENT FULL-STACK ENGINEERING & DEVOPS',
+  supportiveText:
+    'Architecting decoupled web systems, self-hosted infrastructure, and open-source software',
   serviceList: [
     {
       id: 1,
