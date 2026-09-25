@@ -5,10 +5,6 @@ module.exports = ({ env }) => {
   const storageHost =
     endpoint && endpoint.startsWith('http') ? new URL(endpoint).hostname : '*.amazonaws.com';
 
-  // Dynamically whitelist the storage endpoint for the Strapi admin dashboard
-  const storageEndpoint = env('AWS_ENDPOINT');
-  const storageHost = storageEndpoint ? new URL(storageEndpoint).hostname : '*.amazonaws.com';
-
   return [
     'strapi::logger',
     'strapi::errors',
