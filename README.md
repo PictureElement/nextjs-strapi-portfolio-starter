@@ -3,6 +3,7 @@
 ![Banner Image](banner.jpg)
 
 ## Table of contents
+
 1. [Description](#description)
 2. [Features](#features)
 3. [Development setup guide](#development-setup-guide)
@@ -24,12 +25,12 @@ Security measures like honeypot spam protection, API rate limiting, and email ob
 
 The demo website achieves outstanding PageSpeed scores:
 
-| Device   | Performance | Accessibility | Best Practices | SEO |
-|----------|-------------|---------------|----------------|-----|
-| Mobile   | 98          | 100           | 100            | 100 |
-| Desktop  | 100         | 100           | 100            | 100 |
+| Device  | Performance | Accessibility | Best Practices | SEO |
+| ------- | ----------- | ------------- | -------------- | --- |
+| Mobile  | 98          | 100           | 100            | 100 |
+| Desktop | 100         | 100           | 100            | 100 |
 
-*Captured at May 8, 2025, 3:18 PM GMT+3*
+_Captured at May 8, 2025, 3:18 PM GMT+3_
 
 ## Features
 
@@ -191,12 +192,12 @@ i. Access admin at `http://localhost:1337/admin`
 
 ii. Create your first admin user
 
-iii. Generate API tokens (*Settings → API Tokens*):
+iii. Generate API tokens (_Settings → API Tokens_):
 
-| Token Name              | Type       | Permissions               |
-|-------------------------|------------|---------------------------|
-| `READ-ONLY-TOKEN`       | Read-only  | All content types         |
-| `FORM-TOKEN`            | Custom     | Lead → Create only       |
+| Token Name        | Type      | Permissions        |
+| ----------------- | --------- | ------------------ |
+| `READ-ONLY-TOKEN` | Read-only | All content types  |
+| `FORM-TOKEN`      | Custom    | Lead → Create only |
 
 iv. Note down the tokens for later use.
 
@@ -296,14 +297,14 @@ Follow CJ Reynolds' [Coolify Crash Course](https://youtu.be/taJlPG82Ucw) on the 
 
 ### Step 2: Strapi setup
 
-> If you encounter errors such as "Failed to fetch dynamically imported module" when accessing the admin dashboard during this step, try clearing your browser's cache and performing a hard reload. 
+> If you encounter errors such as "Failed to fetch dynamically imported module" when accessing the admin dashboard during this step, try clearing your browser's cache and performing a hard reload.
 
 **i. Create a Strapi resource**
 
 - In the Coolify dashboard, go to "Projects".
 - Create a new project (or select an existing one).
 - Under your chosen project, add a new resource.
-- Search for the *Strapi* template (based on the `elestio/strapi-development` image).
+- Search for the _Strapi_ template (based on the `elestio/strapi-development` image).
 
 **ii. Set the Node environment**
 
@@ -331,6 +332,7 @@ Navigate to the local `/strapi/` directory and use the following `rsync` command
 ```
 rsync -avz -e "ssh -i /path/to/private_key" backup/ root@<server-ip>:/home/strapi/backup/
 ```
+
 ```
 rsync -avz -e "ssh -i /path/to/private_key" src/ root@<server-ip>:/home/strapi/src/
 ```
@@ -358,7 +360,7 @@ npx @strapi/upgrade latest
 
 **vii. Restore Strapi schemas & configuration on production**
 
-*A one-time transfer of content types and configuration from localhost to production.*
+_A one-time transfer of content types and configuration from localhost to production._
 
 Access the Strapi container's terminal (via Coolify) and restore the configuration dump:
 
@@ -368,7 +370,7 @@ npm run strapi config:restore -- --file backup/config.json
 
 **viii. Migrate demo content to production (optional)**
 
-*Securely migrate content (entries, media) from from localhost to production.*
+_Securely migrate content (entries, media) from from localhost to production._
 
 <u>Method 1:</u>
 
@@ -381,43 +383,44 @@ npm run strapi import -- --file backup/data.tar.gz
 <u>Method 2:</u>
 
 - Log in to your production Strapi admin panel (`https://<your-strapi-domain>/admin`).
-- Go to *Settings → Transfer Tokens → Create New Transfer Token*.
+- Go to _Settings → Transfer Tokens → Create New Transfer Token_.
 - Name the token (e.g., "Local to Prod Transfer"), set an expiration date and give it full access.
 - Copy the generated token.
-- Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:  
+- Navigate to your local Strapi directory (`/strapi/`) and run the transfer command:
 
-    ```
-    npm run strapi transfer -- --to https://<your-strapi-domain>.com/admin --to-token YOUR_TRANSFER_TOKEN
-    ```
-    Replace `YOUR_TRANSFER_TOKEN` with the token.
+  ```
+  npm run strapi transfer -- --to https://<your-strapi-domain>.com/admin --to-token YOUR_TRANSFER_TOKEN
+  ```
+
+  Replace `YOUR_TRANSFER_TOKEN` with the token.
 
 ### Step 3: GitHub integration
 
-i. In Coolify dashboard navigate to *Sources* and add a new GitHub App. Name the app and register the webhook endpoint (make sure to use `https://`).
+i. In Coolify dashboard navigate to _Sources_ and add a new GitHub App. Name the app and register the webhook endpoint (make sure to use `https://`).
 
 ii. Proceed with the creation of the GitHub App on GitHub's authorization page.
 
-iii. After returning to Coolify, click *Install Repositories on GitHub* and select the `next-strapi-portfolio` repository to authorize access.
+iii. After returning to Coolify, click _Install Repositories on GitHub_ and select the `next-strapi-portfolio` repository to authorize access.
 
 ### Step 4: Next.js deployment
 
 **i. Create your Strapi API tokens**
 
 - Access Strapi admin at `https://<your-strapi-domain>/admin`
-- Generate API tokens (*Settings → API Tokens*):
-    | Token Name              | Type       | Permissions               |
-    |-------------------------|------------|---------------------------|
-    | `READ-ONLY-TOKEN`       | Read-only  | All content types         |
-    | `FORM-TOKEN`            | Custom     | Leads → Create only       |
+- Generate API tokens (_Settings → API Tokens_):
+  | Token Name | Type | Permissions |
+  |-------------------------|------------|---------------------------|
+  | `READ-ONLY-TOKEN` | Read-only | All content types |
+  | `FORM-TOKEN` | Custom | Leads → Create only |
 - Note down the tokens for later use.
 
 **ii. Create a Next.js resource**
 
-In Coolify dashboard navigate to *Projects* and create a new project (or select an existing one). Under the project, add a new resource. Select the *Private Repository (with GitHub App)* type, choose the `next-strapi-portfolio` repository and load it.
+In Coolify dashboard navigate to _Projects_ and create a new project (or select an existing one). Under the project, add a new resource. Select the _Private Repository (with GitHub App)_ type, choose the `next-strapi-portfolio` repository and load it.
 
 **iii. Production configuration**
 
-- Under *Configuration/General* configure the following settings:
+- Under _Configuration/General_ configure the following settings:
   - Build Pack: Nixpacks
   - Domains: `https://<your-nextjs-domain>`
   - Install Command: `npm install`
@@ -427,7 +430,7 @@ In Coolify dashboard navigate to *Projects* and create a new project (or select 
   - Publish Directory: `/next`
   - Watch Paths: `next/**`
 
-- Under *Configuration/Environment Variables* add the following variables:
+- Under _Configuration/Environment Variables_ add the following variables:
   - `NEXT_PUBLIC_STRAPI=https://<your-strapi-domain>`
   - `NEXT_PUBLIC_WEBSITE=https://<your-nextjs-domain>`
   - `NEXT_PUBLIC_EMAIL_ENCODED=<your-base64-encoded-version-of-your-email>`
@@ -437,7 +440,7 @@ In Coolify dashboard navigate to *Projects* and create a new project (or select 
 
 **iv. Deploy Next.js**
 
-Click *Deploy* to deploy Next.js in production.
+Click _Deploy_ to deploy Next.js in production.
 
 ## Roadmap
 
@@ -471,3 +474,12 @@ Your contributions are highly appreciated! If you wish to contribute to this pro
 ## License
 
 &copy; 2025 [Marios Sofokleous](https://www.msof.me/). Code released under the [MIT](LICENSE) license.
+
+cat <<EOF
+APP_KEYS=$(openssl rand -base64 16),$(openssl rand -base64 16)
+API_TOKEN_SALT=$(openssl rand -base64 16)
+ADMIN_JWT_SECRET=$(openssl rand -base64 16)
+TRANSFER_TOKEN_SALT=$(openssl rand -base64 16)
+JWT_SECRET=$(openssl rand -base64 16)
+ENCRYPTION_KEY=$(openssl rand -base64 16)
+EOF
