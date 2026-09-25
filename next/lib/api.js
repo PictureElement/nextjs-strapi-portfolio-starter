@@ -10,7 +10,7 @@ import {
   projectCollectionSchema,
   allSlugsSchema,
   dynamicPageMetadataSchema,
-} from "./schemas";
+} from './schemas';
 
 const qs = require('qs');
 
@@ -20,12 +20,15 @@ const qs = require('qs');
 
 async function fetchData(endpoint) {
   const token = process.env.STRAPI_READ_ONLY_TOKEN;
-  const url = new URL(endpoint, process.env.NEXT_PUBLIC_STRAPI).href;
+
+  const baseUrl = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI;
+  const url = new URL(endpoint, baseUrl).href;
+
   const cacheStrategy = process.env.NODE_ENV === 'production' ? 'force-cache' : 'no-store';
 
   const options = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     cache: cacheStrategy,
@@ -66,18 +69,18 @@ export const fetchLayout = async () => {
   const query = qs.stringify(
     {
       populate: {
-        siteRepresentation: { populate: "*" },
-        icons: { populate: "*" },
+        siteRepresentation: { populate: '*' },
+        icons: { populate: '*' },
         announcement: true,
-        header: { populate: "*" },
-        cta: { populate: "*" },
-        footer: { populate: "*" },
-        miscellaneous: { populate: "*" },
-      }
+        header: { populate: '*' },
+        cta: { populate: '*' },
+        footer: { populate: '*' },
+        miscellaneous: { populate: '*' },
+      },
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/global?${query}`;
   const response = await fetchData(endpoint);
@@ -90,38 +93,38 @@ export const fetchLayout = async () => {
     siteRepresentation: validatedData.data.siteRepresentation,
     miscellaneous: validatedData.data.miscellaneous,
     icons: validatedData.data.icons,
-  }
-}
+  };
+};
 
 export const fetchHomePage = async () => {
   const query = qs.stringify(
     {
       populate: {
-        metadata: { populate: "*" },
-        hero: { populate: "*" },
-        about: { populate: "*" },
+        metadata: { populate: '*' },
+        hero: { populate: '*' },
+        about: { populate: '*' },
         featuredProjects: true,
         skills: true,
-        testimonials: { populate: "*" },
-        faq: { populate: "*" },
+        testimonials: { populate: '*' },
+        faq: { populate: '*' },
         latestPosts: true,
         useCaseSpecificContent: {
           on: {
             'sections.experience': {
               populate: {
-                experienceList: { populate: "*" },
-              }
+                experienceList: { populate: '*' },
+              },
             },
             'sections.services': {
-              populate: "*",
-            }
+              populate: '*',
+            },
           },
         },
-      }
+      },
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/homepage?${query}`;
   const response = await fetchData(endpoint);
@@ -136,20 +139,20 @@ export const fetchHomePage = async () => {
     faq: validatedData.data.faq,
     latestPosts: validatedData.data.latestPosts,
     useCaseSpecificContent: validatedData.data.useCaseSpecificContent,
-  }
+  };
 };
 
 export const fetchProjectsPage = async () => {
   const query = qs.stringify(
     {
       populate: {
-        metadata: { populate: "*" },
+        metadata: { populate: '*' },
         banner: true,
       },
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/projects-page?${query}`;
   const response = await fetchData(endpoint);
@@ -157,20 +160,20 @@ export const fetchProjectsPage = async () => {
   return {
     metadata: validatedData.data.metadata,
     banner: validatedData.data.banner,
-  }
+  };
 };
 
 export const fetchBlogPage = async () => {
   const query = qs.stringify(
     {
       populate: {
-        metadata: { populate: "*" },
+        metadata: { populate: '*' },
         banner: true,
       },
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/blog-page?${query}`;
   const response = await fetchData(endpoint);
@@ -178,21 +181,21 @@ export const fetchBlogPage = async () => {
   return {
     metadata: validatedData.data.metadata,
     banner: validatedData.data.banner,
-  }
+  };
 };
 
 export const fetchContactPage = async () => {
   const query = qs.stringify(
     {
       populate: {
-        metadata: { populate: "*" },
+        metadata: { populate: '*' },
         banner: true,
       },
       fields: ['contactFormHeading', 'otherContactOptionsHeading'],
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/contact-page?${query}`;
   const response = await fetchData(endpoint);
@@ -202,21 +205,21 @@ export const fetchContactPage = async () => {
     otherContactOptionsHeading: validatedData.data.otherContactOptionsHeading,
     metadata: validatedData.data.metadata,
     banner: validatedData.data.banner,
-  }
+  };
 };
 
 export const fetchPrivacyPage = async () => {
   const query = qs.stringify(
     {
       populate: {
-        metadata: { populate: "*" },
+        metadata: { populate: '*' },
         banner: true,
       },
       fields: ['content'],
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/privacy-policy?${query}`;
   const response = await fetchData(endpoint);
@@ -225,20 +228,20 @@ export const fetchPrivacyPage = async () => {
     metadata: validatedData.data.metadata,
     banner: validatedData.data.banner,
     content: validatedData.data.content,
-  }
+  };
 };
 
 export const fetchNotFoundPage = async () => {
   const query = qs.stringify(
     {
       populate: {
-        metadata: { populate: "*" },
+        metadata: { populate: '*' },
         banner: true,
       },
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/not-found?${query}`;
   const response = await fetchData(endpoint);
@@ -246,7 +249,7 @@ export const fetchNotFoundPage = async () => {
   return {
     metadata: validatedData.data.metadata,
     banner: validatedData.data.banner,
-  }
+  };
 };
 
 //
@@ -257,7 +260,7 @@ export const fetchAllPosts = async () => {
   // Fetch posts sorted by the createdAt field in descending order (most recent first)
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
       sort: ['createdAt:desc'],
       pagination: {
         pageSize: 100,
@@ -266,7 +269,7 @@ export const fetchAllPosts = async () => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/posts?${query}`;
   const response = await fetchData(endpoint);
@@ -278,16 +281,16 @@ export const fetchLatestPosts = async () => {
   // Fetch posts sorted by the createdAt field in descending order (most recent first)
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
       sort: ['createdAt:desc'],
       pagination: {
         start: 0,
         limit: 3,
-      }
+      },
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/posts?${query}`;
   const response = await fetchData(endpoint);
@@ -298,7 +301,7 @@ export const fetchLatestPosts = async () => {
 export const fetchPostBySlug = async (slug) => {
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
       filters: {
         slug: {
           $eq: slug,
@@ -307,7 +310,7 @@ export const fetchPostBySlug = async (slug) => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/posts?${query}`;
   const response = await fetchData(endpoint);
@@ -328,17 +331,17 @@ export const fetchPostBySlug = async (slug) => {
     updatedAt: post.updatedAt,
     featuredImage: post.featuredImage,
     author: post.author,
-  }
+  };
 };
 
 export const fetchPostSitemap = async () => {
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/posts?${query}`;
   const response = await fetchData(endpoint);
@@ -358,7 +361,7 @@ export const fetchAllProjects = async () => {
   // Fetch projects sorted by the order field in ascending order
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
       sort: ['order:asc'],
       pagination: {
         pageSize: 100,
@@ -367,19 +370,19 @@ export const fetchAllProjects = async () => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/projects?${query}`;
   const response = await fetchData(endpoint);
   const validatedData = await validateResponse(response, projectCollectionSchema, endpoint);
   return validatedData.data;
-}
+};
 
 export const fetchFeaturedProjects = async () => {
   // Fetch featured projects sorted by the order field in ascending order
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
       filters: {
         isFeatured: {
           $eq: true,
@@ -389,7 +392,7 @@ export const fetchFeaturedProjects = async () => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/projects?${query}`;
   const response = await fetchData(endpoint);
@@ -400,7 +403,7 @@ export const fetchFeaturedProjects = async () => {
 export const fetchProjectBySlug = async (slug) => {
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
       filters: {
         slug: {
           $eq: slug,
@@ -409,7 +412,7 @@ export const fetchProjectBySlug = async (slug) => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/projects?${query}`;
   const response = await fetchData(endpoint);
@@ -430,17 +433,17 @@ export const fetchProjectBySlug = async (slug) => {
     scopes: validatedData.data[0].scopes,
     tools: validatedData.data[0].tools,
     designFile: validatedData.data[0].designFile,
-  }
+  };
 };
 
 export const fetchProjectSitemap = async () => {
   const query = qs.stringify(
     {
-      populate: "*",
+      populate: '*',
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/projects?${query}`;
   const response = await fetchData(endpoint);
@@ -463,7 +466,7 @@ export const fetchAllSlugs = async (resource) => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/${resource}?${query}`;
   const response = await fetchData(endpoint);
@@ -489,7 +492,7 @@ export const fetchDynamicPageMetadata = async (resource, slug) => {
     },
     {
       encodeValuesOnly: true,
-    },
+    }
   );
   const endpoint = `/api/${resource}?${query}`;
   const response = await fetchData(endpoint);
@@ -498,5 +501,5 @@ export const fetchDynamicPageMetadata = async (resource, slug) => {
     title: validatedData.data[0].title,
     description: validatedData.data[0].excerpt,
     image: validatedData.data[0].featuredImage,
-  }
+  };
 };
