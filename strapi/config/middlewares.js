@@ -1,4 +1,10 @@
 module.exports = ({ env }) => {
+  const endpoint = env('AWS_ENDPOINT');
+
+  // Only attempt to parse if a protocol is included. Otherwise, fallback to a wildcard.
+  const storageHost =
+    endpoint && endpoint.startsWith('http') ? new URL(endpoint).hostname : '*.amazonaws.com';
+
   // Dynamically whitelist the storage endpoint for the Strapi admin dashboard
   const storageEndpoint = env('AWS_ENDPOINT');
   const storageHost = storageEndpoint ? new URL(storageEndpoint).hostname : '*.amazonaws.com';
