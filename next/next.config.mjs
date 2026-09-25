@@ -13,9 +13,11 @@ const nextConfig = {
         port: new URL(process.env.NEXT_PUBLIC_STRAPI).port || '',
         pathname: '/uploads/**',
       },
+      // Hetzner S3 Object Storage domain here
       {
         protocol: 'https',
-        hostname: 'placehold.co',
+        hostname: 'fsn1.your-objectstorage.com',
+        port: '',
         pathname: '/**',
       },
     ],
