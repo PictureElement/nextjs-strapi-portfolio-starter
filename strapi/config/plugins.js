@@ -3,6 +3,7 @@ module.exports = ({ env }) => ({
     config: {
       provider: 'aws-s3',
       providerOptions: {
+        rootPath: env('AWS_FOLDER', 'media'),
         s3Options: {
           credentials: {
             accessKeyId: env('AWS_ACCESS_KEY_ID'),
