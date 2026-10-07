@@ -19,7 +19,7 @@
   "dependencies": {
     "@strapi/plugin-cloud": "5.54.0",
     "@strapi/plugin-users-permissions": "5.54.0",
-    "@strapi/provider-upload-aws-s3": "^5.55.1",
+    "@strapi/provider-upload-cloudinary": "^5.57.0",
     "@strapi/strapi": "5.54.0",
     "better-sqlite3": "11.3.0",
     "koa2-ratelimit": "^1.1.3",

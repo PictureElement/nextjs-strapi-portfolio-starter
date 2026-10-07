@@ -1,26 +1,15 @@
 module.exports = ({ env }) => ({
   upload: {
     config: {
-      provider: 'aws-s3',
+      provider: 'cloudinary',
       providerOptions: {
-        rootPath: env('AWS_FOLDER', 'media'),
-        s3Options: {
-          credentials: {
-            accessKeyId: env('AWS_ACCESS_KEY_ID'),
-            secretAccessKey: env('AWS_ACCESS_SECRET'),
-          },
-          region: env('AWS_REGION'),
-          endpoint: env('AWS_ENDPOINT'),
-          forcePathStyle: env.bool('AWS_FORCE_PATH_STYLE', true),
-          params: {
-            Bucket: env('AWS_BUCKET'),
-            ACL: env('AWS_ACL', 'public-read'), // Ensures portfolio images are publicly viewable
-          },
-        },
+        cloud_name: env('CLOUDINARY_NAME'),
+        api_key: env('CLOUDINARY_KEY'),
+        api_secret: env('CLOUDINARY_SECRET'),
       },
       actionOptions: {
-        upload: {},
-        uploadStream: {},
+        upload: { folder: env('CLOUDINARY_FOLDER', 'website') },
+        uploadStream: { folder: env('CLOUDINARY_FOLDER', 'website') },
         delete: {},
       },
     },
