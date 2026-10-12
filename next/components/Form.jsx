@@ -154,8 +154,7 @@ export default function Form() {
               >
                 privacy policy
               </Link>{' '}
-              and consent to having my submitted information collected and processed to respond to
-              my inquiry.
+              and understand that my message will be processed to reply to my inquiry.
             </div>
           </label>
           <div
