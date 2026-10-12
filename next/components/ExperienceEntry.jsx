@@ -26,7 +26,7 @@ export default function ExperienceEntry({
 
   return (
     <li className="mb-14 sm:ms-10">
-      <span className="sm:absolute mb-2 sm:mb-0 flex items-center justify-center w-12 h-12 bg-neutral-50 rounded-full -start-6 ring-8 ring-white">
+      <span className="sm:absolute mb-2 sm:mb-0 flex items-center justify-center w-12 h-12 bg-neutral-50 rounded-full -start-6">
         {companyUrl ? (
           <a
             className="underline hover:no-underline hover:scale-105 transition"

@@ -9,7 +9,7 @@ export default function FeaturedProjects({ data, projects }) {
 
   return (
     <section className="bg-white py-24 relative overflow-hidden">
-      <ShapeDivider className="fill-gray-50" />
+      <ShapeDivider className="fill-neutral-50" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         {projects.status === 'rejected' ? (

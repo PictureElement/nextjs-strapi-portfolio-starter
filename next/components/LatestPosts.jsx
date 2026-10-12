@@ -9,7 +9,7 @@ export default function LatestPosts({ data, posts, localeString }) {
 
   return (
     <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-gray-50" />
+      <ShapeDivider className="fill-neutral-50" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         {posts.status === 'rejected' ? (
