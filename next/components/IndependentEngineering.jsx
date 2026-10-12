@@ -39,7 +39,7 @@ const data = {
       id: 6,
       title: 'Marketplace & open-source',
       description:
-        'I have published custom themes and plugins on the official `WordPress` and `October CMS` marketplaces, all of which passed public code review. Together they have over 500 active installations. Examples include the Rapido theme for October CMS and the JobLister plugin for WordPress.',
+        'I publish open-source work on GitHub, including a `Next.js` and `Strapi` portfolio template with static site generation, JSON-LD and a spam-protected contact form; it also powers this website. I also published JobLister, a `React`-based job board plugin for `WordPress` that passed the official plugin review.',
     },
   ],
 };
