@@ -86,32 +86,6 @@ export default async function Footer({ data, siteRepresentation }) {
               <p className="mt-4 mb-6 text-white/75 text-base text-center md:text-start">
                 {statement}
               </p>
-              {/* Badges */}
-              <div className="flex justify-center md:justify-start gap-4">
-                <Link
-                  href="https://www.w3.org/WAI/WCAG2AA-Conformance"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  title="Explanation of WCAG 2 Level AA conformance"
-                >
-                  <Image
-                    className="grayscale hover:grayscale-0 transition"
-                    src="/wcag2AA-blue-v.svg"
-                    height={28}
-                    width={80}
-                    alt="Level AA conformance, W3C WAI Web Content Accessibility Guidelines 2.0"
-                  />
-                </Link>
-                <Link href="/privacy-policy/" target="_blank" title="Read our privacy policy">
-                  <Image
-                    className="grayscale hover:grayscale-0 transition"
-                    src="/gdpr-badge.svg"
-                    height={28}
-                    width={80}
-                    alt="GDPR compliance badge"
-                  />
-                </Link>
-              </div>
               {socialChannels.length > 0 && (
                 <div className="mt-8">
                   <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">
