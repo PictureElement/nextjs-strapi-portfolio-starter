@@ -8,11 +8,7 @@
   "attributes": {
     "channel": {
       "type": "enumeration",
-      "enum": [
-        "GitHub",
-        "LinkedIn",
-        "X"
-      ],
+      "enum": ["GitHub", "LinkedIn", "X"],
       "required": true
     },
     "url": {

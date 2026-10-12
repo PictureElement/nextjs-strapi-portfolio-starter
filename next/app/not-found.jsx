@@ -1,5 +1,5 @@
-import BtnPrimary from "@/components/BtnPrimary";
-import { fetchNotFoundPage, fetchLayout } from "@/lib/api";
+import BtnPrimary from '@/components/BtnPrimary';
+import { fetchNotFoundPage, fetchLayout } from '@/lib/api';
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -28,23 +28,19 @@ export async function generateMetadata(_, parent) {
     openGraph: {
       ...p.openGraph,
       images: [imageUrl],
-      type: "website",
+      type: 'website',
     },
   };
 }
 
 export default async function NotFound() {
-  const [page, global] = await Promise.allSettled([
-    fetchNotFoundPage(),
-    fetchLayout(),
-  ]);
+  const [page, global] = await Promise.allSettled([fetchNotFoundPage(), fetchLayout()]);
 
-  if (page.status === "rejected") {
+  if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="text-red-600 text-center">
-          Error: We encountered an issue while loading the &quot;404 - Page not
-          found&quot; page.
+          Error: We encountered an issue while loading the &quot;404 - Page not found&quot; page.
         </div>
       </div>
     );
@@ -56,7 +52,7 @@ export default async function NotFound() {
 
   let jsonLd = null;
 
-  if (global.status === "fulfilled") {
+  if (global.status === 'fulfilled') {
     const { siteRepresentation, miscellaneous } = global.value;
     const {
       siteImage,
@@ -71,8 +67,7 @@ export default async function NotFound() {
       addressLocality,
       areaServed,
     } = siteRepresentation;
-    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI)
-      .href;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap((category) =>
       category.children.map((skill) => skill.name)
@@ -81,32 +76,32 @@ export default async function NotFound() {
 
     // Construct JSON-LD
     jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
+      '@context': 'https://schema.org',
+      '@graph': [
         {
-          "@type": "WebSite",
-          "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebSite',
+          '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
           inLanguage: htmlLanguageTag,
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": isOrganization ? "Organization" : "Person",
-          "@id": isOrganization
-            ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-            : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': isOrganization ? 'Organization' : 'Person',
+          '@id': isOrganization
+            ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+            : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
-            "@type": "ContactPoint",
-            url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@type': 'ContactPoint',
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
@@ -121,7 +116,7 @@ export default async function NotFound() {
             : {}),
           knowsAbout: extractedSkills,
           address: {
-            "@type": "PostalAddress",
+            '@type': 'PostalAddress',
             addressLocality: addressLocality,
           },
           ...(isOrganization && areaServed && { areaServed: areaServed }),
@@ -143,11 +138,7 @@ export default async function NotFound() {
             {headline}
           </h1>
           <p className="text-gray-700 text-lg mb-7">{supportiveText}</p>
-          <BtnPrimary
-            className="w-full sm:w-auto"
-            label="Return to Home"
-            url="/"
-          />
+          <BtnPrimary className="w-full sm:w-auto" label="Return to Home" url="/" />
         </div>
       </section>
     </>

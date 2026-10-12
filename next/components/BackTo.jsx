@@ -1,11 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 import { ArrowLeftIcon } from '@heroicons/react/16/solid';
 
-export default function BackTo({
-  label = 'Default label',
-  url = '#',
-  ...rest
-}) {
+export default function BackTo({ label = 'Default label', url = '#', ...rest }) {
   return (
     <div className="px-4 py-10">
       <Link
@@ -20,10 +16,8 @@ export default function BackTo({
             "
       >
         <ArrowLeftIcon className="relative h-[1em] w-[1em] me-1 group-hover:-translate-x-0.5 transition" />
-        <span className="relative">
-          {label}
-        </span>
+        <span className="relative">{label}</span>
       </Link>
     </div>
-  )
+  );
 }

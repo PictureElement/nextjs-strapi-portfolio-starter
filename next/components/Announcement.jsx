@@ -1,26 +1,23 @@
-"use client";
+'use client';
 
-import DOMPurify from "isomorphic-dompurify";
-import { marked } from "marked";
-import { XMarkIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import { useEffect, useState } from 'react';
 
 export default function Announcement({ data }) {
   const [isVisible, setIsVisible] = useState(null);
 
   useEffect(() => {
     // Check if the announcement hasn't been dismissed
-    if (
-      typeof window !== "undefined" &&
-      !localStorage.getItem("announcementDismissed")
-    ) {
+    if (typeof window !== 'undefined' && !localStorage.getItem('announcementDismissed')) {
       setIsVisible(true);
     }
   }, []);
 
   const handleDismiss = () => {
     setIsVisible(false);
-    localStorage.setItem("announcementDismissed", "true"); // Persist dismissal in local storage
+    localStorage.setItem('announcementDismissed', 'true'); // Persist dismissal in local storage
   };
 
   if (!data) {
@@ -29,8 +26,7 @@ export default function Announcement({ data }) {
       <div className="bg-neutral-950 relative z-[10000]">
         <div className="mx-auto max-w-7xl p-4">
           <div className="text-red-600 text-center">
-            Error: We encountered an issue while loading the
-            &quot;Announcement&quot; component.
+            Error: We encountered an issue while loading the &quot;Announcement&quot; component.
           </div>
         </div>
       </div>

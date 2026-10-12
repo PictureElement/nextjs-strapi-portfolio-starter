@@ -1,6 +1,6 @@
 import { ArrowDownIcon } from '@heroicons/react/16/solid';
-import DOMPurify from "isomorphic-dompurify";
-import { marked } from "marked";
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
 
 export default function FaqEntry({ question, answer }) {
   return (

@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 //
 // Patterns
@@ -24,10 +24,11 @@ const metadataSchema = z.object({
 
 const socialChannelSchema = z.object({
   id: z.number(),
-  channel: z.string().refine(
-    (val) => val === 'GitHub' || val == 'LinkedIn' || val === 'X',
-    { message: "Value must be 'GitHub', 'LinkedIn' or 'X'" }
-  ),
+  channel: z
+    .string()
+    .refine((val) => val === 'GitHub' || val == 'LinkedIn' || val === 'X', {
+      message: "Value must be 'GitHub', 'LinkedIn' or 'X'",
+    }),
   url: z.string(),
   label: z.string(),
 });
@@ -39,7 +40,7 @@ const linkSchema = z.object({
   openLinkInNewTab: z.boolean(),
   sameHostLink: z.boolean(),
   showIcon: z.boolean(),
-  iconType: z.enum(["arrowRight", "arrowUpRight"]),
+  iconType: z.enum(['arrowRight', 'arrowUpRight']),
 });
 
 const sectionHeaderSchema = z.object({
@@ -51,12 +52,14 @@ const sectionHeaderSchema = z.object({
 // Entries
 //
 
-const authorEntrySchema = z.object({
-  id: z.number(),
-  authorName: z.string(),
-  isOrganization: z.boolean(),
-  url: z.string()
-}).nullable();
+const authorEntrySchema = z
+  .object({
+    id: z.number(),
+    authorName: z.string(),
+    isOrganization: z.boolean(),
+    url: z.string(),
+  })
+  .nullable();
 
 const postEntrySchema = z.object({
   id: z.number(),
@@ -92,9 +95,11 @@ const projectEntrySchema = z.object({
       title: z.string(),
     })
   ), // Can be empty
-  designFile: z.object({
-    url: z.string(),
-  }).nullable(), // Allow null values
+  designFile: z
+    .object({
+      url: z.string(),
+    })
+    .nullable(), // Allow null values
   author: authorEntrySchema,
 });
 
@@ -165,7 +170,7 @@ export const layoutSchema = z.object({
       iconSVG: imageSchema,
       iconPNG: imageSchema,
     }),
-  })
+  }),
 });
 
 export const homePageSchema = z.object({
@@ -183,72 +188,80 @@ export const homePageSchema = z.object({
     featuredProjects: sectionHeaderSchema,
     skills: sectionHeaderSchema,
     testimonials: sectionHeaderSchema.extend({
-      testimonialList: z.array(
-        z.object({
-          id: z.number(),
-          statement: z.string(),
-          author: z.string(),
-          role: z.string(),
-          company: z.string(),
-          companyWebsite: z.string(),
-        })
-      ).nonempty(), // At least one entry is required
+      testimonialList: z
+        .array(
+          z.object({
+            id: z.number(),
+            statement: z.string(),
+            author: z.string(),
+            role: z.string(),
+            company: z.string(),
+            companyWebsite: z.string(),
+          })
+        )
+        .nonempty(), // At least one entry is required
     }),
     faq: sectionHeaderSchema.extend({
-      faqList: z.array(
-        z.object({
-          id: z.number(),
-          question: z.string(),
-          answer: z.string(),
-        })
-      ).nonempty(), // At least one entry is required
+      faqList: z
+        .array(
+          z.object({
+            id: z.number(),
+            question: z.string(),
+            answer: z.string(),
+          })
+        )
+        .nonempty(), // At least one entry is required
     }),
     latestPosts: sectionHeaderSchema,
     useCaseSpecificContent: z.array(
       z.discriminatedUnion('__component', [
         sectionHeaderSchema.extend({
           __component: z.literal('sections.services'),
-          serviceList: z.array(
-            z.object({
-              id: z.number(),
-              description: z.string(),
-              title: z.string(),
-            })
-          ).nonempty(), // At least one service entry is required
+          serviceList: z
+            .array(
+              z.object({
+                id: z.number(),
+                description: z.string(),
+                title: z.string(),
+              })
+            )
+            .nonempty(), // At least one service entry is required
         }),
         sectionHeaderSchema.extend({
           __component: z.literal('sections.experience'),
-          experienceList: z.array(
-            z.object({
-              id: z.number(),
-              role: z.string(),
-              company: z.string(),
-              companyUrl: z.string().nullable(), // Allow null values
-              duration: z.string(),
-              location: z.string(),
-              description: z.string(),
-              content: z.string(),
-              companyLogo: imageSchema,
-            })
-          ).nonempty(), // At least one experience entry is required
+          experienceList: z
+            .array(
+              z.object({
+                id: z.number(),
+                role: z.string(),
+                company: z.string(),
+                companyUrl: z.string().nullable(), // Allow null values
+                duration: z.string(),
+                location: z.string(),
+                description: z.string(),
+                content: z.string(),
+                companyLogo: imageSchema,
+              })
+            )
+            .nonempty(), // At least one experience entry is required
         }),
-      ]),
+      ])
     ),
-  })
+  }),
 });
 
 export const projectsPageSchema = z.object({
   data: z.object({
     metadata: metadataSchema,
     banner: bannerSchema,
-  })
+  }),
 });
 
 export const blogPageSchema = z.object({
   data: z.object({
     metadata: metadataSchema,
     banner: bannerSchema,
-  })
+  }),
 });
 
 export const contactPageSchema = z.object({
@@ -257,7 +270,7 @@ export const contactPageSchema = z.object({
     banner: bannerSchema,
     contactFormHeading: z.string(),
     otherContactOptionsHeading: z.string(),
-  })
+  }),
 });
 
 export const privacyPageSchema = z.object({
@@ -265,14 +278,14 @@ export const privacyPageSchema = z.object({
     metadata: metadataSchema,
     banner: bannerSchema,
     content: z.string(),
-  })
+  }),
 });
 
 export const notFoundPageSchema = z.object({
   data: z.object({
     metadata: metadataSchema,
     banner: bannerSchema,
-  })
+  }),
 });
 
 //
@@ -280,20 +293,25 @@ export const notFoundPageSchema = z.object({
 //
 export const formSchema = z.object({
   name: z.string().trim(),
-  email: z.string().trim().nonempty({
-    message: 'Email is required.',
-  }).email({
-    message: 'Invalid email address.',
-  }),
-  message: z.string().trim().nonempty({
-    message: 'Message is required.',
-  }).min(10, {
-    message: 'Message must be at least 10 characters long.',
-  }),
-  consent: z.boolean().refine(
-    (val) => val === true,
-    { message: 'Consent is required.' }
-  ),
+  email: z
+    .string()
+    .trim()
+    .nonempty({
+      message: 'Email is required.',
+    })
+    .email({
+      message: 'Invalid email address.',
+    }),
+  message: z
+    .string()
+    .trim()
+    .nonempty({
+      message: 'Message is required.',
+    })
+    .min(10, {
+      message: 'Message must be at least 10 characters long.',
+    }),
+  consent: z.boolean().refine((val) => val === true, { message: 'Consent is required.' }),
 });
 
 //
@@ -301,15 +319,19 @@ export const formSchema = z.object({
 //
 
 export const allSlugsSchema = z.object({
-  data: z.array(z.object({
-    slug: z.string(),
-  })),
+  data: z.array(
+    z.object({
+      slug: z.string(),
+    })
+  ),
 });
 
 export const dynamicPageMetadataSchema = z.object({
-  data: z.array(z.object({
-    title: z.string(),
-    excerpt: z.string(),
-    featuredImage: imageSchema,
-  })),
+  data: z.array(
+    z.object({
+      title: z.string(),
+      excerpt: z.string(),
+      featuredImage: imageSchema,
+    })
+  ),
 });

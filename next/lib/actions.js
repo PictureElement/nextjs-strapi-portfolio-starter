@@ -1,6 +1,6 @@
 'use server';
 
-import { formSchema } from "./schemas";
+import { formSchema } from './schemas';
 
 const createLead = async (data) => {
   const token = process.env.STRAPI_FORM_TOKEN;
@@ -9,7 +9,7 @@ const createLead = async (data) => {
   const options = {
     method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({ data }), // Wrap data in a 'data' object as required by Strapi
@@ -40,8 +40,8 @@ export async function onSubmitAction(data) {
   try {
     // Check honeypot field
     if (data.name) {
-      console.warn("Spam detected via honeypot:", data.name);
-      throw new Error("Spam submission detected");
+      console.warn('Spam detected via honeypot:', data.name);
+      throw new Error('Spam submission detected');
     }
 
     // Sanitize input
@@ -64,7 +64,7 @@ export async function onSubmitAction(data) {
 
     // Send email notification
   } catch (error) {
-    console.error("Error processing form data: ", error);
-    throw new Error("Error processing form data");
+    console.error('Error processing form data: ', error);
+    throw new Error('Error processing form data');
   }
 }

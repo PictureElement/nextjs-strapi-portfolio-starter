@@ -1,6 +1,6 @@
-import SectionHeader from "./SectionHeader";
-import ShapeDivider from "./ShapeDivider";
-import TestimonialList from "./TestimonialList";
+import SectionHeader from './SectionHeader';
+import ShapeDivider from './ShapeDivider';
+import TestimonialList from './TestimonialList';
 
 export default function Testimonials({ data }) {
   // Destructure the necessary properties

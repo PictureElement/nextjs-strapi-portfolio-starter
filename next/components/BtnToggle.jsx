@@ -39,6 +39,6 @@ export default function BtnToggle({
           <ArrowDownIcon className="h-[1em] w-[1em] ms-1" />
         )}
       </span>
-    </button >
+    </button>
   );
 }

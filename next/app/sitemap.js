@@ -1,4 +1,4 @@
-import { fetchPostSitemap, fetchProjectSitemap } from "@/lib/api";
+import { fetchPostSitemap, fetchProjectSitemap } from '@/lib/api';
 
 export default async function sitemap() {
   const BASE_URL = process.env.NEXT_PUBLIC_WEBSITE;
@@ -8,10 +8,7 @@ export default async function sitemap() {
 
   try {
     // Fetch posts and projects concurrently
-    const [postData, projectData] = await Promise.all([
-      fetchPostSitemap(),
-      fetchProjectSitemap(),
-    ]);
+    const [postData, projectData] = await Promise.all([fetchPostSitemap(), fetchProjectSitemap()]);
     posts = postData || [];
     projects = projectData || [];
   } catch (error) {
@@ -26,8 +23,8 @@ export default async function sitemap() {
       priority: 0.5,
     }));
 
-  const postUrlDefinitions = createUrlDefinitions(posts, "/blog");
-  const projectUrlDefinitions = createUrlDefinitions(projects, "/projects");
+  const postUrlDefinitions = createUrlDefinitions(posts, '/blog');
+  const projectUrlDefinitions = createUrlDefinitions(projects, '/projects');
 
   return [
     {
@@ -62,5 +59,5 @@ export default async function sitemap() {
     },
     ...projectUrlDefinitions,
     ...postUrlDefinitions,
-  ]
+  ];
 }

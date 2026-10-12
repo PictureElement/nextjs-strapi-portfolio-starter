@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import BtnPrimary from "./BtnPrimary";
-import { Bars3Icon } from "@heroicons/react/16/solid";
-import Link from "next/link";
-import { useState, useCallback } from "react";
+import Image from 'next/image';
+import BtnPrimary from './BtnPrimary';
+import { Bars3Icon } from '@heroicons/react/16/solid';
+import Link from 'next/link';
+import { useState, useCallback } from 'react';
 
 export default function Header({ data, siteRepresentation }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -19,8 +19,7 @@ export default function Header({ data, siteRepresentation }) {
       <div className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
         <div className="mx-auto max-w-7xl p-4">
           <div className="text-red-600 text-center">
-            Error: We encountered an issue while loading the &quot;Header&quot;
-            component.
+            Error: We encountered an issue while loading the &quot;Header&quot; component.
           </div>
         </div>
       </div>
@@ -31,8 +30,7 @@ export default function Header({ data, siteRepresentation }) {
   const { additionalNavigationItems, cta } = data;
   const { logo, logomark } = siteRepresentation;
   const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
-  const logomarkUrl = new URL(logomark.url, process.env.NEXT_PUBLIC_STRAPI)
-    .href;
+  const logomarkUrl = new URL(logomark.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return (
     <header className="backdrop-blur-xl sticky top-0 z-[1000] border-b border-black/15">
@@ -44,7 +42,7 @@ export default function Header({ data, siteRepresentation }) {
             draggable="false"
             priority
             src={logoUrl}
-            alt={logo.alternativeText ?? ""}
+            alt={logo.alternativeText ?? ''}
             className="hidden md:block"
             width={Math.round((logo?.width ?? 36) / 2)}
             height={Math.round((logo?.height ?? 36) / 2)}
@@ -54,7 +52,7 @@ export default function Header({ data, siteRepresentation }) {
             draggable="false"
             priority
             src={logomarkUrl}
-            alt={logomark.alternativeText ?? ""}
+            alt={logomark.alternativeText ?? ''}
             className="md:hidden"
             width={Math.round((logomark?.width ?? 36) / 2)}
             height={Math.round((logomark?.height ?? 36) / 2)}
@@ -65,8 +63,8 @@ export default function Header({ data, siteRepresentation }) {
         <div className="flex items-center gap-4 md:order-2">
           <BtnPrimary
             className="!h-9"
-            target={cta.openLinkInNewTab ? "_blank" : undefined}
-            rel={cta.sameHostLink ? undefined : "noopener noreferrer"}
+            target={cta.openLinkInNewTab ? '_blank' : undefined}
+            rel={cta.sameHostLink ? undefined : 'noopener noreferrer'}
             label={cta.label}
             url={cta.url}
             showIcon={cta.showIcon}
@@ -99,7 +97,7 @@ export default function Header({ data, siteRepresentation }) {
         <ul
           id="header-navigation"
           className={`header-navigation flex flex-col basis-full grow text-base md:flex-row md:basis-auto ${
-            isExpanded ? "show" : ""
+            isExpanded ? 'show' : ''
           }`}
         >
           <li>
@@ -122,8 +120,8 @@ export default function Header({ data, siteRepresentation }) {
             additionalNavigationItems.map((item) => (
               <li key={item.id}>
                 <Link
-                  target={item.openLinkInNewTab ? "_blank" : undefined}
-                  rel={item.sameHostLink ? undefined : "noopener noreferrer"}
+                  target={item.openLinkInNewTab ? '_blank' : undefined}
+                  rel={item.sameHostLink ? undefined : 'noopener noreferrer'}
                   href={item.url}
                   className="block py-[10px] leading-none md:px-2 text-gray-900 transition hover:text-gray-900/75"
                 >

@@ -1,4 +1,4 @@
-import BtnLight from "./BtnLight";
+import BtnLight from './BtnLight';
 
 export default async function CallToAction({ data }) {
   if (!data) {
@@ -7,8 +7,7 @@ export default async function CallToAction({ data }) {
       <div className="bg-primary-900 bg-dot-white/20">
         <div className="mx-auto max-w-7xl p-4">
           <div className="text-red-600 text-center">
-            Error: We encountered an issue while loading the
-            &quot;Call-to-action&quot; component.
+            Error: We encountered an issue while loading the &quot;Call-to-action&quot; component.
           </div>
         </div>
       </div>
@@ -27,8 +26,8 @@ export default async function CallToAction({ data }) {
         <p className="text-white/75 text-lg mb-6">{supportiveText}</p>
         <div className="flex items-center justify-center gap-x-4">
           <BtnLight
-            target={button.openLinkInNewTab ? "_blank" : undefined}
-            rel={button.sameHostLink ? undefined : "noopener noreferrer"}
+            target={button.openLinkInNewTab ? '_blank' : undefined}
+            rel={button.sameHostLink ? undefined : 'noopener noreferrer'}
             label={button.label}
             url={button.url}
             showIcon={button.showIcon}

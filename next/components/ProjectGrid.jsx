@@ -1,4 +1,4 @@
-import ProjectEntry from "./ProjectEntry";
+import ProjectEntry from './ProjectEntry';
 
 export default function ProjectGrid({ projects }) {
   return (

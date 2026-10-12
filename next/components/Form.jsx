@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PaperAirplaneIcon } from '@heroicons/react/16/solid';
 import { CheckIcon } from '@heroicons/react/16/solid';
-import Link from "next/link";
+import Link from 'next/link';
 import { formSchema } from '@/lib/schemas';
 import { onSubmitAction } from '@/lib/actions';
 
@@ -14,14 +14,20 @@ export default function Form() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [hasServerError, setHasServerError] = useState(false);
 
-  const { register, handleSubmit, reset, setFocus, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setFocus,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
       email: '',
       message: '',
       consent: false,
-    }
+    },
   });
 
   const sanitizeInput = (data) => ({
@@ -50,21 +56,21 @@ export default function Form() {
       setIsSubmitted(true); // Show success message
       setTimeout(() => setIsSubmitted(false), 10000); // Hide success message after a few seconds
     } catch (error) {
-      console.error("Error submitting form: ", error);
+      console.error('Error submitting form: ', error);
       setHasServerError(true);
 
       // Focus on the first field with an error
       if (errors.email) {
-        setFocus("email");
+        setFocus('email');
       } else if (errors.message) {
-        setFocus("message");
+        setFocus('message');
       } else if (errors.consent) {
-        setFocus("consent");
+        setFocus('consent');
       }
     } finally {
       setIsSubmitting(false); // Enable button
     }
-  }
+  };
 
   return (
     <>
@@ -72,14 +78,14 @@ export default function Form() {
         <div style={{ display: 'none' }}>
           <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
             <input
-              {...register("name")}
+              {...register('name')}
               type="hidden"
               placeholder="Your name"
               className="rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
               tabIndex={-1}
               autoComplete="off"
             />
-            <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text- transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
+            <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
               Your name
             </span>
           </label>
@@ -89,23 +95,28 @@ export default function Form() {
             <input
               aria-describedby="email-error"
               aria-invalid={errors.email ? 'true' : 'false'}
-              {...register("email")}
+              {...register('email')}
               type="email"
               placeholder="Your email"
               className="block rounded-lg outline-none peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent sm:text-xl"
             />
-            <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 text- transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
+            <span className="bg-neutral-50 px-1 absolute left-[12px] top-0 -translate-y-1/2 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-focus:top-0 peer-focus:text-base peer-focus:text-primary-700">
               Your email
             </span>
           </label>
-          <div id="email-error" className={`text-red-500 text-sm mt-1 ${errors.email ? "" : "sr-only"}`}>{errors.email?.message}</div>
+          <div
+            id="email-error"
+            className={`text-red-500 text-sm mt-1 ${errors.email ? '' : 'sr-only'}`}
+          >
+            {errors.email?.message}
+          </div>
         </div>
         <div>
           <label className="relative block border border-neutral-300 bg-transparent rounded-lg">
             <textarea
               aria-describedby="message-error"
               aria-invalid={errors.message ? 'true' : 'false'}
-              {...register("message")}
+              {...register('message')}
               rows="5"
               placeholder="Your message"
               className="block rounded-lg peer w-full border-none bg-transparent px-4 py-2 text-gray-700 placeholder-transparent focus:border-transparent focus:outline-none text-xl"
@@ -114,7 +125,12 @@ export default function Form() {
               Your message
             </span>
           </label>
-          <div id="message-error" className={`text-red-500 text-sm mt-1 ${errors.message ? "" : "sr-only"}`}>{errors.message?.message}</div>
+          <div
+            id="message-error"
+            className={`text-red-500 text-sm mt-1 ${errors.message ? '' : 'sr-only'}`}
+          >
+            {errors.message?.message}
+          </div>
         </div>
         <div>
           <label className="flex cursor-pointer items-start gap-3 transition">
@@ -123,17 +139,31 @@ export default function Form() {
                 name="consent"
                 aria-describedby="consent-error"
                 aria-invalid={errors.consent ? 'true' : 'false'}
-                {...register("consent")}
+                {...register('consent')}
                 type="checkbox"
                 className="peer size-5 rounded border border-neutral-400 appearance-none checked:bg-primary-700 checked:border-0"
               />
               <CheckIcon className="absolute hidden fill-white peer-checked:block" />
             </div>
             <div className="text-pretty font-light text-gray-700">
-              I have read the <Link href="/privacy-policy" target="_blank" className="font-medium border-b border-primary-700 hover:border-b-2">privacy policy</Link> and consent to having my submitted information collected and processed to respond to my inquiry.
+              I have read the{' '}
+              <Link
+                href="/privacy-policy"
+                target="_blank"
+                className="font-medium border-b border-primary-700 hover:border-b-2"
+              >
+                privacy policy
+              </Link>{' '}
+              and consent to having my submitted information collected and processed to respond to
+              my inquiry.
             </div>
           </label>
-          <div id="consent-error" className={`text-red-500 text-sm mt-1 ${errors.consent ? "" : "sr-only"}`}>{errors.consent?.message}</div>
+          <div
+            id="consent-error"
+            className={`text-red-500 text-sm mt-1 ${errors.consent ? '' : 'sr-only'}`}
+          >
+            {errors.consent?.message}
+          </div>
         </div>
         <button
           disabled={isSubmitting}
@@ -156,7 +186,7 @@ export default function Form() {
             bg-primary-700
             hover:bg-primary-600
             active:bg-primary-500
-            ${isSubmitting ? "cursor-not-allowed opacity-50" : ""}
+            ${isSubmitting ? 'cursor-not-allowed opacity-50' : ''}
           `}
           aria-label="Submit your message"
         >
@@ -169,9 +199,17 @@ export default function Form() {
             </>
           )}
         </button>
-      </form >
-      {hasServerError && <div className="text-red-500 text-sm mt-1">An error occurred while submitting the form. Please try again later.</div>}
-      {isSubmitted && <div className="text-green-500 text-sm mt-1">Your message has been submitted successfully!</div>}
+      </form>
+      {hasServerError && (
+        <div className="text-red-500 text-sm mt-1">
+          An error occurred while submitting the form. Please try again later.
+        </div>
+      )}
+      {isSubmitted && (
+        <div className="text-green-500 text-sm mt-1">
+          Your message has been submitted successfully!
+        </div>
+      )}
     </>
-  )
+  );
 }

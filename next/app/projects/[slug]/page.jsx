@@ -1,38 +1,34 @@
-import DOMPurify from "isomorphic-dompurify";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import Image from "next/image";
-import BackTo from "@/components/BackTo";
-import BtnPrimary from "@/components/BtnPrimary";
-import BtnSecondary from "@/components/BtnSecondary";
-import SocialShare from "@/components/SocialShare";
-import { notFound } from "next/navigation";
+import DOMPurify from 'isomorphic-dompurify';
+import { Marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
+import Image from 'next/image';
+import BackTo from '@/components/BackTo';
+import BtnPrimary from '@/components/BtnPrimary';
+import BtnSecondary from '@/components/BtnSecondary';
+import SocialShare from '@/components/SocialShare';
+import { notFound } from 'next/navigation';
 import {
   fetchProjectBySlug,
   fetchAllSlugs,
   fetchDynamicPageMetadata,
   fetchLayout,
-} from "@/lib/api";
-import Prism from "prismjs";
-import "prismjs/themes/prism-okaidia.css";
-import "prismjs/components/prism-scss";
-import "prismjs/components/prism-yaml";
-import "prismjs/components/prism-bash";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-jsx";
+} from '@/lib/api';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-okaidia.css';
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-yaml';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-jsx';
 
 // Configure Marked with the marked-highlight plugin
 // This plugin allows integration of custom syntax highlighting logic during Markdown parsing
 const marked = new Marked(
   markedHighlight({
-    langPrefix: "language-",
+    langPrefix: 'language-',
     highlight(code, lang) {
-      const validLanguage = Prism.languages[lang] ? lang : "plaintext";
-      return Prism.highlight(
-        code,
-        Prism.languages[validLanguage],
-        validLanguage
-      );
+      const validLanguage = Prism.languages[lang] ? lang : 'plaintext';
+      return Prism.highlight(code, Prism.languages[validLanguage], validLanguage);
     },
   })
 );
@@ -40,7 +36,7 @@ const marked = new Marked(
 // Return a list of "params" to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   try {
-    return await fetchAllSlugs("projects");
+    return await fetchAllSlugs('projects');
   } catch (error) {
     console.error(error.message);
     return [];
@@ -53,7 +49,7 @@ export async function generateMetadata({ params }, parent) {
   let data;
 
   try {
-    data = await fetchDynamicPageMetadata("projects", slug);
+    data = await fetchDynamicPageMetadata('projects', slug);
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
@@ -65,8 +61,7 @@ export async function generateMetadata({ params }, parent) {
 
   // Destructure/Format the necessary properties
   const { title, description, image } = data;
-  const url = new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE)
-    .href;
+  const url = new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href;
   const imageUrl = new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
   return {
@@ -76,7 +71,7 @@ export async function generateMetadata({ params }, parent) {
       ...p.openGraph,
       images: [imageUrl],
       url,
-      type: "article",
+      type: 'article',
     },
     alternates: {
       canonical: url,
@@ -88,12 +83,9 @@ export default async function Page(props) {
   const params = await props.params;
   const slug = params.slug;
 
-  const [project, global] = await Promise.allSettled([
-    fetchProjectBySlug(slug),
-    fetchLayout(),
-  ]);
+  const [project, global] = await Promise.allSettled([fetchProjectBySlug(slug), fetchLayout()]);
 
-  if (project.status === "rejected") {
+  if (project.status === 'rejected') {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="text-red-600 text-center">
@@ -122,17 +114,14 @@ export default async function Page(props) {
     designFile,
     author,
   } = project.value;
-  const featuredImageUrl = new URL(
-    featuredImage.url,
-    process.env.NEXT_PUBLIC_STRAPI
-  ).href;
+  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
   const designFileUrl = designFile
     ? new URL(designFile.url, process.env.NEXT_PUBLIC_STRAPI).href
     : null;
 
   let jsonLd = null;
 
-  if (global.status === "fulfilled") {
+  if (global.status === 'fulfilled') {
     // Destructure/Format the necessary properties
     const { siteRepresentation, miscellaneous } = global.value;
     const {
@@ -148,8 +137,7 @@ export default async function Page(props) {
       addressLocality,
       areaServed,
     } = siteRepresentation;
-    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI)
-      .href;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap((category) =>
       category.children.map((skill) => skill.name)
@@ -158,24 +146,22 @@ export default async function Page(props) {
 
     // Construct the JSON-LD
     jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
+      '@context': 'https://schema.org',
+      '@graph': [
         {
-          "@type": "ItemPage",
-          "@id": new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE)
-            .href,
+          '@type': 'ItemPage',
+          '@id': new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
           name: `${title} | ${siteName}`,
           description: excerpt,
-          url: new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE)
-            .href,
+          url: new URL(`/projects/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
           inLanguage: htmlLanguageTag,
           isPartOf: {
-            "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(author
             ? {
                 author: {
-                  "@type": author.isOrganization ? "Organization" : "Person",
+                  '@type': author.isOrganization ? 'Organization' : 'Person',
                   name: author.authorName,
                   url: author.url,
                 },
@@ -185,33 +171,33 @@ export default async function Page(props) {
           keywords: [
             ...scopes.map((scope) => scope.title),
             ...tools.map((tool) => tool.title),
-          ].join(", "),
+          ].join(', '),
           temporalCoverage: duration,
         },
         {
-          "@type": "WebSite",
-          "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebSite',
+          '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
           inLanguage: htmlLanguageTag,
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": isOrganization ? "Organization" : "Person",
-          "@id": isOrganization
-            ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-            : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': isOrganization ? 'Organization' : 'Person',
+          '@id': isOrganization
+            ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+            : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
-            "@type": "ContactPoint",
-            url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@type': 'ContactPoint',
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
@@ -226,7 +212,7 @@ export default async function Page(props) {
             : {}),
           knowsAbout: extractedSkills,
           address: {
-            "@type": "PostalAddress",
+            '@type': 'PostalAddress',
             addressLocality: addressLocality,
           },
           ...(isOrganization && areaServed && { areaServed: areaServed }),
@@ -249,20 +235,16 @@ export default async function Page(props) {
             <h1 className="text-gray-900 font-bold text-3xl md:text-4xl tracking-tight mb-3">
               {title}
             </h1>
-            <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">
-              {excerpt}
-            </p>
+            <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
             <div className="text-sm mb-12">
-              {author && (
-                <div className="text-gray-900">By {author.authorName}</div>
-              )}
+              {author && <div className="text-gray-900">By {author.authorName}</div>}
               <div>{duration}</div>
             </div>
             <Image
               className="mb-12 rounded-2xl overflow-hidden w-full border border-neutral-100"
               priority
               src={featuredImageUrl}
-              alt={featuredImage.alternativeText ?? ""}
+              alt={featuredImage.alternativeText ?? ''}
               width={1468}
               height={769}
               sizes="(max-width: 1151px) calc(100vw - 34px), 1118px"

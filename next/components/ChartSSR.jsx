@@ -31,7 +31,7 @@ function generateChartSVG(data) {
             color: '#111827',
             padding: 0,
             align: 'center',
-          }
+          },
         },
         {
           r0: '48%',
@@ -42,10 +42,10 @@ function generateChartSVG(data) {
             fontWeight: '400',
             color: '#374151',
             padding: 0,
-            silent: false
-          }
-        }
-      ]
+            silent: false,
+          },
+        },
+      ],
     },
     animation: false,
   });
@@ -61,6 +61,10 @@ function generateChartSVG(data) {
 
 export default function ChartSSR({ data }) {
   return (
-    <div className="overflow-hidden flex items-center justify-center width-full !h-[480px] sm:!h-[600px]" dangerouslySetInnerHTML={{ __html: generateChartSVG(data) }} suppressHydrationWarning />
-  )
+    <div
+      className="overflow-hidden flex items-center justify-center width-full !h-[480px] sm:!h-[600px]"
+      dangerouslySetInnerHTML={{ __html: generateChartSVG(data) }}
+      suppressHydrationWarning
+    />
+  );
 }

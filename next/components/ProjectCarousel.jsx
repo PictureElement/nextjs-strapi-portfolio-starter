@@ -1,6 +1,6 @@
 'use client';
 
-import ProjectEntry from "./ProjectEntry";
+import ProjectEntry from './ProjectEntry';
 import useEmblaCarousel from 'embla-carousel-react';
 
 export default function ProjectCarousel({ projects, baseUrl }) {

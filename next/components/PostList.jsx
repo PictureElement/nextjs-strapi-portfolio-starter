@@ -1,4 +1,4 @@
-import PostEntry from "./PostEntry";
+import PostEntry from './PostEntry';
 
 export default async function PostList({ postList, localeString }) {
   return (

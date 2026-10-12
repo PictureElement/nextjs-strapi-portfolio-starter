@@ -1,11 +1,11 @@
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
-import { ClockIcon } from "@heroicons/react/24/outline";
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { MapPinIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
-import NoSSRWrapper from "./NoSSRWrapper";
-import ContactLink from "./ContactLink";
-import Image from "next/image";
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import { ClockIcon } from '@heroicons/react/24/outline';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
+import { MapPinIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import NoSSRWrapper from './NoSSRWrapper';
+import ContactLink from './ContactLink';
+import Image from 'next/image';
 
 const socialIcons = {
   LinkedIn: (
@@ -47,8 +47,7 @@ export default async function Footer({ data, siteRepresentation }) {
       <div className="bg-neutral-950">
         <div className="mx-auto max-w-7xl p-4">
           <div className="text-red-600 text-center">
-            Error: We encountered an issue while loading the &quot;Footer&quot;
-            component.
+            Error: We encountered an issue while loading the &quot;Footer&quot; component.
           </div>
         </div>
       </div>
@@ -103,11 +102,7 @@ export default async function Footer({ data, siteRepresentation }) {
                     alt="Level AA conformance, W3C WAI Web Content Accessibility Guidelines 2.0"
                   />
                 </Link>
-                <Link
-                  href="/privacy-policy/"
-                  target="_blank"
-                  title="Read our privacy policy"
-                >
+                <Link href="/privacy-policy/" target="_blank" title="Read our privacy policy">
                   <Image
                     className="grayscale hover:grayscale-0 transition"
                     src="/gdpr-badge.svg"
@@ -120,7 +115,7 @@ export default async function Footer({ data, siteRepresentation }) {
               {socialChannels.length > 0 && (
                 <div className="mt-8">
                   <h3 className="text-white font-medium text-xl tracking-tight text-center md:text-start">
-                    Follow {isOrganization ? "us" : "me"}
+                    Follow {isOrganization ? 'us' : 'me'}
                   </h3>
                   {socialChannels.length > 0 && (
                     <ul className="mt-5 flex justify-center gap-3 md:justify-start">
@@ -134,9 +129,7 @@ export default async function Footer({ data, siteRepresentation }) {
                           >
                             <span className="sr-only">{item.label}</span>
                             {socialIcons[item.channel] || (
-                              <span className="text-red-500">
-                                Icon not found
-                              </span>
+                              <span className="text-red-500">Icon not found</span>
                             )}
                           </Link>
                         </li>
@@ -242,9 +235,7 @@ export default async function Footer({ data, siteRepresentation }) {
                       target="_blank"
                     >
                       <CalendarDaysIcon className="h-[1.2em] w-[1.2em] shrink-0" />
-                      <span className="group-hover:underline">
-                        Schedule a call
-                      </span>
+                      <span className="group-hover:underline">Schedule a call</span>
                     </Link>
                   </li>
                 )}
@@ -272,9 +263,7 @@ export default async function Footer({ data, siteRepresentation }) {
             >
               Privacy policy
             </Link>
-            <p className="text-white/75 text-base md:order-1 text-center">
-              {copyright}
-            </p>
+            <p className="text-white/75 text-base md:order-1 text-center">{copyright}</p>
           </div>
         </div>
       </div>

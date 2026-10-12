@@ -6,25 +6,19 @@
   "options": {},
   "attributes": {
     "iconICO": {
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
       "required": true
     },
     "iconSVG": {
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
       "required": true
     },
     "iconPNG": {
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false,
       "required": true

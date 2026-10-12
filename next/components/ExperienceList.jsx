@@ -1,4 +1,4 @@
-import ExperienceEntry from "./ExperienceEntry";
+import ExperienceEntry from './ExperienceEntry';
 
 export default function ExperienceList({ experienceList }) {
   return (

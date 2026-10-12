@@ -1,6 +1,6 @@
-import Banner from "@/components/Banner";
-import PostList from "@/components/PostList";
-import { fetchBlogPage, fetchAllPosts, fetchLayout } from "@/lib/api";
+import Banner from '@/components/Banner';
+import PostList from '@/components/PostList';
+import { fetchBlogPage, fetchAllPosts, fetchLayout } from '@/lib/api';
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -19,7 +19,7 @@ export async function generateMetadata(_, parent) {
   // Destructure/Format the necessary properties
   const { metadata } = page;
   const { title, description, image } = metadata;
-  const url = new URL("/blog/", process.env.NEXT_PUBLIC_WEBSITE).href;
+  const url = new URL('/blog/', process.env.NEXT_PUBLIC_WEBSITE).href;
   const imageUrl = image
     ? new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href
     : p.openGraph.images[0];
@@ -31,7 +31,7 @@ export async function generateMetadata(_, parent) {
       ...p.openGraph,
       images: [imageUrl],
       url,
-      type: "website",
+      type: 'website',
     },
     alternates: {
       canonical: url,
@@ -46,12 +46,11 @@ export default async function Page() {
     fetchLayout(),
   ]);
 
-  if (page.status === "rejected") {
+  if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="text-red-600 text-center">
-          Error: We encountered an issue while loading the &quot;Blog&quot;
-          page.
+          Error: We encountered an issue while loading the &quot;Blog&quot; page.
         </div>
       </div>
     );
@@ -62,10 +61,10 @@ export default async function Page() {
   const { title, description } = metadata;
   const { headline, supportiveText } = banner;
 
-  let localeString = "en-US";
+  let localeString = 'en-US';
   let jsonLd = null;
 
-  if (global.status === "fulfilled") {
+  if (global.status === 'fulfilled') {
     // Destructure the necessary properties
     const { siteRepresentation, miscellaneous } = global.value;
     const {
@@ -81,8 +80,7 @@ export default async function Page() {
       addressLocality,
       areaServed,
     } = siteRepresentation;
-    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI)
-      .href;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap((category) =>
       category.children.map((skill) => skill.name)
@@ -92,43 +90,43 @@ export default async function Page() {
 
     // Construct the JSON-LD
     jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
+      '@context': 'https://schema.org',
+      '@graph': [
         {
-          "@type": "CollectionPage",
-          "@id": new URL("/blog/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'CollectionPage',
+          '@id': new URL('/blog/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: title ? title : `Blog | ${siteName}`,
           description: description ? description : siteDescription,
-          url: new URL("/blog/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/blog/', process.env.NEXT_PUBLIC_WEBSITE).href,
           inLanguage: htmlLanguageTag,
           isPartOf: {
-            "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": "WebSite",
-          "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebSite',
+          '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
           inLanguage: htmlLanguageTag,
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": isOrganization ? "Organization" : "Person",
-          "@id": isOrganization
-            ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-            : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': isOrganization ? 'Organization' : 'Person',
+          '@id': isOrganization
+            ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+            : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
-            "@type": "ContactPoint",
-            url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@type': 'ContactPoint',
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
@@ -143,7 +141,7 @@ export default async function Page() {
             : {}),
           knowsAbout: extractedSkills,
           address: {
-            "@type": "PostalAddress",
+            '@type': 'PostalAddress',
             addressLocality: addressLocality,
           },
           ...(isOrganization && areaServed && { areaServed: areaServed }),
@@ -161,10 +159,8 @@ export default async function Page() {
       />
       <Banner headline={headline} supportiveText={supportiveText} />
       <section className="mx-auto max-w-7xl px-4 py-24">
-        <h2 className="sr-only">
-          Explore all blog posts organized by newest first
-        </h2>
-        {posts.status === "rejected" ? (
+        <h2 className="sr-only">Explore all blog posts organized by newest first</h2>
+        {posts.status === 'rejected' ? (
           <div className="text-red-600 text-center">
             Error: We encountered an issue while loading the blog posts.
           </div>

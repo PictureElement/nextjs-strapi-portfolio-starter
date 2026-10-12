@@ -1,7 +1,7 @@
 'use client';
 
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
-import { PhoneIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { PhoneIcon } from '@heroicons/react/24/outline';
 
 const ContactLink = ({
   type, // "email" or "telephone"
@@ -19,18 +19,18 @@ const ContactLink = ({
     : null;
 
   const telephone = formattedTelephone
-    ? formattedTelephone.replace(/[^\d+]/g, "") // Clean phone number for tel:
+    ? formattedTelephone.replace(/[^\d+]/g, '') // Clean phone number for tel:
     : null;
 
   // Determine href and label based on type
   let href, label;
 
-  if (type === "email") {
-    href = email ? `mailto:${email}` : "#";
-    label = email || "Email not available";
-  } else if (type === "telephone") {
-    href = telephone ? `tel:${telephone}` : "#";
-    label = formattedTelephone || "Phone not available";
+  if (type === 'email') {
+    href = email ? `mailto:${email}` : '#';
+    label = email || 'Email not available';
+  } else if (type === 'telephone') {
+    href = telephone ? `tel:${telephone}` : '#';
+    label = formattedTelephone || 'Phone not available';
   } else {
     console.error(`Invalid type "${type}" passed to ContactLink.`);
     return null; // Render nothing if type is invalid
@@ -38,15 +38,16 @@ const ContactLink = ({
 
   // Determine which icon to render
   const Icon =
-    showIcon && type === "email"
+    showIcon && type === 'email'
       ? EnvelopeIcon
-      : showIcon && type === "telephone"
+      : showIcon && type === 'telephone'
         ? PhoneIcon
         : null;
 
   return (
     <a className={className} href={href} {...props}>
-      {Icon && <Icon className="h-[1.2em] w-[1.2em] shrink-0" />} {/* Render Icon if showIcon is true */}
+      {Icon && <Icon className="h-[1.2em] w-[1.2em] shrink-0" />}{' '}
+      {/* Render Icon if showIcon is true */}
       <span>{label}</span>
     </a>
   );

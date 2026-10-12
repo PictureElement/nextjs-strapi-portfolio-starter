@@ -1,8 +1,8 @@
-import SectionHeader from "./SectionHeader";
-import Image from "next/image";
-import DOMPurify from "isomorphic-dompurify";
-import { marked } from "marked";
-import ShapeDivider from "./ShapeDivider";
+import SectionHeader from './SectionHeader';
+import Image from 'next/image';
+import DOMPurify from 'isomorphic-dompurify';
+import { marked } from 'marked';
+import ShapeDivider from './ShapeDivider';
 
 export default function About({ data }) {
   // Destructure/Format the necessary properties
@@ -20,7 +20,7 @@ export default function About({ data }) {
               className="rounded-t-2xl lg:rounded-2xl w-full border border-neutral-200 lg:border-none lg:shadow-2xl"
               priority
               src={imageUrl}
-              alt={image.alternativeText ?? ""}
+              alt={image.alternativeText ?? ''}
               width={1466}
               height={1466}
               sizes="(max-width: 1023px) calc(100vw - 34px), (max-width: 1278px) calc(50vw - 16px), 624px"

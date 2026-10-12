@@ -10,10 +10,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "phone": {
       "type": "string",
@@ -31,9 +28,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": [
-        "files"
-      ]
+      "allowedTypes": ["files"]
     },
     "socialChannels": {
       "type": "component",

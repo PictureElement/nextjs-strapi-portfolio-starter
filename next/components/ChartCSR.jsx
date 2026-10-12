@@ -7,9 +7,7 @@ import { SunburstChart } from 'echarts/charts';
 import { SVGRenderer } from 'echarts/renderers';
 
 // Register the required components
-echarts.use(
-  [SunburstChart, SVGRenderer]
-);
+echarts.use([SunburstChart, SVGRenderer]);
 
 export default function ChartCSR({ data, onClientReady }) {
   const chartRef = useRef(null);
@@ -34,84 +32,87 @@ export default function ChartCSR({ data, onClientReady }) {
     };
   }, [onClientReady]);
 
-  const option = useMemo(() => ({
-    series: {
-      type: 'sunburst',
-      data,
-      radius: [0, '95%'],
-      sort: undefined,
-      emphasis: {
-        // focus: 'ancestor'
+  const option = useMemo(
+    () => ({
+      series: {
+        type: 'sunburst',
+        data,
+        radius: [0, '95%'],
+        sort: undefined,
+        emphasis: {
+          // focus: 'ancestor'
+        },
+        levels: [
+          {},
+          {
+            r0: '8%',
+            r: '48%',
+            label: {
+              position: 'inside',
+              fontSize: 12,
+              fontWeight: '400',
+              color: '#111827',
+              padding: 0,
+              align: 'center',
+            },
+          },
+          {
+            r0: '48%',
+            r: '51%',
+            label: {
+              position: 'outside',
+              fontSize: 12,
+              fontWeight: '400',
+              color: '#374151',
+              padding: 0,
+              silent: false,
+            },
+          },
+        ],
       },
-      levels: [
-        {},
+      media: [
         {
-          r0: '8%',
-          r: '48%',
-          label: {
-            position: 'inside',
-            fontSize: 12,
-            fontWeight: '400',
-            color: '#111827',
-            padding: 0,
-            align: 'center',
-          }
+          query: {
+            minWidth: 608,
+          },
+          option: {
+            series: {
+              levels: [
+                {},
+                {
+                  r0: '8%',
+                  r: '45%',
+                  label: {
+                    position: 'inside',
+                    fontSize: 16,
+                    fontWeight: '400',
+                    color: '#111827',
+                    padding: 2,
+                    align: 'center',
+                  },
+                },
+                {
+                  r0: '45%',
+                  r: '48%',
+                  label: {
+                    position: 'outside',
+                    fontSize: 16,
+                    fontWeight: '400',
+                    color: '#374151',
+                    padding: 2,
+                    silent: false,
+                  },
+                },
+              ],
+            },
+          },
         },
-        {
-          r0: '48%',
-          r: '51%',
-          label: {
-            position: 'outside',
-            fontSize: 12,
-            fontWeight: '400',
-            color: '#374151',
-            padding: 0,
-            silent: false
-          }
-        }
-      ]
-    },
-    media: [
-      {
-        query: {
-          minWidth: 608
-        },
-        option: {
-          series: {
-            levels: [
-              {},
-              {
-                r0: '8%',
-                r: '45%',
-                label: {
-                  position: 'inside',
-                  fontSize: 16,
-                  fontWeight: '400',
-                  color: '#111827',
-                  padding: 2,
-                  align: 'center',
-                }
-              },
-              {
-                r0: '45%',
-                r: '48%',
-                label: {
-                  position: 'outside',
-                  fontSize: 16,
-                  fontWeight: '400',
-                  color: '#374151',
-                  padding: 2,
-                  silent: false
-                }
-              }
-            ]
-          }
-        }
-      }
-    ],
+      ],
 
-    animation: true,
-  }), [data]);
+      animation: true,
+    }),
+    [data]
+  );
 
   return (
     <ReactEChartsCore

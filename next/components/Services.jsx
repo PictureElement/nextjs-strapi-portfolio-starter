@@ -1,6 +1,6 @@
-import SectionHeader from "./SectionHeader";
-import ShapeDivider from "./ShapeDivider";
-import ServiceList from "./ServiceList";
+import SectionHeader from './SectionHeader';
+import ShapeDivider from './ShapeDivider';
+import ServiceList from './ServiceList';
 
 export default function Services({ data }) {
   // Destructure the necessary properties

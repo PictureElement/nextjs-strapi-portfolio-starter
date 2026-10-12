@@ -1,20 +1,15 @@
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import IndependentEngineering from "@/components/IndependentEngineering";
-import Services from "@/components/Services";
-import Skills from "@/components/Skills";
-import Experience from "@/components/Experience";
-import Faq from "@/components/Faq";
-import Testimonials from "@/components/Testimonials";
-import FeaturedProjects from "@/components/FeaturedProjects";
-import LatestPosts from "@/components/LatestPosts";
-import HardwareIntegration from "@/components/HardwareIntegration";
-import {
-  fetchHomePage,
-  fetchFeaturedProjects,
-  fetchLatestPosts,
-  fetchLayout,
-} from "@/lib/api";
+import Hero from '@/components/Hero';
+import About from '@/components/About';
+import IndependentEngineering from '@/components/IndependentEngineering';
+import Services from '@/components/Services';
+import Skills from '@/components/Skills';
+import Experience from '@/components/Experience';
+import Faq from '@/components/Faq';
+import Testimonials from '@/components/Testimonials';
+import FeaturedProjects from '@/components/FeaturedProjects';
+import LatestPosts from '@/components/LatestPosts';
+import HardwareIntegration from '@/components/HardwareIntegration';
+import { fetchHomePage, fetchFeaturedProjects, fetchLatestPosts, fetchLayout } from '@/lib/api';
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -33,7 +28,7 @@ export async function generateMetadata(_, parent) {
   // Destructure/Format the necessary properties
   const { metadata } = page;
   const { title, description, image } = metadata;
-  const url = new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href;
+  const url = new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href;
   const imageUrl = image
     ? new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href
     : p.openGraph.images[0];
@@ -45,7 +40,7 @@ export async function generateMetadata(_, parent) {
       ...p.openGraph,
       images: [imageUrl],
       url,
-      type: "website",
+      type: 'website',
     },
     alternates: {
       canonical: url,
@@ -61,12 +56,11 @@ export default async function Page() {
     fetchLayout(),
   ]);
 
-  if (page.status === "rejected") {
+  if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="text-red-600 text-center">
-          Error: We encountered an issue while loading the &quot;Home&quot;
-          page.
+          Error: We encountered an issue while loading the &quot;Home&quot; page.
         </div>
       </div>
     );
@@ -85,14 +79,14 @@ export default async function Page() {
     useCaseSpecificContent,
   } = page.value;
   const dynamicData = useCaseSpecificContent[0];
-  const showServices = dynamicData?.__component === "sections.services";
+  const showServices = dynamicData?.__component === 'sections.services';
   const { title, description } = metadata;
 
-  let localeString = "en-US";
+  let localeString = 'en-US';
   let knowsAbout = null;
   let jsonLd = null;
 
-  if (global.status === "fulfilled") {
+  if (global.status === 'fulfilled') {
     // Destructure the necessary properties
     const { siteRepresentation, miscellaneous } = global.value;
     const {
@@ -108,8 +102,7 @@ export default async function Page() {
       areaServed,
     } = siteRepresentation;
     knowsAbout = siteRepresentation.knowsAbout;
-    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI)
-      .href;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap((category) =>
       category.children.map((skill) => skill.name)
@@ -119,48 +112,48 @@ export default async function Page() {
 
     // Construct JSON-LD
     jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
+      '@context': 'https://schema.org',
+      '@graph': [
         {
-          "@type": "WebPage",
-          "@id": new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebPage',
+          '@id': new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: title ? title : `Home | ${siteName}`,
           description: description ? description : siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           inLanguage: htmlLanguageTag,
           isPartOf: {
-            "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           about: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": "WebSite",
-          "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebSite',
+          '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
           inLanguage: htmlLanguageTag,
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": isOrganization ? "Organization" : "Person",
-          "@id": isOrganization
-            ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-            : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': isOrganization ? 'Organization' : 'Person',
+          '@id': isOrganization
+            ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+            : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
-            "@type": "ContactPoint",
-            url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@type': 'ContactPoint',
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
@@ -175,7 +168,7 @@ export default async function Page() {
             : {}),
           knowsAbout: extractedSkills,
           address: {
-            "@type": "PostalAddress",
+            '@type': 'PostalAddress',
             addressLocality: addressLocality,
           },
           ...(isOrganization && areaServed && { areaServed: areaServed }),
@@ -195,19 +188,11 @@ export default async function Page() {
         <Hero data={hero} />
         <About data={about} />
         <Skills data={skills} skills={knowsAbout} />
-        {showServices ? (
-          <Services data={dynamicData} />
-        ) : (
-          <Experience data={dynamicData} />
-        )}
+        {showServices ? <Services data={dynamicData} /> : <Experience data={dynamicData} />}
         <IndependentEngineering />
         <FeaturedProjects data={featuredProjects} projects={projects} />
         <Testimonials data={testimonials} />
-        <LatestPosts
-          data={latestPosts}
-          posts={posts}
-          localeString={localeString}
-        />
+        <LatestPosts data={latestPosts} posts={posts} localeString={localeString} />
         <HardwareIntegration />
         <Faq data={faq} />
       </div>

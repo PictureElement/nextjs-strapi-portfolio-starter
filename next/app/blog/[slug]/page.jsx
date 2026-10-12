@@ -1,37 +1,32 @@
-import DOMPurify from "isomorphic-dompurify";
-import { Marked } from "marked";
-import { markedHighlight } from "marked-highlight";
-import Image from "next/image";
-import BackTo from "@/components/BackTo";
-import SocialShare from "@/components/SocialShare";
-import { notFound } from "next/navigation";
-import {
-  fetchPostBySlug,
-  fetchAllSlugs,
-  fetchDynamicPageMetadata,
-  fetchLayout,
-} from "@/lib/api";
-import { formatDate } from "@/lib/utils";
-import Prism from "prismjs";
-import "prismjs/themes/prism-okaidia.css";
-import "prismjs/components/prism-scss";
-import "prismjs/components/prism-yaml";
-import "prismjs/components/prism-bash";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-jsx";
+import DOMPurify from 'isomorphic-dompurify';
+import { Marked } from 'marked';
+import { markedHighlight } from 'marked-highlight';
+import Image from 'next/image';
+import BackTo from '@/components/BackTo';
+import SocialShare from '@/components/SocialShare';
+import { notFound } from 'next/navigation';
+import { fetchPostBySlug, fetchAllSlugs, fetchDynamicPageMetadata, fetchLayout } from '@/lib/api';
+import { formatDate } from '@/lib/utils';
+import Prism from 'prismjs';
+import 'prismjs/themes/prism-okaidia.css';
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-yaml';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-jsx';
 
 const sanitizerConfig = {
-  ADD_TAGS: ["iframe"],
+  ADD_TAGS: ['iframe'],
   ADD_ATTR: [
-    "src",
-    "style",
-    "title",
-    "allow",
-    "sandbox",
-    "width",
-    "height",
-    "frameborder",
-    "allowfullscreen",
+    'src',
+    'style',
+    'title',
+    'allow',
+    'sandbox',
+    'width',
+    'height',
+    'frameborder',
+    'allowfullscreen',
   ],
 };
 
@@ -39,14 +34,10 @@ const sanitizerConfig = {
 // This plugin allows integration of custom syntax highlighting logic during Markdown parsing
 const marked = new Marked(
   markedHighlight({
-    langPrefix: "language-",
+    langPrefix: 'language-',
     highlight(code, lang) {
-      const validLanguage = Prism.languages[lang] ? lang : "plaintext";
-      return Prism.highlight(
-        code,
-        Prism.languages[validLanguage],
-        validLanguage
-      );
+      const validLanguage = Prism.languages[lang] ? lang : 'plaintext';
+      return Prism.highlight(code, Prism.languages[validLanguage], validLanguage);
     },
   })
 );
@@ -54,7 +45,7 @@ const marked = new Marked(
 // Return a list of "params" to populate the [slug] dynamic segment
 export async function generateStaticParams() {
   try {
-    return await fetchAllSlugs("posts");
+    return await fetchAllSlugs('posts');
   } catch (error) {
     console.error(error.message);
     return [];
@@ -67,7 +58,7 @@ export async function generateMetadata({ params }, parent) {
   let data;
 
   try {
-    data = await fetchDynamicPageMetadata("posts", slug);
+    data = await fetchDynamicPageMetadata('posts', slug);
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
@@ -89,7 +80,7 @@ export async function generateMetadata({ params }, parent) {
       ...p.openGraph,
       images: [imageUrl],
       url,
-      type: "article",
+      type: 'article',
     },
     alternates: {
       canonical: url,
@@ -101,12 +92,9 @@ export default async function Page(props) {
   const params = await props.params;
   const slug = params.slug;
 
-  const [post, global] = await Promise.allSettled([
-    fetchPostBySlug(slug),
-    fetchLayout(),
-  ]);
+  const [post, global] = await Promise.allSettled([fetchPostBySlug(slug), fetchLayout()]);
 
-  if (post.status === "rejected") {
+  if (post.status === 'rejected') {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="text-red-600 text-center">
@@ -122,24 +110,13 @@ export default async function Page(props) {
   }
 
   // Destructure/Format the necessary properties
-  const {
-    title,
-    excerpt,
-    content,
-    createdAt,
-    updatedAt,
-    featuredImage,
-    author,
-  } = post.value;
-  const featuredImageUrl = new URL(
-    featuredImage.url,
-    process.env.NEXT_PUBLIC_STRAPI
-  ).href;
+  const { title, excerpt, content, createdAt, updatedAt, featuredImage, author } = post.value;
+  const featuredImageUrl = new URL(featuredImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
 
-  let localeString = "en-US";
+  let localeString = 'en-US';
   let jsonLd = null;
 
-  if (global.status === "fulfilled") {
+  if (global.status === 'fulfilled') {
     // Destructure/Format the necessary properties
     const { siteRepresentation, miscellaneous } = global.value;
     const {
@@ -155,8 +132,7 @@ export default async function Page(props) {
       addressLocality,
       areaServed,
     } = siteRepresentation;
-    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI)
-      .href;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap((category) =>
       category.children.map((skill) => skill.name)
@@ -166,14 +142,11 @@ export default async function Page(props) {
 
     // Construct the JSON-LD
     jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
+      '@context': 'https://schema.org',
+      '@graph': [
         {
-          "@type": "BlogPosting",
-          "@id": new URL(
-            `/blog/${slug}/#blogposting`,
-            process.env.NEXT_PUBLIC_WEBSITE
-          ).href,
+          '@type': 'BlogPosting',
+          '@id': new URL(`/blog/${slug}/#blogposting`, process.env.NEXT_PUBLIC_WEBSITE).href,
           headline: title,
           description: excerpt,
           datePublished: createdAt,
@@ -183,62 +156,59 @@ export default async function Page(props) {
           ...(author
             ? {
                 author: {
-                  "@type": author.isOrganization ? "Organization" : "Person",
+                  '@type': author.isOrganization ? 'Organization' : 'Person',
                   name: author.authorName,
                   url: author.url,
                 },
               }
             : {}),
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           isPartOf: {
-            "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE)
-              .href,
+            '@id': new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           mainEntityOfPage: {
-            "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE)
-              .href,
+            '@id': new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": "WebPage",
-          "@id": new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE)
-            .href,
+          '@type': 'WebPage',
+          '@id': new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
           name: `${title} | ${siteName}`,
           description: excerpt,
           url: new URL(`/blog/${slug}/`, process.env.NEXT_PUBLIC_WEBSITE).href,
           inLanguage: htmlLanguageTag,
           isPartOf: {
-            "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": "WebSite",
-          "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebSite',
+          '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
           inLanguage: htmlLanguageTag,
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": isOrganization ? "Organization" : "Person",
-          "@id": isOrganization
-            ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-            : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': isOrganization ? 'Organization' : 'Person',
+          '@id': isOrganization
+            ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+            : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
-            "@type": "ContactPoint",
-            url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@type': 'ContactPoint',
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
@@ -253,7 +223,7 @@ export default async function Page(props) {
             : {}),
           knowsAbout: extractedSkills,
           address: {
-            "@type": "PostalAddress",
+            '@type': 'PostalAddress',
             addressLocality: addressLocality,
           },
           ...(isOrganization && areaServed && { areaServed: areaServed }),
@@ -280,20 +250,15 @@ export default async function Page(props) {
             <h1 className="text-gray-900 font-bold text-3xl md:text-4xl tracking-tight mb-3">
               {title}
             </h1>
-            <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">
-              {excerpt}
-            </p>
+            <p className="text-gray-700 font-light leading-7 sm:text-xl mb-4">{excerpt}</p>
             <div className="text-sm mb-12">
-              {author && (
-                <div className="text-gray-900">By {author.authorName}</div>
-              )}
+              {author && <div className="text-gray-900">By {author.authorName}</div>}
               <div>
-                Published{" "}
-                <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
+                Published <time dateTime={createdAt}>{formattedCreatedAtDate}</time>
                 {/* Assuming precise time-sensitive updates are not a requirement */}
                 {formattedCreatedAtDate !== formattedUpdatedAtDate && (
                   <>
-                    <span className="px-1">·</span>Updated{" "}
+                    <span className="px-1">·</span>Updated{' '}
                     <time dateTime={updatedAt}>{formattedUpdatedAtDate}</time>
                   </>
                 )}
@@ -303,7 +268,7 @@ export default async function Page(props) {
               className="mb-12 rounded-2xl overflow-hidden w-full border border-neutral-100"
               priority
               src={featuredImageUrl}
-              alt={featuredImage.alternativeText ?? ""}
+              alt={featuredImage.alternativeText ?? ''}
               width={1468}
               height={769}
               sizes="(max-width: 1279px) calc(100vw - 34px), 1246px"
@@ -313,10 +278,7 @@ export default async function Page(props) {
             <div
               className="[&>*:first-child]:mt-0"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  marked.parse(content),
-                  sanitizerConfig
-                ),
+                __html: DOMPurify.sanitize(marked.parse(content), sanitizerConfig),
               }}
             />
             <hr />

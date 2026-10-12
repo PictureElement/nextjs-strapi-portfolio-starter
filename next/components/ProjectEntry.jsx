@@ -1,6 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRightIcon } from "@heroicons/react/16/solid";
+import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowRightIcon } from '@heroicons/react/16/solid';
 
 export default function ProjectEntry({
   featuredImageUrl,
@@ -16,9 +16,9 @@ export default function ProjectEntry({
         draggable="false"
         className="rounded-t-2xl overflow-hidden w-full"
         priority={priority}
-        {...(priority ? { priority: true } : { loading: "lazy" })}
+        {...(priority ? { priority: true } : { loading: 'lazy' })}
         src={featuredImageUrl}
-        alt={featuredImageAlternativeText ?? ""}
+        alt={featuredImageAlternativeText ?? ''}
         width={1468}
         height={769}
         sizes="(max-width: 639px) calc(100vw - 34px), (max-width: 1278px) calc(50vw - 30px), 610px"

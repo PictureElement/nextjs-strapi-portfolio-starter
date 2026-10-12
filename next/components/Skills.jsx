@@ -1,7 +1,7 @@
-import ShapeDivider from "./ShapeDivider";
-import SectionHeader from "./SectionHeader";
-import Chart from "./Chart";
-import ChartSSR from "./ChartSSR";
+import ShapeDivider from './ShapeDivider';
+import SectionHeader from './SectionHeader';
+import Chart from './Chart';
+import ChartSSR from './ChartSSR';
 
 export default function Skills({ data, skills }) {
   // Destructure the necessary properties

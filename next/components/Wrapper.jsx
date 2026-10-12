@@ -1,9 +1,5 @@
 'use client';
 
 export default function Wrapper({ children }) {
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

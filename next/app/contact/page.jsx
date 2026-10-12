@@ -1,9 +1,9 @@
-import Banner from "@/components/Banner";
-import { fetchContactPage, fetchLayout } from "@/lib/api";
-import Form from "@/components/Form";
-import NoSSRWrapper from "@/components/NoSSRWrapper";
-import Link from "next/link";
-import ContactLink from "@/components/ContactLink";
+import Banner from '@/components/Banner';
+import { fetchContactPage, fetchLayout } from '@/lib/api';
+import Form from '@/components/Form';
+import NoSSRWrapper from '@/components/NoSSRWrapper';
+import Link from 'next/link';
+import ContactLink from '@/components/ContactLink';
 
 export async function generateMetadata(_, parent) {
   let page;
@@ -22,7 +22,7 @@ export async function generateMetadata(_, parent) {
   // Destructure/Format the necessary properties
   const { metadata } = page;
   const { title, description, image } = metadata;
-  const url = new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href;
+  const url = new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href;
   const imageUrl = image
     ? new URL(image.url, process.env.NEXT_PUBLIC_STRAPI).href
     : p.openGraph.images[0];
@@ -34,7 +34,7 @@ export async function generateMetadata(_, parent) {
       ...p.openGraph,
       images: [imageUrl],
       url,
-      type: "website",
+      type: 'website',
     },
     alternates: {
       canonical: url,
@@ -43,25 +43,20 @@ export async function generateMetadata(_, parent) {
 }
 
 export default async function Page() {
-  const [page, global] = await Promise.allSettled([
-    fetchContactPage(),
-    fetchLayout(),
-  ]);
+  const [page, global] = await Promise.allSettled([fetchContactPage(), fetchLayout()]);
 
-  if (page.status === "rejected") {
+  if (page.status === 'rejected') {
     return (
       <div className="mx-auto max-w-7xl p-4">
         <div className="text-red-600 text-center">
-          Error: We encountered an issue while loading the &quot;Contact&quot;
-          page.
+          Error: We encountered an issue while loading the &quot;Contact&quot; page.
         </div>
       </div>
     );
   }
 
   // Destructure the necessary properties
-  const { metadata, banner, contactFormHeading, otherContactOptionsHeading } =
-    page.value;
+  const { metadata, banner, contactFormHeading, otherContactOptionsHeading } = page.value;
   const { title, description } = metadata;
   const { headline, supportiveText } = banner;
 
@@ -72,24 +67,16 @@ export default async function Page() {
   let isOrganization = null;
   let areaServed = null;
 
-  if (global.status === "fulfilled") {
+  if (global.status === 'fulfilled') {
     const { siteRepresentation, miscellaneous } = global.value;
-    const {
-      siteImage,
-      logo,
-      knowsAbout,
-      siteName,
-      siteDescription,
-      jobTitle,
-      socialChannels,
-    } = siteRepresentation;
+    const { siteImage, logo, knowsAbout, siteName, siteDescription, jobTitle, socialChannels } =
+      siteRepresentation;
     businessHours = siteRepresentation.businessHours;
     schedulingLink = siteRepresentation.schedulingLink;
     addressLocality = siteRepresentation.addressLocality;
     isOrganization = siteRepresentation.isOrganization;
     areaServed = siteRepresentation.areaServed;
-    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI)
-      .href;
+    const siteImageUrl = new URL(siteImage.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const logoUrl = new URL(logo.url, process.env.NEXT_PUBLIC_STRAPI).href;
     const extractedSkills = knowsAbout.flatMap((category) =>
       category.children.map((skill) => skill.name)
@@ -98,43 +85,43 @@ export default async function Page() {
 
     // Construct the JSON-LD
     jsonLd = {
-      "@context": "https://schema.org",
-      "@graph": [
+      '@context': 'https://schema.org',
+      '@graph': [
         {
-          "@type": "ContactPage",
-          "@id": new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'ContactPage',
+          '@id': new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: title ? title : `Contact | ${siteName}`,
           description: description ? description : siteDescription,
-          url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           inLanguage: htmlLanguageTag,
           isPartOf: {
-            "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": "WebSite",
-          "@id": new URL("/#website", process.env.NEXT_PUBLIC_WEBSITE).href,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': 'WebSite',
+          '@id': new URL('/#website', process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
           inLanguage: htmlLanguageTag,
           publisher: {
-            "@id": isOrganization
-              ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-              : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@id': isOrganization
+              ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+              : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
         },
         {
-          "@type": isOrganization ? "Organization" : "Person",
-          "@id": isOrganization
-            ? new URL("/#organization", process.env.NEXT_PUBLIC_WEBSITE).href
-            : new URL("/#person", process.env.NEXT_PUBLIC_WEBSITE).href,
+          '@type': isOrganization ? 'Organization' : 'Person',
+          '@id': isOrganization
+            ? new URL('/#organization', process.env.NEXT_PUBLIC_WEBSITE).href
+            : new URL('/#person', process.env.NEXT_PUBLIC_WEBSITE).href,
           name: siteName,
           description: siteDescription,
-          url: new URL("/", process.env.NEXT_PUBLIC_WEBSITE).href,
+          url: new URL('/', process.env.NEXT_PUBLIC_WEBSITE).href,
           contactPoint: {
-            "@type": "ContactPoint",
-            url: new URL("/contact/", process.env.NEXT_PUBLIC_WEBSITE).href,
+            '@type': 'ContactPoint',
+            url: new URL('/contact/', process.env.NEXT_PUBLIC_WEBSITE).href,
           },
           ...(isOrganization && { logo: logoUrl }),
           image: siteImageUrl,
@@ -149,7 +136,7 @@ export default async function Page() {
             : {}),
           knowsAbout: extractedSkills,
           address: {
-            "@type": "PostalAddress",
+            '@type': 'PostalAddress',
             addressLocality: addressLocality,
           },
           ...(isOrganization && areaServed && { areaServed: areaServed }),
@@ -177,10 +164,9 @@ export default async function Page() {
           <h2 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-6 sm:mb-10 text-center">
             {otherContactOptionsHeading}
           </h2>
-          {global.status === "rejected" ? (
+          {global.status === 'rejected' ? (
             <div className="text-red-600 text-center">
-              Error: We encountered an issue while loading the contact options
-              and location details.
+              Error: We encountered an issue while loading the contact options and location details.
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-6">
@@ -248,17 +234,9 @@ export default async function Page() {
   );
 }
 
-const ContactOption = ({
-  title,
-  label,
-  href,
-  rel = undefined,
-  target = undefined,
-}) => (
+const ContactOption = ({ title, label, href, rel = undefined, target = undefined }) => (
   <div className="border border-neutral-200 rounded-xl text-center py-8 sm:py-12">
-    <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">
-      {title}
-    </h3>
+    <h3 className="text-gray-900 font-medium text-xl md:text-2xl tracking-tight mb-2">{title}</h3>
     <Link
       className="text-gray-700 font-light text-xl md:text-2xl tracking-tight border-b border-primary-700 hover:border-b-2"
       href={href}

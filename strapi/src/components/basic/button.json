@@ -31,10 +31,7 @@
     },
     "iconType": {
       "type": "enumeration",
-      "enum": [
-        "arrowRight",
-        "arrowUpRight"
-      ],
+      "enum": ["arrowRight", "arrowUpRight"],
       "required": true,
       "default": "arrowRight"
     }

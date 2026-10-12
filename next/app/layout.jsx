@@ -1,4 +1,4 @@
-import "./globals.css";
+import './globals.css';
 import Announcement from '@/components/Announcement';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,7 +13,7 @@ export async function generateViewport() {
   } catch (error) {
     console.error(error.message);
     // Return fallback metadata in case of validation or fetch errors
-    return {}
+    return {};
   }
 
   // Destructure the necessary properties
@@ -21,7 +21,7 @@ export async function generateViewport() {
 
   return {
     themeColor,
-  }
+  };
 }
 
 export async function generateMetadata() {
@@ -37,8 +37,8 @@ export async function generateMetadata() {
       openGraph: {
         siteName: 'Site Name',
         images: ['https://placehold.co/1200x630.jpg?text=Fallback+Image'],
-      }
-    }
+      },
+    };
   }
 
   const { siteRepresentation, icons, miscellaneous } = data;
@@ -64,11 +64,9 @@ export async function generateMetadata() {
         { url: icoUrl, sizes: '32x32' },
         { url: svgUrl, type: 'image/svg+xml' },
       ],
-      apple: [
-        { url: pngUrl }
-      ]
-    }
-  }
+      apple: [{ url: pngUrl }],
+    },
+  };
 }
 
 export default async function RootLayout({ children }) {
@@ -84,8 +82,8 @@ export default async function RootLayout({ children }) {
       cta: null,
       footer: null,
       siteRepresentation: null,
-      miscellaneous: { htmlLanguageTag: 'en' }
-    }
+      miscellaneous: { htmlLanguageTag: 'en' },
+    };
   }
 
   const { announcement, header, cta, footer, siteRepresentation, miscellaneous } = data;
@@ -95,9 +93,7 @@ export default async function RootLayout({ children }) {
       <body className="antialiased text-gray-500 text-base">
         <Announcement data={announcement} />
         <Header data={header} siteRepresentation={siteRepresentation} />
-        <main className="relative">
-          {children}
-        </main>
+        <main className="relative">{children}</main>
         <CallToAction data={cta} />
         <Footer data={footer} siteRepresentation={siteRepresentation} />
       </body>

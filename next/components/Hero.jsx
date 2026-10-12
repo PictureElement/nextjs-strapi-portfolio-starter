@@ -1,12 +1,11 @@
-import BtnPrimary from "./BtnPrimary";
+import BtnPrimary from './BtnPrimary';
 // import AnimatedGradient from './AnimatedGradient';
-import ShapeDivider from "./ShapeDivider";
-import BtnSecondary from "./BtnSecondary";
+import ShapeDivider from './ShapeDivider';
+import BtnSecondary from './BtnSecondary';
 
 export default function Hero({ data }) {
   // Destructure the necessary properties
-  const { greeting, headline, supportiveText, primaryButton, secondaryButton } =
-    data;
+  const { greeting, headline, supportiveText, primaryButton, secondaryButton } = data;
 
   return (
     <section className="bg-primary-50 relative">
@@ -24,10 +23,8 @@ export default function Hero({ data }) {
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           {primaryButton && (
             <BtnPrimary
-              target={primaryButton.openLinkInNewTab ? "_blank" : undefined}
-              rel={
-                primaryButton.sameHostLink ? undefined : "noopener noreferrer"
-              }
+              target={primaryButton.openLinkInNewTab ? '_blank' : undefined}
+              rel={primaryButton.sameHostLink ? undefined : 'noopener noreferrer'}
               className="w-full sm:w-auto"
               label={primaryButton.label}
               url={primaryButton.url}
@@ -37,10 +34,8 @@ export default function Hero({ data }) {
           )}
           {secondaryButton && (
             <BtnSecondary
-              target={secondaryButton.openLinkInNewTab ? "_blank" : undefined}
-              rel={
-                secondaryButton.sameHostLink ? undefined : "noopener noreferrer"
-              }
+              target={secondaryButton.openLinkInNewTab ? '_blank' : undefined}
+              rel={secondaryButton.sameHostLink ? undefined : 'noopener noreferrer'}
               className="w-full sm:w-auto"
               label={secondaryButton.label}
               url={secondaryButton.url}

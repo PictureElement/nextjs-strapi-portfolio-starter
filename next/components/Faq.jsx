@@ -1,5 +1,5 @@
-import SectionHeader from "./SectionHeader";
-import FaqList from "./FaqList";
+import SectionHeader from './SectionHeader';
+import FaqList from './FaqList';
 
 export default function Faq({ data }) {
   // Destructure the necessary properties

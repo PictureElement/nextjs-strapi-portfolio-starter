@@ -1,7 +1,7 @@
-import SectionHeader from "./SectionHeader";
-import ProjectCarousel from "./ProjectCarousel";
-import BtnSecondary from "./BtnSecondary";
-import ShapeDivider from "./ShapeDivider";
+import SectionHeader from './SectionHeader';
+import ProjectCarousel from './ProjectCarousel';
+import BtnSecondary from './BtnSecondary';
+import ShapeDivider from './ShapeDivider';
 
 export default function FeaturedProjects({ data, projects }) {
   // Destructure the necessary properties
@@ -12,27 +12,19 @@ export default function FeaturedProjects({ data, projects }) {
       <ShapeDivider className="fill-gray-50" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
-        {projects.status === "rejected" ? (
+        {projects.status === 'rejected' ? (
           <div className="text-red-600 text-center">
             Error: We encountered an issue while loading the featured projects.
           </div>
         ) : projects.value.length > 0 ? (
-          <ProjectCarousel
-            projects={projects.value}
-            baseUrl={process.env.NEXT_PUBLIC_STRAPI}
-          />
+          <ProjectCarousel projects={projects.value} baseUrl={process.env.NEXT_PUBLIC_STRAPI} />
         ) : (
           <p className="text-center text-gray-500">
-            No featured projects available at the moment. Please check back
-            later!
+            No featured projects available at the moment. Please check back later!
           </p>
         )}
         <div className="mt-6 md:mt-12 flex items-center justify-center gap-x-4">
-          <BtnSecondary
-            label="View all projects"
-            url="/projects/"
-            showIcon={true}
-          />
+          <BtnSecondary label="View all projects" url="/projects/" showIcon={true} />
         </div>
       </div>
     </section>

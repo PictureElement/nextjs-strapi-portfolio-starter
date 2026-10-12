@@ -1,7 +1,7 @@
-import SectionHeader from "./SectionHeader";
-import PostList from "./PostList";
-import BtnSecondary from "./BtnSecondary";
-import ShapeDivider from "./ShapeDivider";
+import SectionHeader from './SectionHeader';
+import PostList from './PostList';
+import BtnSecondary from './BtnSecondary';
+import ShapeDivider from './ShapeDivider';
 
 export default function LatestPosts({ data, posts, localeString }) {
   // Destructure the necessary properties
@@ -12,7 +12,7 @@ export default function LatestPosts({ data, posts, localeString }) {
       <ShapeDivider className="fill-gray-50" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
-        {posts.status === "rejected" ? (
+        {posts.status === 'rejected' ? (
           <div className="text-red-600 text-center">
             Error: We encountered an issue while loading the latest posts.
           </div>

@@ -1,6 +1,6 @@
-import SectionHeader from "./SectionHeader";
-import ExperienceList from "./ExperienceList";
-import ShapeDivider from "./ShapeDivider";
+import SectionHeader from './SectionHeader';
+import ExperienceList from './ExperienceList';
+import ShapeDivider from './ShapeDivider';
 
 export default function Experience({ data }) {
   // Destructure the necessary properties
