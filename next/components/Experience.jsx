@@ -7,8 +7,8 @@ export default function Experience({ data }) {
   const { headline, supportiveText, experienceList } = data;
 
   return (
-    <section className="bg-white py-24 relative">
-      <ShapeDivider className="fill-gray-50" />
+    <section className="bg-neutral-50 py-24 relative">
+      <ShapeDivider className="fill-white" />
       <div className="relative mx-auto max-w-7xl px-4">
         <SectionHeader headline={headline} supportiveText={supportiveText} />
         <ExperienceList experienceList={experienceList} />

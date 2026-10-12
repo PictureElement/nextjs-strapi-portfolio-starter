@@ -187,9 +187,9 @@ export default async function Page() {
       <div className="-mt-[69px]">
         <Hero data={hero} />
         <About data={about} />
+        <IndependentEngineering />
         <Skills data={skills} skills={knowsAbout} />
         {showServices ? <Services data={dynamicData} /> : <Experience data={dynamicData} />}
-        <IndependentEngineering />
         <FeaturedProjects data={featuredProjects} projects={projects} />
         <Testimonials data={testimonials} />
         <LatestPosts data={latestPosts} posts={posts} localeString={localeString} />
