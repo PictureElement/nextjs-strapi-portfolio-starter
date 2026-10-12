@@ -19,7 +19,7 @@ export default function Hero({ data }) {
         <h1 className="text-gray-900 font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-balance">
           {headline}
         </h1>
-        <p className="text-gray-700 text-lg mt-6">{supportiveText}</p>
+        <p className="text-gray-700 text-lg mt-6 text-balance">{supportiveText}</p>
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
           {primaryButton && (
             <BtnPrimary

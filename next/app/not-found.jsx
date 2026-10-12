@@ -134,10 +134,10 @@ export default async function NotFound() {
       />
       <section className="triangle-path bg-neutral-100 py-16 relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-1/4 after:h-full after:bg-neutral-200/50">
         <div className="relative mx-auto max-w-7xl px-4 text-center z-10">
-          <h1 className="text-gray-900 font-bold text-3xl sm:text-4xl tracking-tight text-center mb-4">
+          <h1 className="text-gray-900 font-bold text-3xl sm:text-4xl tracking-tight text-center mb-4 text-balance">
             {headline}
           </h1>
-          <p className="text-gray-700 text-lg mb-7">{supportiveText}</p>
+          <p className="text-gray-700 text-lg mb-7 text-balance">{supportiveText}</p>
           <BtnPrimary className="w-full sm:w-auto" label="Return to Home" url="/" />
         </div>
       </section>

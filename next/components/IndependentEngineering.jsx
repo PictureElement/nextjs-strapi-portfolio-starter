@@ -9,7 +9,7 @@ const data = {
       id: 1,
       title: 'Server administration',
       description:
-        'I run a self-hosted Linux server on `Hetzner`, managed with `Coolify`, for full data sovereignty. It hosts my public website and private services: `Forgejo` (Git), `Vaultwarden` (passwords), `WireGuard` (VPN), `LibreChat` (AI chat), `Strapi` (CMS) and `Duplicati` (backups). Deployments run automatically from `Git`.',
+        'I run a self-hosted `Linux` server, managed with `Coolify`, for full data sovereignty. It hosts my public website and custom apps with automatic deployments, alongside private services such as a Git server, password manager, VPN tunnel, AI chat platform, AI automation platform, task manager, and backup solution.',
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ const data = {
       id: 3,
       title: 'Identity & account recovery',
       description:
-        "I designed a risk-segmented email and account structure on my own domain to limit the impact of any breach. Accounts that control the domain, DNS and hosting use an independent recovery address, so a domain failure can't lock me out. Passkeys and two-factor codes are centralized in `Vaultwarden`.",
+        "I designed a risk-segmented email and account structure on my own domain to limit the impact of any breach. Accounts that control the domain, DNS and hosting use an independent recovery address, so a domain failure can't lock me out. Passkeys and two-factor codes are centralized in my password manager.",
     },
     {
       id: 4,
@@ -33,7 +33,7 @@ const data = {
       id: 5,
       title: 'Web development',
       description:
-        'I build headless websites with `Next.js` and `Astro`, using `Strapi` and `Decap CMS`, with a focus on performance, accessibility and GDPR-compliant analytics. I also build `React` single-page applications, including apps embedded in `WordPress` and apps using `Firebase` for authentication and storage.',
+        'I build headless websites with `Next.js` and `Astro`, using `Strapi` and `Decap CMS`, with a focus on performance, accessibility and GDPR-compliant analytics. I also develop client-side rendered `React` frontends as `WordPress` plugins, built with `@wordpress/scripts`, with `ACF` data models, embedded via shortcodes.',
     },
     {
       id: 6,
