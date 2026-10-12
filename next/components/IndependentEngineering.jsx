@@ -37,7 +37,7 @@ const data = {
     },
     {
       id: 6,
-      title: 'Marketplace & open-source',
+      title: 'Open-source & marketplace',
       description:
         'I publish open-source work on GitHub, including a `Next.js` and `Strapi` portfolio template with static site generation, JSON-LD and a spam-protected contact form; it also powers this website. I also published JobLister, a `React`-based job board plugin for `WordPress` that passed the official plugin review.',
     },
