@@ -8,7 +8,6 @@
   "attributes": {
     "title": {
       "type": "string",
-      "maxLength": 60,
       "required": false
     },
     "description": {
@@ -21,9 +20,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "allowedTypes": ["images"]
     }
   }
 }
