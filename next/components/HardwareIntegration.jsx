@@ -3,7 +3,7 @@ import ShapeDivider from './ShapeDivider';
 import ServiceEntry from './ServiceEntry';
 
 const data = {
-  headline: 'HARDWARE INTEGRATION & TELEMETRY',
+  headline: 'ELECTRONICS & HARDWARE PROJECTS',
   supportiveText: 'Hands-on electronics, soldering and firmware configuration',
   list: [
     {
