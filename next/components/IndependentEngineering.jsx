@@ -7,33 +7,33 @@ const data = {
   serviceList: [
     {
       id: 1,
+      title: 'Web development',
+      description:
+        'I build headless websites with `Next.js` and `Astro`, using `Strapi` and `Decap CMS`, with a focus on performance, accessibility and GDPR-compliant analytics. I also develop client-side rendered `React` frontends as `WordPress` plugins, built with `@wordpress/scripts`, with `ACF` data models, embedded via shortcodes.',
+    },
+    {
+      id: 2,
       title: 'Server administration',
       description:
         'I run a self-hosted `Linux` server, managed with `Coolify`, for full data sovereignty. It hosts my public website and custom apps with automatic deployments, alongside private services such as a Git server, password manager, VPN tunnel, AI chat platform, AI automation platform, task manager, and backup solution.',
     },
     {
-      id: 2,
+      id: 3,
       title: 'Network security & access control',
       description:
         'No web or SSH ports are open to the internet. Web traffic reaches the server through an outbound-only `Cloudflare Tunnel`, and private services are reachable only over the VPN, enforced by firewall rules. Admin panels and public sign-ups are disabled, and every service requires authentication.',
     },
     {
-      id: 3,
+      id: 4,
       title: 'Identity & account recovery',
       description:
         "I designed a risk-segmented email and account structure on my own domain to limit the impact of any breach. Accounts that control the domain, DNS and hosting use an independent recovery address, so a domain failure can't lock me out. Passkeys and two-factor codes are centralized in my password manager.",
     },
     {
-      id: 4,
+      id: 5,
       title: 'Backups, monitoring & recovery',
       description:
         'Layered backups go to private `S3` storage, including AES-256 encrypted volume backups with `Duplicati`. A custom `Bash` script copies everything to an encrypted local drive. `Healthchecks.io` alerts me to both failed and missed jobs, and an offline recovery kit allows a full rebuild from backups.',
-    },
-    {
-      id: 5,
-      title: 'Web development',
-      description:
-        'I build headless websites with `Next.js` and `Astro`, using `Strapi` and `Decap CMS`, with a focus on performance, accessibility and GDPR-compliant analytics. I also develop client-side rendered `React` frontends as `WordPress` plugins, built with `@wordpress/scripts`, with `ACF` data models, embedded via shortcodes.',
     },
     {
       id: 6,
